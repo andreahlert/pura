@@ -1,0 +1,149 @@
+---
+import Doc from "../layouts/Doc.astro";
+import { components } from "../data/components.js";
+import { withBase } from "../lib/base.js";
+const total = components.length;
+---
+
+<Doc title="Introduction" layout="full">
+  <section class="hero">
+    <a class="pill" href={withBase("/docs/action")} data-i18n="home.pill">Introducing agent-native components →</a>
+    <h1 data-i18n-html="home.h1">The foundation for your <span>design system</span>.</h1>
+    <p data-i18n="home.sub">{total}+ beautifully crafted native Web Components you can customize, extend, and build on. Zero dependencies, zero build, themeable. Start here, then make it your own.</p>
+    <div class="cta">
+      <pura-button onclick={`location.href='${withBase("/docs/button")}'`} data-i18n="home.browse">Browse Components</pura-button>
+      <pura-button variant="secondary" onclick={`location.href='${withBase("/templates")}'`} data-i18n="home.blocks">View Blocks</pura-button>
+    </div>
+  </section>
+
+  <section class="bento">
+    <!-- controls card -->
+    <div class="card big">
+      <div class="row"><pura-toggle-group type="single" value="a"><pura-toggle value="a" data-i18n="home.t.button">Button</pura-toggle><pura-toggle value="b" data-i18n="home.t.secondary">Secondary</pura-toggle><pura-toggle value="c" data-i18n="home.t.outline">Outline</pura-toggle></pura-toggle-group></div>
+      <pura-input placeholder="Name" data-i18n-ph="home.f.name"></pura-input>
+      <pura-textarea placeholder="Message" data-i18n-ph="home.f.message" rows="2"></pura-textarea>
+      <div class="row">
+        <pura-badge>Badge</pura-badge><pura-badge variant="success" dot data-i18n="home.live">Live</pura-badge>
+        <pura-checkbox checked data-i18n="home.agree">Agree</pura-checkbox><pura-switch checked></pura-switch>
+      </div>
+      <div class="row"><pura-button size="sm" data-i18n="home.alertdialog">Alert Dialog</pura-button><pura-button size="sm" variant="secondary" data-i18n="home.buttongroup">Button Group</pura-button></div>
+    </div>
+
+    <!-- stats / sparkline card -->
+    <div class="card">
+      <strong data-i18n="home.contrib">Contribution History</strong>
+      <span class="sub" data-i18n="home.contrib.sub">Last 6 months of activity</span>
+      <pura-sparkline values="8,14,10,18,9,20,16,22" style="width:100%;height:64px" color="var(--pura-primary)"></pura-sparkline>
+      <div class="statrow">
+        <pura-stat label="Upcoming" value="May" delta="Scheduled"></pura-stat>
+        <pura-stat label="Plan" value="Pro" delta="+12%" trend="up"></pura-stat>
+      </div>
+    </div>
+
+    <!-- milestone form card -->
+    <div class="card">
+      <strong data-i18n="home.milestone">Set a new milestone</strong>
+      <span class="sub" data-i18n="home.milestone.sub">Define your financial target.</span>
+      <pura-field label="Goal name"><pura-input placeholder="e.g. New Car" data-i18n-ph="home.f.goal"></pura-input></pura-field>
+      <div class="row two">
+        <pura-field label="Amount"><pura-input value="$15,000"></pura-input></pura-field>
+        <pura-field label="Date"><pura-input value="Dec 2025"></pura-input></pura-field>
+      </div>
+      <pura-button full data-i18n="home.creategoal">Create Goal</pura-button>
+    </div>
+
+    <!-- calendar card -->
+    <div class="card">
+      <strong data-i18n="home.pickdate">Pick a date</strong>
+      <pura-calendar value="2026-05-20" month="2026-05"></pura-calendar>
+    </div>
+
+    <!-- distribute / progress card -->
+    <div class="card center">
+      <pura-progress-ring value="72" size="92"></pura-progress-ring>
+      <strong data-i18n="home.distribute">Distribute Track</strong>
+      <span class="sub" data-i18n="home.distribute.sub">Upload your master to start reaching listeners everywhere.</span>
+      <pura-button variant="secondary" size="sm" data-i18n="home.release">Create Release</pura-button>
+    </div>
+
+    <!-- analytics card -->
+    <div class="card">
+      <div class="row between"><strong data-i18n="home.analytics">Analytics</strong><pura-badge variant="success" dot>+10%</pura-badge></div>
+      <span class="sub" data-i18n="home.visitors">418.2K visitors</span>
+      <pura-sparkline values="12,9,14,11,16,13,19,15,21" style="width:100%;height:70px"></pura-sparkline>
+      <div class="row"><pura-rating value="4" max="5" readonly></pura-rating></div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h2 data-i18n="home.close.h">{total} components, 17 blocks, fully themeable.</h2>
+    <p data-i18n="home.close.p">Browse the full catalog in the docs, grab a ready-made page block, or open the theme editor to make it yours.</p>
+    <div class="cta"><pura-button onclick={`location.href='${withBase("/docs/button")}'`} data-i18n="home.explore">Explore docs</pura-button><pura-button variant="ghost" onclick={`location.href='${withBase("/theme")}'`} data-i18n="home.openeditor">Open theme editor →</pura-button></div>
+  </section>
+
+  <script is:inline define:vars={{ total }}>
+    window.__i18nExtra = Object.assign(window.__i18nExtra || {}, {
+      "home.pill": { en: "Introducing agent-native components →", "pt-BR": "Apresentando componentes agent-native →", fr: "Découvrez les composants agent-native →", de: "Agent-native Komponenten vorgestellt →", it: "Presentiamo i componenti agent-native →" },
+      "home.h1": { en: "The foundation for your <span>design system</span>.", "pt-BR": "A base do seu <span>design system</span>.", fr: "La fondation de votre <span>design system</span>.", de: "Das Fundament für dein <span>Design-System</span>.", it: "La base del tuo <span>design system</span>." },
+      "home.sub": { en: total + "+ beautifully crafted native Web Components you can customize, extend, and build on. Zero dependencies, zero build, themeable. Start here, then make it your own.", "pt-BR": total + "+ Web Components nativos lindamente feitos para você customizar, estender e construir. Zero dependências, zero build, temáveis. Comece aqui e deixe do seu jeito.", fr: total + "+ Web Components natifs soigneusement conçus, à personnaliser et étendre. Zéro dépendance, zéro build, thémables. Commencez ici, puis appropriez-les.", de: total + "+ sorgfältig gestaltete native Web Components zum Anpassen und Erweitern. Keine Abhängigkeiten, kein Build, themefähig. Leg los und mach sie zu deinen.", it: total + "+ Web Components nativi curati da personalizzare ed estendere. Zero dipendenze, zero build, personalizzabili. Inizia qui e rendili tuoi." },
+      "home.browse": { en: "Browse Components", "pt-BR": "Ver componentes", fr: "Parcourir les composants", de: "Komponenten ansehen", it: "Sfoglia i componenti" },
+      "home.blocks": { en: "View Blocks", "pt-BR": "Ver blocos", fr: "Voir les blocs", de: "Blöcke ansehen", it: "Vedi i blocchi" },
+      "home.t.button": { en: "Button", "pt-BR": "Botão", fr: "Bouton", de: "Schaltfläche", it: "Pulsante" },
+      "home.t.secondary": { en: "Secondary", "pt-BR": "Secundário", fr: "Secondaire", de: "Sekundär", it: "Secondario" },
+      "home.t.outline": { en: "Outline", "pt-BR": "Contorno", fr: "Contour", de: "Umriss", it: "Contorno" },
+      "home.f.name": { en: "Name", "pt-BR": "Nome", fr: "Nom", de: "Name", it: "Nome" },
+      "home.f.message": { en: "Message", "pt-BR": "Mensagem", fr: "Message", de: "Nachricht", it: "Messaggio" },
+      "home.live": { en: "Live", "pt-BR": "Ao vivo", fr: "En direct", de: "Live", it: "Live" },
+      "home.agree": { en: "Agree", "pt-BR": "Concordo", fr: "J'accepte", de: "Zustimmen", it: "Accetto" },
+      "home.alertdialog": { en: "Alert Dialog", "pt-BR": "Diálogo de alerta", fr: "Boîte d'alerte", de: "Hinweisdialog", it: "Finestra di avviso" },
+      "home.buttongroup": { en: "Button Group", "pt-BR": "Grupo de botões", fr: "Groupe de boutons", de: "Schaltflächengruppe", it: "Gruppo pulsanti" },
+      "home.contrib": { en: "Contribution History", "pt-BR": "Histórico de contribuições", fr: "Historique des contributions", de: "Beitragsverlauf", it: "Cronologia contributi" },
+      "home.contrib.sub": { en: "Last 6 months of activity", "pt-BR": "Últimos 6 meses de atividade", fr: "6 derniers mois d'activité", de: "Aktivität der letzten 6 Monate", it: "Ultimi 6 mesi di attività" },
+      "home.milestone": { en: "Set a new milestone", "pt-BR": "Defina uma nova meta", fr: "Définir un nouvel objectif", de: "Neuen Meilenstein setzen", it: "Imposta un nuovo traguardo" },
+      "home.milestone.sub": { en: "Define your financial target.", "pt-BR": "Defina seu objetivo financeiro.", fr: "Définissez votre objectif financier.", de: "Lege dein finanzielles Ziel fest.", it: "Definisci il tuo obiettivo finanziario." },
+      "home.f.goal": { en: "e.g. New Car", "pt-BR": "ex.: Carro novo", fr: "ex. Nouvelle voiture", de: "z. B. Neues Auto", it: "es. Auto nuova" },
+      "home.creategoal": { en: "Create Goal", "pt-BR": "Criar meta", fr: "Créer l'objectif", de: "Ziel erstellen", it: "Crea obiettivo" },
+      "home.pickdate": { en: "Pick a date", "pt-BR": "Escolha uma data", fr: "Choisir une date", de: "Datum wählen", it: "Scegli una data" },
+      "home.distribute": { en: "Distribute Track", "pt-BR": "Distribuir faixa", fr: "Distribuer le titre", de: "Track verteilen", it: "Distribuisci traccia" },
+      "home.distribute.sub": { en: "Upload your master to start reaching listeners everywhere.", "pt-BR": "Envie seu master para alcançar ouvintes em todo lugar.", fr: "Importez votre master pour toucher des auditeurs partout.", de: "Lade dein Master hoch, um Hörer überall zu erreichen.", it: "Carica il master per raggiungere ascoltatori ovunque." },
+      "home.release": { en: "Create Release", "pt-BR": "Criar lançamento", fr: "Créer une sortie", de: "Release erstellen", it: "Crea release" },
+      "home.analytics": { en: "Analytics", "pt-BR": "Análises", fr: "Analytique", de: "Analytik", it: "Analisi" },
+      "home.visitors": { en: "418.2K visitors", "pt-BR": "418,2 mil visitantes", fr: "418,2 K visiteurs", de: "418,2 Tsd. Besucher", it: "418,2 mila visitatori" },
+      "home.close.h": { en: total + " components, 17 blocks, fully themeable.", "pt-BR": total + " componentes, 17 blocos, totalmente temáveis.", fr: total + " composants, 17 blocs, entièrement thémables.", de: total + " Komponenten, 17 Blöcke, voll themefähig.", it: total + " componenti, 17 blocchi, completamente personalizzabili." },
+      "home.close.p": { en: "Browse the full catalog in the docs, grab a ready-made page block, or open the theme editor to make it yours.", "pt-BR": "Explore o catálogo completo nas docs, pegue um bloco de página pronto ou abra o editor de tema para deixar do seu jeito.", fr: "Parcourez le catalogue complet, prenez un bloc de page prêt à l'emploi ou ouvrez l'éditeur de thème.", de: "Durchstöbere den Katalog, nimm einen fertigen Seitenblock oder öffne den Theme-Editor.", it: "Sfoglia il catalogo, prendi un blocco di pagina pronto o apri l'editor del tema." },
+      "home.explore": { en: "Explore docs", "pt-BR": "Explorar docs", fr: "Explorer les docs", de: "Doku erkunden", it: "Esplora i docs" },
+      "home.openeditor": { en: "Open theme editor →", "pt-BR": "Abrir editor de tema →", fr: "Ouvrir l'éditeur de thème →", de: "Theme-Editor öffnen →", it: "Apri l'editor del tema →" },
+    });
+    // apply immediately for the current locale (layout re-applies on switch)
+    const loc = localStorage.getItem("pura-locale") || "en";
+    if (loc !== "en" && window.__applyChrome) window.__applyChrome(loc);
+  </script>
+</Doc>
+
+<style>
+  .hero { text-align: center; padding: 4rem 1.5rem 2.5rem; max-width: 760px; margin: 0 auto; }
+  .pill { display: inline-block; font-size: .78rem; font-weight: 500; padding: .35rem .85rem; border-radius: 999px; background: var(--pura-subtle); border: 1px solid var(--pura-border); color: var(--pura-muted-fg); margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; letter-spacing: -.04em; margin: 0; font-weight: 700; }
+  .hero h1 span { color: var(--pura-muted); }
+  .hero p { font-size: 1.1rem; color: var(--pura-muted-fg); line-height: 1.6; margin: 1.25rem auto 0; max-width: 56ch; }
+  .cta { display: flex; gap: .75rem; justify-content: center; margin-top: 1.75rem; flex-wrap: wrap; }
+
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 1rem clamp(1rem, 1.5vw, 1.5rem); width: 100%; }
+  .card { border: 1px solid var(--pura-border); border-radius: var(--pura-radius-lg); padding: 1.25rem; background: var(--pura-bg);
+    display: flex; flex-direction: column; gap: .75rem; box-shadow: var(--pura-shadow-sm); }
+  .card.big { grid-row: span 2; }
+  .card.center { align-items: center; text-align: center; justify-content: center; }
+  .card strong { font-size: .95rem; }
+  .card .sub { font-size: .8rem; color: var(--pura-muted); margin-top: -.4rem; }
+  .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  .row.two, .row.between { width: 100%; }
+  .row.two { display: grid; grid-template-columns: 1fr 1fr; }
+  .row.between { justify-content: space-between; }
+  .statrow { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: auto; }
+  @media (max-width: 900px) { .bento { grid-template-columns: 1fr 1fr; } .card.big { grid-row: auto; } }
+  @media (max-width: 600px) { .bento { grid-template-columns: 1fr; } }
+
+  .closing { text-align: center; padding: 4rem 1.5rem 6rem; max-width: 640px; margin: 0 auto; }
+  .closing h2 { font-size: 1.6rem; letter-spacing: -.02em; }
+  .closing p { color: var(--pura-muted-fg); line-height: 1.6; }
+</style>

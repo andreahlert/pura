@@ -1,0 +1,89 @@
+---
+// Live preview + code tabs for one component demo, locale-aware.
+// `demos` is a map { en, "pt-BR", fr, de, it } of demo HTML; the stage is
+// (re)mounted from the active locale's markup and remounts on language change.
+const { demo, code, demos } = Astro.props;
+const map = demos || { en: demo };
+---
+
+<div class="pv">
+  <div class="pv-tabs" role="tablist">
+    <button class="pv-tab" data-tab="preview" role="tab" aria-selected="true">Preview</button>
+    <button class="pv-tab" data-tab="code" role="tab" aria-selected="false">Code</button>
+  </div>
+
+  <div class="pv-panel pv-preview" data-panel="preview">
+    <div class="pv-stage" data-stage></div>
+    <template data-demo></template>
+  </div>
+
+  <div class="pv-panel pv-code" data-panel="code" hidden>
+    <button class="pv-copy" data-copy aria-label="Copy code">Copy</button>
+    <pre><code>{code}</code></pre>
+  </div>
+
+  <script type="application/json" class="pv-demos" set:html={JSON.stringify(map).replace(/</g, "\\u003c")}></script>
+</div>
+
+<style>
+  .pv { border: 1px solid var(--pura-border); border-radius: var(--pura-radius-lg); overflow: hidden; margin: 1.25rem 0 2rem; }
+  .pv-tabs { display: flex; gap: .25rem; padding: .4rem .5rem 0; border-bottom: 1px solid var(--pura-border); background: var(--pura-subtle); }
+  .pv-tab { font: inherit; font-size: .8rem; font-weight: 550; cursor: pointer; background: transparent; border: none;
+    color: var(--pura-muted); padding: .5rem .7rem; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .pv-tab[aria-selected="true"] { color: var(--pura-fg); border-bottom-color: var(--pura-primary); }
+  .pv-preview { padding: 2.25rem 1.5rem; display: flex; align-items: center; justify-content: center; min-height: 120px; }
+  .pv-stage { width: 100%; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center; }
+  .pv-code { position: relative; }
+  .pv-code pre { margin: 0; padding: 1.1rem 1.25rem; overflow: auto; background: var(--pura-bg);
+    font-family: var(--pura-font-mono); font-size: .82rem; line-height: 1.6; color: var(--pura-fg); }
+  .pv-copy { position: absolute; top: .6rem; right: .6rem; font: inherit; font-size: .72rem; font-weight: 550; cursor: pointer;
+    background: var(--pura-bg); color: var(--pura-muted-fg); border: 1px solid var(--pura-border-strong);
+    border-radius: var(--pura-radius-sm); padding: .25rem .55rem; }
+  .pv-copy:hover { background: var(--pura-subtle); color: var(--pura-fg); }
+</style>
+
+<script is:inline>
+  (() => {
+    const reexec = (stage) => stage.querySelectorAll("script").forEach((old) => {
+      const s = document.createElement("script");
+      if (old.type) s.type = old.type;
+      s.textContent = old.textContent;
+      old.replaceWith(s);
+    });
+
+    const mount = (pv) => {
+      let demos = {};
+      try { demos = JSON.parse(pv.querySelector(".pv-demos")?.textContent || "{}"); } catch {}
+      const tpl = pv.querySelector("template[data-demo]");
+      const stage = pv.querySelector("[data-stage]");
+      const codeEl = pv.querySelector(".pv-code code");
+
+      const build = (loc) => {
+        const html = demos[loc] || demos.en || "";
+        stage.innerHTML = "";           // drop old nodes + their listeners
+        tpl.innerHTML = html;            // inert markup in the template
+        stage.appendChild(tpl.content.cloneNode(true));
+        reexec(stage);                  // run inline demo scripts fresh
+        if (codeEl) codeEl.textContent = html;
+        stage.dataset.mounted = "1";
+      };
+
+      const loc0 = (() => { try { return localStorage.getItem("pura-locale") || "en"; } catch { return "en"; } })();
+      build(loc0);
+      addEventListener("pura:locale", (e) => build(e.detail.locale));
+
+      // tabs
+      pv.querySelectorAll(".pv-tab").forEach((tab) => tab.addEventListener("click", () => {
+        const which = tab.dataset.tab;
+        pv.querySelectorAll(".pv-tab").forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+        pv.querySelectorAll(".pv-panel").forEach((p) => (p.hidden = p.dataset.panel !== which));
+      }));
+      // copy
+      const copy = pv.querySelector("[data-copy]");
+      if (copy) copy.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(codeEl?.textContent || ""); copy.textContent = "Copied"; setTimeout(() => (copy.textContent = "Copy"), 1200); } catch {}
+      });
+    };
+    document.querySelectorAll(".pv").forEach(mount);
+  })();
+</script>

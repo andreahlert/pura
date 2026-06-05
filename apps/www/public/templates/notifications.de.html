@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benachrichtigungen · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: var(--pura-space-6) var(--pura-space-5) 5rem;
+    }
+
+    /* ---- Page header ---- */
+    .page-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--pura-space-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--pura-space-5);
+    }
+    .page-head h1 {
+      margin: 0;
+      font-size: var(--pura-text-xl);
+      font-weight: 680;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+    }
+    .page-head p {
+      margin: var(--pura-space-2) 0 0;
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted);
+    }
+    .head-actions { display: flex; align-items: center; gap: var(--pura-space-2); flex: none; }
+
+    /* ---- Toolbar (filter) ---- */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--pura-space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--pura-space-5);
+    }
+    .toolbar .count {
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted);
+    }
+
+    /* ---- Day groups ---- */
+    .day { margin-top: var(--pura-space-5); }
+    .day:first-of-type { margin-top: 0; }
+    .day__label {
+      font-size: var(--pura-text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+      color: var(--pura-muted);
+      padding: 0 var(--pura-space-4) var(--pura-space-2);
+    }
+    .day__list {
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-bg);
+      box-shadow: var(--pura-shadow-sm);
+      overflow: hidden;
+    }
+    .day__list pura-notification-item + pura-notification-item {
+      border-top: 1px solid var(--pura-border);
+    }
+    /* hide an empty group when all its items are dismissed */
+    .day[data-empty] { display: none; }
+
+    /* leading icon chips inside notifications */
+    .chip {
+      display: inline-grid;
+      place-items: center;
+      width: 2rem; height: 2rem;
+      border-radius: var(--pura-radius);
+      background: var(--pura-subtle);
+      color: var(--pura-muted-fg);
+      border: 1px solid var(--pura-border);
+    }
+    .chip svg { width: 1.05rem; height: 1.05rem; }
+    .chip--info { background: var(--pura-info-bg); color: var(--pura-info); border-color: color-mix(in srgb, var(--pura-info) 28%, transparent); }
+    .chip--success { background: var(--pura-success-bg); color: var(--pura-success); border-color: color-mix(in srgb, var(--pura-success) 28%, transparent); }
+    .chip--warning { background: var(--pura-warning-bg); color: var(--pura-warning); border-color: color-mix(in srgb, var(--pura-warning) 28%, transparent); }
+    .chip--danger { background: var(--pura-danger-bg); color: var(--pura-danger); border-color: color-mix(in srgb, var(--pura-danger) 28%, transparent); }
+
+    .meta-link { color: var(--pura-accent); text-decoration: none; font-weight: 550; }
+    .meta-link:hover { text-decoration: underline; }
+
+    /* ---- Empty state shell ---- */
+    .empty-shell {
+      margin-top: var(--pura-space-5);
+      border: 1px dashed var(--pura-border-strong);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-subtle);
+    }
+    #emptyState { display: none; }
+
+    /* ---- Theme toggle ---- */
+    .theme-toggle {
+      position: fixed; top: var(--pura-space-4); right: var(--pura-space-4);
+      z-index: 50;
+      width: 2.25rem; height: 2.25rem;
+      display: grid; place-items: center;
+      border: 1px solid var(--pura-border-strong);
+      border-radius: var(--pura-radius);
+      background: var(--pura-bg); color: var(--pura-fg);
+      box-shadow: var(--pura-shadow-sm);
+      cursor: pointer;
+      transition: background var(--pura-dur) var(--pura-ease), transform var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle:active { transform: scale(0.95); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .sun { display: none; }
+    html[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+    @media (max-width: 600px) {
+      .wrap { padding: var(--pura-space-5) var(--pura-space-4) 4rem; }
+      .page-head { flex-direction: column; }
+      .head-actions { width: 100%; }
+      .head-actions pura-button { flex: 1; }
+      .toolbar pura-segmented-control { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Design umschalten">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <main class="wrap">
+    <header class="page-head">
+      <div>
+        <h1>
+          Benachrichtigungen
+          <pura-badge variant="primary" id="headBadge">4 neue</pura-badge>
+        </h1>
+        <p>Neuigkeiten zu deinem Konto, deinen Projekten und deinem Team.</p>
+      </div>
+      <div class="head-actions">
+        <pura-button variant="secondary" size="sm" id="markAllBtn">Alle als gelesen markieren</pura-button>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <pura-segmented-control
+        id="filter"
+        label="Benachrichtigungen filtern"
+        options="Alle,Ungelesen"
+        value="Alle"
+        size="sm"></pura-segmented-control>
+      <span class="count" id="count"></span>
+    </div>
+
+    <section id="list">
+      <!-- ===== Today ===== -->
+      <div class="day" data-day>
+        <div class="day__label">Heute</div>
+        <div class="day__list">
+          <pura-notification-item unread dismissible title="Sarah Schmitt hat dich erwähnt" time="jetzt">
+            <span slot="icon" class="chip chip--info">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </span>
+            „@du kannst du den Checkout-Flow bis zum Ende des Tages prüfen?" in <a class="meta-link" href="#">Sprint 24</a>.
+          </pura-notification-item>
+
+          <pura-notification-item unread dismissible title="Bereitstellung erfolgreich abgeschlossen" time="vor 12 Min.">
+            <span slot="icon" class="chip chip--success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
+            Version <strong>v2.4.1</strong> ist jetzt in der Produktion live. 0 Fehler in den ersten Minuten.
+          </pura-notification-item>
+
+          <pura-notification-item unread dismissible title="API-Nutzung bei 82 % des Limits" time="vor 48 Min.">
+            <span slot="icon" class="chip chip--warning">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            </span>
+            Dein aktueller Tarif hat 82 % seiner monatlichen Anfragen erreicht. Erwäge ein Upgrade.
+          </pura-notification-item>
+
+          <pura-notification-item dismissible title="Brandon Wagner hat die Einladung angenommen" time="vor 2 Std.">
+            <span slot="icon" class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6M19 8v6"/></svg>
+            </span>
+            Brandon ist nun als Bearbeiter Teil des <strong>Pura Labs</strong>-Arbeitsbereichs.
+          </pura-notification-item>
+        </div>
+      </div>
+
+      <!-- ===== Yesterday ===== -->
+      <div class="day" data-day>
+        <div class="day__label">Gestern</div>
+        <div class="day__list">
+          <pura-notification-item unread dismissible title="Mai-Rechnung verfügbar" time="gestern, 18:20">
+            <span slot="icon" class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </span>
+            149,00 € für den Pro-Tarif. Zahlung über Karte mit Endung 4242 bestätigt.
+          </pura-notification-item>
+
+          <pura-notification-item dismissible title="Zugriffsversuch blockiert" time="gestern, 09:14">
+            <span slot="icon" class="chip chip--danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            Anmeldung von einem unbekannten Gerät in München verweigert. <a class="meta-link" href="#">Aktivität prüfen</a>.
+          </pura-notification-item>
+
+          <pura-notification-item dismissible title="Kommentar gelöst" time="gestern, 08:02">
+            <span slot="icon" class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            Lena Berger hat deine Anmerkung zur Typografie als gelöst markiert.
+          </pura-notification-item>
+        </div>
+      </div>
+
+      <!-- ===== This week ===== -->
+      <div class="day" data-day>
+        <div class="day__label">Diese Woche</div>
+        <div class="day__list">
+          <pura-notification-item dismissible title="Wochenbericht fertig" time="Mo., 07:00">
+            <span slot="icon" class="chip chip--info">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
+            </span>
+            Das Engagement stieg im Vergleich zur Vorwoche um 12 %. <a class="meta-link" href="#">Daten ansehen</a>.
+          </pura-notification-item>
+
+          <pura-notification-item dismissible title="Neue Funktion: Kohorten" time="So., 16:45">
+            <span slot="icon" class="chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </span>
+            Du kannst Nutzer jetzt direkt im Dashboard nach Kohorten segmentieren.
+          </pura-notification-item>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Empty state (shown when the filter returns nothing) ===== -->
+    <div class="empty-shell" id="emptyState">
+      <pura-empty title="Keine ungelesenen Benachrichtigungen">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9z"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Du bist auf dem aktuellen Stand. Sobald etwas deine Aufmerksamkeit erfordert, erscheint es hier.
+        <pura-button slot="action" variant="secondary" size="sm" id="emptyResetBtn">Alle anzeigen</pura-button>
+      </pura-empty>
+    </div>
+  </main>
+
+  <script type="module">
+    const root = document.documentElement;
+
+    // ---- Theme toggle ----
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // ---- State / refs ----
+    const filter = document.getElementById("filter");
+    const list = document.getElementById("list");
+    const emptyState = document.getElementById("emptyState");
+    const countEl = document.getElementById("count");
+    const headBadge = document.getElementById("headBadge");
+    const markAllBtn = document.getElementById("markAllBtn");
+
+    const items = () => Array.from(list.querySelectorAll("pura-notification-item"));
+    const isUnread = (el) => el.hasAttribute("unread");
+
+    function refresh() {
+      const onlyUnread = filter.value === "Ungelesen";
+      const all = items();
+      const unreadCount = all.filter(isUnread).length;
+
+      // show/hide individual items per filter
+      all.forEach((el) => {
+        el.style.display = onlyUnread && !isUnread(el) ? "none" : "";
+      });
+
+      // collapse day groups that have no visible item
+      document.querySelectorAll("[data-day]").forEach((day) => {
+        const visible = day.querySelectorAll("pura-notification-item").length &&
+          Array.from(day.querySelectorAll("pura-notification-item")).some(
+            (el) => el.style.display !== "none"
+          );
+        day.toggleAttribute("data-empty", !visible);
+      });
+
+      // header badge + count
+      if (unreadCount > 0) {
+        headBadge.textContent = `${unreadCount} neue`;
+        headBadge.style.display = "";
+      } else {
+        headBadge.style.display = "none";
+      }
+      countEl.textContent = `${unreadCount} ungelesen von ${all.length}`;
+      markAllBtn.toggleAttribute("disabled", unreadCount === 0);
+
+      // empty state when current filter shows nothing
+      const anyVisible = all.some((el) => el.style.display !== "none");
+      const showEmpty = !anyVisible;
+      emptyState.style.display = showEmpty ? "block" : "none";
+      list.style.display = showEmpty ? "none" : "block";
+    }
+
+    filter.addEventListener("change", refresh);
+
+    markAllBtn.addEventListener("click", () => {
+      items().forEach((el) => el.markRead && el.markRead());
+      refresh();
+    });
+
+    // marking read / dismissing a row should re-tally
+    list.addEventListener("read", refresh);
+    list.addEventListener("dismiss", () => setTimeout(refresh, 0));
+
+    document.getElementById("emptyResetBtn").addEventListener("click", () => {
+      filter.value = "Alle";
+      refresh();
+    });
+
+    // initial paint (after components upgrade)
+    customElements.whenDefined("pura-notification-item").then(refresh);
+    refresh();
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

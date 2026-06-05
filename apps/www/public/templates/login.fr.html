@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Se connecter · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* subtle ambient backdrop */
+    .page {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: var(--pura-space-5);
+      position: relative;
+      overflow: hidden;
+    }
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(60rem 40rem at 50% -10%, color-mix(in srgb, var(--pura-accent) 12%, transparent), transparent 70%),
+        radial-gradient(40rem 30rem at 110% 110%, color-mix(in srgb, var(--pura-accent) 8%, transparent), transparent 70%);
+      pointer-events: none;
+    }
+
+    .auth {
+      width: 100%;
+      max-width: 25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pura-space-2);
+      margin-bottom: var(--pura-space-5);
+    }
+    .brand .mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--pura-radius);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: var(--pura-shadow-sm);
+    }
+    .brand .name {
+      font-size: var(--pura-text-lg);
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    .head {
+      text-align: center;
+      margin-bottom: var(--pura-space-5);
+    }
+    .head h1 {
+      margin: 0 0 var(--pura-space-2);
+      font-size: var(--pura-text-xl);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: var(--pura-fg);
+    }
+    .head p {
+      margin: 0;
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted);
+    }
+
+    /* card body composition */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-4);
+    }
+    .row-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--pura-space-3);
+      flex-wrap: wrap;
+    }
+    .link {
+      color: var(--pura-accent);
+      font-size: var(--pura-text-sm);
+      font-weight: 550;
+      text-decoration: none;
+      border-radius: var(--pura-radius-sm);
+    }
+    .link:hover { text-decoration: underline; }
+    .link:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--pura-ring);
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--pura-space-3);
+    }
+    .social-ico { width: 1.05rem; height: 1.05rem; flex: none; }
+
+    .foot {
+      margin: var(--pura-space-5) 0 0;
+      text-align: center;
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted);
+    }
+    .legal {
+      margin-top: var(--pura-space-4);
+      text-align: center;
+      font-size: var(--pura-text-xs);
+      color: var(--pura-muted);
+      line-height: 1.5;
+    }
+    .legal a { color: var(--pura-muted-fg); text-decoration: underline; }
+
+    /* fixed theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 10;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: grid;
+      place-items: center;
+      border-radius: var(--pura-radius);
+      border: 1px solid var(--pura-border-strong);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease),
+        border-color var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .theme-toggle svg { width: 1.1rem; height: 1.1rem; }
+    .theme-toggle .ico-moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .ico-sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .ico-moon { display: block; }
+
+    @media (max-width: 30rem) {
+      .socials { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de thème">
+    <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+    <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
+  <main class="page">
+    <section class="auth">
+      <div class="brand">
+        <span class="mark">p</span>
+        <span class="name">pura</span>
+      </div>
+
+      <div class="head">
+        <h1>Bon retour</h1>
+        <p>Connectez-vous à votre compte pour continuer</p>
+      </div>
+
+      <pura-card>
+        <form class="form" id="login-form" novalidate>
+          <pura-field label="E-mail">
+            <pura-input type="email" name="email" placeholder="vous@entreprise.com" autocomplete="email"></pura-input>
+          </pura-field>
+
+          <pura-field>
+            <div class="row-between" style="margin-bottom: var(--pura-space-2);">
+              <span style="font-size: var(--pura-text-sm); font-weight: 550;">Mot de passe</span>
+              <a class="link" href="/recuperar-senha">Mot de passe oublié ?</a>
+            </div>
+            <pura-input type="password" name="password" placeholder="••••••••" autocomplete="current-password"></pura-input>
+          </pura-field>
+
+          <pura-checkbox checked name="remember">Se souvenir de moi pendant 30 jours</pura-checkbox>
+
+          <pura-button variant="primary" full id="submit-btn">Se connecter</pura-button>
+
+          <pura-separator label="ou continuer avec"></pura-separator>
+
+          <div class="socials">
+            <pura-button variant="secondary" type="button">
+              <svg class="social-ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/>
+              </svg>
+              Google
+            </pura-button>
+            <pura-button variant="secondary" type="button">
+              <svg class="social-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/>
+              </svg>
+              GitHub
+            </pura-button>
+          </div>
+        </form>
+
+        <div slot="footer" style="width:100%; justify-content:center;">
+          <span class="foot">Vous n'avez pas de compte ?
+            <a class="link" href="/cadastro">Créez un compte gratuit</a>
+          </span>
+        </div>
+      </pura-card>
+
+      <p class="legal">
+        En continuant, vous acceptez nos
+        <a href="/termos">Conditions d'utilisation</a> et notre
+        <a href="/privacidade">Politique de confidentialité</a>.
+      </p>
+    </section>
+  </main>
+
+  <script type="module">
+    // Theme toggle: flip data-theme between light/dark
+    const root = document.documentElement;
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // Demo submit handling: shows loading state, never throws.
+    const form = document.getElementById("login-form");
+    const btn = document.getElementById("submit-btn");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (btn.hasAttribute("loading")) return;
+      btn.setAttribute("loading", "");
+      btn.textContent = "Connexion...";
+      setTimeout(() => {
+        btn.removeAttribute("loading");
+        btn.textContent = "Se connecter";
+      }, 1400);
+    });
+    // Enter on the primary button triggers form submit
+    btn.addEventListener("click", () => form.requestSubmit());
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

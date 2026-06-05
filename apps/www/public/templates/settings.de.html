@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Einstellungen · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- App shell ---- */
+    .shell {
+      display: grid;
+      grid-template-columns: 16rem 1fr;
+      min-height: 100vh;
+    }
+
+    .nav {
+      border-right: 1px solid var(--pura-border);
+      background: var(--pura-subtle);
+      display: flex;
+      flex-direction: column;
+      padding: var(--pura-space-4);
+      gap: var(--pura-space-1);
+    }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-2) var(--pura-space-3);
+      margin-bottom: var(--pura-space-4);
+    }
+    .nav__logo {
+      width: 1.75rem; height: 1.75rem; border-radius: var(--pura-radius);
+      background: var(--pura-primary); color: var(--pura-primary-fg);
+      display: grid; place-items: center; font-weight: 700; font-size: var(--pura-text-sm);
+      flex: none;
+    }
+    .nav__brand strong { font-size: var(--pura-text-base); font-weight: 650; }
+    .nav__group-label {
+      font-size: var(--pura-text-xs); text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--pura-muted); padding: var(--pura-space-3) var(--pura-space-3) var(--pura-space-2);
+    }
+    .nav a {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      padding: var(--pura-space-2) var(--pura-space-3);
+      border-radius: var(--pura-radius);
+      color: var(--pura-muted-fg); text-decoration: none;
+      font-size: var(--pura-text-sm); font-weight: 550;
+      transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
+    }
+    .nav a:hover { background: var(--pura-subtle-hover); color: var(--pura-fg); }
+    .nav a.is-active { background: var(--pura-bg); color: var(--pura-fg); box-shadow: var(--pura-shadow-sm); }
+    .nav a svg { width: 1.05rem; height: 1.05rem; flex: none; }
+    .nav__spacer { flex: 1; }
+    .nav__user {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      padding: var(--pura-space-2) var(--pura-space-3);
+      border-radius: var(--pura-radius);
+      border: 1px solid var(--pura-border);
+    }
+    .nav__user .meta { min-width: 0; }
+    .nav__user .meta b { display: block; font-size: var(--pura-text-sm); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav__user .meta span { display: block; font-size: var(--pura-text-xs); color: var(--pura-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .main { display: flex; flex-direction: column; min-width: 0; }
+    .topbar {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      height: 3.5rem; padding: 0 var(--pura-space-6);
+      border-bottom: 1px solid var(--pura-border);
+      position: sticky; top: 0; z-index: 5;
+      background: color-mix(in srgb, var(--pura-bg) 86%, transparent);
+      backdrop-filter: blur(8px);
+    }
+    .topbar .crumbs { font-size: var(--pura-text-sm); color: var(--pura-muted); }
+    .topbar .crumbs b { color: var(--pura-fg); font-weight: 600; }
+    .menu-btn { display: none; }
+
+    .content { padding: var(--pura-space-6); max-width: 56rem; width: 100%; margin: 0 auto; }
+    .page-head { margin-bottom: var(--pura-space-6); }
+    .page-head h1 { font-size: var(--pura-text-xl); font-weight: 680; margin: 0 0 var(--pura-space-2); letter-spacing: -0.01em; }
+    .page-head p { margin: 0; color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    /* ---- Section card ---- */
+    .section {
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-bg);
+      padding: var(--pura-space-5);
+      box-shadow: var(--pura-shadow-sm);
+    }
+    .section + .section { margin-top: var(--pura-space-5); }
+    .section__head { margin-bottom: var(--pura-space-5); }
+    .section__head h2 { margin: 0 0 var(--pura-space-1); font-size: var(--pura-text-lg); font-weight: 640; letter-spacing: -0.01em; }
+    .section__head p { margin: 0; color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--pura-space-5); }
+    .stack { display: flex; flex-direction: column; gap: var(--pura-space-5); }
+    .row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--pura-space-4); }
+    .row-toggle { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--pura-space-5); padding: var(--pura-space-1) 0; }
+    .row-toggle .txt b { display: block; font-size: var(--pura-text-sm); font-weight: 600; }
+    .row-toggle .txt span { display: block; font-size: var(--pura-text-xs); color: var(--pura-muted); margin-top: 2px; line-height: 1.5; }
+
+    .avatar-row { display: flex; align-items: center; gap: var(--pura-space-5); }
+    .avatar-row .actions { display: flex; gap: var(--pura-space-3); }
+    .avatar-row .hint { font-size: var(--pura-text-xs); color: var(--pura-muted); margin-top: var(--pura-space-2); }
+
+    .actions-bar {
+      display: flex; justify-content: flex-end; gap: var(--pura-space-3);
+      margin-top: var(--pura-space-6);
+    }
+
+    .plan-card {
+      border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius);
+      padding: var(--pura-space-4); display: flex; align-items: center; justify-content: space-between;
+      gap: var(--pura-space-4); background: var(--pura-subtle);
+    }
+    .plan-card .plan-name { font-weight: 640; font-size: var(--pura-text-base); }
+    .plan-card .plan-price { color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    .key-row {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      border: 1px solid var(--pura-border); border-radius: var(--pura-radius);
+      padding: var(--pura-space-3) var(--pura-space-4); background: var(--pura-subtle);
+    }
+    .key-row code {
+      font-family: var(--pura-font-mono); font-size: var(--pura-text-sm);
+      color: var(--pura-fg); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+
+    /* theme toggle */
+    .theme-toggle {
+      position: fixed; top: var(--pura-space-3); right: var(--pura-space-4); z-index: 50;
+      display: inline-grid; place-items: center;
+      width: 2.25rem; height: 2.25rem; border-radius: var(--pura-radius-full);
+      border: 1px solid var(--pura-border-strong); background: var(--pura-bg); color: var(--pura-fg);
+      cursor: pointer; box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease), transform var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle:active { transform: scale(0.95); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .sun { display: none; }
+    html[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+    @media (max-width: 860px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .shell { grid-template-columns: 1fr; }
+      .nav { display: none; }
+      .menu-btn { display: inline-flex; }
+      .content { padding: var(--pura-space-4); }
+      .topbar { padding: 0 var(--pura-space-4); }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Design umschalten">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <div class="shell">
+    <aside class="nav">
+      <div class="nav__brand">
+        <span class="nav__logo">P</span>
+        <strong>pura</strong>
+      </div>
+      <div class="nav__group-label">Plattform</div>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Übersicht</a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Analysen</a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Team</a>
+      <div class="nav__group-label">System</div>
+      <a href="#" class="is-active" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Einstellungen</a>
+      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>Hilfe</a>
+
+      <div class="nav__spacer"></div>
+
+      <div class="nav__user">
+        <pura-avatar src="https://i.pravatar.cc/120?img=12" alt="Lena Schmidt" initials="LS" status="online"></pura-avatar>
+        <div class="meta">
+          <b>Lena Schmidt</b>
+          <span>lena@studioform.com</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <pura-button class="menu-btn" variant="ghost" size="sm" aria-label="Menü">Menü</pura-button>
+        <div class="crumbs">System&nbsp; / &nbsp;<b>Einstellungen</b></div>
+      </header>
+
+      <div class="content">
+        <div class="page-head">
+          <h1>Einstellungen</h1>
+          <p>Verwalten Sie Ihr Konto, Benachrichtigungen, Abrechnung und API-Zugriff.</p>
+        </div>
+
+        <pura-tabs active="0" id="settingsTabs">
+          <!-- ============ ACCOUNT ============ -->
+          <pura-tab label="Konto">
+            <div class="section">
+              <div class="section__head">
+                <h2>Profil</h2>
+                <p>Diese Informationen sind für die Mitglieder Ihres Teams sichtbar.</p>
+              </div>
+
+              <div class="stack">
+                <div class="avatar-row">
+                  <pura-avatar size="lg" src="https://i.pravatar.cc/120?img=12" alt="Lena Schmidt" initials="LS"></pura-avatar>
+                  <div>
+                    <div class="actions">
+                      <pura-button variant="secondary" size="sm" id="changeAvatar">Foto ändern</pura-button>
+                      <pura-button variant="ghost" size="sm" id="removeAvatar">Entfernen</pura-button>
+                    </div>
+                    <div class="hint">JPG, GIF oder PNG. Maximal 2&nbsp;MB.</div>
+                  </div>
+                </div>
+
+                <pura-separator></pura-separator>
+
+                <div class="grid-2">
+                  <pura-field label="Name" description="So erscheinen Sie auf der gesamten Plattform.">
+                    <pura-input value="Lena Schmidt" placeholder="Ihr vollständiger Name"></pura-input>
+                  </pura-field>
+                  <pura-field label="Benutzername">
+                    <pura-input value="lena.schmidt" placeholder="benutzername"></pura-input>
+                  </pura-field>
+                </div>
+
+                <pura-field label="E-Mail" description="Wird für die Anmeldung und wichtige Benachrichtigungen verwendet.">
+                  <pura-input type="email" value="lena@studioform.com" placeholder="sie@email.com"></pura-input>
+                </pura-field>
+
+                <pura-field label="Zeitzone">
+                  <pura-select value="new_york">
+                    <option value="new_york">(GMT-05:00) New York</option>
+                    <option value="chicago">(GMT-06:00) Chicago</option>
+                    <option value="denver">(GMT-07:00) Denver</option>
+                    <option value="los_angeles">(GMT-08:00) Los Angeles</option>
+                  </pura-select>
+                </pura-field>
+
+                <pura-field label="Sprache der Oberfläche">
+                  <pura-radio-group value="en-US" label="" orientation="horizontal" id="langGroup">
+                    <pura-radio name="lang" value="en-US">Englisch</pura-radio>
+                    <pura-radio name="lang" value="es-ES">Spanisch</pura-radio>
+                    <pura-radio name="lang" value="pt-BR">Portugiesisch</pura-radio>
+                  </pura-radio-group>
+                </pura-field>
+              </div>
+
+              <div class="actions-bar">
+                <pura-button variant="ghost" data-reset>Abbrechen</pura-button>
+                <pura-button data-save="Profil aktualisiert">Änderungen speichern</pura-button>
+              </div>
+            </div>
+          </pura-tab>
+
+          <!-- ============ NOTIFICATIONS ============ -->
+          <pura-tab label="Benachrichtigungen">
+            <div class="section">
+              <div class="section__head">
+                <h2>E-Mail-Benachrichtigungen</h2>
+                <p>Wählen Sie aus, was Sie in Ihrem Posteingang erhalten möchten.</p>
+              </div>
+
+              <div class="stack">
+                <div class="row-toggle">
+                  <div class="txt">
+                    <b>Wochenübersicht</b>
+                    <span>Ein Überblick über die Aktivität in Ihrem Arbeitsbereich jeden Montag.</span>
+                  </div>
+                  <pura-switch checked></pura-switch>
+                </div>
+                <pura-separator></pura-separator>
+                <div class="row-toggle">
+                  <div class="txt">
+                    <b>Erwähnungen und Kommentare</b>
+                    <span>Werden Sie benachrichtigt, wenn Sie jemand erwähnt oder auf einen Kommentar antwortet.</span>
+                  </div>
+                  <pura-switch checked></pura-switch>
+                </div>
+                <pura-separator></pura-separator>
+                <div class="row-toggle">
+                  <div class="txt">
+                    <b>Produktneuigkeiten</b>
+                    <span>Gelegentliche Neuerungen, Tipps und Updates. Kein Spam.</span>
+                  </div>
+                  <pura-switch></pura-switch>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section__head">
+                <h2>Häufigkeit und Kanäle</h2>
+                <p>Legen Sie fest, wie Echtzeit-Benachrichtigungen Sie erreichen.</p>
+              </div>
+
+              <div class="stack">
+                <pura-field label="Benachrichtigungsbündelung" description="Reduziert das Volumen, indem ähnliche Benachrichtigungen gebündelt werden.">
+                  <pura-radio-group value="hourly" label="" id="freqGroup">
+                    <pura-radio name="freq" value="instant">Sofort, sobald sie auftreten</pura-radio>
+                    <pura-radio name="freq" value="hourly">Stündlich gebündelt</pura-radio>
+                    <pura-radio name="freq" value="daily">Einmal täglich</pura-radio>
+                  </pura-radio-group>
+                </pura-field>
+
+                <pura-separator></pura-separator>
+
+                <div class="row-toggle">
+                  <div class="txt">
+                    <b>Push-Benachrichtigungen im Browser</b>
+                    <span>Erhalten Sie Benachrichtigungen, auch wenn der Tab im Hintergrund ist.</span>
+                  </div>
+                  <pura-switch checked></pura-switch>
+                </div>
+              </div>
+
+              <div class="actions-bar">
+                <pura-button data-save="Benachrichtigungseinstellungen gespeichert">Einstellungen speichern</pura-button>
+              </div>
+            </div>
+          </pura-tab>
+
+          <!-- ============ BILLING ============ -->
+          <pura-tab label="Abrechnung">
+            <div class="section">
+              <div class="section__head">
+                <h2>Aktueller Tarif</h2>
+                <p>Ihr Abonnement verlängert sich am 12. Juni 2026.</p>
+              </div>
+
+              <div class="plan-card">
+                <div>
+                  <div class="plan-name">Pro &middot; Jährlich</div>
+                  <div class="plan-price">348,00 $ pro Jahr &middot; bis zu 10 Mitglieder</div>
+                </div>
+                <pura-button variant="secondary" size="sm" id="changePlan">Tarif ändern</pura-button>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section__head">
+                <h2>Rechnungsdaten</h2>
+                <p>Werden bei der Ausstellung von Rechnungen und Abbuchungen verwendet.</p>
+              </div>
+
+              <div class="stack">
+                <pura-field label="Firmenname">
+                  <pura-input value="Studio Form Design LLC" placeholder="Offizieller Firmenname"></pura-input>
+                </pura-field>
+
+                <div class="grid-2">
+                  <pura-field label="USt-IdNr.">
+                    <pura-input value="DE318907550" placeholder="DE000000000"></pura-input>
+                  </pura-field>
+                  <pura-field label="Rechnungs-E-Mail">
+                    <pura-input type="email" value="rechnung@studioform.com" placeholder="rechnung@email.com"></pura-input>
+                  </pura-field>
+                </div>
+
+                <pura-field label="Zahlungsmethode">
+                  <pura-select value="card">
+                    <option value="card">Kreditkarte &middot; endet auf 4218</option>
+                    <option value="ach">SEPA-Lastschrift</option>
+                    <option value="invoice">Überweisung / Rechnung</option>
+                  </pura-select>
+                </pura-field>
+
+                <pura-separator></pura-separator>
+
+                <div class="row-toggle">
+                  <div class="txt">
+                    <b>Belege per E-Mail</b>
+                    <span>Eine Kopie der Rechnung bei jeder erfolgreichen Abbuchung.</span>
+                  </div>
+                  <pura-switch checked></pura-switch>
+                </div>
+              </div>
+
+              <div class="actions-bar">
+                <pura-button variant="ghost" data-reset>Abbrechen</pura-button>
+                <pura-button data-save="Rechnungsdaten gespeichert">Abrechnung speichern</pura-button>
+              </div>
+            </div>
+          </pura-tab>
+
+          <!-- ============ API ============ -->
+          <pura-tab label="API">
+            <div class="section">
+              <div class="section__head">
+                <h2>API-Schlüssel</h2>
+                <p>Verwenden Sie diese Anmeldedaten, um Anfragen an die pura-API zu authentifizieren.</p>
+              </div>
+
+              <div class="stack">
+                <pura-field label="Geheimer Schlüssel" description="Halten Sie ihn geheim. Geben Sie ihn niemals im Frontend preis.">
+                  <div class="key-row">
+                    <code id="apiKey">pura_sk_live_••••••••••••••••••••8f2a</code>
+                    <pura-button variant="ghost" size="sm" id="revealKey">Anzeigen</pura-button>
+                    <pura-button variant="secondary" size="sm" id="copyKey">Kopieren</pura-button>
+                  </div>
+                </pura-field>
+
+                <pura-separator></pura-separator>
+
+                <pura-field label="Standardumgebung">
+                  <pura-radio-group value="production" label="" orientation="horizontal" id="envGroup">
+                    <pura-radio name="env" value="production">Produktion</pura-radio>
+                    <pura-radio name="env" value="sandbox">Sandbox</pura-radio>
+                  </pura-radio-group>
+                </pura-field>
+
+                <pura-field label="Ratenbegrenzung" description="Pro Minute, pro Schlüssel.">
+                  <pura-select value="600">
+                    <option value="120">120 Anfr./Min.</option>
+                    <option value="600">600 Anfr./Min.</option>
+                    <option value="3000">3.000 Anfr./Min.</option>
+                  </pura-select>
+                </pura-field>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section__head">
+                <h2>Webhooks</h2>
+                <p>Empfangen Sie Echtzeit-Ereignisse auf Ihrem Server.</p>
+              </div>
+
+              <div class="stack">
+                <pura-field label="Ziel-URL" description="HTTPS-Endpunkt, der die Ereignisse empfängt.">
+                  <pura-input type="url" value="https://api.studioform.com/webhooks/pura" placeholder="https://"></pura-input>
+                </pura-field>
+
+                <div class="row-toggle">
+                  <div class="txt">
+                    <b>Bei Fehler erneut versuchen</b>
+                    <span>Wiederholungen mit exponentiellem Backoff für bis zu 24&nbsp;Stunden.</span>
+                  </div>
+                  <pura-switch checked></pura-switch>
+                </div>
+              </div>
+
+              <div class="actions-bar">
+                <pura-button variant="danger" id="rotateKey">Schlüssel rotieren</pura-button>
+                <pura-button data-save="API-Einstellungen gespeichert">API speichern</pura-button>
+              </div>
+            </div>
+          </pura-tab>
+        </pura-tabs>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { toast } from "/pura/lib/toast.js";
+
+    // Theme toggle
+    const root = document.documentElement;
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // Save buttons -> success toast (no real submit)
+    document.querySelectorAll("[data-save]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const msg = btn.getAttribute("data-save");
+        btn.setAttribute("loading", "");
+        setTimeout(() => {
+          btn.removeAttribute("loading");
+          toast.success(msg, { title: "Erledigt" });
+        }, 550);
+      });
+    });
+
+    // Cancel buttons -> info toast
+    document.querySelectorAll("[data-reset]").forEach((btn) => {
+      btn.addEventListener("click", () => toast.info("Änderungen verworfen."));
+    });
+
+    // Account: avatar actions
+    document.getElementById("changeAvatar")?.addEventListener("click", () =>
+      toast.info("Wählen Sie ein neues Bild aus.", { title: "Foto ändern" }));
+    document.getElementById("removeAvatar")?.addEventListener("click", () =>
+      toast.warning("Profilfoto entfernt."));
+
+    // Billing
+    document.getElementById("changePlan")?.addEventListener("click", () =>
+      toast.info("Tarifoptionen werden geöffnet…"));
+
+    // API key reveal / copy / rotate
+    const keyEl = document.getElementById("apiKey");
+    const realKey = "pura_sk_live_9c4b71e0a3d24f08b1e7c5a28f2a";
+    let revealed = false;
+    const masked = keyEl.textContent;
+    document.getElementById("revealKey")?.addEventListener("click", (e) => {
+      revealed = !revealed;
+      keyEl.textContent = revealed ? realKey : masked;
+      e.target.textContent = revealed ? "Verbergen" : "Anzeigen";
+    });
+    document.getElementById("copyKey")?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(realKey);
+        toast.success("Schlüssel in die Zwischenablage kopiert.");
+      } catch {
+        toast.info("Schlüssel manuell auswählen und kopieren.");
+      }
+    });
+    document.getElementById("rotateKey")?.addEventListener("click", () =>
+      toast.warning("Der vorherige Schlüssel funktioniert nicht mehr.", { title: "Schlüssel rotiert" }));
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

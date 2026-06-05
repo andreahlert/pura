@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 · Page not found · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* subtle on-brand backdrop: faint grid + radial glow */
+    .page {
+      position: relative;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: var(--pura-space-6) var(--pura-space-4);
+      overflow: hidden;
+    }
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--pura-border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--pura-border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 42%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 42%, #000 0%, transparent 75%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .page::after {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      width: 40rem;
+      height: 40rem;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--pura-accent) 14%, transparent) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 30rem;
+      text-align: center;
+    }
+
+    .code {
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      font-size: clamp(5rem, 22vw, 9rem);
+      background: linear-gradient(180deg, var(--pura-fg) 0%, var(--pura-muted) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      margin: 0 0 var(--pura-space-2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 10;
+    }
+    .theme-toggle pura-button::part(button) {
+      width: 2.25rem;
+      padding: 0;
+    }
+    .theme-toggle .sun { display: none; }
+    .theme-toggle .moon { display: block; }
+    :root[data-theme="dark"] .theme-toggle .sun { display: block; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+
+    .path {
+      display: inline-block;
+      margin-top: var(--pura-space-4);
+      font-family: var(--pura-font-mono);
+      font-size: var(--pura-text-xs);
+      color: var(--pura-muted);
+    }
+    .path code {
+      background: var(--pura-subtle);
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-sm);
+      padding: 2px 6px;
+      color: var(--pura-muted-fg);
+    }
+
+    svg { display: block; }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <pura-button id="theme-btn" variant="secondary" size="sm" aria-label="Toggle theme">
+      <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </pura-button>
+  </div>
+
+  <main class="page">
+    <div class="card">
+      <div class="code" aria-hidden="true">404</div>
+
+      <pura-empty title="Page not found">
+        <svg slot="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+
+        We couldn't find what you're looking for. The address may have changed,
+        been removed, or maybe it never existed here at all.
+
+        <div slot="action">
+          <pura-button id="home-btn" variant="primary">Back to home</pura-button>
+          <pura-button id="report-btn" variant="ghost">Report</pura-button>
+        </div>
+      </pura-empty>
+
+      <span class="path">Requested route: <code id="route">/</code></span>
+    </div>
+  </main>
+
+  <script type="module">
+    // Theme toggle
+    const root = document.documentElement;
+    document.getElementById("theme-btn").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // Show the route the visitor tried to reach (best-effort, harmless fallback)
+    const route = location.pathname && location.pathname !== "/templates/error-404.html"
+      ? location.pathname
+      : "/settings/billing";
+    document.getElementById("route").textContent = route;
+
+    // "Back to home" - go home (or back if there is history)
+    document.getElementById("home-btn").addEventListener("click", () => {
+      window.location.assign("/");
+    });
+
+    // "Report" - open a prefilled mailto so the action does something real
+    document.getElementById("report-btn").addEventListener("click", () => {
+      const subject = encodeURIComponent("Broken link on pura.dev");
+      const body = encodeURIComponent(`I hit a 404 on the route: ${route}\n\nDescribe what you expected to find:`);
+      window.location.href = `mailto:suporte@pura.dev?subject=${subject}&body=${body}`;
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

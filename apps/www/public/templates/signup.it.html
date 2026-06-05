@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registrazione · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* subtle ambient backdrop that themes via tokens */
+    .page {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: var(--pura-space-6) var(--pura-space-4);
+      background:
+        radial-gradient(60rem 40rem at 50% -10%,
+          color-mix(in srgb, var(--pura-accent) 8%, transparent), transparent 70%);
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 26rem;
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-5);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pura-space-2);
+      font-size: var(--pura-text-lg);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: var(--pura-fg);
+    }
+    .brand .mark {
+      width: 1.6rem; height: 1.6rem;
+      display: grid; place-items: center;
+      border-radius: var(--pura-radius);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      font-weight: 700;
+      box-shadow: var(--pura-shadow-sm);
+    }
+
+    .head { text-align: center; }
+    .head h1 {
+      margin: 0 0 var(--pura-space-2);
+      font-size: var(--pura-text-xl);
+      font-weight: 640;
+      letter-spacing: -0.02em;
+    }
+    .head p {
+      margin: 0;
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted-fg);
+    }
+
+    form { display: flex; flex-direction: column; gap: var(--pura-space-4); }
+
+    .strength { display: flex; flex-direction: column; gap: var(--pura-space-2); }
+    .strength-bar { --w: 0%; }
+    .strength-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      font-size: var(--pura-text-xs); color: var(--pura-muted-fg);
+    }
+    .strength-label { font-weight: 600; }
+
+    .terms {
+      display: flex; align-items: flex-start; gap: var(--pura-space-1);
+      font-size: var(--pura-text-sm); color: var(--pura-fg);
+    }
+    .terms a { color: var(--pura-accent); text-decoration: none; font-weight: 550; }
+    .terms a:hover { text-decoration: underline; }
+
+    .foot {
+      text-align: center;
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted-fg);
+    }
+    .foot a { color: var(--pura-accent); text-decoration: none; font-weight: 600; }
+    .foot a:hover { text-decoration: underline; }
+
+    .legal {
+      text-align: center;
+      font-size: var(--pura-text-xs);
+      color: var(--pura-muted);
+      max-width: 24rem;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    .legal a { color: var(--pura-muted-fg); }
+
+    /* theme toggle */
+    .theme-toggle {
+      position: fixed; top: var(--pura-space-4); right: var(--pura-space-4);
+      z-index: 50;
+      width: 2.25rem; height: 2.25rem;
+      display: grid; place-items: center;
+      border: 1px solid var(--pura-border-strong);
+      border-radius: var(--pura-radius);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease),
+        border-color var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); border-color: var(--pura-fg); }
+    .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .theme-toggle svg { width: 1.1rem; height: 1.1rem; }
+    .theme-toggle .moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+    @media (max-width: 28rem) {
+      .page { padding: var(--pura-space-5) var(--pura-space-3); }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambia tema">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <main class="page">
+    <div class="shell">
+      <div class="brand">
+        <span class="mark">p</span>
+        <span>pura</span>
+      </div>
+
+      <pura-card>
+        <div slot="header" class="head">
+          <h1>Crea il tuo account</h1>
+          <p>Inizia gratuitamente in pochi secondi. Nessuna carta di credito richiesta.</p>
+        </div>
+
+        <form id="signup-form" novalidate>
+          <pura-field label="Nome completo" id="field-name">
+            <pura-input id="name" type="text" placeholder="Giulia Rossi" autocomplete="name"></pura-input>
+          </pura-field>
+
+          <pura-field label="E-mail" id="field-email">
+            <pura-input id="email" type="email" placeholder="giulia.rossi@azienda.it" autocomplete="email"></pura-input>
+          </pura-field>
+
+          <pura-field label="Password" id="field-password" description="Usa almeno 8 caratteri, inclusi lettere e numeri.">
+            <pura-input id="password" type="password" placeholder="••••••••" autocomplete="new-password"></pura-input>
+          </pura-field>
+
+          <div class="strength" id="strength" hidden>
+            <pura-meter
+              id="strength-meter"
+              class="strength-bar"
+              min="0" max="4" value="0"
+              low="1" high="3" optimum="4"
+              hide-value
+              label="Sicurezza della password"></pura-meter>
+            <div class="strength-row">
+              <span class="strength-label" id="strength-label">Molto debole</span>
+              <span id="strength-tip">Aggiungi più caratteri</span>
+            </div>
+          </div>
+
+          <div class="terms">
+            <pura-checkbox id="terms">
+              Ho letto e accetto i
+              <a href="#terms">Termini di servizio</a> e l'
+              <a href="#privacy">Informativa sulla privacy</a>.
+            </pura-checkbox>
+          </div>
+
+          <pura-button id="submit" variant="primary" full type="submit">Crea account</pura-button>
+        </form>
+
+        <div slot="footer" class="foot" style="justify-content:center; width:100%;">
+          Hai già un account? <a href="/templates/login.html">Accedi</a>
+        </div>
+      </pura-card>
+
+      <p class="legal">
+        Protetto da reCAPTCHA. Continuando, accetti di ricevere comunicazioni da pura.
+        <a href="#unsubscribe">Annulla l'iscrizione in qualsiasi momento</a>.
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    // Theme toggle
+    const root = document.documentElement;
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // Elements
+    const form = document.getElementById("signup-form");
+    const nameEl = document.getElementById("name");
+    const emailEl = document.getElementById("email");
+    const passEl = document.getElementById("password");
+    const termsEl = document.getElementById("terms");
+    const submitEl = document.getElementById("submit");
+
+    const fieldName = document.getElementById("field-name");
+    const fieldEmail = document.getElementById("field-email");
+    const fieldPass = document.getElementById("field-password");
+
+    const strengthBox = document.getElementById("strength");
+    const meter = document.getElementById("strength-meter");
+    const sLabel = document.getElementById("strength-label");
+    const sTip = document.getElementById("strength-tip");
+
+    const LEVELS = [
+      { label: "Molto debole", tip: "Aggiungi più caratteri" },
+      { label: "Debole", tip: "Combina lettere e numeri" },
+      { label: "Discreta", tip: "Includi una lettera maiuscola" },
+      { label: "Buona", tip: "Ci siamo quasi, aggiungi un simbolo" },
+      { label: "Eccellente", tip: "Password robusta" },
+    ];
+
+    function scorePassword(v) {
+      if (!v) return 0;
+      let score = 0;
+      if (v.length >= 8) score++;
+      if (/[a-z]/.test(v) && /[A-Z]/.test(v)) score++;
+      if (/\d/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      if (v.length >= 12) score = Math.min(4, score + 1);
+      return Math.min(4, score);
+    }
+
+    passEl.addEventListener("input", (e) => {
+      const v = e.detail?.value ?? passEl.value;
+      strengthBox.hidden = v.length === 0;
+      const s = scorePassword(v);
+      meter.setAttribute("value", String(s));
+      const info = LEVELS[s];
+      sLabel.textContent = info.label;
+      sTip.textContent = info.tip;
+      fieldPass.removeAttribute("error");
+      passEl.removeAttribute("invalid");
+    });
+
+    nameEl.addEventListener("input", () => { fieldName.removeAttribute("error"); nameEl.removeAttribute("invalid"); });
+    emailEl.addEventListener("input", () => { fieldEmail.removeAttribute("error"); emailEl.removeAttribute("invalid"); });
+
+    function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let ok = true;
+
+      const name = nameEl.value.trim();
+      if (name.length < 3) { fieldName.setAttribute("error", "Inserisci il tuo nome completo."); nameEl.setAttribute("invalid", ""); ok = false; }
+      else { fieldName.removeAttribute("error"); nameEl.removeAttribute("invalid"); }
+
+      const email = emailEl.value.trim();
+      if (!isEmail(email)) { fieldEmail.setAttribute("error", "Inserisci un'e-mail valida."); emailEl.setAttribute("invalid", ""); ok = false; }
+      else { fieldEmail.removeAttribute("error"); emailEl.removeAttribute("invalid"); }
+
+      const pass = passEl.value;
+      if (scorePassword(pass) < 2) { fieldPass.setAttribute("error", "Scegli una password più robusta."); passEl.setAttribute("invalid", ""); ok = false; }
+      else { fieldPass.removeAttribute("error"); passEl.removeAttribute("invalid"); }
+
+      if (!termsEl.checked) { ok = false; }
+
+      if (!ok) return;
+
+      // Simulate submission
+      submitEl.setAttribute("loading", "");
+      submitEl.textContent = "Creazione account...";
+      setTimeout(() => {
+        submitEl.removeAttribute("loading");
+        submitEl.textContent = "Account creato!";
+      }, 1200);
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

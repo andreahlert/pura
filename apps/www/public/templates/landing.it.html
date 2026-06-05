@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumen, la piattaforma di analytics per i team di prodotto</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      font-size: var(--pura-text-base);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-inline: var(--pura-space-5);
+    }
+
+    /* Theme toggle (fixed top-right) */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-3);
+      right: var(--pura-space-3);
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: var(--pura-radius-full);
+      border: 1px solid var(--pura-border);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease),
+        border-color var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); border-color: var(--pura-border-strong); }
+    .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    .theme-toggle .moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+    /* Sticky nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: color-mix(in srgb, var(--pura-bg) 82%, transparent);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-5);
+      height: 4rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--pura-space-2);
+      font-weight: 650;
+      font-size: var(--pura-text-lg);
+      color: var(--pura-fg);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .brand .logo {
+      width: 1.6rem; height: 1.6rem;
+      border-radius: var(--pura-radius-sm);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      display: grid; place-items: center;
+      font-weight: 800; font-size: 0.95rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-5);
+      margin-left: var(--pura-space-4);
+    }
+    .nav-links a {
+      color: var(--pura-muted-fg);
+      text-decoration: none;
+      font-size: var(--pura-text-sm);
+      font-weight: 500;
+      transition: color var(--pura-dur) var(--pura-ease);
+    }
+    .nav-links a:hover { color: var(--pura-fg); }
+    .nav-actions {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+    }
+    @media (max-width: 48rem) {
+      .nav-links { display: none; }
+    }
+
+    section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: var(--pura-space-4);
+    }
+    .section-head {
+      max-width: 38rem;
+      margin: 0 auto var(--pura-space-6);
+      text-align: center;
+    }
+    .section-head h2 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--pura-space-3);
+    }
+    .section-head p {
+      color: var(--pura-muted-fg);
+      margin: 0;
+      font-size: var(--pura-text-lg);
+    }
+
+    /* Hero */
+    .hero { padding-top: clamp(3rem, 7vw, 5rem); text-align: center; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      margin: 0 auto var(--pura-space-5);
+      max-width: 16ch;
+      font-weight: 700;
+    }
+    .hero .sub {
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      color: var(--pura-muted-fg);
+      max-width: 42ch;
+      margin: 0 auto var(--pura-space-6);
+    }
+    .hero-cta {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: var(--pura-space-3);
+      justify-content: center;
+      margin-bottom: var(--pura-space-2);
+    }
+    .hero-note {
+      color: var(--pura-muted);
+      font-size: var(--pura-text-sm);
+      margin-top: var(--pura-space-4);
+    }
+
+    /* Product mock */
+    .mock {
+      margin-top: clamp(3rem, 7vw, 4.5rem);
+      position: relative;
+    }
+    .mock::before {
+      content: "";
+      position: absolute;
+      inset: -8% -4% auto -4%;
+      height: 60%;
+      background: radial-gradient(60% 100% at 50% 0%, color-mix(in srgb, var(--pura-accent) 22%, transparent), transparent 70%);
+      filter: blur(8px);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .mock-window {
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-bg);
+      box-shadow: var(--pura-shadow-lg);
+      overflow: hidden;
+      text-align: left;
+    }
+    .mock-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-2);
+      padding: var(--pura-space-3) var(--pura-space-4);
+      border-bottom: 1px solid var(--pura-border);
+      background: var(--pura-subtle);
+    }
+    .mock-bar .dots { display: inline-flex; gap: 6px; }
+    .mock-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--pura-border-strong); }
+    .mock-bar .url {
+      margin-left: var(--pura-space-3);
+      font-size: var(--pura-text-xs);
+      color: var(--pura-muted);
+      font-family: var(--pura-font-mono);
+    }
+    .mock-body {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--pura-space-4);
+      padding: var(--pura-space-5);
+    }
+    @media (max-width: 40rem) { .mock-body { grid-template-columns: 1fr; } }
+    .mock-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--pura-space-3); margin-bottom: var(--pura-space-3);
+    }
+    .mock-title { font-weight: 600; color: var(--pura-fg); }
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--pura-space-2);
+      height: 160px;
+      padding-top: var(--pura-space-3);
+    }
+    .chart span {
+      flex: 1;
+      border-radius: var(--pura-radius-sm) var(--pura-radius-sm) 0 0;
+      background: linear-gradient(180deg, var(--pura-accent), color-mix(in srgb, var(--pura-accent) 35%, transparent));
+      min-width: 0;
+    }
+    .mock-list { display: flex; flex-direction: column; gap: var(--pura-space-3); }
+    .mock-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--pura-space-3); font-size: var(--pura-text-sm);
+    }
+    .mock-row .who { display: flex; align-items: center; gap: var(--pura-space-2); color: var(--pura-fg); }
+    .mock-row .val { color: var(--pura-muted-fg); font-variant-numeric: tabular-nums; }
+
+    /* Logo strip */
+    .logos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(var(--pura-space-5), 5vw, var(--pura-space-6));
+      padding-block: var(--pura-space-6);
+      border-block: 1px solid var(--pura-border);
+    }
+    .logos .label { width: 100%; text-align: center; color: var(--pura-muted); font-size: var(--pura-text-xs); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--pura-space-2); }
+    .logos b { color: var(--pura-muted-fg); font-weight: 650; font-size: 1.1rem; opacity: 0.8; letter-spacing: -0.01em; }
+
+    /* Features grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: var(--pura-space-4);
+    }
+    .feature-ico {
+      display: grid; place-items: center;
+      width: 2.5rem; height: 2.5rem;
+      border-radius: var(--pura-radius);
+      background: color-mix(in srgb, var(--pura-accent) 12%, transparent);
+      color: var(--pura-accent);
+      margin-bottom: var(--pura-space-1);
+    }
+    .feature-ico svg { width: 1.3rem; height: 1.3rem; }
+    .feature-title { font-weight: 600; color: var(--pura-fg); font-size: var(--pura-text-base); }
+
+    /* Testimonials */
+    .testi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: var(--pura-space-4);
+    }
+
+    .pricing-wrap { max-width: 760px; margin: 0 auto; }
+    .pricing-foot { text-align: center; margin-top: var(--pura-space-5); color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    .faq-wrap { max-width: 720px; margin: 0 auto; }
+
+    /* CTA band */
+    .cta-band {
+      text-align: center;
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-lg);
+      padding: clamp(2.5rem, 6vw, 4rem) var(--pura-space-5);
+      background:
+        radial-gradient(80% 120% at 50% 0%, color-mix(in srgb, var(--pura-accent) 14%, transparent), transparent 70%),
+        var(--pura-subtle);
+    }
+    .cta-band h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 var(--pura-space-3); letter-spacing: -0.02em; }
+    .cta-band p { color: var(--pura-muted-fg); margin: 0 auto var(--pura-space-5); max-width: 40ch; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--pura-border); padding-block: var(--pura-space-6); }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.6fr repeat(3, 1fr);
+      gap: var(--pura-space-5);
+    }
+    @media (max-width: 48rem) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 30rem) { .foot-grid { grid-template-columns: 1fr; } }
+    .foot-col h4 { font-size: var(--pura-text-sm); margin: 0 0 var(--pura-space-3); color: var(--pura-fg); }
+    .foot-col a { display: block; color: var(--pura-muted-fg); text-decoration: none; font-size: var(--pura-text-sm); margin-bottom: var(--pura-space-2); transition: color var(--pura-dur) var(--pura-ease); }
+    .foot-col a:hover { color: var(--pura-fg); }
+    .foot-col p { color: var(--pura-muted); font-size: var(--pura-text-sm); margin: var(--pura-space-2) 0 0; max-width: 30ch; }
+    .foot-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--pura-space-3);
+      margin-top: var(--pura-space-6); padding-top: var(--pura-space-5);
+      border-top: 1px solid var(--pura-border);
+      color: var(--pura-muted); font-size: var(--pura-text-sm);
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme toggle -->
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alterna tra tema chiaro e scuro">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    </svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+    </svg>
+  </button>
+
+  <!-- Announcement banner -->
+  <pura-banner variant="promo" dismissible>
+    <span slot="title">Novità</span>
+    Lumen 3.0 è arrivato con dashboard in tempo reale e avvisi basati sull'intelligenza artificiale.
+    <pura-button slot="action" variant="secondary" size="sm" id="bannerCta">Scopri le novità</pura-button>
+  </pura-banner>
+
+  <!-- Sticky nav -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="logo">L</span> Lumen</a>
+      <nav class="nav-links" aria-label="Navigazione principale">
+        <a href="#recursos">Funzionalità</a>
+        <a href="#metricas">Metriche</a>
+        <a href="#clientes">Clienti</a>
+        <a href="#precos">Prezzi</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <pura-button variant="ghost" size="sm">Accedi</pura-button>
+        <pura-button size="sm" id="navCta">Inizia gratis</pura-button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap">
+        <pura-badge class="eyebrow" variant="info" dot>Analytics di prodotto</pura-badge>
+        <h1>Decisioni di prodotto basate sui dati, non sulle supposizioni.</h1>
+        <p class="sub">Lumen riunisce eventi, funnel e retention in un unico posto, con dashboard in tempo reale che tutto il team comprende in pochi secondi.</p>
+        <div class="hero-cta">
+          <pura-button size="lg" id="heroPrimary">Crea un account gratuito</pura-button>
+          <pura-button size="lg" variant="secondary" id="heroDemo">Prenota una demo</pura-button>
+        </div>
+        <p class="hero-note">Nessuna carta di credito richiesta. 14 giorni del piano Pro inclusi.</p>
+
+        <!-- Product mock -->
+        <div class="mock">
+          <div class="mock-window" role="img" aria-label="Anteprima della dashboard di Lumen">
+            <div class="mock-bar">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="url">app.lumen.com/dashboard</span>
+            </div>
+            <div class="mock-body">
+              <pura-card>
+                <div slot="header" class="mock-head">
+                  <span class="mock-title">Utenti attivi</span>
+                  <pura-badge variant="success" dot>+18,4% questo mese</pura-badge>
+                </div>
+                <div class="chart" aria-hidden="true">
+                  <span style="height:42%"></span>
+                  <span style="height:58%"></span>
+                  <span style="height:50%"></span>
+                  <span style="height:71%"></span>
+                  <span style="height:64%"></span>
+                  <span style="height:82%"></span>
+                  <span style="height:96%"></span>
+                </div>
+              </pura-card>
+              <pura-card>
+                <div slot="header" class="mock-title">Eventi principali</div>
+                <div class="mock-list">
+                  <div class="mock-row"><span class="who"><pura-avatar size="sm" initials="CO"></pura-avatar> checkout_completed</span><span class="val">12.840</span></div>
+                  <div class="mock-row"><span class="who"><pura-avatar size="sm" initials="ON"></pura-avatar> onboarding_finished</span><span class="val">9.317</span></div>
+                  <div class="mock-row"><span class="who"><pura-avatar size="sm" initials="UP"></pura-avatar> plan_upgraded</span><span class="val">2.106</span></div>
+                  <div class="mock-row"><span class="who"><pura-avatar size="sm" initials="IN"></pura-avatar> invite_sent</span><span class="val">1.488</span></div>
+                </div>
+              </pura-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logo strip -->
+    <div class="wrap">
+      <div class="logos">
+        <span class="label">Team che crescono con Lumen</span>
+        <b>Nuvera</b><b>Corta</b><b>Pomar</b><b>Veloz</b><b>Quartzo</b><b>Trilha</b>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <section id="recursos">
+      <div class="wrap">
+        <div class="section-head">
+          <pura-badge class="eyebrow" variant="neutral">Funzionalità</pura-badge>
+          <h2>Tutto ciò che serve al tuo team per capire il prodotto</h2>
+          <p>Dalla raccolta degli eventi agli avvisi automatici, senza fogli di calcolo e senza aspettare il team dati.</p>
+        </div>
+        <div class="features">
+          <pura-card hover>
+            <div class="feature-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+            </div>
+            <div class="feature-title">Dashboard in tempo reale</div>
+            <p>Monitora utenti attivi, ricavi e funnel con aggiornamenti continui, senza ricaricare la pagina.</p>
+          </pura-card>
+          <pura-card hover>
+            <div class="feature-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 4 2 6h10c0-2 2-3 2-6a7 7 0 0 0-7-7z"/><path d="M9 21h6"/></svg>
+            </div>
+            <div class="feature-title">Avvisi basati sull'intelligenza artificiale</div>
+            <p>Lumen apprende l'andamento delle tue metriche e ti avvisa quando qualcosa sembra fuori posto.</p>
+          </pura-card>
+          <pura-card hover>
+            <div class="feature-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/></svg>
+            </div>
+            <div class="feature-title">Funnel e coorti</div>
+            <p>Costruisci funnel in pochi minuti e suddividili per coorte per scoprire dove gli utenti abbandonano.</p>
+          </pura-card>
+          <pura-card hover>
+            <div class="feature-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="feature-title">Conformità alla privacy</div>
+            <p>Controlli di conservazione e anonimizzazione integrati per restare conformi al GDPR e al CCPA.</p>
+          </pura-card>
+          <pura-card hover>
+            <div class="feature-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
+            </div>
+            <div class="feature-title">Si integra con tutto</div>
+            <p>SDK per web, mobile e server, oltre a connettori per Postgres, Segment e webhook.</p>
+          </pura-card>
+          <pura-card hover>
+            <div class="feature-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="feature-title">Pensato per i team</div>
+            <p>Condividi dashboard, commenta le metriche e mantieni allineati i team prodotto, growth e dati.</p>
+          </pura-card>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics -->
+    <section id="metricas">
+      <div class="wrap">
+        <div class="section-head">
+          <pura-badge class="eyebrow" variant="neutral">In numeri</pura-badge>
+          <h2>Risultati che vedi sulla dashboard</h2>
+          <p>Medie tra i clienti attivi dopo 90 giorni di utilizzo di Lumen.</p>
+        </div>
+        <pura-stat-grid label="Metriche della piattaforma">
+          <pura-stat label="Eventi al mese" value="3,2 Mld" delta="+24%" trend="up"></pura-stat>
+          <pura-stat label="Team attivi" value="4.180" delta="+12%" trend="up"></pura-stat>
+          <pura-stat label="Tempo al primo insight" value="6 min" delta="-38%" trend="down"></pura-stat>
+          <pura-stat label="Disponibilità (SLA)" value="99,98%" delta="stabile" trend="flat"></pura-stat>
+        </pura-stat-grid>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="clientes">
+      <div class="wrap">
+        <div class="section-head">
+          <pura-badge class="eyebrow" variant="neutral">Clienti</pura-badge>
+          <h2>I team di prodotto si fidano di Lumen</h2>
+          <p>Dalle startup in Serie A alle operazioni con milioni di utenti.</p>
+        </div>
+        <div class="testi-row">
+          <pura-testimonial
+            author="Giulia Ferrari"
+            role="Responsabile di Prodotto, Nuvera"
+            avatar="https://i.pravatar.cc/120?img=47"
+            rating="5">
+            Abbiamo dimezzato i tempi di analisi. Il team di prodotto apre finalmente la dashboard da solo, senza fare la coda dietro al team dati.
+          </pura-testimonial>
+          <pura-testimonial
+            author="Marco Romano"
+            role="CTO, Corta"
+            avatar="https://i.pravatar.cc/120?img=12"
+            rating="5">
+            La migrazione ha richiesto un pomeriggio. In una settimana, gli avvisi basati sull'IA avevano già intercettato due bug al checkout prima del supporto.
+          </pura-testimonial>
+          <pura-testimonial
+            author="Chiara Greco"
+            role="Growth Lead, Pomar"
+            avatar="https://i.pravatar.cc/120?img=32"
+            rating="4">
+            I funnel per coorte hanno cambiato la nostra routine di growth. Oggi ogni esperimento inizia e finisce dentro Lumen.
+          </pura-testimonial>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing teaser -->
+    <section id="precos">
+      <div class="wrap">
+        <div class="section-head">
+          <pura-badge class="eyebrow" variant="neutral">Prezzi</pura-badge>
+          <h2>Inizia gratis, cresci man mano</h2>
+          <p>Paghi per evento, senza sorprese. Disdici quando vuoi.</p>
+        </div>
+        <div class="pricing-wrap">
+          <pura-pricing-table label="Piani Lumen" min="16rem">
+            <pura-pricing-tier name="Starter" price="0 €" period="/mese">
+              <span slot="description">Per validare idee e progetti iniziali.</span>
+              <ul>
+                <li>Fino a 50 mila eventi/mese</li>
+                <li>3 dashboard</li>
+                <li>Conservazione di 30 giorni</li>
+                <li>1 postazione</li>
+              </ul>
+              <pura-button slot="action" variant="secondary" full>Inizia gratis</pura-button>
+            </pura-pricing-tier>
+            <pura-pricing-tier name="Pro" price="49 €" period="/mese" featured badge="Il più popolare">
+              <span slot="description">Per team di prodotto in crescita.</span>
+              <ul>
+                <li>Fino a 2 mln di eventi/mese</li>
+                <li>Dashboard illimitate</li>
+                <li>Avvisi basati sull'intelligenza artificiale</li>
+                <li>Conservazione di 12 mesi</li>
+                <li>Postazioni illimitate</li>
+              </ul>
+              <pura-button slot="action" full id="proCta">Prova 14 giorni gratis</pura-button>
+            </pura-pricing-tier>
+            <pura-pricing-tier name="Enterprise" price="Su richiesta" period="">
+              <span slot="description">Per operazioni su larga scala.</span>
+              <ul>
+                <li>Volume personalizzato</li>
+                <li>Hosting dedicato</li>
+                <li>SSO e SAML</li>
+                <li>SLA del 99,99%</li>
+                <li>Supporto con un manager dedicato</li>
+              </ul>
+              <pura-button slot="action" variant="secondary" full>Parla con il team vendite</pura-button>
+            </pura-pricing-tier>
+          </pura-pricing-table>
+          <p class="pricing-foot">Ti serve qualcosa di specifico? <a href="#contato" style="color:var(--pura-accent);text-decoration:none">Crea un piano su misura</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <pura-badge class="eyebrow" variant="neutral">FAQ</pura-badge>
+          <h2>Domande frequenti</h2>
+          <p>Non hai trovato quello che cercavi? Parla con noi.</p>
+        </div>
+        <div class="faq-wrap">
+          <pura-faq label="Domande frequenti su Lumen">
+            <pura-faq-item open>
+              <span slot="question">Serve un team dati per usare Lumen?</span>
+              No. Lumen è stato creato per i team di prodotto e growth. Installi l'SDK, gli eventi compaiono e crei dashboard senza scrivere SQL.
+            </pura-faq-item>
+            <pura-faq-item>
+              <span slot="question">Come funziona la fatturazione?</span>
+              La fatturazione si basa sul volume di eventi elaborati ogni mese. Monitori l'utilizzo nella dashboard e non vieni mai addebitato per eccedenze senza un avviso preventivo.
+            </pura-faq-item>
+            <pura-faq-item>
+              <span slot="question">Dove vengono conservati i dati?</span>
+              Tutta l'infrastruttura standard gira in datacenter negli Stati Uniti, con conservazione e anonimizzazione configurabili per restare conformi al GDPR e al CCPA.
+            </pura-faq-item>
+            <pura-faq-item>
+              <span slot="question">Posso migrare da un altro strumento?</span>
+              Possiamo importare gli eventi storici tramite API e CSV, e il team di onboarding segue la migrazione nei piani Pro ed Enterprise.
+            </pura-faq-item>
+            <pura-faq-item>
+              <span slot="question">Esiste un piano davvero gratuito?</span>
+              Sì, il piano Starter è gratuito per sempre, con fino a 50 mila eventi al mese. Nessuna carta di credito richiesta per iniziare.
+            </pura-faq-item>
+          </pura-faq>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section id="contato">
+      <div class="wrap">
+        <div class="cta-band">
+          <h2>Pronto a vedere il tuo prodotto con chiarezza?</h2>
+          <p>Crea il tuo account in meno di due minuti e visualizza i tuoi primi eventi oggi stesso.</p>
+          <div class="hero-cta">
+            <pura-button size="lg" id="ctaPrimary">Crea un account gratuito</pura-button>
+            <pura-button size="lg" variant="ghost" id="ctaSecondary">Prenota una demo</pura-button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-col">
+          <a class="brand" href="#top" style="margin-bottom:var(--pura-space-3)"><span class="logo">L</span> Lumen</a>
+          <p>Analytics di prodotto in tempo reale, pensata per i team che decidono con i dati.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Prodotto</h4>
+          <a href="#recursos">Funzionalità</a>
+          <a href="#precos">Prezzi</a>
+          <a href="#metricas">Integrazioni</a>
+          <a href="#faq">Changelog</a>
+        </div>
+        <div class="foot-col">
+          <h4>Azienda</h4>
+          <a href="#">Chi siamo</a>
+          <a href="#">Blog</a>
+          <a href="#">Lavora con noi</a>
+          <a href="#contato">Contatti</a>
+        </div>
+        <div class="foot-col">
+          <h4>Note legali</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Termini</a>
+          <a href="#">Informativa sulla privacy</a>
+          <a href="#">Stato</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Lumen Technologies, Inc. Tutti i diritti riservati.</span>
+        <span>Realizzato a San Francisco, USA.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Theme toggle: flip data-theme between light and dark.
+    const root = document.documentElement;
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // Wire CTAs to a friendly notice. Uses pura toast if available, else falls
+    // back to the banner so nothing throws.
+    const notify = async (msg) => {
+      try {
+        const mod = await import("/pura/lib/toast.js");
+        const fn = mod.toast || (mod.default && mod.default.toast);
+        if (typeof fn === "function") { fn(msg); return; }
+        if (window.puraToast) { window.puraToast(msg); return; }
+      } catch (_) { /* ignore and fall through */ }
+      console.log(msg);
+    };
+
+    for (const id of ["navCta","heroPrimary","heroDemo","proCta","ctaPrimary","ctaSecondary","bannerCta"]) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener("click", () => notify("Disponibile a breve: le iscrizioni stanno per aprire. Grazie per il tuo interesse in Lumen!"));
+    }
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preços · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/pura/tokens.css">
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 6vw, 5.5rem) var(--pura-space-5) var(--pura-space-6);
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 50;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-full);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease),
+        border-color var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); border-color: var(--pura-border-strong); }
+    .theme-toggle svg { width: 1.125rem; height: 1.125rem; }
+    .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+    /* Header */
+    .hero { text-align: center; margin-bottom: clamp(2rem, 5vw, 3rem); }
+    .hero .eyebrow {
+      display: inline-flex;
+      margin-bottom: var(--pura-space-4);
+    }
+    .hero h1 {
+      margin: 0 0 var(--pura-space-3);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 34rem;
+      font-size: var(--pura-text-lg);
+      color: var(--pura-muted-fg);
+    }
+
+    /* Billing toggle row */
+    .billing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pura-space-3);
+      margin: 0 0 clamp(2rem, 5vw, 2.75rem);
+      flex-wrap: wrap;
+    }
+
+    /* Pricing feature list rows */
+    .feat {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--pura-space-2);
+    }
+    .feat svg {
+      flex: none;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+      color: var(--pura-success);
+    }
+    .feat.off { color: var(--pura-muted); }
+    .feat.off svg { color: var(--pura-muted); }
+
+    .price-suffix { color: var(--pura-muted-fg); font-size: var(--pura-text-sm); }
+
+    /* Sections */
+    .section { margin-top: clamp(3.5rem, 8vw, 6rem); }
+    .section h2 {
+      margin: 0 0 var(--pura-space-2);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+    .section .lead {
+      margin: 0 auto var(--pura-space-6);
+      max-width: 30rem;
+      text-align: center;
+      color: var(--pura-muted-fg);
+    }
+    .faq-wrap { max-width: 42rem; margin: 0 auto; }
+
+    .footnote {
+      margin-top: clamp(3rem, 7vw, 4.5rem);
+      text-align: center;
+      color: var(--pura-muted);
+      font-size: var(--pura-text-sm);
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <main class="page">
+    <header class="hero">
+      <pura-badge class="eyebrow" variant="primary" dot>Planos e preços</pura-badge>
+      <h1>Preços simples, sem surpresas</h1>
+      <p>Escolha o plano ideal para a sua equipe. Comece de graça e faça o upgrade quando precisar de mais. Cancele quando quiser.</p>
+    </header>
+
+    <div class="billing">
+      <span class="price-suffix">Cobrança</span>
+      <pura-segmented-control id="billing" options="Mensal,Anual" value="Mensal" label="Período de cobrança"></pura-segmented-control>
+      <pura-badge variant="success">Economize 20% no anual</pura-badge>
+    </div>
+
+    <pura-pricing-table label="planos pura" min="17rem">
+      <pura-pricing-tier name="Free" price="R$0" period="/mês">
+        <span slot="description">Para projetos pessoais e para quem está começando agora.</span>
+        <ul></ul>
+        <pura-button slot="action" variant="secondary" full>Começar de graça</pura-button>
+      </pura-pricing-tier>
+
+      <pura-pricing-tier name="Pro" price="R$59" period="/mês" featured badge="Mais popular">
+        <span slot="description">Para profissionais e equipes pequenas que querem ir além.</span>
+        <ul></ul>
+        <pura-button slot="action" variant="primary" full>Assinar o Pro</pura-button>
+      </pura-pricing-tier>
+
+      <pura-pricing-tier name="Team" price="R$159" period="/mês">
+        <span slot="description">Para equipes que precisam de colaboração e controle.</span>
+        <ul></ul>
+        <pura-button slot="action" variant="secondary" full>Falar com vendas</pura-button>
+      </pura-pricing-tier>
+    </pura-pricing-table>
+
+    <section class="section">
+      <h2>Perguntas frequentes</h2>
+      <p class="lead">Tudo o que você precisa saber sobre planos, cobrança e cancelamento.</p>
+      <div class="faq-wrap">
+        <pura-faq label="Perguntas frequentes sobre preços">
+          <pura-faq-item open>
+            <span slot="question">Posso mudar de plano depois?</span>
+            Sim. Você pode fazer upgrade ou downgrade a qualquer momento direto pelo seu painel. As mudanças são calculadas proporcionalmente e o valor é ajustado automaticamente na sua próxima fatura.
+          </pura-faq-item>
+          <pura-faq-item>
+            <span slot="question">Como funciona o desconto anual?</span>
+            Ao escolher a cobrança anual você paga 10 meses e ganha 2 de graça, uma economia de 20% em comparação ao plano mensal. A cobrança é feita uma vez por ano.
+          </pura-faq-item>
+          <pura-faq-item>
+            <span slot="question">Quais formas de pagamento são aceitas?</span>
+            Aceitamos cartões de crédito (Visa, Mastercard, American Express, Elo), Pix e transferência bancária para planos anuais. As faturas são emitidas automaticamente.
+          </pura-faq-item>
+          <pura-faq-item>
+            <span slot="question">Existe período de teste?</span>
+            O plano Free é gratuito para sempre, sem precisar de cartão de crédito. Para os planos Pro e Team, oferecemos um teste de 14 dias com todos os recursos liberados.
+          </pura-faq-item>
+          <pura-faq-item>
+            <span slot="question">Posso cancelar quando quiser?</span>
+            Sim. Não há contratos nem taxas de cancelamento. Ao cancelar, você mantém o acesso até o fim do período que já pagou, e seus dados ficam disponíveis para exportação por 30 dias.
+          </pura-faq-item>
+        </pura-faq>
+      </div>
+    </section>
+
+    <p class="footnote">Preços em reais (BRL), impostos não incluídos. <span id="annualNote" hidden>* Preço por mês na cobrança anual, cobrado uma vez por ano. </span>Precisa de algo sob medida para você? <a href="#" style="color: var(--pura-accent);">Fale com a nossa equipe de vendas.</a></p>
+  </main>
+
+  <script type="module">
+    // SVG helpers for feature rows
+    const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+
+    const FEATURES = {
+      Free: ["Até 3 projetos", "1 usuário", "Componentes da comunidade", "Suporte por e-mail"],
+      Pro: ["Projetos ilimitados", "Até 5 usuários", "Todos os componentes premium", "Temas e tokens personalizados", "Suporte prioritário"],
+      Team: ["Tudo do Pro", "Usuários ilimitados", "Permissões por função (RBAC)", "SSO e logs de auditoria", "Gerente de conta dedicado", "SLA de 99,9%"],
+    };
+
+    // Build feature lists for each tier
+    const tiers = document.querySelectorAll("pura-pricing-tier");
+    tiers.forEach((tier) => {
+      const name = tier.getAttribute("name");
+      const ul = tier.querySelector("ul");
+      if (!ul || !FEATURES[name]) return;
+      ul.innerHTML = FEATURES[name]
+        .map((f) => `<li class="feat">${CHECK}<span>${f}</span></li>`)
+        .join("");
+    });
+
+    // Billing toggle: swap monthly <-> annual prices
+    const PRICES = {
+      Free:  { Mensal: "R$0",   Anual: "R$0" },
+      Pro:   { Mensal: "R$59",  Anual: "R$49" },
+      Team:  { Mensal: "R$159", Anual: "R$129" },
+    };
+    const PERIOD = { Mensal: "/mês", Anual: "/mês*" };
+
+    const billing = document.getElementById("billing");
+    const annualNote = document.getElementById("annualNote");
+    function applyBilling(mode) {
+      tiers.forEach((tier) => {
+        const name = tier.getAttribute("name");
+        if (!PRICES[name]) return;
+        tier.setAttribute("price", PRICES[name][mode]);
+        tier.setAttribute("period", PERIOD[mode]);
+      });
+      if (annualNote) annualNote.hidden = mode !== "Anual";
+    }
+    billing.addEventListener("change", (e) => applyBilling(e.detail.value));
+
+    // Theme toggle
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      const root = document.documentElement;
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App Shell - pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- shell layout ---- */
+    .shell {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    .shell > pura-sidebar { height: 100%; }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* ---- topbar ---- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+      height: 3.5rem;
+      flex: none;
+      padding: 0 var(--pura-space-5);
+      border-bottom: 1px solid var(--pura-border);
+      background: color-mix(in srgb, var(--pura-bg) 80%, transparent);
+      backdrop-filter: saturate(180%) blur(8px);
+    }
+    .topbar .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 2.25rem; height: 2.25rem;
+      border: 1px solid transparent;
+      border-radius: var(--pura-radius);
+      background: transparent;
+      color: var(--pura-muted-fg);
+      cursor: pointer;
+      transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
+    }
+    .topbar .icon-btn:hover { background: var(--pura-subtle); color: var(--pura-fg); }
+    .topbar .icon-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .topbar .icon-btn svg { width: 1.15rem; height: 1.15rem; }
+
+    .crumbs { min-width: 0; }
+    .search {
+      margin-left: auto;
+      width: min(20rem, 32vw);
+    }
+    .topbar-actions { display: flex; align-items: center; gap: var(--pura-space-2); }
+
+    .menu-mobile { display: none; }
+
+    /* ---- brand ---- */
+    .brand {
+      display: flex; align-items: center; gap: var(--pura-space-2);
+      font-weight: 650; letter-spacing: -0.01em; min-width: 0;
+    }
+    .brand .mark {
+      display: inline-grid; place-items: center;
+      width: 1.75rem; height: 1.75rem; flex: none;
+      border-radius: var(--pura-radius-sm);
+      background: var(--pura-primary); color: var(--pura-primary-fg);
+      font-weight: 700; font-size: var(--pura-text-sm);
+    }
+    .brand .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    :host { }
+
+    /* ---- sidebar footer user ---- */
+    .side-user {
+      display: flex; align-items: center; gap: var(--pura-space-2);
+      width: 100%; padding: var(--pura-space-1);
+      border: none; background: transparent; cursor: pointer;
+      border-radius: var(--pura-radius-sm); color: var(--pura-fg);
+      font: inherit; text-align: left;
+      transition: background var(--pura-dur) var(--pura-ease);
+    }
+    .side-user:hover { background: var(--pura-subtle-hover); }
+    .side-user .meta { min-width: 0; line-height: 1.2; }
+    .side-user .meta b { display: block; font-size: var(--pura-text-sm); font-weight: 600;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .side-user .meta span { display: block; font-size: var(--pura-text-xs); color: var(--pura-muted);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .user-trigger {
+      display: inline-flex; align-items: center; gap: var(--pura-space-2);
+      padding: 0.2rem; padding-right: var(--pura-space-2);
+      border: 1px solid transparent; border-radius: var(--pura-radius-full);
+      background: transparent; cursor: pointer; color: var(--pura-fg); font: inherit;
+      transition: background var(--pura-dur) var(--pura-ease), border-color var(--pura-dur) var(--pura-ease);
+    }
+    .user-trigger:hover { background: var(--pura-subtle); }
+    .user-trigger:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .user-trigger .who { font-size: var(--pura-text-sm); font-weight: 550; }
+
+    /* ---- content ---- */
+    .content { flex: 1; overflow-y: auto; }
+    .content-inner {
+      max-width: 72rem; margin: 0 auto;
+      padding: var(--pura-space-6) var(--pura-space-5);
+      display: flex; flex-direction: column; gap: var(--pura-space-5);
+      min-height: 100%;
+    }
+    .page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--pura-space-4); flex-wrap: wrap; }
+    .page-head h1 { margin: 0; font-size: var(--pura-text-xl); font-weight: 650; letter-spacing: -0.02em; }
+    .page-head p { margin: var(--pura-space-1) 0 0; color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    .empty-card {
+      flex: 1;
+      display: grid; place-items: center;
+      border: 1px dashed var(--pura-border-strong);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-subtle);
+    }
+
+    /* fixed theme toggle, top-right */
+    .theme-fab {
+      position: fixed; top: 0.75rem; right: 0.75rem; z-index: 50;
+      display: inline-grid; place-items: center;
+      width: 2.25rem; height: 2.25rem;
+      border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius-full);
+      background: var(--pura-bg); color: var(--pura-fg); cursor: pointer;
+      box-shadow: var(--pura-shadow);
+      transition: background var(--pura-dur) var(--pura-ease), transform var(--pura-dur) var(--pura-ease);
+    }
+    .theme-fab:hover { background: var(--pura-subtle); }
+    .theme-fab:active { transform: scale(0.95); }
+    .theme-fab svg { width: 1.1rem; height: 1.1rem; }
+    .theme-fab .moon { display: none; }
+    :root[data-theme="dark"] .theme-fab .moon { display: block; }
+    :root[data-theme="dark"] .theme-fab .sun { display: none; }
+
+    /* ---- responsive ---- */
+    @media (max-width: 768px) {
+      /* sidebar becomes a fixed off-canvas overlay (handled inside the component),
+         so it no longer occupies a grid column */
+      .shell { grid-template-columns: 1fr; }
+      .shell > pura-sidebar { height: 0; }
+      .menu-mobile { display: inline-grid; }
+      .search { width: auto; flex: 1; }
+      .crumbs { display: none; }
+      .user-trigger .who { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-fab" id="theme-fab" type="button" aria-label="Toggle theme" title="Toggle theme">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <div class="shell">
+    <pura-sidebar collapsible id="sidebar">
+      <div slot="header" class="brand">
+        <span class="mark">P</span>
+        <span class="name">Pura Studio</span>
+      </div>
+
+      <pura-sidebar-item href="#" active>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        Dashboard
+      </pura-sidebar-item>
+      <pura-sidebar-item href="#">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-4 4 3 5-7"/></svg>
+        Analytics
+      </pura-sidebar-item>
+      <pura-sidebar-item href="#">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        Clients
+      </pura-sidebar-item>
+      <pura-sidebar-item href="#">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Projects
+      </pura-sidebar-item>
+      <pura-sidebar-item href="#">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8"/></svg>
+        Documents
+      </pura-sidebar-item>
+      <pura-sidebar-item href="#">
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </pura-sidebar-item>
+
+      <div slot="footer">
+        <button class="side-user" type="button" id="side-user">
+          <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" alt="Madison Reed" initials="MR"></pura-avatar>
+          <span class="meta">
+            <b>Madison Reed</b>
+            <span>madison@purastudio.com</span>
+          </span>
+        </button>
+      </div>
+    </pura-sidebar>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-mobile" type="button" id="menu-mobile" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <button class="icon-btn" type="button" id="toggle-rail" aria-label="Collapse menu" title="Collapse menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        </button>
+
+        <pura-breadcrumb class="crumbs">
+          <pura-breadcrumb-item href="#">Home</pura-breadcrumb-item>
+          <pura-breadcrumb-item href="#">Projects</pura-breadcrumb-item>
+          <pura-breadcrumb-item current>Overview</pura-breadcrumb-item>
+        </pura-breadcrumb>
+
+        <pura-input class="search" type="search" placeholder="Search projects, clients…" aria-label="Search"></pura-input>
+
+        <div class="topbar-actions">
+          <pura-toggle id="notify" variant="outline" aria-label="Notifications" title="Notifications">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </pura-toggle>
+
+          <pura-dropdown-menu id="user-menu">
+            <button slot="trigger" class="user-trigger" type="button">
+              <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" alt="Madison Reed" initials="MR"></pura-avatar>
+              <span class="who">Madison</span>
+            </button>
+            <pura-menu-label>Account</pura-menu-label>
+            <pura-menu-item data-action="perfil">
+              <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Profile
+            </pura-menu-item>
+            <pura-menu-item data-action="config">
+              <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 2 2 0 1 1-2.83 2.83 1.65 1.65 0 0 0-2.82 1.17 2 2 0 0 1-4 0 1.65 1.65 0 0 0-2.82-1.17 2 2 0 1 1-2.83-2.83A1.65 1.65 0 0 0 4.6 15a2 2 0 0 1 0-4 1.65 1.65 0 0 0 1.18-2.82 2 2 0 1 1 2.83-2.83A1.65 1.65 0 0 0 11 4.6a2 2 0 0 1 4 0 1.65 1.65 0 0 0 2.82 1.18 2 2 0 1 1 2.83 2.83A1.65 1.65 0 0 0 19.4 11a2 2 0 0 1 0 4z"/></svg>
+              Settings
+              <span slot="shortcut">⌘,</span>
+            </pura-menu-item>
+            <pura-menu-separator></pura-menu-separator>
+            <pura-menu-item data-action="sair">
+              <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Log out
+              <span slot="shortcut">⇧⌘Q</span>
+            </pura-menu-item>
+          </pura-dropdown-menu>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="content-inner">
+          <div class="page-head">
+            <div>
+              <h1>Overview</h1>
+              <p>Track the progress of all your projects in one place.</p>
+            </div>
+            <pura-button variant="primary" id="new-project">+ New project</pura-button>
+          </div>
+
+          <div class="empty-card">
+            <pura-empty title="No projects here yet">
+              <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+              Create your first project to start organizing tasks, deadlines, and your team. It takes less than a minute.
+              <div slot="action">
+                <pura-button variant="primary" id="empty-cta">Create project</pura-button>
+                <pura-button variant="ghost">Import from CSV</pura-button>
+              </div>
+            </pura-empty>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { toast } from "/pura/lib/toast.js";
+
+    // theme toggle (fixed top-right)
+    const root = document.documentElement;
+    document.getElementById("theme-fab").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // collapse / expand desktop rail; open off-canvas on mobile
+    const sidebar = document.getElementById("sidebar");
+    document.getElementById("toggle-rail").addEventListener("click", () => sidebar.toggle());
+    document.getElementById("menu-mobile").addEventListener("click", () => sidebar.openMobile?.());
+
+    const notify = (msg) => toast(msg);
+
+    // dropdown menu actions
+    document.getElementById("user-menu").addEventListener("select", (e) => {
+      const action = e.target?.dataset?.action;
+      const labels = { perfil: "Opening profile…", config: "Opening settings…", sair: "Signing out…" };
+      if (action) notify(labels[action] || action);
+    });
+
+    // primary actions
+    const onCreate = () => notify("Let's create a new project.");
+    document.getElementById("new-project").addEventListener("click", onCreate);
+    document.getElementById("empty-cta").addEventListener("click", onCreate);
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>
