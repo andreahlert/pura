@@ -1,17 +1,18 @@
 ---
 import Doc from "../layouts/Doc.astro";
 import { components } from "../data/components.js";
+import { withBase } from "../lib/base.js";
 const total = components.length;
 ---
 
 <Doc title="Introduction" layout="full">
   <section class="hero">
-    <a class="pill" href="/docs/action" data-i18n="home.pill">Introducing agent-native components →</a>
+    <a class="pill" href={withBase("/docs/action")} data-i18n="home.pill">Introducing agent-native components →</a>
     <h1 data-i18n-html="home.h1">The foundation for your <span>design system</span>.</h1>
     <p data-i18n="home.sub">{total}+ beautifully crafted native Web Components you can customize, extend, and build on. Zero dependencies, zero build, themeable. Start here, then make it your own.</p>
     <div class="cta">
-      <pura-button onclick="location.href='/docs/button'" data-i18n="home.browse">Browse Components</pura-button>
-      <pura-button variant="secondary" onclick="location.href='/templates'" data-i18n="home.blocks">View Blocks</pura-button>
+      <pura-button onclick={`location.href='${withBase("/docs/button")}'`} data-i18n="home.browse">Browse Components</pura-button>
+      <pura-button variant="secondary" onclick={`location.href='${withBase("/templates")}'`} data-i18n="home.blocks">View Blocks</pura-button>
     </div>
   </section>
 
@@ -77,7 +78,7 @@ const total = components.length;
   <section class="closing">
     <h2 data-i18n="home.close.h">{total} components, 17 blocks, fully themeable.</h2>
     <p data-i18n="home.close.p">Browse the full catalog in the docs, grab a ready-made page block, or open the theme editor to make it yours.</p>
-    <div class="cta"><pura-button onclick="location.href='/docs/button'" data-i18n="home.explore">Explore docs</pura-button><pura-button variant="ghost" onclick="location.href='/theme'" data-i18n="home.openeditor">Open theme editor →</pura-button></div>
+    <div class="cta"><pura-button onclick={`location.href='${withBase("/docs/button")}'`} data-i18n="home.explore">Explore docs</pura-button><pura-button variant="ghost" onclick={`location.href='${withBase("/theme")}'`} data-i18n="home.openeditor">Open theme editor →</pura-button></div>
   </section>
 
   <script is:inline define:vars={{ total }}>

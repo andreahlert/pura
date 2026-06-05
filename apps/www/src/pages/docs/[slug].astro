@@ -3,6 +3,7 @@ import Doc from "../../layouts/Doc.astro";
 import Preview from "../../components/Preview.astro";
 import { components } from "../../data/components.js";
 import { docsI18n } from "../../data/i18n-docs.js";
+import { withBase } from "../../lib/base.js";
 
 const ORDER = ["Form", "Display", "Date", "Navigation", "Overlay", "Disclosure", "Feedback", "Layout", "Marketing", "Agent", "Utility"];
 const sorted = [...components].sort(
@@ -63,8 +64,8 @@ const demos = {
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         Copy Page
       </button>
-      <a class="navarrow" href={prev ? `/docs/${prev.slug}` : "#"} aria-disabled={!prev} title={prev?.title || ""}>←</a>
-      <a class="navarrow" href={next ? `/docs/${next.slug}` : "#"} aria-disabled={!next} title={next?.title || ""}>→</a>
+      <a class="navarrow" href={prev ? withBase(`/docs/${prev.slug}`) : "#"} aria-disabled={!prev} title={prev?.title || ""}>←</a>
+      <a class="navarrow" href={next ? withBase(`/docs/${next.slug}`) : "#"} aria-disabled={!next} title={next?.title || ""}>→</a>
     </div>
   </div>
 
@@ -120,8 +121,8 @@ const demos = {
   )}
 
   <div class="pager">
-    {prev ? <a class="pg" href={`/docs/${prev.slug}`}><span>Previous</span><b>{prev.title}</b></a> : <span></span>}
-    {next ? <a class="pg right" href={`/docs/${next.slug}`}><span>Next</span><b>{next.title}</b></a> : <span></span>}
+    {prev ? <a class="pg" href={withBase(`/docs/${prev.slug}`)}><span>Previous</span><b>{prev.title}</b></a> : <span></span>}
+    {next ? <a class="pg right" href={withBase(`/docs/${next.slug}`)}><span>Next</span><b>{next.title}</b></a> : <span></span>}
   </div>
 
   <script is:inline define:vars={{ extra }}>

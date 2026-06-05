@@ -1,6 +1,11 @@
 // Scans registry/, emits registry.json (index) + apps/www/public/r/<name>.json
 // (per-component items with sha256 integrity), and copies the runtime into
-// apps/www/public/pura for live previews. Single source = registry/.
+// apps/www/public so live previews can load it. Single source = registry/.
+//
+// Runtime files land at the public ROOT (not a subdir). With Astro base
+// "/pura/", a file at public/<x> is served at the deploy URL "/pura/<x>" — which
+// is exactly what the site's existing "/pura/..." asset refs resolve to. Nesting
+// under public/pura would instead serve at "/pura/pura/..." and 404.
 import { createHash } from "node:crypto";
 import { readdir, readFile, writeFile, mkdir, rm, cp } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -11,7 +16,9 @@ const REGISTRY = join(ROOT, "registry");
 const COMPONENTS = join(REGISTRY, "components");
 const WWW_PUBLIC = join(ROOT, "apps", "www", "public");
 const OUT_R = join(WWW_PUBLIC, "r");
-const OUT_PURA = join(WWW_PUBLIC, "pura");
+// Component files are emitted under both names: pura.js imports "./components/X.js",
+// while the docs' demoHTML imports "/pura/lib/X.js" (legacy alias). Same content.
+const RUNTIME_DIRS = ["components", "lib"];
 
 export const VERSION = process.env.PURA_REGISTRY_VERSION || "0.0.0-dev";
 
@@ -80,14 +87,33 @@ async function main() {
   await writeFile(join(OUT_R, "registry.json"), JSON.stringify(registry, null, 2));
   await writeFile(join(REGISTRY, "registry.json"), JSON.stringify(registry, null, 2));
 
-  await rm(OUT_PURA, { recursive: true, force: true });
-  await mkdir(OUT_PURA, { recursive: true });
-  await cp(REGISTRY, OUT_PURA, {
-    recursive: true,
-    filter: (src) => src !== join(REGISTRY, "registry.json"),
-  });
+  await emitRuntime();
 
   console.log(`registry build: ${index.length} components, version ${VERSION}`);
+}
+
+// Copy the registry runtime into the www public root for live previews.
+// Top-level files (base.js, tokens.css, pura.js, theme*.js, i18n.js) go to the
+// root; components are duplicated into components/ and lib/. Cleans only the
+// generated entries — never the whole public dir (favicon.svg, templates/ are
+// committed there).
+async function emitRuntime() {
+  const entries = await readdir(REGISTRY, { withFileTypes: true });
+  const rootFiles = entries
+    .filter((e) => e.isFile() && e.name !== "registry.json")
+    .map((e) => e.name);
+
+  for (const name of rootFiles) {
+    const dest = join(WWW_PUBLIC, name);
+    await rm(dest, { force: true });
+    await cp(join(REGISTRY, name), dest);
+  }
+
+  for (const dir of RUNTIME_DIRS) {
+    const dest = join(WWW_PUBLIC, dir);
+    await rm(dest, { recursive: true, force: true });
+    await cp(COMPONENTS, dest, { recursive: true });
+  }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

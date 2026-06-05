@@ -8,6 +8,6 @@
     "build:www": "pnpm --filter pura-site build",
     "build": "pnpm build:registry && pnpm build:www",
     "dev": "pnpm --filter pura-site dev",
-    "test": "node --test scripts/"
+    "test": "node --test \"scripts/*.test.mjs\""
   }
 }

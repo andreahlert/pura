@@ -1,6 +1,7 @@
 ---
 import Doc from "../../layouts/Doc.astro";
 import { templates } from "../../data/templates.js";
+import { withBase } from "../../lib/base.js";
 
 const CAT = {
   dashboard: "App", login: "Auth", signup: "Auth", settings: "App", pricing: "Marketing",
@@ -27,12 +28,12 @@ const chips = ["All", "App", "Auth", "Marketing", "Commerce", "Misc"];
 
   <div class="bar">
     <span id="count">{items.length} templates</span>
-    <a class="editlink" href="/theme">✦ Edit theme</a>
+    <a class="editlink" href={withBase("/theme")}>✦ Edit theme</a>
   </div>
 
   <div class="grid" id="grid">
     {items.map((t) => (
-      <a class="card" href={`/templates/${t.slug}.html`} data-slug={t.slug} data-cat={t.cat} data-title={t.title.toLowerCase()}>
+      <a class="card" href={withBase(`/templates/${t.slug}.html`)} data-slug={t.slug} data-cat={t.cat} data-title={t.title.toLowerCase()}>
         <div class="thumb"><iframe class="thumbframe" data-slug={t.slug} tabindex="-1" scrolling="no" title={t.title} loading="lazy"></iframe></div>
         <div class="meta"><b>{t.title}</b><span class="tag">{t.cat}</span></div>
         <p class="blurb">{t.blurb}</p>
@@ -72,11 +73,11 @@ const chips = ["All", "App", "Auth", "Marketing", "Commerce", "Misc"];
   .card.hide { display: none; }
 </style>
 
-<script is:inline>
+<script define:vars={{ tplBase: withBase("/templates/") }}>
   (() => {
     const cards = [...document.querySelectorAll("#grid .card")];
     const frames = [...document.querySelectorAll(".thumbframe")];
-    const fileFor = (slug, loc) => "/templates/" + slug + (loc && loc !== "en" ? "." + loc : "") + ".html";
+    const fileFor = (slug, loc) => tplBase + slug + (loc && loc !== "en" ? "." + loc : "") + ".html";
 
     // point each card link at the localized template file for the active locale
     const routeLocale = (loc) => cards.forEach((c) => { c.href = fileFor(c.dataset.slug, loc); });

@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { components } from "../data/components.js";
+import { withBase, stripBase } from "../lib/base.js";
 
 const {
   title = "pura",
@@ -8,7 +9,7 @@ const {
   toc = [],
   layout = "docs",
 } = Astro.props;
-const path = Astro.url.pathname.replace(/\/$/, "");
+const path = stripBase(Astro.url.pathname);
 
 const ORDER = ["Primitives", "Form", "Display", "Date", "Navigation", "Overlay", "Disclosure", "Feedback", "Layout", "Marketing", "Agent", "Utility"];
 const groups = ORDER
@@ -40,22 +41,22 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} — pura</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
     <link rel="stylesheet" href="/pura/tokens.css" />
     <script type="module" src="/pura/pura.js"></script>
   </head>
   <body>
     <header class="nav">
-      <a class="brand" href="/">pura <small>web components</small></a>
+      <a class="brand" href={withBase("/")}>pura <small>web components</small></a>
       <nav class="mainnav">
         {nav.map((n) => (
-          <a href={n.href} data-i18n={n.key} class={(n.match ? path.startsWith(n.match) : path === "") ? "on" : ""}>{n.label}</a>
+          <a href={withBase(n.href)} data-i18n={n.key} class={(n.match ? path.startsWith(n.match) : path === "/") ? "on" : ""}>{n.label}</a>
         ))}
         <div class="dropdown">
           <button class="ddtrigger" type="button" aria-haspopup="true" data-i18n="nav.features">Features</button>
           <div class="ddpanel" role="menu">
             {features.map((f) => (
-              <a href={f.href} role="menuitem"><b>{f.t}</b><span>{f.d}</span></a>
+              <a href={withBase(f.href)} role="menuitem"><b>{f.t}</b><span>{f.d}</span></a>
             ))}
           </div>
         </div>
@@ -83,13 +84,13 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
       {isDocs && (
         <aside class="side">
           <div class="group"><h4 data-i18n="side.start">Getting Started</h4>
-            <a href="/" aria-current={path === "" ? "page" : undefined} data-i18n="side.intro">Introduction</a>
-            <a href="/theme" aria-current={path === "/theme" ? "page" : undefined} data-i18n="nav.theme">Theming</a>
+            <a href={withBase("/")} aria-current={path === "/" ? "page" : undefined} data-i18n="side.intro">Introduction</a>
+            <a href={withBase("/theme")} aria-current={path === "/theme" ? "page" : undefined} data-i18n="nav.theme">Theming</a>
           </div>
           {groups.map((g) => (
             <div class="group"><h4>{g.cat}</h4>
               {g.items.map((c) => (
-                <a href={`/docs/${c.slug}`} aria-current={path === `/docs/${c.slug}` ? "page" : undefined}>{c.title}</a>
+                <a href={withBase(`/docs/${c.slug}`)} aria-current={path === `/docs/${c.slug}` ? "page" : undefined}>{c.title}</a>
               ))}
             </div>
           ))}
@@ -112,7 +113,7 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
       </div>
       <div class="cmdk-list" id="cmdk-list">
         {allItems.map((c) => (
-          <a class="cmdk-item" href={`/docs/${c.slug}`} data-q={`${c.title} ${c.category}`.toLowerCase()}>
+          <a class="cmdk-item" href={withBase(`/docs/${c.slug}`)} data-q={`${c.title} ${c.category}`.toLowerCase()}>
             <span>{c.title}</span><small>{c.category}</small>
           </a>
         ))}
