@@ -8,6 +8,8 @@
     "build:www": "pnpm --filter pura-site build",
     "build": "pnpm build:registry && pnpm build:www",
     "dev": "pnpm --filter pura-site dev",
+    "smoke": "node scripts/smoke.mjs",
+    "verify": "pnpm build && pnpm smoke",
     "test": "node --test \"scripts/*.test.mjs\""
   }
 }
