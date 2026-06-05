@@ -15,15 +15,24 @@ const OUT_PURA = join(WWW_PUBLIC, "pura");
 
 export const VERSION = process.env.PURA_REGISTRY_VERSION || "0.0.0-dev";
 
+// Integrity hash over file content. Hex digest, verified CLI-side by string
+// comparison (not W3C Subresource Integrity, which would require base64).
 export function hash(content) {
   return "sha256-" + createHash("sha256").update(content).digest("hex");
 }
 
+function stripComments(source) {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, "")     // block comments
+    .replace(/(^|[^:])\/\/.*$/gm, "$1");  // line comments (keep e.g. http://)
+}
+
 export function parseDeps(source) {
+  const code = stripComments(source);
   const re = /from\s+["']\.\.?\/([\w-]+)\.js["']|import\s+["']\.\.?\/([\w-]+)\.js["']/g;
   const out = [];
   let m;
-  while ((m = re.exec(source))) {
+  while ((m = re.exec(code))) {
     const name = m[1] || m[2];
     if (name && !out.includes(name)) out.push(name);
   }
@@ -75,7 +84,7 @@ async function main() {
   await mkdir(OUT_PURA, { recursive: true });
   await cp(REGISTRY, OUT_PURA, {
     recursive: true,
-    filter: (src) => !src.endsWith("registry.json"),
+    filter: (src) => src !== join(REGISTRY, "registry.json"),
   });
 
   console.log(`registry build: ${index.length} components, version ${VERSION}`);

@@ -9,7 +9,7 @@ test("hash is deterministic sha256 with prefix", () => {
   assert.notEqual(h, hash("hello!"));
 });
 
-test("parseDeps finds sibling imports, excludes self, dedups", () => {
+test("parseDeps finds named and side-effect imports, dedups", () => {
   const src = `import { PuraElement } from "../base.js";\nimport "./card.js";`;
   assert.deepEqual(parseDeps(src), ["base", "card"]);
 });
@@ -24,10 +24,16 @@ test("parseTokens extracts unique pura css vars", () => {
   assert.deepEqual(parseTokens(src), ["--pura-primary", "--pura-space-2"]);
 });
 
+test("parseDeps ignores commented-out imports", () => {
+  const src = `import { PuraElement } from "../base.js";\n// import "./old.js";\n/* import "./dead.js"; */`;
+  assert.deepEqual(parseDeps(src), ["base"]);
+});
+
 test("buildItem assembles a registry item", () => {
   const src = `import { PuraElement } from "../base.js";\n/* var(--pura-primary) */`;
   const item = buildItem("button", src);
   assert.equal(item.name, "button");
+  assert.equal(item.version, "0.0.0-dev");
   assert.deepEqual(item.deps, ["base"]);
   assert.deepEqual(item.tokens, ["--pura-primary"]);
   assert.equal(item.files.length, 1);
