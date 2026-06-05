@@ -26,18 +26,18 @@ Import only what you use:
 import "./components/button.js";
 ```
 
-## Components (183)
+## Components (192)
 
 One custom element per file in `components/`. Import `pura.js` for all of them, or just the ones you use.
 
 **Forms and input**
-`action` · `button` · `button-group` · `split-button` · `toggle` · `toggle-group` · `segmented-control` · `input` · `textarea` · `number-input` · `input-group` · `input-otp` · `field` · `label` · `select` · `combobox` · `checkbox` · `radio` · `radio-group` · `switch` · `slider` · `range-slider` · `color-picker` · `swatch-picker` · `date-picker` · `calendar` · `time-picker` · `datetime-picker` · `date-range-picker` · `rating` · `tag-input` · `file-dropzone` · `upload` · `form` · `mention` · `transfer` · `signature` · `password-input` · `mask-input` · `search-field` · `tree-select` · `cascader` · `inline-edit`
+`action` · `button` · `button-group` · `split-button` · `toggle` · `toggle-group` · `segmented-control` · `input` · `textarea` · `number-input` · `input-group` · `input-otp` · `field` · `label` · `select` · `combobox` · `checkbox` · `radio` · `radio-group` · `switch` · `slider` · `range-slider` · `color-picker` · `swatch-picker` · `date-picker` · `calendar` · `time-picker` · `datetime-picker` · `date-range-picker` · `rating` · `tag-input` · `file-dropzone` · `upload` · `form` · `mention` · `transfer` · `signature` · `password-input` · `mask-input` · `search-field` · `tree-select` · `cascader` · `inline-edit` · `knob` · `angle-slider` · `json-input`
 
 **Actions and commands**
 `fab` · `speed-dial` · `copy-button` · `command` · `command-registry` · `dropdown-menu` · `context-menu` · `menubar` · `toolbar`
 
 **Overlays**
-`dialog` · `alert-dialog` · `sheet` · `drawer` · `popover` · `popconfirm` · `tooltip` · `hover-card` · `lightbox` · `spotlight` · `portal` · `overlay`
+`dialog` · `alert-dialog` · `sheet` · `drawer` · `popover` · `popconfirm` · `tooltip` · `hover-card` · `lightbox` · `spotlight` · `portal` · `overlay` · `floating-window`
 
 **Feedback and status**
 `alert` · `banner` · `badge` · `tag` · `toast` · `spinner` · `progress` · `progress-ring` · `gauge` · `meter` · `skeleton` · `skeleton-text` · `empty` · `result` · `live-region` · `notification-item` · `presence` · `undo`
@@ -46,13 +46,13 @@ One custom element per file in `components/`. Import `pura.js` for all of them, 
 `async` · `optimistic` · `idle` · `intent` · `infinite-scroll` · `pull-to-refresh`
 
 **Data and display**
-`table` · `data-table` · `list` · `virtual-list` · `item` · `card` · `kanban` · `tree-view` · `timeline` · `stat` · `stat-grid` · `sparkline` · `chart` · `qr-code` · `barcode` · `stepper` · `diff` · `comment` · `testimonial` · `pricing-table` · `reactions` · `pagination` · `avatar` · `avatar-group`
+`table` · `data-table` · `list` · `virtual-list` · `item` · `card` · `kanban` · `tree-view` · `timeline` · `stat` · `stat-grid` · `sparkline` · `chart` · `qr-code` · `barcode` · `stepper` · `diff` · `comment` · `testimonial` · `pricing-table` · `reactions` · `pagination` · `avatar` · `avatar-group` · `heatmap` · `organization-chart`
 
 **Layout**
 `app-shell` · `box` · `flex` · `grid` · `stack` · `center` · `spacer` · `container` · `section` · `aspect-ratio` · `masonry` · `resizable` · `separator` · `sidebar` · `dock` · `scroll-area` · `overflow-list`
 
 **Navigation**
-`breadcrumb` · `navigation-menu` · `bottom-navigation` · `tabs` · `accordion` · `collapsible` · `back-to-top` · `scroll-progress` · `scroll-spy`
+`breadcrumb` · `navigation-menu` · `bottom-navigation` · `burger` · `tabs` · `accordion` · `collapsible` · `back-to-top` · `scroll-progress` · `scroll-spy`
 
 **Typography and content**
 `heading` · `text` · `prose` · `blockquote` · `code` · `code-block` · `kbd` · `link` · `truncate` · `redact` · `highlight` · `icon` · `image` · `image-compare` · `marquee` · `ticker` · `countdown` · `rich-text` · `markdown-editor`
@@ -64,7 +64,7 @@ One custom element per file in `components/`. Import `pura.js` for all of them, 
 `agent-hint` · `explain` · `chat-bubble` · `chat-input` · `copy-region`
 
 **Utilities and dev**
-`carousel` · `faq` · `hotkey` · `kbd-shortcuts` · `reveal` · `tour` · `swipe` · `affix` · `watermark` · `flow` · `cron` · `cookie-consent` · `mediaquery` · `visually-hidden` · `skip-nav` · `theme-designer` · `inspector`
+`carousel` · `faq` · `hotkey` · `kbd-shortcuts` · `reveal` · `tour` · `swipe` · `affix` · `watermark` · `flow` · `cron` · `cookie-consent` · `mediaquery` · `parallax` · `terminal` · `visually-hidden` · `skip-nav` · `theme-designer` · `inspector`
 
 Tags are prefixed with `pura-` (e.g. `<pura-button>`). Several expose sub-elements (`pura-accordion-item`, `pura-kanban-column`, `pura-menu-item`, etc.). `theme-designer` and `inspector` are dev tools.
 
