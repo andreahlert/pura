@@ -1,16 +1,16 @@
 # pura
 
-Biblioteca de componentes em **web components nativos**. Zero dependências, zero build, framework-agnóstico. Estética minimal neutra (linha Linear/Vercel). Acessível e legível por agentes de IA por padrão (HTML semântico + ARIA + tags estáveis).
+A component library built on **native web components**. Zero dependencies, zero build, framework-agnostic. Minimal neutral aesthetic (Linear/Vercel line). Accessible and readable by AI agents by default (semantic HTML + ARIA + stable tags).
 
-## Por que
+## Why
 
-- **Puro**: só plataforma. Custom Elements + Shadow DOM. Nenhum runtime, nenhuma árvore de dependências.
-- **Universal**: funciona em React, Vue, Svelte, Angular ou HTML puro. É padrão do browser.
-- **Temável**: tudo via CSS custom properties. Custom props atravessam o Shadow boundary, então um único `tokens.css` controla a lib inteira. Light/dark inclusos.
-- **Customizável de fora**: cada peça interna expõe `::part(...)`.
-- **Agent-readable**: roles, ARIA, foco e teclado nativos. Agente identifica e opera sem depender de classe CSS.
+- **Pure**: platform only. Custom Elements + Shadow DOM. No runtime, no dependency tree.
+- **Universal**: works in React, Vue, Svelte, Angular, or plain HTML. It's a browser standard.
+- **Themable**: everything via CSS custom properties. Custom props cross the Shadow boundary, so a single `tokens.css` controls the whole library. Light/dark included.
+- **Customizable from outside**: every internal piece exposes `::part(...)`.
+- **Agent-readable**: native roles, ARIA, focus, and keyboard. Agents identify and operate without relying on CSS classes.
 
-## Uso
+## Usage
 
 ```html
 <link rel="stylesheet" href="tokens.css" />
@@ -20,56 +20,56 @@ Biblioteca de componentes em **web components nativos**. Zero dependências, zer
 <pura-input label="Email" type="email"></pura-input>
 ```
 
-Importar só o que usa:
+Import only what you use:
 
 ```js
 import "./components/button.js";
 ```
 
-## Componentes (140)
+## Components (140)
 
-Um custom element por arquivo em `components/`. Importe `pura.js` para todos, ou só o que usa.
+One custom element per file in `components/`. Import `pura.js` for all of them, or just the ones you use.
 
-**Forms e input**
+**Forms and input**
 `action` · `button` · `button-group` · `split-button` · `toggle` · `toggle-group` · `segmented-control` · `input` · `textarea` · `number-input` · `input-group` · `input-otp` · `field` · `label` · `select` · `combobox` · `checkbox` · `radio` · `radio-group` · `switch` · `slider` · `range-slider` · `color-picker` · `date-picker` · `calendar` · `rating` · `tag-input` · `file-dropzone`
 
-**Ações e comandos**
+**Actions and commands**
 `fab` · `speed-dial` · `copy-button` · `command` · `command-registry` · `dropdown-menu` · `context-menu` · `menubar` · `toolbar`
 
 **Overlays**
 `dialog` · `alert-dialog` · `sheet` · `drawer` · `popover` · `tooltip` · `hover-card` · `lightbox` · `spotlight` · `portal`
 
-**Feedback e status**
+**Feedback and status**
 `alert` · `banner` · `badge` · `tag` · `toast` · `spinner` · `progress` · `progress-ring` · `gauge` · `meter` · `skeleton` · `skeleton-text` · `empty` · `live-region` · `notification-item` · `presence` · `undo`
 
-**Async e estado**
+**Async and state**
 `async` · `optimistic` · `idle` · `intent`
 
-**Dados e display**
+**Data and display**
 `table` · `list` · `item` · `card` · `kanban` · `tree-view` · `timeline` · `stat` · `stat-grid` · `sparkline` · `stepper` · `diff` · `comment` · `testimonial` · `pricing-table` · `reactions` · `pagination` · `avatar` · `avatar-group`
 
 **Layout**
 `box` · `flex` · `grid` · `stack` · `center` · `spacer` · `container` · `section` · `aspect-ratio` · `masonry` · `resizable` · `separator` · `sidebar` · `dock` · `scroll-area`
 
-**Navegação**
+**Navigation**
 `breadcrumb` · `navigation-menu` · `tabs` · `accordion` · `collapsible` · `back-to-top` · `scroll-progress` · `scroll-spy`
 
-**Tipografia e conteúdo**
+**Typography and content**
 `heading` · `text` · `prose` · `blockquote` · `code` · `code-block` · `kbd` · `link` · `truncate` · `redact` · `image` · `image-compare` · `marquee` · `ticker` · `countdown`
 
-**AI / agente**
+**AI / agent**
 `agent-hint` · `explain` · `chat-bubble` · `chat-input` · `copy-region`
 
-**Utilitários e dev**
+**Utilities and dev**
 `carousel` · `faq` · `hotkey` · `kbd-shortcuts` · `reveal` · `tour` · `cookie-consent` · `mediaquery` · `theme-designer` · `inspector`
 
-Tags com prefixo `pura-` (ex.: `<pura-button>`). Vários expõem sub-elementos (`pura-accordion-item`, `pura-kanban-column`, `pura-menu-item`, etc.). `theme-designer` e `inspector` são ferramentas de dev.
+Tags are prefixed with `pura-` (e.g. `<pura-button>`). Several expose sub-elements (`pura-accordion-item`, `pura-kanban-column`, `pura-menu-item`, etc.). `theme-designer` and `inspector` are dev tools.
 
-## Temas
+## Themes
 
-Trocar tema: `document.documentElement.dataset.theme = "dark"` (ou `"light"`). Sem atributo, segue `prefers-color-scheme`.
+Switch theme: `document.documentElement.dataset.theme = "dark"` (or `"light"`). With no attribute, it follows `prefers-color-scheme`.
 
-Customizar: sobrescreva os tokens no seu `:root`.
+Customize: override the tokens in your own `:root`.
 
 ```css
 :root {
@@ -78,7 +78,7 @@ Customizar: sobrescreva os tokens no seu `:root`.
 }
 ```
 
-## Customizar partes
+## Customize parts
 
 ```css
 pura-button::part(button) { letter-spacing: 0.02em; }
@@ -87,20 +87,20 @@ pura-card::part(card) { border-style: dashed; }
 
 ## Demo
 
-Abra `index.html` em qualquer servidor estático (precisa de HTTP por causa dos ES modules):
+Open `index.html` from any static server (needs HTTP because of ES modules):
 
 ```bash
 python3 -m http.server -d pura 8080
 # http://localhost:8080
 ```
 
-## Estrutura
+## Structure
 
 ```
 pura/
   tokens.css        design tokens (light/dark)
-  base.js           classe base (Shadow + render helper)
-  components/*.js    um custom element por arquivo
-  pura.js           importa todos
+  base.js           base class (Shadow + render helper)
+  components/*.js    one custom element per file
+  pura.js           imports all of them
   index.html        showcase
 ```

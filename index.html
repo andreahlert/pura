@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,17 +93,17 @@
     <section>
       <h2>Form controls</h2>
       <div class="stack">
-        <pura-input label="Email" type="email" placeholder="andre@aex.partners" hint="Nunca compartilhamos."></pura-input>
-        <pura-input label="Senha" type="password" placeholder="••••••••" invalid hint="Mínimo 8 caracteres."></pura-input>
-        <pura-textarea label="Mensagem" placeholder="Escreva algo..." rows="3"></pura-textarea>
-        <pura-select label="País" hint="Selecione um.">
-          <option value="br">Brasil</option>
-          <option value="us">Estados Unidos</option>
+        <pura-input label="Email" type="email" placeholder="andre@aex.partners" hint="We never share it."></pura-input>
+        <pura-input label="Password" type="password" placeholder="••••••••" invalid hint="Minimum 8 characters."></pura-input>
+        <pura-textarea label="Message" placeholder="Write something..." rows="3"></pura-textarea>
+        <pura-select label="Country" hint="Pick one.">
+          <option value="br">Brazil</option>
+          <option value="us">United States</option>
           <option value="pt">Portugal</option>
         </pura-select>
         <div class="row">
-          <pura-checkbox checked>Aceito os termos</pura-checkbox>
-          <pura-switch checked>Notificações</pura-switch>
+          <pura-checkbox checked>I accept the terms</pura-checkbox>
+          <pura-switch checked>Notifications</pura-switch>
         </div>
         <div class="row">
           <pura-radio name="plan" value="free" checked>Free</pura-radio>
@@ -117,19 +117,19 @@
       <h2>Cards</h2>
       <div class="grid">
         <pura-card hover>
-          <span slot="header">Plano Pro</span>
-          Tudo do Free, mais analytics, exports e suporte prioritário.
-          <pura-button slot="footer" size="sm">Assinar</pura-button>
-          <pura-button slot="footer" size="sm" variant="ghost">Detalhes</pura-button>
+          <span slot="header">Pro plan</span>
+          Everything in Free, plus analytics, exports, and priority support.
+          <pura-button slot="footer" size="sm">Subscribe</pura-button>
+          <pura-button slot="footer" size="sm" variant="ghost">Details</pura-button>
         </pura-card>
         <pura-card hover>
-          <span slot="header">Uso do mês</span>
-          Você usou 64% da cota. Renova em 12 dias.
+          <span slot="header">This month's usage</span>
+          You've used 64% of your quota. Renews in 12 days.
           <pura-progress slot="footer" value="64" style="width:100%"></pura-progress>
         </pura-card>
         <pura-card hover>
-          <span slot="header">Time</span>
-          3 membros ativos neste workspace.
+          <span slot="header">Team</span>
+          3 active members in this workspace.
         </pura-card>
       </div>
     </section>
@@ -137,38 +137,38 @@
     <section>
       <h2>Tabs</h2>
       <pura-tabs active="0" style="max-width:520px">
-        <pura-tab label="Conta">Gerencie seus dados de conta, nome e email aqui.</pura-tab>
-        <pura-tab label="Cobrança">Cartões, faturas e histórico de pagamento.</pura-tab>
-        <pura-tab label="API">Suas chaves de API e webhooks.</pura-tab>
+        <pura-tab label="Account">Manage your account details, name, and email here.</pura-tab>
+        <pura-tab label="Billing">Cards, invoices, and payment history.</pura-tab>
+        <pura-tab label="API">Your API keys and webhooks.</pura-tab>
       </pura-tabs>
     </section>
 
     <section>
       <h2>Accordion</h2>
       <pura-accordion single style="max-width:520px">
-        <pura-accordion-item label="O que é o pura?" open>Biblioteca de web components nativos, sem dependências e sem build.</pura-accordion-item>
-        <pura-accordion-item label="Funciona com React/Vue?">Sim. Custom elements funcionam em qualquer framework ou em HTML puro.</pura-accordion-item>
-        <pura-accordion-item label="Como customizo o tema?">Sobrescreva os CSS custom properties em tokens.css ou no seu :root.</pura-accordion-item>
+        <pura-accordion-item label="What is pura?" open>A native web component library, no dependencies and no build.</pura-accordion-item>
+        <pura-accordion-item label="Does it work with React/Vue?">Yes. Custom elements work in any framework or in plain HTML.</pura-accordion-item>
+        <pura-accordion-item label="How do I customize the theme?">Override the CSS custom properties in tokens.css or in your own :root.</pura-accordion-item>
       </pura-accordion>
     </section>
 
     <section>
       <h2>Alerts</h2>
       <div class="stack" style="max-width:560px">
-        <pura-alert variant="info" title="Atualização disponível">Versão 1.2 já pode ser instalada.</pura-alert>
-        <pura-alert variant="success" title="Pagamento confirmado">Seu plano Pro está ativo.</pura-alert>
-        <pura-alert variant="warning" title="Cota quase cheia" dismissible>Você usou 90% do limite mensal.</pura-alert>
-        <pura-alert variant="danger" title="Falha no deploy">Verifique os logs do build.</pura-alert>
+        <pura-alert variant="info" title="Update available">Version 1.2 is ready to install.</pura-alert>
+        <pura-alert variant="success" title="Payment confirmed">Your Pro plan is active.</pura-alert>
+        <pura-alert variant="warning" title="Quota almost full" dismissible>You've used 90% of your monthly limit.</pura-alert>
+        <pura-alert variant="danger" title="Deploy failed">Check the build logs.</pura-alert>
       </div>
     </section>
 
     <section>
       <h2>Tooltip, Dialog, Spinner, Progress</h2>
       <div class="row">
-        <pura-tooltip text="Salvar alterações (⌘S)">
+        <pura-tooltip text="Save changes (⌘S)">
           <pura-button variant="secondary">Hover me</pura-button>
         </pura-tooltip>
-        <pura-button id="open-dialog">Abrir dialog</pura-button>
+        <pura-button id="open-dialog">Open dialog</pura-button>
         <pura-spinner size="sm"></pura-spinner>
         <pura-spinner></pura-spinner>
         <pura-spinner size="lg"></pura-spinner>
@@ -180,10 +180,10 @@
       </div>
     </section>
 
-    <pura-dialog id="dlg" title="Confirmar ação">
-      Tem certeza que deseja continuar? Essa ação pode ser desfeita nas próximas 24h.
-      <pura-button slot="footer" variant="ghost" id="cancel">Cancelar</pura-button>
-      <pura-button slot="footer" id="confirm">Confirmar</pura-button>
+    <pura-dialog id="dlg" title="Confirm action">
+      Are you sure you want to continue? This action can be undone within the next 24h.
+      <pura-button slot="footer" variant="ghost" id="cancel">Cancel</pura-button>
+      <pura-button slot="footer" id="confirm">Confirm</pura-button>
     </pura-dialog>
   </div>
 
