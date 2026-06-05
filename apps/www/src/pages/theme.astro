@@ -1,0 +1,220 @@
+---
+import Doc from "../layouts/Doc.astro";
+
+const CORE = [
+  ["--pura-bg", "Background"], ["--pura-fg", "Foreground"], ["--pura-primary", "Primary"],
+  ["--pura-primary-fg", "Primary text"], ["--pura-accent", "Accent"], ["--pura-muted", "Muted"],
+  ["--pura-subtle", "Subtle"], ["--pura-border", "Border"], ["--pura-border-strong", "Border strong"],
+  ["--pura-success", "Success"], ["--pura-warning", "Warning"], ["--pura-danger", "Danger"],
+];
+---
+
+<Doc title="Theme Editor" layout="full">
+  <div class="te">
+    <aside class="te-nav">
+      <div class="te-navhead">Theme</div>
+      <a href="#colors" class="on">Colors <span>{CORE.length}</span></a>
+      <a href="#brand">Brand <span>10</span></a>
+      <a href="#neutral">Neutral <span>10</span></a>
+      <a href="#typography">Typography <span>4</span></a>
+      <a href="#corners">Corners <span>1</span></a>
+      <a href="#shadows">Shadows <span>3</span></a>
+    </aside>
+
+    <div class="te-main">
+      <header class="te-head">
+        <div>
+          <h1>Theme</h1>
+          <p>Edit your token system. Every change applies live across all components and templates.</p>
+        </div>
+        <div class="te-actions">
+          <div class="seg" id="modeseg"><button data-mode="light" class="on">Light</button><button data-mode="dark">Dark</button></div>
+          <button class="btn" id="export">Export</button>
+          <button class="btn ghost" id="reset">Reset</button>
+        </div>
+      </header>
+
+      <section id="colors">
+        <div class="sec-h"><h2>Colors</h2><span class="count">{CORE.length}</span></div>
+        <div class="swatches">
+          {CORE.map(([tok, label]) => (
+            <label class="swatch">
+              <span class="dot" data-dot={tok}></span>
+              <input type="color" data-token={tok} />
+              <b>{label}</b>
+              <code data-hex={tok}></code>
+            </label>
+          ))}
+        </div>
+      </section>
+
+      <section id="brand">
+        <div class="sec-h"><h2>Brand</h2><span class="count">10</span></div>
+        <p class="sub">Generated from Primary.</p>
+        <div class="scale" id="brand-scale"></div>
+      </section>
+
+      <section id="neutral">
+        <div class="sec-h"><h2>Neutral</h2><span class="count">10</span></div>
+        <p class="sub">Generated from Background → Foreground.</p>
+        <div class="scale" id="neutral-scale"></div>
+      </section>
+
+      <section id="typography">
+        <div class="sec-h"><h2>Typography</h2></div>
+        <label class="ctl"><span>Font family</span>
+          <select id="font"><option value="">System</option><option value="serif">Serif</option><option value="mono">Mono</option><option value="rounded">Rounded</option></select>
+        </label>
+      </section>
+
+      <section id="corners">
+        <div class="sec-h"><h2>Corners</h2></div>
+        <label class="ctl"><span>Radius</span><input type="range" id="radius" min="0" max="1.6" step="0.05" /><b id="radiusv"></b></label>
+      </section>
+
+      <section id="shadows">
+        <div class="sec-h"><h2>Shadows</h2></div>
+        <div class="seg" id="shadowseg"><button data-shadow="soft" class="on">Soft</button><button data-shadow="flat">Flat</button><button data-shadow="hard">Hard</button></div>
+      </section>
+
+      <section id="preview">
+        <div class="sec-h"><h2>Preview</h2></div>
+        <div class="pv">
+          <div class="pr"><pura-button>Primary</pura-button><pura-button variant="secondary">Secondary</pura-button><pura-button variant="ghost">Ghost</pura-button><pura-button variant="danger">Danger</pura-button></div>
+          <div class="pr"><pura-badge>Neutral</pura-badge><pura-badge variant="primary">Primary</pura-badge><pura-badge variant="success" dot>Live</pura-badge><pura-switch checked>Switch</pura-switch><pura-rating value="4" readonly></pura-rating></div>
+          <pura-input label="Email" placeholder="you@example.com"></pura-input>
+          <pura-alert variant="info" title="Heads up">This alert reflects your theme.</pura-alert>
+          <pura-progress value="64"></pura-progress>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <dialog id="exportdlg">
+    <div class="dlg"><div class="dlg-h"><b>Export theme</b><button id="closex" class="btn ghost">Close</button></div>
+      <div class="seg" id="exportseg"><button data-fmt="css" class="on">CSS</button><button data-fmt="json">JSON</button></div>
+      <pre id="exportout"></pre><button class="btn" id="copyexport">Copy</button></div>
+  </dialog>
+</Doc>
+
+<style>
+  .te { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; width: 100%; padding: 1.5rem clamp(1rem,1.5vw,1.5rem) 5rem; }
+  .te-nav { position: sticky; top: 72px; align-self: start; display: flex; flex-direction: column; gap: 2px; }
+  .te-navhead { font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--pura-muted); margin: 0 0 .5rem .6rem; }
+  .te-nav a { display: flex; align-items: center; justify-content: space-between; font-size: .85rem; color: var(--pura-muted-fg); padding: .4rem .6rem; border-radius: var(--pura-radius-sm); text-decoration: none; }
+  .te-nav a:hover { background: var(--pura-subtle); color: var(--pura-fg); }
+  .te-nav a.on { background: var(--pura-subtle); color: var(--pura-fg); font-weight: 600; }
+  .te-nav a span { font-size: .72rem; color: var(--pura-muted); }
+
+  .te-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .te-head h1 { font-size: 1.7rem; letter-spacing: -.03em; margin: 0 0 .3rem; }
+  .te-head p { color: var(--pura-muted-fg); margin: 0; max-width: 52ch; font-size: .9rem; line-height: 1.5; }
+  .te-actions { display: flex; gap: .5rem; }
+  .seg { display: inline-flex; border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius); overflow: hidden; }
+  .seg button { font: inherit; font-size: .8rem; font-weight: 550; padding: .4rem .8rem; background: var(--pura-bg); color: var(--pura-muted-fg); border: none; cursor: pointer; }
+  .seg button.on { background: var(--pura-primary); color: var(--pura-primary-fg); }
+  .btn { font: inherit; font-size: .8rem; font-weight: 600; height: 34px; padding: 0 .9rem; border-radius: var(--pura-radius); border: none; background: var(--pura-primary); color: var(--pura-primary-fg); cursor: pointer; }
+  .btn.ghost { background: var(--pura-bg); color: var(--pura-fg); border: 1px solid var(--pura-border-strong); }
+
+  section { padding: 1.5rem 0; border-top: 1px solid var(--pura-border); scroll-margin-top: 72px; }
+  section:first-of-type { border-top: none; padding-top: 0; }
+  .sec-h { display: flex; align-items: baseline; gap: .6rem; margin-bottom: 1rem; }
+  .sec-h h2 { font-size: 1.15rem; margin: 0; letter-spacing: -.01em; }
+  .count { font-size: .8rem; color: var(--pura-muted); }
+  .sub { font-size: .82rem; color: var(--pura-muted); margin: -.5rem 0 1rem; }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1.25rem; }
+  .swatch { position: relative; display: flex; flex-direction: column; align-items: center; gap: .35rem; cursor: pointer; }
+  .swatch .dot { width: 56px; height: 56px; border-radius: 999px; border: 1px solid var(--pura-border); box-shadow: var(--pura-shadow-sm); }
+  .swatch input[type=color] { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 56px; height: 56px; opacity: 0; cursor: pointer; }
+  .swatch b { font-size: .8rem; font-weight: 550; }
+  .swatch code { font-family: var(--pura-font-mono); font-size: .68rem; color: var(--pura-muted); }
+
+  .scale { display: grid; grid-template-columns: repeat(10, 1fr); gap: .75rem; }
+  .scale .s { display: flex; flex-direction: column; align-items: center; gap: .3rem; }
+  .scale .s i { width: 100%; aspect-ratio: 1; border-radius: 999px; border: 1px solid var(--pura-border); display: block; }
+  .scale .s b { font-size: .68rem; font-weight: 600; }
+  .scale .s code { font-family: var(--pura-font-mono); font-size: .6rem; color: var(--pura-muted); }
+
+  .ctl { display: flex; align-items: center; gap: 1rem; font-size: .85rem; }
+  .ctl span { width: 90px; color: var(--pura-muted-fg); }
+  .ctl input[type=range] { flex: 1; max-width: 280px; accent-color: var(--pura-primary); }
+  .ctl select { font: inherit; font-size: .85rem; padding: 5px 9px; border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius-sm); background: var(--pura-bg); color: var(--pura-fg); }
+
+  .pv { display: flex; flex-direction: column; gap: 1rem; max-width: 560px; padding: 1.25rem; border: 1px solid var(--pura-border); border-radius: var(--pura-radius-lg); }
+  .pr { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+
+  #exportdlg { border: 1px solid var(--pura-border); border-radius: var(--pura-radius-lg); padding: 0; background: var(--pura-bg); color: var(--pura-fg); width: min(560px,92vw); box-shadow: var(--pura-shadow-lg); }
+  #exportdlg::backdrop { background: rgb(0 0 0 / .5); }
+  .dlg { padding: 1.25rem; display: flex; flex-direction: column; gap: .75rem; }
+  .dlg-h { display: flex; align-items: center; justify-content: space-between; }
+  .dlg pre { margin: 0; max-height: 50vh; overflow: auto; background: var(--pura-subtle); border: 1px solid var(--pura-border); border-radius: var(--pura-radius); padding: .9rem; font-family: var(--pura-font-mono); font-size: .75rem; line-height: 1.5; }
+  @media (max-width: 860px) { .te { grid-template-columns: 1fr; } .te-nav { display: none; } }
+</style>
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const SEED = {
+      light: { "--pura-bg":"#ffffff","--pura-fg":"#09090b","--pura-primary":"#18181b","--pura-primary-fg":"#fafafa","--pura-accent":"#2563eb","--pura-muted":"#71717a","--pura-subtle":"#f4f4f5","--pura-border":"#e4e4e7","--pura-border-strong":"#d4d4d8","--pura-success":"#16a34a","--pura-warning":"#d97706","--pura-danger":"#dc2626" },
+      dark:  { "--pura-bg":"#09090b","--pura-fg":"#fafafa","--pura-primary":"#fafafa","--pura-primary-fg":"#18181b","--pura-accent":"#3b82f6","--pura-muted":"#a1a1aa","--pura-subtle":"#18181b","--pura-border":"#27272a","--pura-border-strong":"#3f3f46","--pura-success":"#4ade80","--pura-warning":"#fbbf24","--pura-danger":"#f87171" },
+    };
+    const state = { light: { ...SEED.light }, dark: { ...SEED.dark }, radius: 0.625, font: "", shadow: "soft" };
+    let mode = "light", dirty = false;
+    const FONTS = { "": "ui-sans-serif, system-ui, -apple-system, sans-serif", serif: "ui-serif, Georgia, serif", mono: "ui-monospace, Menlo, Consolas, monospace", rounded: "ui-rounded, 'SF Pro Rounded', system-ui, sans-serif" };
+    const hex = (s) => (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(s) ? s : null);
+    const norm = (h) => h.length === 4 ? "#" + [...h.slice(1)].map((c) => c + c).join("") : h;
+    function mix(a, b, t) { a = norm(a); b = norm(b); const pa = [1,3,5].map((i) => parseInt(a.slice(i,i+2),16)), pb = [1,3,5].map((i) => parseInt(b.slice(i,i+2),16)); return "#" + pa.map((v,i) => Math.round(v + (pb[i]-v)*t).toString(16).padStart(2,"0")).join(""); }
+    const STEPS = [50,100,200,300,400,500,600,700,800,900];
+    function scaleFrom(base, dark) { return STEPS.map((s) => { const t = s <= 500 ? (500-s)/450 : (s-500)/400; return s <= 500 ? mix(base, dark ? "#ffffff" : "#ffffff", t*0.9) : mix(base, "#000000", t*0.6); }); }
+    function neutralScale(bg, fg) { return STEPS.map((s) => mix(bg, fg, s/950)); }
+
+    function applyShadow(vars) {
+      if (state.shadow === "flat") { vars["--pura-shadow-sm"]="none"; vars["--pura-shadow"]="none"; vars["--pura-shadow-lg"]="0 1px 2px rgb(0 0 0 / .08)"; }
+      else if (state.shadow === "hard") { vars["--pura-shadow-sm"]="2px 2px 0 var(--pura-fg)"; vars["--pura-shadow"]="3px 3px 0 var(--pura-fg)"; vars["--pura-shadow-lg"]="5px 5px 0 var(--pura-fg)"; }
+    }
+    function buildVars() {
+      const base = { "--pura-radius-sm":`calc(${state.radius}rem * .6)`, "--pura-radius":`${state.radius}rem`, "--pura-radius-lg":`calc(${state.radius}rem * 1.4)` };
+      if (state.font) base["--pura-font"] = FONTS[state.font];
+      applyShadow(base);
+      const derive = (m) => ({ ...m, "--pura-danger-solid": m["--pura-danger"], "--pura-ring":`color-mix(in srgb, ${m["--pura-accent"]} 45%, transparent)`, "--pura-muted-fg": mix(m["--pura-muted"], m["--pura-fg"], .35), "--pura-subtle-hover": mix(m["--pura-subtle"], m["--pura-fg"], .06), "--pura-primary-hover": mix(m["--pura-primary"], m["--pura-fg"], .12) });
+      return { base, light: derive(state.light), dark: derive(state.dark) };
+    }
+    async function apply() { dirty = true; const m = await import("/pura/theme.js"); m.applyTheme(buildVars()); paint(); }
+
+    function paint() {
+      const cur = state[mode];
+      document.querySelectorAll("[data-token]").forEach((inp) => { const v = cur[inp.dataset.token]; if (hex(v)) inp.value = norm(v); });
+      document.querySelectorAll("[data-hex]").forEach((c) => c.textContent = cur[c.dataset.hex]);
+      document.querySelectorAll("[data-dot]").forEach((d) => d.style.background = cur[d.dataset.dot]);
+      const brand = scaleFrom(cur["--pura-primary"]);
+      document.getElementById("brand-scale").innerHTML = brand.map((c,i) => `<div class="s"><i style="background:${c}"></i><b>${STEPS[i]}</b><code>${c}</code></div>`).join("");
+      const neu = neutralScale(mode === "dark" ? cur["--pura-fg"] : cur["--pura-bg"], mode === "dark" ? cur["--pura-bg"] : cur["--pura-fg"]);
+      document.getElementById("neutral-scale").innerHTML = neu.map((c,i) => `<div class="s"><i style="background:${c}"></i><b>${STEPS[i]}</b><code>${c}</code></div>`).join("");
+      document.getElementById("radiusv").textContent = state.radius + "rem";
+      document.getElementById("radius").value = state.radius;
+    }
+
+    document.querySelectorAll("[data-token]").forEach((inp) => inp.addEventListener("input", () => { state[mode][inp.dataset.token] = inp.value; apply(); }));
+    document.getElementById("radius").addEventListener("input", (e) => { state.radius = parseFloat(e.target.value); apply(); });
+    document.getElementById("font").addEventListener("change", (e) => { state.font = e.target.value; apply(); });
+    document.querySelectorAll("#modeseg button").forEach((b) => b.addEventListener("click", () => { document.querySelectorAll("#modeseg button").forEach((x) => x.classList.toggle("on", x === b)); mode = b.dataset.mode; root.dataset.theme = mode; paint(); }));
+    document.querySelectorAll("#shadowseg button").forEach((b) => b.addEventListener("click", () => { document.querySelectorAll("#shadowseg button").forEach((x) => x.classList.toggle("on", x === b)); state.shadow = b.dataset.shadow; apply(); }));
+    document.getElementById("reset").addEventListener("click", async () => { state.light = { ...SEED.light }; state.dark = { ...SEED.dark }; state.radius = 0.625; state.font = ""; state.shadow = "soft"; const m = await import("/pura/theme.js"); m.applyTheme("default"); paint(); });
+
+    // sub-nav active highlight on scroll
+    const navlinks = [...document.querySelectorAll(".te-nav a")];
+    const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { navlinks.forEach((l) => l.classList.toggle("on", l.getAttribute("href") === "#" + en.target.id)); } }), { rootMargin: "-20% 0px -70% 0px" });
+    document.querySelectorAll("section[id]").forEach((s) => io.observe(s));
+
+    // export
+    const dlg = document.getElementById("exportdlg"); let fmt = "css";
+    const exportText = () => { const v = buildVars(); if (fmt === "json") return JSON.stringify(v, null, 2); const css = (o) => Object.entries(o).map(([k,val]) => `  ${k}: ${val};`).join("\n"); return `:root {\n${css({ ...v.base, ...v.light })}\n}\n:root[data-theme="dark"] {\n${css(v.dark)}\n}`; };
+    document.getElementById("export").addEventListener("click", () => { document.getElementById("exportout").textContent = exportText(); dlg.showModal(); });
+    document.getElementById("closex").addEventListener("click", () => dlg.close());
+    document.querySelectorAll("#exportseg button").forEach((b) => b.addEventListener("click", () => { document.querySelectorAll("#exportseg button").forEach((x) => x.classList.toggle("on", x === b)); fmt = b.dataset.fmt; document.getElementById("exportout").textContent = exportText(); }));
+    document.getElementById("copyexport").addEventListener("click", () => navigator.clipboard?.writeText(document.getElementById("exportout").textContent));
+
+    paint(); // seed only; do not auto-apply (don't override the user's theme on visit)
+  })();
+</script>

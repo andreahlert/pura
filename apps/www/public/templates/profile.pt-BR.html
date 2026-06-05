@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perfil — pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ---- theme toggle ---- */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 50;
+    }
+
+    /* ---- page shell ---- */
+    .page { max-width: 60rem; margin: 0 auto; padding: 0 var(--pura-space-5) var(--pura-space-6); }
+
+    /* ---- cover ---- */
+    .cover {
+      height: 13rem;
+      border-radius: 0 0 var(--pura-radius-lg) var(--pura-radius-lg);
+      background:
+        radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--pura-accent) 38%, transparent), transparent 60%),
+        radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--pura-success) 28%, transparent), transparent 55%),
+        linear-gradient(135deg, var(--pura-subtle), var(--pura-subtle-hover));
+      border: 1px solid var(--pura-border);
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(currentColor 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: var(--pura-fg);
+      opacity: 0.04;
+    }
+
+    /* ---- profile header ---- */
+    .header {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--pura-space-5);
+      padding: var(--pura-space-3) var(--pura-space-1) 0;
+      flex-wrap: wrap;
+    }
+    .header pura-avatar.hero {
+      margin-top: -4.5rem; /* only the avatar overlaps the cover */
+    }
+    .header pura-avatar.hero::part(avatar) {
+      width: 7rem; height: 7rem;
+      box-shadow: inset 0 0 0 1px var(--pura-border), 0 0 0 4px var(--pura-bg);
+    }
+    .header-meta { flex: 1 1 16rem; min-width: 0; padding-bottom: var(--pura-space-1); }
+    .header-actions {
+      display: flex; gap: var(--pura-space-2); align-items: center;
+      padding-bottom: var(--pura-space-1); flex-wrap: wrap;
+    }
+    .name-row {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      flex-wrap: wrap;
+    }
+    h1.name { font-size: var(--pura-text-xl); font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+    .role { color: var(--pura-muted); font-size: var(--pura-text-sm); margin: var(--pura-space-1) 0 0; }
+    .bio { color: var(--pura-muted-fg); font-size: var(--pura-text-sm); margin: var(--pura-space-3) 0 0; max-width: 40rem; }
+    .meta-line {
+      display: flex; gap: var(--pura-space-4); flex-wrap: wrap;
+      color: var(--pura-muted); font-size: var(--pura-text-xs);
+      margin-top: var(--pura-space-3); align-items: center;
+    }
+    .meta-line span { display: inline-flex; align-items: center; gap: var(--pura-space-1); }
+    .meta-line a { color: var(--pura-accent); text-decoration: none; }
+    .meta-line a:hover { text-decoration: underline; }
+
+    /* ---- sections ---- */
+    .stats { margin-top: var(--pura-space-6); }
+    .tabs-wrap { margin-top: var(--pura-space-6); }
+
+    .posts { display: grid; gap: var(--pura-space-4); }
+    .post-head {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      font-size: var(--pura-text-sm);
+    }
+    .post-head .who { font-weight: 600; color: var(--pura-fg); }
+    .post-head .when { color: var(--pura-muted); font-size: var(--pura-text-xs); }
+    .post-body { color: var(--pura-muted-fg); font-size: var(--pura-text-sm); }
+    .post-foot { display: flex; gap: var(--pura-space-2); align-items: center; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--pura-space-4); }
+    @media (min-width: 40rem) { .about-grid { grid-template-columns: 1.4fr 1fr; } }
+    .field-list { display: grid; gap: var(--pura-space-3); margin: 0; }
+    .field-list div { display: flex; justify-content: space-between; gap: var(--pura-space-3); font-size: var(--pura-text-sm); }
+    .field-list dt { color: var(--pura-muted); }
+    .field-list dd { color: var(--pura-fg); margin: 0; font-weight: 550; text-align: right; }
+    .tags { display: flex; flex-wrap: wrap; gap: var(--pura-space-2); }
+
+    @media (max-width: 34rem) {
+      .header pura-avatar.hero { margin-top: -3.25rem; }
+      .header pura-avatar.hero::part(avatar) { width: 5.5rem; height: 5.5rem; }
+      .header-actions { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <pura-button class="theme-toggle" variant="secondary" size="sm" id="theme-toggle" aria-label="Alternar tema">Tema escuro</pura-button>
+
+  <header>
+    <div class="cover" role="img" aria-label="Imagem de capa do perfil"></div>
+  </header>
+
+  <main class="page">
+    <section class="header">
+      <pura-avatar class="hero" size="lg" src="https://i.pravatar.cc/120?img=12" initials="EC" alt="Emília Carvalho"></pura-avatar>
+
+      <div class="header-meta">
+        <div class="name-row">
+          <h1 class="name">Emília Carvalho</h1>
+          <pura-badge variant="primary" dot>Pro</pura-badge>
+          <pura-badge variant="success">Disponível</pura-badge>
+        </div>
+        <p class="role">Engenheira de Produto • Design Systems</p>
+        <p class="bio">Criando interfaces acessíveis com Web Components. Apaixonada por tipografia, performance e por reduzir a complexidade até que ela se torne simplicidade.</p>
+        <div class="meta-line">
+          <span>São Paulo, Brasil</span>
+          <span>Entrou em março de 2021</span>
+          <span><a href="https://pura.dev" target="_blank" rel="noopener">pura.dev</a></span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <pura-button variant="primary" id="follow-btn">Seguir</pura-button>
+        <pura-button variant="secondary">Mensagem</pura-button>
+      </div>
+    </section>
+
+    <section class="stats">
+      <pura-stat-grid label="Estatísticas do perfil" min="9rem">
+        <pura-stat label="Publicações" value="248"></pura-stat>
+        <pura-stat label="Seguidores" value="12,4 mil" delta="+8,2%" trend="up"></pura-stat>
+        <pura-stat label="Seguindo" value="312"></pura-stat>
+        <pura-stat label="Curtidas" value="86,1 mil" delta="+1,4%" trend="up"></pura-stat>
+      </pura-stat-grid>
+    </section>
+
+    <section class="tabs-wrap">
+      <pura-tabs active="0">
+        <!-- ============ POSTS ============ -->
+        <pura-tab label="Publicações">
+          <div class="posts">
+            <pura-card hover>
+              <div class="post-head" slot="header">
+                <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" initials="EC" alt="Emília Carvalho"></pura-avatar>
+                <span class="who">Emília Carvalho</span>
+                <span class="when">há 2 horas</span>
+              </div>
+              <p class="post-body">Lançamos a v2 do nosso design system: 123 componentes nativos, zero dependências, temas via CSS custom properties. A diferença no tamanho do bundle foi impressionante.</p>
+              <div class="post-foot" slot="footer">
+                <pura-badge variant="info" dot>design-system</pura-badge>
+                <pura-badge>web-components</pura-badge>
+              </div>
+            </pura-card>
+
+            <pura-card hover>
+              <div class="post-head" slot="header">
+                <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" initials="EC" alt="Emília Carvalho"></pura-avatar>
+                <span class="who">Emília Carvalho</span>
+                <span class="when">ontem</span>
+              </div>
+              <p class="post-body">Dica do dia: prefira <code>::part()</code> em vez de gambiarras de especificidade quando precisar customizar um Web Component de fora. Isso mantém o encapsulamento intacto e continua temável.</p>
+              <div class="post-foot" slot="footer">
+                <pura-badge variant="warning" dot>dica</pura-badge>
+                <pura-badge>css</pura-badge>
+              </div>
+            </pura-card>
+
+            <pura-card hover>
+              <div class="post-head" slot="header">
+                <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" initials="EC" alt="Emília Carvalho"></pura-avatar>
+                <span class="who">Emília Carvalho</span>
+                <span class="when">há 3 dias</span>
+              </div>
+              <p class="post-body">Acessibilidade não é um extra que você adiciona no final. É a fundação. Comecei a escrever um guia de padrões ARIA para componentes compostos, que chega aqui em breve.</p>
+              <div class="post-foot" slot="footer">
+                <pura-badge variant="success" dot>a11y</pura-badge>
+              </div>
+            </pura-card>
+          </div>
+        </pura-tab>
+
+        <!-- ============ ABOUT ============ -->
+        <pura-tab label="Sobre">
+          <div class="about-grid">
+            <pura-card>
+              <span slot="header">Biografia</span>
+              <p>Engenheira de produto com 9 anos de experiência em interfaces. Liderou a migração de uma stack baseada em framework para Web Components nativos, reduzindo o bundle em 70% e cortando o tempo de carregamento pela metade.</p>
+              <p style="margin-top: var(--pura-space-3)">Fora do trabalho, ela escreve sobre tipografia, mantém uma newsletter de front-end e orienta pessoas em transição de carreira.</p>
+            </pura-card>
+
+            <pura-card>
+              <span slot="header">Detalhes</span>
+              <dl class="field-list">
+                <div><dt>Cargo</dt><dd>Staff Engineer</dd></div>
+                <div><dt>Empresa</dt><dd>Aurora Labs</dd></div>
+                <div><dt>Localização</dt><dd>São Paulo, BR</dd></div>
+                <div><dt>Fuso horário</dt><dd>BRT</dd></div>
+              </dl>
+              <pura-separator label="Habilidades" style="margin: var(--pura-space-4) 0"></pura-separator>
+              <div class="tags">
+                <pura-badge>TypeScript</pura-badge>
+                <pura-badge>Web Components</pura-badge>
+                <pura-badge>CSS</pura-badge>
+                <pura-badge>Acessibilidade</pura-badge>
+                <pura-badge>Performance</pura-badge>
+              </div>
+            </pura-card>
+          </div>
+        </pura-tab>
+
+        <!-- ============ ACTIVITY ============ -->
+        <pura-tab label="Atividade">
+          <pura-card>
+            <span slot="header">Atividade recente</span>
+            <pura-timeline label="Linha do tempo de atividade">
+              <pura-timeline-item variant="primary">
+                <span slot="time">Hoje, 09:14</span>
+                <span slot="title">Publicou um novo artigo</span>
+                "Temas sem dor com CSS Custom Properties" foi ao ar e já passou de 2 mil leituras.
+              </pura-timeline-item>
+              <pura-timeline-item variant="success">
+                <span slot="time">Ontem, 16:40</span>
+                <span slot="title">Mesclou um pull request</span>
+                Adicionou suporte a <code>::part()</code> em mais 8 componentes do design system.
+              </pura-timeline-item>
+              <pura-timeline-item variant="info">
+                <span slot="time">há 3 dias</span>
+                <span slot="title">Alcançou um marco</span>
+                Chegou a 12 mil seguidores. Obrigada a toda a comunidade!
+              </pura-timeline-item>
+              <pura-timeline-item variant="warning">
+                <span slot="time">há 1 semana</span>
+                <span slot="title">Abriu uma discussão</span>
+                Propôs um RFC sobre convenções de nomenclatura para slots nomeados em componentes compostos.
+              </pura-timeline-item>
+              <pura-timeline-item>
+                <span slot="time">há 2 semanas</span>
+                <span slot="title">Entrou em uma organização</span>
+                Começou a colaborar com o time de plataforma da Aurora Labs.
+              </pura-timeline-item>
+            </pura-timeline>
+          </pura-card>
+        </pura-tab>
+      </pura-tabs>
+    </section>
+  </main>
+
+  <script type="module">
+    // Theme toggle: flip strictly between light/dark so prefers-color-scheme never takes over.
+    const root = document.documentElement;
+    const btn = document.getElementById("theme-toggle");
+    const sync = () => {
+      const dark = root.dataset.theme === "dark";
+      btn.textContent = dark ? "Tema claro" : "Tema escuro";
+    };
+    btn.addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+      sync();
+    });
+    sync();
+
+    // Follow button: toggle label/variant.
+    const follow = document.getElementById("follow-btn");
+    let following = false;
+    follow.addEventListener("click", () => {
+      following = !following;
+      follow.textContent = following ? "Seguindo" : "Seguir";
+      follow.setAttribute("variant", following ? "secondary" : "primary");
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

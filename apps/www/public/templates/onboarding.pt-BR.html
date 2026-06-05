@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Integração · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ambient backdrop */
+    .page {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: var(--pura-space-5);
+      position: relative;
+      overflow: hidden;
+    }
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(60rem 40rem at 50% -10%, color-mix(in srgb, var(--pura-accent) 12%, transparent), transparent 70%),
+        radial-gradient(44rem 32rem at 110% 120%, color-mix(in srgb, var(--pura-accent) 8%, transparent), transparent 70%);
+      pointer-events: none;
+    }
+
+    .wizard {
+      width: 100%;
+      max-width: 34rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--pura-space-2);
+      margin-bottom: var(--pura-space-5);
+    }
+    .brand .mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--pura-radius);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: var(--pura-shadow-sm);
+    }
+    .brand .name {
+      font-size: var(--pura-text-lg);
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    /* card composition */
+    .stepper-wrap {
+      padding-bottom: var(--pura-space-5);
+      margin-bottom: var(--pura-space-5);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .step-head {
+      margin-bottom: var(--pura-space-5);
+    }
+    .step-head h1 {
+      margin: 0 0 var(--pura-space-1);
+      font-size: var(--pura-text-xl);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: var(--pura-fg);
+    }
+    .step-head p {
+      margin: 0;
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted);
+      line-height: 1.5;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-4);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--pura-space-4);
+    }
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-3);
+    }
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-3) var(--pura-space-4);
+      border: 1px solid var(--pura-border-strong);
+      border-radius: var(--pura-radius);
+      background: var(--pura-bg);
+      transition: border-color var(--pura-dur) var(--pura-ease), background var(--pura-dur) var(--pura-ease);
+    }
+    .choice:hover { border-color: var(--pura-fg); }
+    .choice .copy { display: flex; flex-direction: column; gap: 2px; }
+    .choice .copy strong { font-size: var(--pura-text-sm); font-weight: 600; color: var(--pura-fg); }
+    .choice .copy span { font-size: var(--pura-text-xs); color: var(--pura-muted); line-height: 1.45; }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-3);
+    }
+    .invite-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-3);
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius);
+      background: var(--pura-subtle);
+    }
+    .invite-row .who { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .invite-row .who b { font-size: var(--pura-text-sm); font-weight: 600; color: var(--pura-fg); }
+    .invite-row .who span { font-size: var(--pura-text-xs); color: var(--pura-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--pura-space-3);
+      width: 100%;
+    }
+    .nav .meta {
+      font-size: var(--pura-text-xs);
+      color: var(--pura-muted);
+    }
+    .nav .actions {
+      display: flex;
+      gap: var(--pura-space-2);
+    }
+
+    .success-icon {
+      width: 1.5rem; height: 1.5rem; color: var(--pura-success);
+    }
+
+    /* fixed theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 10;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: grid;
+      place-items: center;
+      border-radius: var(--pura-radius);
+      border: 1px solid var(--pura-border-strong);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease),
+        border-color var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .theme-toggle svg { width: 1.1rem; height: 1.1rem; }
+    .theme-toggle .ico-moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .ico-sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .ico-moon { display: block; }
+
+    @media (max-width: 32rem) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .step-head h1 { font-size: var(--pura-text-lg); }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Alternar tema">
+    <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+    </svg>
+    <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
+  <main class="page">
+    <section class="wizard">
+      <div class="brand">
+        <span class="mark">p</span>
+        <span class="name">pura</span>
+      </div>
+
+      <pura-card>
+        <div class="stepper-wrap">
+          <pura-stepper id="stepper" steps="Perfil, Equipe, Preferências, Concluído" active="0" aria-label="Progresso da integração"></pura-stepper>
+        </div>
+
+        <!-- STEP 0 — Profile -->
+        <section class="panel" data-step="0">
+          <div class="step-head">
+            <h1>Conte um pouco sobre você</h1>
+            <p>Vamos adaptar o Pura ao seu jeito de trabalhar.</p>
+          </div>
+          <div class="form">
+            <div class="grid-2">
+              <pura-field label="Nome">
+                <pura-input name="nome" value="Mariana" placeholder="Seu nome"></pura-input>
+              </pura-field>
+              <pura-field label="Sobrenome">
+                <pura-input name="sobrenome" value="Souza" placeholder="Seu sobrenome"></pura-input>
+              </pura-field>
+            </div>
+            <pura-field label="E-mail corporativo" description="Vamos usá-lo para enviar o convite da sua equipe.">
+              <pura-input type="email" name="email" value="mariana@nimbus.com" placeholder="voce@empresa.com"></pura-input>
+            </pura-field>
+            <pura-field label="Cargo">
+              <pura-select name="cargo">
+                <option value="produto" selected>Gerente de Produto</option>
+                <option value="eng">Engenharia</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+                <option value="founder">Fundador / Diretoria</option>
+              </pura-select>
+            </pura-field>
+          </div>
+        </section>
+
+        <!-- STEP 1 — Team -->
+        <section class="panel" data-step="1" hidden>
+          <div class="step-head">
+            <h1>Monte sua equipe</h1>
+            <p>Convide colegas agora ou faça isso depois pelo painel.</p>
+          </div>
+          <div class="form">
+            <pura-field label="Nome do espaço de trabalho">
+              <pura-input name="workspace" value="Nimbus Studio" placeholder="ex.: Acme Ltda."></pura-input>
+            </pura-field>
+
+            <pura-field label="Convidados">
+              <div class="team">
+                <div class="invite-row">
+                  <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" alt="Rafael Carvalho" status="online"></pura-avatar>
+                  <div class="who">
+                    <b>Rafael Carvalho</b>
+                    <span>rafael@nimbus.com</span>
+                  </div>
+                  <pura-badge variant="success">Aceito</pura-badge>
+                </div>
+                <div class="invite-row">
+                  <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=32" alt="Helena Moraes"></pura-avatar>
+                  <div class="who">
+                    <b>Helena Moraes</b>
+                    <span>helena@nimbus.com</span>
+                  </div>
+                  <pura-badge variant="warning">Pendente</pura-badge>
+                </div>
+              </div>
+            </pura-field>
+
+            <pura-field label="Convidar por e-mail" description="Separe vários endereços com vírgula.">
+              <pura-input type="email" name="convite" placeholder="colega@empresa.com"></pura-input>
+            </pura-field>
+          </div>
+        </section>
+
+        <!-- STEP 2 — Preferences -->
+        <section class="panel" data-step="2" hidden>
+          <div class="step-head">
+            <h1>Defina suas preferências</h1>
+            <p>Você pode alterar tudo isso depois nas configurações.</p>
+          </div>
+          <div class="form">
+            <pura-field label="Como você pretende usar o Pura?">
+              <div class="choices">
+                <label class="choice">
+                  <pura-checkbox checked name="uso-tarefas"></pura-checkbox>
+                  <span class="copy">
+                    <strong>Gestão de tarefas</strong>
+                    <span>Planeje sprints e acompanhe as entregas da sua equipe.</span>
+                  </span>
+                </label>
+                <label class="choice">
+                  <pura-checkbox checked name="uso-docs"></pura-checkbox>
+                  <span class="copy">
+                    <strong>Documentação</strong>
+                    <span>Centralize especificações, notas e bases de conhecimento.</span>
+                  </span>
+                </label>
+                <label class="choice">
+                  <pura-checkbox name="uso-roadmap"></pura-checkbox>
+                  <span class="copy">
+                    <strong>Roadmap público</strong>
+                    <span>Compartilhe o que vem por aí com seus clientes.</span>
+                  </span>
+                </label>
+              </div>
+            </pura-field>
+
+            <pura-field label="Notificações">
+              <pura-switch checked name="notif-email">Resumo semanal por e-mail</pura-switch>
+            </pura-field>
+          </div>
+        </section>
+
+        <!-- STEP 3 — Done -->
+        <section class="panel" data-step="3" hidden>
+          <pura-empty title="Tudo pronto, Mariana!">
+            <svg slot="icon" class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+            Seu espaço de trabalho <b>Nimbus Studio</b> está configurado e os convites foram enviados. Vamos ao trabalho.
+            <div slot="action">
+              <pura-button variant="primary" id="finish-btn">Ir para o painel</pura-button>
+            </div>
+          </pura-empty>
+        </section>
+
+        <!-- FOOTER NAV -->
+        <div slot="footer">
+          <div class="nav">
+            <span class="meta" id="nav-meta">Etapa 1 de 4</span>
+            <div class="actions">
+              <pura-button variant="ghost" id="back-btn" disabled>Voltar</pura-button>
+              <pura-button variant="primary" id="next-btn">Continuar</pura-button>
+            </div>
+          </div>
+        </div>
+      </pura-card>
+    </section>
+  </main>
+
+  <script type="module">
+    // Theme toggle: flip data-theme between light/dark
+    const root = document.documentElement;
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // ---- Onboarding wizard wiring ----
+    const LAST = 3;
+    let current = 0;
+
+    const stepper = document.getElementById("stepper");
+    const panels = [...document.querySelectorAll(".panel")];
+    const backBtn = document.getElementById("back-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const meta = document.getElementById("nav-meta");
+
+    function render() {
+      // advance the stepper indicator (zero-based, re-renders on attr change)
+      stepper.setAttribute("active", String(current));
+
+      // swap step panels via the hidden attribute
+      panels.forEach((p) => {
+        p.hidden = Number(p.dataset.step) !== current;
+      });
+
+      meta.textContent = `Etapa ${current + 1} de ${LAST + 1}`;
+
+      // Back is disabled on the first step (the button itself blocks the handler)
+      backBtn.toggleAttribute("disabled", current === 0);
+
+      // On the success step the footer nav collapses to a single "Finish"
+      if (current === LAST) {
+        backBtn.hidden = true;
+        nextBtn.hidden = true;
+        meta.textContent = "Concluído";
+      } else {
+        backBtn.hidden = false;
+        nextBtn.hidden = false;
+        nextBtn.textContent = current === LAST - 1 ? "Finalizar" : "Continuar";
+      }
+    }
+
+    nextBtn.addEventListener("click", () => {
+      current = Math.min(current + 1, LAST);
+      render();
+    });
+    backBtn.addEventListener("click", () => {
+      current = Math.max(current - 1, 0);
+      render();
+    });
+
+    // success-step action restarts the demo flow
+    document.getElementById("finish-btn").addEventListener("click", () => {
+      current = 0;
+      render();
+    });
+
+    render();
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

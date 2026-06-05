@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Renderizando 10.000 linhas sem travar o navegador - Blog pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- top bar ---- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--pura-space-4);
+      height: 56px;
+      padding: 0 var(--pura-space-5);
+      background: color-mix(in srgb, var(--pura-bg) 80%, transparent);
+      backdrop-filter: saturate(160%) blur(10px);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--pura-space-2);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--pura-fg);
+    }
+    .brand .logo {
+      width: 22px; height: 22px;
+      border-radius: var(--pura-radius-sm);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      display: grid; place-items: center;
+      font-size: 13px; font-weight: 800;
+    }
+    .theme-toggle {
+      font: inherit;
+      cursor: pointer;
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      border-radius: var(--pura-radius);
+      border: 1px solid var(--pura-border);
+      background: var(--pura-subtle);
+      color: var(--pura-fg);
+      transition: background var(--pura-dur) var(--pura-ease),
+        border-color var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle-hover); }
+    .theme-toggle:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
+    .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .sun { display: none; }
+    html[data-theme="dark"] .theme-toggle .moon { display: inline; }
+
+    /* ---- layout ---- */
+    .layout {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: var(--pura-space-6) var(--pura-space-5) 96px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 232px;
+      gap: var(--pura-space-6);
+      align-items: start;
+    }
+    article { min-width: 0; }
+
+    /* ---- article header ---- */
+    .post-header { margin-bottom: var(--pura-space-6); }
+    .post-header .crumbs { margin-bottom: var(--pura-space-4); }
+    .post-title {
+      font-size: clamp(1.875rem, 1.2rem + 2.4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin: 0 0 var(--pura-space-3);
+    }
+    .post-lede {
+      font-size: var(--pura-text-lg);
+      color: var(--pura-muted-fg);
+      line-height: 1.55;
+      margin: 0 0 var(--pura-space-5);
+      max-width: 60ch;
+    }
+    .byline {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+      flex-wrap: wrap;
+    }
+    .byline .who { display: flex; flex-direction: column; line-height: 1.3; }
+    .byline .name { font-weight: 600; font-size: var(--pura-text-sm); }
+    .byline .meta { font-size: var(--pura-text-xs); color: var(--pura-muted); }
+    .byline .dot {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--pura-border-strong);
+    }
+    .tags { display: flex; gap: var(--pura-space-2); flex-wrap: wrap; margin-left: auto; }
+
+    .cover {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      border-radius: var(--pura-radius-lg);
+      border: 1px solid var(--pura-border);
+      margin: var(--pura-space-5) 0 var(--pura-space-6);
+      background:
+        radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--pura-accent) 22%, transparent), transparent 55%),
+        radial-gradient(120% 140% at 100% 100%, color-mix(in srgb, var(--pura-success) 18%, transparent), transparent 55%),
+        var(--pura-subtle);
+    }
+
+    /* prose section anchors clear the sticky topbar */
+    .prose-body :is(h2, h3)[id] { scroll-margin-top: 80px; }
+
+    .post-footer {
+      margin-top: var(--pura-space-6);
+      padding-top: var(--pura-space-5);
+      border-top: 1px solid var(--pura-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--pura-space-4);
+    }
+    .post-footer .react-label {
+      font-size: var(--pura-text-sm);
+      color: var(--pura-muted-fg);
+      font-weight: 500;
+    }
+
+    /* ---- TOC aside ---- */
+    aside.toc {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    aside.toc .toc-title {
+      font-size: var(--pura-text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 650;
+      color: var(--pura-muted);
+      margin: 0 0 var(--pura-space-3);
+    }
+    pura-scroll-spy a {
+      display: block;
+      font-size: var(--pura-text-sm);
+      padding: var(--pura-space-1) var(--pura-space-3);
+      border-left: 2px solid var(--pura-border);
+      margin-bottom: 2px;
+      line-height: 1.4;
+    }
+    pura-scroll-spy a[aria-current="location"] {
+      border-left-color: var(--pura-accent);
+    }
+    pura-scroll-spy a.sub { padding-left: var(--pura-space-5); }
+
+    @media (max-width: 880px) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      aside.toc { display: none; }
+      .tags { margin-left: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="logo">p</span>
+      <span>pura<span style="color: var(--pura-muted); font-weight: 500;">/blog</span></span>
+    </a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema">
+      <span class="sun" aria-hidden="true">☀</span>
+      <span class="moon" aria-hidden="true">☾</span>
+    </button>
+  </header>
+
+  <div class="layout">
+    <article>
+      <header class="post-header">
+        <pura-breadcrumb class="crumbs">
+          <pura-breadcrumb-item href="/">Início</pura-breadcrumb-item>
+          <pura-breadcrumb-item href="/blog">Blog</pura-breadcrumb-item>
+          <pura-breadcrumb-item current>Desempenho</pura-breadcrumb-item>
+        </pura-breadcrumb>
+
+        <h1 class="post-title">Renderizando 10.000 linhas sem travar o navegador</h1>
+        <p class="post-lede">
+          Tabelas grandes colocam a interface de joelhos quando tentamos pintar tudo de uma só vez.
+          Veja como a virtualização, os intersection observers e os Web Components nativos
+          mantêm 60 fps mesmo com listas enormes.
+        </p>
+
+        <div class="byline">
+          <pura-avatar src="https://i.pravatar.cc/120?img=12" alt="Mariana Caldeira" size="md" status="online"></pura-avatar>
+          <span class="who">
+            <span class="name">Mariana Caldeira</span>
+            <span class="meta">Engenheira de Front-end · pura</span>
+          </span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="meta" style="font-size: var(--pura-text-xs); color: var(--pura-muted);">
+            <time datetime="2026-05-22">22 de maio de 2026</time> · 8 min de leitura
+          </span>
+          <span class="tags">
+            <pura-badge variant="info" dot>Desempenho</pura-badge>
+            <pura-badge variant="neutral">Web Components</pura-badge>
+            <pura-badge variant="success">DOM</pura-badge>
+          </span>
+        </div>
+
+        <div class="cover" role="img" aria-label="Ilustração abstrata em gradiente"></div>
+      </header>
+
+      <pura-prose class="prose-body">
+        <p>
+          Você provavelmente já viu uma tabela com milhares de registros transformar uma página fluida
+          em uma apresentação de slides. Raramente a culpa é do framework: é o navegador tentando construir
+          dezenas de milhares de nós do DOM, calcular o layout e pintar tudo em um único frame.
+          Neste artigo vamos dividir o problema em partes e resolver cada uma com ferramentas
+          que já vêm com a plataforma.
+        </p>
+
+        <h2 id="sec-problema">O problema do DOM gigante</h2>
+        <p>
+          Cada célula que entra na árvore custa memória e tempo de layout. Com
+          <code>10.000</code> linhas e seis colunas, isso dá <strong>60.000 nós</strong> só na tabela.
+          O navegador precisa medir, posicionar e pintar todos eles, até os que estão fora
+          da tela. O usuário paga esse custo em engasgos.
+        </p>
+        <blockquote>
+          A regra de ouro: o DOM só deve conter o que o olho consegue ver. Tudo abaixo
+          da dobra é desperdício até o momento em que vira pixel.
+        </blockquote>
+
+        <h2 id="sec-virtualizacao">Virtualização de listas</h2>
+        <p>
+          A ideia central é renderizar apenas a janela visível mais algumas linhas extras de folga.
+          Conforme a rolagem avança, reciclamos os mesmos nós e atualizamos seu conteúdo em vez
+          de criar novos elementos. Um espaçador define a altura total para que a barra de rolagem
+          permaneça precisa.
+        </p>
+
+        <h3 id="sec-janela">Calculando a janela visível</h3>
+        <p>
+          Com uma altura de linha fixa, a conta é simples: o primeiro índice visível é o
+          deslocamento de rolagem dividido pela altura da linha.
+        </p>
+        <pura-code-block language="js" filename="virtual-list.js" numbered>const ROW_H = 36;            // altura fixa de cada linha (px)
+const OVERSCAN = 6;          // linhas extras acima/abaixo
+
+function visibleRange(scrollTop, viewportH, total) {
+  const start = Math.max(0, Math.floor(scrollTop / ROW_H) - OVERSCAN);
+  const count = Math.ceil(viewportH / ROW_H) + OVERSCAN * 2;
+  const end = Math.min(total, start + count);
+  return { start, end };
+}</pura-code-block>
+
+        <h3 id="sec-reciclagem">Reciclando os nós</h3>
+        <p>
+          Em vez de remover e recriar linhas, mantemos um pool fixo e movemos cada uma com
+          <code>transform: translateY()</code>. Os transforms não disparam reflow, apenas compositing,
+          então a rolagem permanece suave.
+        </p>
+        <ul>
+          <li>Reutilize os nós, não os destrua a cada frame.</li>
+          <li>Use <code>translateY</code> em vez de <code>top</code> para posicioná-los.</li>
+          <li>Atualize o conteúdo via <code>textContent</code>, evitando <code>innerHTML</code>.</li>
+        </ul>
+
+        <h2 id="sec-observer">IntersectionObserver e scroll-spy</h2>
+        <p>
+          Para reagir ao que entra e sai da tela sem escutar cada evento de
+          rolagem, o <code>IntersectionObserver</code> é a ferramenta certa. Ele agenda os callbacks fora
+          da thread crítica de rolagem. O próprio
+          componente <code>&lt;pura-scroll-spy&gt;</code> deste artigo usa essa API para destacar o
+          item do índice à direita.
+        </p>
+        <pura-code-block language="js" filename="observe.js">const io = new IntersectionObserver((entries) =&gt; {
+  for (const e of entries) {
+    if (e.isIntersecting) e.target.dataset.seen = "true";
+  }
+}, { rootMargin: "0px 0px -65% 0px" });
+
+document.querySelectorAll("[data-row]").forEach((el) =&gt; io.observe(el));</pura-code-block>
+
+        <h2 id="sec-medindo">Medindo de verdade</h2>
+        <p>
+          Otimizar sem medir é adivinhação. Antes e depois de cada mudança, abra o
+          painel de Performance e observe os frames longos. O objetivo é simples: nenhum frame deve
+          ultrapassar <code>16,6 ms</code>.
+        </p>
+        <ol>
+          <li>Grave um perfil enquanto rola a lista até o fim.</li>
+          <li>Identifique as tarefas longas marcadas em vermelho.</li>
+          <li>Confirme que o layout e a pintura diminuíram após a virtualização.</li>
+        </ol>
+
+        <hr />
+
+        <h2 id="sec-conclusao">Conclusão</h2>
+        <p>
+          Listas enormes não precisam ser lentas. Renderize apenas o que está visível, recicle os nós,
+          delegue a detecção de visibilidade ao <code>IntersectionObserver</code> e meça cada
+          etapa. A plataforma já entrega tudo de que você precisa, sem dependências pesadas.
+        </p>
+      </pura-prose>
+
+      <footer class="post-footer">
+        <span class="react-label">Este artigo ajudou?</span>
+        <pura-reactions label="Reações ao artigo">
+          <pura-reaction emoji="👍" count="128" label="Curti" active></pura-reaction>
+          <pura-reaction emoji="🚀" count="64" label="Incrível"></pura-reaction>
+          <pura-reaction emoji="🤯" count="41" label="Impressionante"></pura-reaction>
+          <pura-reaction emoji="🙏" count="19" label="Obrigado"></pura-reaction>
+        </pura-reactions>
+      </footer>
+    </article>
+
+    <aside class="toc">
+      <p class="toc-title">Neste artigo</p>
+      <pura-scroll-spy label="Neste artigo" offset="80" auto-scroll>
+        <a href="#sec-problema">O problema do DOM gigante</a>
+        <a href="#sec-virtualizacao">Virtualização de listas</a>
+        <a href="#sec-janela" class="sub">Calculando a janela visível</a>
+        <a href="#sec-reciclagem" class="sub">Reciclando os nós</a>
+        <a href="#sec-observer">IntersectionObserver e scroll-spy</a>
+        <a href="#sec-medindo">Medindo de verdade</a>
+        <a href="#sec-conclusao">Conclusão</a>
+      </pura-scroll-spy>
+    </aside>
+  </div>
+
+  <script type="module">
+    const root = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        toggle.setAttribute("aria-label", next === "dark" ? "Mudar para tema claro" : "Mudar para tema escuro");
+      });
+    }
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

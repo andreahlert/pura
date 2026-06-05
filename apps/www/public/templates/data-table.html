@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Table · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .page {
+      max-width: 76rem;
+      margin: 0 auto;
+      padding: var(--pura-space-6) var(--pura-space-5) var(--pura-space-6);
+    }
+
+    /* header ---------------------------------------------------------- */
+    .head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--pura-space-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--pura-space-5);
+    }
+    .head h1 {
+      margin: 0;
+      font-size: var(--pura-text-xl);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .head p {
+      margin: var(--pura-space-2) 0 0;
+      color: var(--pura-muted);
+      font-size: var(--pura-text-sm);
+    }
+    .head-actions { display: flex; gap: var(--pura-space-2); flex-shrink: 0; }
+
+    /* toolbar --------------------------------------------------------- */
+    .toolbar {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--pura-space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--pura-space-4);
+    }
+    .toolbar .search { flex: 1 1 18rem; min-width: 12rem; }
+    .toolbar .filter { flex: 0 0 11rem; }
+    .toolbar-spacer { flex: 1 1 0; }
+
+    /* table cells ----------------------------------------------------- */
+    table { width: 100%; }
+    .col-check { width: 2.5rem; }
+    .col-actions { width: 3rem; }
+
+    th .th-sort {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--pura-space-1);
+      cursor: pointer;
+      user-select: none;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-size: var(--pura-text-sm);
+      font-weight: 600;
+      color: var(--pura-muted-fg);
+      padding: 0;
+    }
+    .th-sort:hover { color: var(--pura-fg); }
+    .th-sort .arrow { opacity: 0.4; font-size: 0.7em; transition: opacity var(--pura-dur) var(--pura-ease); }
+    .th-sort[data-active] .arrow { opacity: 1; color: var(--pura-fg); }
+
+    .cell-user {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+    }
+    .cell-user .meta { display: flex; flex-direction: column; min-width: 0; }
+    .cell-user .name { font-weight: 550; color: var(--pura-fg); white-space: nowrap; }
+    .cell-user .email { font-size: var(--pura-text-xs); color: var(--pura-muted); white-space: nowrap; }
+    .num { font-variant-numeric: tabular-nums; }
+    .muted { color: var(--pura-muted); }
+    .actions-cell { text-align: right; }
+
+    .kebab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      background: transparent;
+      color: var(--pura-muted-fg);
+      border-radius: var(--pura-radius-sm);
+      cursor: pointer;
+      transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
+    }
+    .kebab:hover { background: var(--pura-subtle-hover); color: var(--pura-fg); }
+    .kebab svg { width: 1.1rem; height: 1.1rem; }
+
+    /* footer ---------------------------------------------------------- */
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--pura-space-4);
+      flex-wrap: wrap;
+      margin-top: var(--pura-space-4);
+    }
+    .foot .count { font-size: var(--pura-text-sm); color: var(--pura-muted); }
+    .foot .count strong { color: var(--pura-fg); font-weight: 600; }
+
+    /* theme toggle ---------------------------------------------------- */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid var(--pura-border-strong);
+      border-radius: var(--pura-radius-full);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      box-shadow: var(--pura-shadow);
+      cursor: pointer;
+      transition: background var(--pura-dur) var(--pura-ease), transform var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle:active { transform: scale(0.95); }
+    .theme-toggle svg { width: 1.15rem; height: 1.15rem; }
+    .theme-toggle .moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+    @media (max-width: 40rem) {
+      .page { padding: var(--pura-space-5) var(--pura-space-4); }
+      .toolbar .filter { flex: 1 1 8rem; }
+      .head-actions { width: 100%; }
+      .head-actions pura-button { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <main class="page">
+    <header class="head">
+      <div>
+        <h1>Customers</h1>
+        <p>Manage accounts, plans, and activity across your customer base.</p>
+      </div>
+      <div class="head-actions">
+        <pura-button variant="secondary" size="md">Export</pura-button>
+        <pura-button variant="primary" size="md">New customer</pura-button>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="search">
+        <pura-input id="search" type="search" label="Search" placeholder="Search by name or email..."></pura-input>
+      </div>
+      <div class="filter">
+        <pura-select id="statusFilter" label="Status">
+          <option value="todos">All</option>
+          <option value="ativo">Active</option>
+          <option value="pendente">Pending</option>
+          <option value="inativo">Inactive</option>
+        </pura-select>
+      </div>
+      <div class="filter">
+        <pura-select id="planFilter" label="Plan">
+          <option value="todos">All plans</option>
+          <option value="pro">Pro</option>
+          <option value="business">Business</option>
+          <option value="enterprise">Enterprise</option>
+        </pura-select>
+      </div>
+      <div class="toolbar-spacer"></div>
+      <pura-button-group>
+        <pura-button variant="secondary" size="md" id="bulkArchive">Archive</pura-button>
+        <pura-button variant="secondary" size="md" id="bulkDelete">Delete</pura-button>
+      </pura-button-group>
+    </div>
+
+    <pura-table>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">
+              <button class="th-sort" data-sort="name" data-active>Customer <span class="arrow" aria-hidden="true">▲</span></button>
+            </th>
+            <th scope="col">
+              <button class="th-sort" data-sort="plan">Plan <span class="arrow" aria-hidden="true">▲</span></button>
+            </th>
+            <th scope="col">
+              <button class="th-sort" data-sort="status">Status <span class="arrow" aria-hidden="true">▲</span></button>
+            </th>
+            <th scope="col">
+              <button class="th-sort" data-sort="mrr">MRR <span class="arrow" aria-hidden="true">▲</span></button>
+            </th>
+            <th scope="col">
+              <button class="th-sort" data-sort="seen">Last activity <span class="arrow" aria-hidden="true">▲</span></button>
+            </th>
+            <th scope="col" class="col-actions"><span class="sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody id="rows"><!-- populated by script --></tbody>
+      </table>
+    </pura-table>
+
+    <div class="foot">
+      <span class="count">Showing <strong id="rangeFrom">1</strong>-<strong id="rangeTo">8</strong> of <strong id="rangeTotal">96</strong> customers</span>
+      <pura-pagination id="pager" total="12" page="1"></pura-pagination>
+    </div>
+  </main>
+
+  <script type="module">
+    const data = [
+      { id: 1, name: "Mary Albright", email: "mary.a@cloudbooks.com", img: 12, plan: "Enterprise", status: "ativo", mrr: 4290, seen: "4 min ago" },
+      { id: 2, name: "Ralph Travers", email: "ralph@travers.shop", img: 33, plan: "Pro", status: "ativo", mrr: 890, seen: "2 h ago" },
+      { id: 3, name: "Beatrice Cameron", email: "bea.cameron@studiob.design", img: 5, plan: "Business", status: "pendente", mrr: 2150, seen: "yesterday" },
+      { id: 4, name: "Oscar Mendez", email: "oscar.mendez@fintrail.io", img: 51, plan: "Pro", status: "ativo", mrr: 890, seen: "3 h ago" },
+      { id: 5, name: "Laura Fontaine", email: "laura@vitalclinic.com", img: 47, plan: "Business", status: "inativo", mrr: 0, seen: "22 days ago" },
+      { id: 6, name: "Gus Parker", email: "gus.p@logistixco.net", img: 14, plan: "Enterprise", status: "ativo", mrr: 5640, seen: "11 min ago" },
+      { id: 7, name: "Caroline Noonan", email: "caroline.noonan@orbeagency.com", img: 25, plan: "Pro", status: "pendente", mrr: 890, seen: "1 day ago" },
+      { id: 8, name: "Henry Sargent", email: "h.sargent@buildmax.com", img: 60, plan: "Business", status: "ativo", mrr: 2150, seen: "38 min ago" },
+    ];
+
+    const statusVariant = { ativo: "success", pendente: "warning", inativo: "danger" };
+    const statusLabel = { ativo: "Active", pendente: "Pending", inativo: "Inactive" };
+    const statusDot = { ativo: "online", pendente: "busy", inativo: "offline" };
+    const brl = (n) => n === 0 ? "-" : n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+    const initials = (name) => name.split(" ").slice(0, 2).map((w) => w[0]).join("");
+
+    const rows = document.getElementById("rows");
+    function render(list) {
+      rows.replaceChildren(...list.map((c) => {
+        const tr = document.createElement("tr");
+
+        const cUser = document.createElement("td");
+        cUser.innerHTML = `
+          <div class="cell-user">
+            <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=${c.img}" alt="${c.name}" initials="${initials(c.name)}" status="${statusDot[c.status]}"></pura-avatar>
+            <span class="meta">
+              <span class="name">${c.name}</span>
+              <span class="email">${c.email}</span>
+            </span>
+          </div>`;
+
+        const cPlan = document.createElement("td");
+        cPlan.innerHTML = `<pura-badge variant="${c.plan === "Enterprise" ? "primary" : "neutral"}">${c.plan}</pura-badge>`;
+
+        const cStatus = document.createElement("td");
+        cStatus.innerHTML = `<pura-badge variant="${statusVariant[c.status]}" dot>${statusLabel[c.status]}</pura-badge>`;
+
+        const cMrr = document.createElement("td");
+        cMrr.className = "num";
+        if (c.mrr === 0) cMrr.classList.add("muted");
+        cMrr.textContent = brl(c.mrr);
+
+        const cSeen = document.createElement("td");
+        cSeen.className = "muted";
+        cSeen.textContent = c.seen;
+
+        const cActions = document.createElement("td");
+        cActions.className = "actions-cell";
+        cActions.innerHTML = `
+          <pura-dropdown-menu>
+            <button class="kebab" slot="trigger" type="button" aria-label="Actions for ${c.name}">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+            </button>
+            <pura-menu-label>Actions</pura-menu-label>
+            <pura-menu-item data-action="view">View details</pura-menu-item>
+            <pura-menu-item data-action="edit">Edit customer</pura-menu-item>
+            <pura-menu-item data-action="invoice">Send invoice</pura-menu-item>
+            <pura-menu-separator></pura-menu-separator>
+            <pura-menu-item data-action="archive">Archive</pura-menu-item>
+            <pura-menu-item data-action="delete" data-danger>Delete</pura-menu-item>
+          </pura-dropdown-menu>`;
+
+        tr.append(cUser, cPlan, cStatus, cMrr, cSeen, cActions);
+        return tr;
+      }));
+    }
+    render(data);
+
+    // sortable header look + behavior
+    const headers = [...document.querySelectorAll(".th-sort")];
+    let sortKey = "name";
+    let sortDir = 1;
+    const sortVal = {
+      name: (c) => c.name, plan: (c) => c.plan, status: (c) => c.status,
+      mrr: (c) => c.mrr, seen: (c) => c.id,
+    };
+    function applySort() {
+      const sorted = [...data].sort((a, b) => {
+        const va = sortVal[sortKey](a), vb = sortVal[sortKey](b);
+        if (va < vb) return -1 * sortDir;
+        if (va > vb) return 1 * sortDir;
+        return 0;
+      });
+      render(sorted);
+      headers.forEach((h) => {
+        const active = h.dataset.sort === sortKey;
+        h.toggleAttribute("data-active", active);
+        const arrow = h.querySelector(".arrow");
+        arrow.textContent = active ? (sortDir === 1 ? "▲" : "▼") : "▲";
+      });
+    }
+    headers.forEach((h) => h.addEventListener("click", () => {
+      const key = h.dataset.sort;
+      if (key === sortKey) sortDir *= -1;
+      else { sortKey = key; sortDir = 1; }
+      applySort();
+    }));
+
+    // search filter (client-side over current page sample)
+    const search = document.getElementById("search");
+    search.addEventListener("input", (e) => {
+      const q = (e.detail?.value ?? "").trim().toLowerCase();
+      const filtered = data.filter((c) => c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q));
+      render(filtered);
+    });
+
+    // pagination -> update footer range
+    const pager = document.getElementById("pager");
+    const per = 8, total = 96;
+    const from = document.getElementById("rangeFrom");
+    const to = document.getElementById("rangeTo");
+    document.getElementById("rangeTotal").textContent = String(total);
+    pager.addEventListener("change", (e) => {
+      const page = e.detail.page;
+      const f = (page - 1) * per + 1;
+      from.textContent = String(f);
+      to.textContent = String(Math.min(f + per - 1, total));
+    });
+
+    // dropdown actions (no-op demo, must not throw)
+    document.getElementById("rows").addEventListener("select", (e) => {
+      const item = e.target.closest("pura-menu-item");
+      if (item) console.log("action:", item.dataset.action);
+    });
+
+    // theme toggle
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const root = document.documentElement;
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

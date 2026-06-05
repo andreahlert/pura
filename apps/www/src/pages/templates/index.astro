@@ -1,0 +1,111 @@
+---
+import Doc from "../../layouts/Doc.astro";
+import { templates } from "../../data/templates.js";
+
+const CAT = {
+  dashboard: "App", login: "Auth", signup: "Auth", settings: "App", pricing: "Marketing",
+  landing: "Marketing", "blog-post": "Marketing", "app-shell": "App", checkout: "Commerce",
+  profile: "App", kanban: "App", chat: "App", "calendar-app": "App", onboarding: "Auth",
+  notifications: "App", "data-table": "App", "error-404": "Misc",
+};
+const items = templates.map((t) => ({ ...t, cat: CAT[t.slug] || "App" }));
+const chips = ["All", "App", "Auth", "Marketing", "Commerce", "Misc"];
+---
+
+<Doc title="Blocks" layout="full">
+  <section class="hero">
+    <h1>What will you build next?</h1>
+    <p>Discover beautiful, full-page templates assembled entirely from pura components. Copy-paste, fully themeable, zero dependencies.</p>
+    <div class="searchwrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="tplsearch" type="search" placeholder="Search templates…" />
+    </div>
+    <div class="chips" id="chips">
+      {chips.map((c, i) => <button class={`chip ${i === 0 ? "on" : ""}`} data-chip={c}>{c}</button>)}
+    </div>
+  </section>
+
+  <div class="bar">
+    <span id="count">{items.length} templates</span>
+    <a class="editlink" href="/theme">✦ Edit theme</a>
+  </div>
+
+  <div class="grid" id="grid">
+    {items.map((t) => (
+      <a class="card" href={`/templates/${t.slug}.html`} data-slug={t.slug} data-cat={t.cat} data-title={t.title.toLowerCase()}>
+        <div class="thumb"><iframe class="thumbframe" data-slug={t.slug} tabindex="-1" scrolling="no" title={t.title} loading="lazy"></iframe></div>
+        <div class="meta"><b>{t.title}</b><span class="tag">{t.cat}</span></div>
+        <p class="blurb">{t.blurb}</p>
+      </a>
+    ))}
+  </div>
+</Doc>
+
+<style>
+  .hero { text-align: center; padding: 3.5rem 1.5rem 1.5rem; max-width: 680px; margin: 0 auto; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -.03em; margin: 0; font-weight: 700; }
+  .hero p { color: var(--pura-muted-fg); line-height: 1.6; margin: 1rem auto 0; max-width: 50ch; }
+  .searchwrap { display: flex; align-items: center; gap: .6rem; margin: 1.75rem auto 0; max-width: 520px; padding: 0 1rem; height: 48px;
+    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius-lg); background: var(--pura-subtle); color: var(--pura-muted); }
+  .searchwrap input { flex: 1; border: none; background: none; font: inherit; font-size: .95rem; color: var(--pura-fg); outline: none; }
+  .chips { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.25rem; }
+  .chip { font: inherit; font-size: .82rem; font-weight: 500; cursor: pointer; padding: .4rem .9rem; border-radius: 999px;
+    border: 1px solid var(--pura-border); background: var(--pura-bg); color: var(--pura-muted-fg); }
+  .chip:hover { border-color: var(--pura-border-strong); }
+  .chip.on { background: var(--pura-primary); color: var(--pura-primary-fg); border-color: transparent; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 1.5rem 0 .75rem; padding: 0 clamp(1rem, 1.5vw, 1.5rem); font-size: .82rem; color: var(--pura-muted); }
+  .editlink { font-weight: 550; color: var(--pura-fg); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; width: 100%; padding: 0 clamp(1rem, 1.5vw, 1.5rem) 5rem; }
+  .card { text-decoration: none; border: 1px solid var(--pura-border); border-radius: var(--pura-radius-lg); overflow: hidden; background: var(--pura-bg); transition: border-color .16s, box-shadow .16s, transform .16s; }
+  .card:hover { border-color: var(--pura-border-strong); box-shadow: var(--pura-shadow-lg); transform: translateY(-2px); }
+  .thumb { aspect-ratio: 1280/800; overflow: hidden; border-bottom: 1px solid var(--pura-border); background: var(--pura-subtle); position: relative; }
+  /* live, theme-aware preview: a real (lazy) template rendered at 1280px then scaled down */
+  .thumbframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0;
+    transform: scale(0.235); transform-origin: top left; pointer-events: none; background: var(--pura-bg); }
+  @media (min-width: 1600px) { .thumbframe { transform: scale(0.31); } }
+  .meta { display: flex; align-items: center; justify-content: space-between; padding: .8rem 1rem .25rem; }
+  .meta b { font-size: .95rem; }
+  .tag { font-size: .68rem; color: var(--pura-muted); border: 1px solid var(--pura-border); border-radius: 999px; padding: 1px 8px; }
+  .blurb { margin: 0; padding: 0 1rem .9rem; font-size: .82rem; color: var(--pura-muted); line-height: 1.4; }
+  .card.hide { display: none; }
+</style>
+
+<script is:inline>
+  (() => {
+    const cards = [...document.querySelectorAll("#grid .card")];
+    const frames = [...document.querySelectorAll(".thumbframe")];
+    const fileFor = (slug, loc) => "/templates/" + slug + (loc && loc !== "en" ? "." + loc : "") + ".html";
+
+    // point each card link at the localized template file for the active locale
+    const routeLocale = (loc) => cards.forEach((c) => { c.href = fileFor(c.dataset.slug, loc); });
+    routeLocale(localStorage.getItem("pura-locale") || "en");
+
+    // ---- live, theme-aware thumbnails: lazy iframes scaled to the card ----
+    const scaleFrame = (f) => { const w = f.parentElement.clientWidth; if (w) f.style.transform = "scale(" + (w / 1280) + ")"; };
+    const loadFrame = (f) => { const loc = localStorage.getItem("pura-locale") || "en"; scaleFrame(f); f.src = fileFor(f.dataset.slug, loc); f.dataset.loaded = "1"; };
+    const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting && !en.target.dataset.loaded) loadFrame(en.target); }), { rootMargin: "300px" });
+    frames.forEach((f) => io.observe(f));
+    addEventListener("resize", () => frames.forEach((f) => f.dataset.loaded && scaleFrame(f)));
+    // reload loaded thumbnails when the theme or language changes (iframes are separate docs)
+    const reloadLoaded = () => frames.forEach((f) => { if (f.dataset.loaded) loadFrame(f); });
+    addEventListener("pura:theme", reloadLoaded);
+    addEventListener("pura:locale", (e) => { routeLocale(e.detail.locale); reloadLoaded(); });
+    const count = document.getElementById("count");
+    let chip = "All", q = "";
+    const refresh = () => {
+      let n = 0;
+      cards.forEach((c) => {
+        const ok = (chip === "All" || c.dataset.cat === chip) && (!q || c.dataset.title.includes(q));
+        c.classList.toggle("hide", !ok); if (ok) n++;
+      });
+      count.textContent = n + " template" + (n === 1 ? "" : "s");
+    };
+    document.querySelectorAll("#chips .chip").forEach((b) => b.addEventListener("click", () => {
+      document.querySelectorAll("#chips .chip").forEach((x) => x.classList.toggle("on", x === b));
+      chip = b.dataset.chip; refresh();
+    }));
+    document.getElementById("tplsearch").addEventListener("input", (e) => { q = e.target.value.trim().toLowerCase(); refresh(); });
+  })();
+</script>

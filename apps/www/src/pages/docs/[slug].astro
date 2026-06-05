@@ -1,0 +1,178 @@
+---
+import Doc from "../../layouts/Doc.astro";
+import Preview from "../../components/Preview.astro";
+import { components } from "../../data/components.js";
+import { docsI18n } from "../../data/i18n-docs.js";
+
+const ORDER = ["Form", "Display", "Date", "Navigation", "Overlay", "Disclosure", "Feedback", "Layout", "Marketing", "Agent", "Utility"];
+const sorted = [...components].sort(
+  (a, b) => (ORDER.indexOf(a.category) - ORDER.indexOf(b.category)) || a.title.localeCompare(b.title)
+);
+
+export function getStaticPaths() {
+  const ORDER = ["Form", "Display", "Date", "Navigation", "Overlay", "Disclosure", "Feedback", "Layout", "Marketing", "Agent", "Utility"];
+  const sorted = [...components].sort(
+    (a, b) => (ORDER.indexOf(a.category) - ORDER.indexOf(b.category)) || a.title.localeCompare(b.title)
+  );
+  return components.map((c) => {
+    const i = sorted.findIndex((x) => x.slug === c.slug);
+    return { params: { slug: c.slug }, props: { c, prev: sorted[i - 1] || null, next: sorted[i + 1] || null } };
+  });
+}
+
+const { c, prev, next } = Astro.props;
+
+const toc = [
+  { id: "preview", label: "Preview" },
+  ...(c.attributes?.length ? [{ id: "attributes", label: "Attributes" }] : []),
+  { id: "installation", label: "Installation" },
+  ...(c.slots?.length || c.events?.length ? [{ id: "api", label: "API" }] : []),
+];
+const tag = `pura-${c.slug}`;
+
+// build a per-locale dictionary for this component's prose (client swaps on locale change)
+const L = docsI18n[c.slug] || {};
+const pick = (lang, getter, fallback) => { try { return getter(L[lang]) ?? fallback; } catch { return fallback; } };
+const extra = {
+  "doc.desc": { en: c.description, "pt-BR": pick("pt-BR", (x) => x.description, c.description), fr: pick("fr", (x) => x.description, c.description), de: pick("de", (x) => x.description, c.description), it: pick("it", (x) => x.description, c.description) },
+};
+(c.attributes || []).forEach((a, i) => {
+  extra[`doc.attr.${i}`] = {
+    en: a.desc,
+    "pt-BR": pick("pt-BR", (x) => x.attributes[i].desc, a.desc),
+    fr: pick("fr", (x) => x.attributes[i].desc, a.desc),
+    de: pick("de", (x) => x.attributes[i].desc, a.desc),
+    it: pick("it", (x) => x.attributes[i].desc, a.desc),
+  };
+});
+// per-locale demo markup (preview remounts on language change)
+const demos = {
+  en: c.demoHTML,
+  "pt-BR": pick("pt-BR", (x) => x.demoHTML, c.demoHTML),
+  fr: pick("fr", (x) => x.demoHTML, c.demoHTML),
+  de: pick("de", (x) => x.demoHTML, c.demoHTML),
+  it: pick("it", (x) => x.demoHTML, c.demoHTML),
+};
+---
+
+<Doc title={c.title} description={c.blurb} toc={toc}>
+  <div class="head">
+    <nav class="crumbs"><span>{c.category}</span> <span>/</span> <b>{c.title}</b></nav>
+    <div class="actions">
+      <button class="ghost" id="copypage" type="button" data-code={c.usage}>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Page
+      </button>
+      <a class="navarrow" href={prev ? `/docs/${prev.slug}` : "#"} aria-disabled={!prev} title={prev?.title || ""}>←</a>
+      <a class="navarrow" href={next ? `/docs/${next.slug}` : "#"} aria-disabled={!next} title={next?.title || ""}>→</a>
+    </div>
+  </div>
+
+  <h1>{c.title}</h1>
+  <p class="lede" data-i18n="doc.desc">{c.description}</p>
+
+  <h2 id="preview" class="sr">Preview</h2>
+  <Preview demos={demos} demo={c.demoHTML} code={c.usage} />
+
+  {c.attributes && c.attributes.length > 0 && (
+    <section>
+      <h2 id="attributes">Attributes</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            {c.attributes.map((a, i) => (
+              <tr>
+                <td><code>{a.name}</code></td>
+                <td class="muted">{a.type || "—"}</td>
+                <td class="muted">{a.default || "—"}</td>
+                <td data-i18n={`doc.attr.${i}`}>{a.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <h2 id="installation">Installation</h2>
+    <p class="muted small">pura is copy-paste and dependency-free. Load the whole library, or just this component.</p>
+    <div class="codebox">
+      <div class="codebar"><span>HTML</span><button class="copy" data-copy={`<link rel="stylesheet" href="/pura/tokens.css">\n<script type="module" src="/pura/lib/${c.slug}.js"></script>`}>Copy</button></div>
+      <pre><code>{`<link rel="stylesheet" href="/pura/tokens.css">\n<script type="module" src="/pura/lib/${c.slug}.js"></script>`}</code></pre>
+    </div>
+    <div class="codebox">
+      <div class="codebar"><span>JavaScript</span><button class="copy" data-copy={`import "./pura/lib/${c.slug}.js";`}>Copy</button></div>
+      <pre><code>{`import "./pura/lib/${c.slug}.js";`}</code></pre>
+    </div>
+  </section>
+
+  {((c.events && c.events.length) || (c.slots && c.slots.length)) && (
+    <section class="meta" id="api">
+      {c.slots && c.slots.length > 0 && (
+        <div><h3>Slots</h3><div class="chips">{c.slots.map((s) => <code>{s}</code>)}</div></div>
+      )}
+      {c.events && c.events.length > 0 && (
+        <div><h3>Events</h3><div class="chips">{c.events.map((e) => <code>{e}</code>)}</div></div>
+      )}
+    </section>
+  )}
+
+  <div class="pager">
+    {prev ? <a class="pg" href={`/docs/${prev.slug}`}><span>Previous</span><b>{prev.title}</b></a> : <span></span>}
+    {next ? <a class="pg right" href={`/docs/${next.slug}`}><span>Next</span><b>{next.title}</b></a> : <span></span>}
+  </div>
+
+  <script is:inline define:vars={{ extra }}>
+    window.__i18nExtra = Object.assign(window.__i18nExtra || {}, extra);
+  </script>
+</Doc>
+
+<style>
+  .head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .crumbs { font-size: .78rem; color: var(--pura-muted); display: flex; gap: .5rem; align-items: center; }
+  .crumbs b { color: var(--pura-fg); font-weight: 600; }
+  .actions { display: flex; align-items: center; gap: .4rem; }
+  .ghost { display: inline-flex; align-items: center; gap: .35rem; font: inherit; font-size: .78rem; font-weight: 550; cursor: pointer;
+    height: 30px; padding: 0 .6rem; border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius); background: var(--pura-bg); color: var(--pura-fg); }
+  .ghost:hover { background: var(--pura-subtle); }
+  .navarrow { display: inline-grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius); color: var(--pura-fg); }
+  .navarrow[aria-disabled="true"] { opacity: .4; pointer-events: none; }
+  .navarrow:hover { background: var(--pura-subtle); }
+  h1 { font-size: 2.1rem; letter-spacing: -.03em; margin: 0 0 .5rem; }
+  .lede { font-size: 1.05rem; color: var(--pura-muted-fg); line-height: 1.6; margin: 0 0 .5rem; max-width: none; }
+  h2 { font-size: 1.2rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; scroll-margin-top: 72px; }
+  h2.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: -1px; }
+  h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--pura-muted); margin: 0 0 .5rem; }
+  .muted { color: var(--pura-muted); } .small { font-size: .85rem; }
+  .tablewrap { border: 1px solid var(--pura-border); border-radius: var(--pura-radius); overflow: hidden; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+  th { text-align: left; font-weight: 600; color: var(--pura-muted-fg); background: var(--pura-subtle); padding: .55rem .8rem; }
+  td { padding: .55rem .8rem; border-top: 1px solid var(--pura-border); vertical-align: top; }
+  td.muted { color: var(--pura-muted); }
+  code { font-family: var(--pura-font-mono); font-size: .82em; background: var(--pura-subtle); padding: .1rem .35rem; border-radius: var(--pura-radius-sm); }
+  .codebox { border: 1px solid var(--pura-border); border-radius: var(--pura-radius); overflow: hidden; margin: .75rem 0; }
+  .codebar { display: flex; align-items: center; justify-content: space-between; padding: .4rem .75rem; background: var(--pura-subtle); border-bottom: 1px solid var(--pura-border); font-size: .72rem; color: var(--pura-muted); }
+  .codebar .copy { font: inherit; font-size: .7rem; cursor: pointer; background: transparent; border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius-sm); padding: 2px 6px; color: var(--pura-muted-fg); }
+  .codebox pre { margin: 0; padding: .8rem .9rem; overflow: auto; font-family: var(--pura-font-mono); font-size: .8rem; line-height: 1.5; }
+  .codebox code { background: none; padding: 0; }
+  .meta { display: flex; gap: 2.5rem; flex-wrap: wrap; margin-top: 2rem; scroll-margin-top: 72px; }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--pura-border); }
+  .pg { display: flex; flex-direction: column; gap: 2px; padding: .75rem 1rem; border: 1px solid var(--pura-border); border-radius: var(--pura-radius); min-width: 160px; }
+  .pg.right { text-align: right; }
+  .pg span { font-size: .72rem; color: var(--pura-muted); }
+  .pg b { font-size: .9rem; }
+  .pg:hover { border-color: var(--pura-border-strong); background: var(--pura-subtle); }
+</style>
+
+<script is:inline>
+  document.getElementById("copypage")?.addEventListener("click", (e) => {
+    const b = e.currentTarget; navigator.clipboard?.writeText(b.dataset.code || "");
+    const o = b.innerHTML; b.innerHTML = "Copied"; setTimeout(() => (b.innerHTML = o), 1200);
+  });
+  document.querySelectorAll(".codebar .copy").forEach((b) =>
+    b.addEventListener("click", () => { navigator.clipboard?.writeText(b.dataset.copy || ""); const o = b.textContent; b.textContent = "Copied"; setTimeout(() => (b.textContent = o), 1200); })
+  );
+</script>

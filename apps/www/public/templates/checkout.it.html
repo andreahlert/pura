@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagamento · pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--pura-font);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      min-height: 100vh;
+    }
+
+    /* ---- top bar ---- */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--pura-space-4);
+      padding: var(--pura-space-4) var(--pura-space-5);
+      padding-right: calc(var(--pura-space-5) + 3rem);
+      background: color-mix(in srgb, var(--pura-bg) 86%, transparent);
+      backdrop-filter: saturate(160%) blur(10px);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: var(--pura-space-3);
+      font-weight: 650; font-size: var(--pura-text-base); letter-spacing: -0.01em;
+    }
+    .brand .mark {
+      width: 1.6rem; height: 1.6rem; border-radius: var(--pura-radius);
+      background: var(--pura-primary); color: var(--pura-primary-fg);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem;
+    }
+    .topbar .right { display: inline-flex; align-items: center; gap: var(--pura-space-3); }
+    .secure {
+      display: inline-flex; align-items: center; gap: var(--pura-space-2);
+      font-size: var(--pura-text-xs); color: var(--pura-muted);
+    }
+    .secure svg { width: 0.95rem; height: 0.95rem; }
+
+    .theme-toggle {
+      position: fixed; top: var(--pura-space-4); right: var(--pura-space-5); z-index: 50;
+      width: 2.25rem; height: 2.25rem; border-radius: var(--pura-radius-full);
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--pura-border-strong); background: var(--pura-bg);
+      color: var(--pura-fg); cursor: pointer; box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease), transform var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle:active { transform: scale(0.95); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    [data-theme="light"] .theme-toggle .moon { display: none; }
+    [data-theme="dark"]  .theme-toggle .sun  { display: none; }
+
+    /* ---- page shell ---- */
+    .page {
+      max-width: 1120px; margin: 0 auto;
+      padding: var(--pura-space-6) var(--pura-space-5) calc(var(--pura-space-6) * 2);
+    }
+    .page-head { margin-bottom: var(--pura-space-6); }
+    .page-head h1 {
+      margin: 0 0 var(--pura-space-2);
+      font-size: var(--pura-text-xl); font-weight: 680; letter-spacing: -0.02em;
+    }
+    .page-head p { margin: 0; color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    .stepper-wrap {
+      margin: 0 auto var(--pura-space-6);
+      max-width: 560px;
+    }
+
+    /* ---- two-column layout ---- */
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: var(--pura-space-6);
+      align-items: start;
+    }
+
+    .section-title {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin: 0 0 var(--pura-space-3);
+    }
+    .section-title h2 {
+      margin: 0; font-size: var(--pura-text-base); font-weight: 620; letter-spacing: -0.01em;
+    }
+    .section-title .count { font-size: var(--pura-text-xs); color: var(--pura-muted); }
+
+    .cart {
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-bg);
+      box-shadow: var(--pura-shadow-sm);
+      overflow: hidden;
+    }
+    .cart pura-item { border-bottom: 1px solid var(--pura-border); }
+    .cart pura-item:last-of-type { border-bottom: none; }
+
+    .thumb {
+      width: 4rem; height: 4rem; border-radius: var(--pura-radius);
+      object-fit: cover; background: var(--pura-subtle);
+      border: 1px solid var(--pura-border);
+    }
+    .line-meta {
+      display: inline-flex; align-items: center; gap: var(--pura-space-2);
+      margin-top: 0.15rem;
+    }
+    .price {
+      font-size: var(--pura-text-sm); font-weight: 600; color: var(--pura-fg);
+      font-variant-numeric: tabular-nums; white-space: nowrap;
+    }
+    .item-actions { display: inline-flex; align-items: center; gap: var(--pura-space-3); }
+    .remove {
+      border: none; background: transparent; cursor: pointer; padding: 0.3rem;
+      color: var(--pura-muted); border-radius: var(--pura-radius-sm);
+      display: inline-flex; transition: color var(--pura-dur) var(--pura-ease), background var(--pura-dur) var(--pura-ease);
+    }
+    .remove:hover { color: var(--pura-danger); background: var(--pura-subtle); }
+    .remove svg { width: 1.05rem; height: 1.05rem; }
+
+    .continue {
+      display: inline-flex; align-items: center; gap: var(--pura-space-2);
+      margin-top: var(--pura-space-4);
+      font-size: var(--pura-text-sm); color: var(--pura-muted);
+      text-decoration: none;
+    }
+    .continue:hover { color: var(--pura-fg); }
+    .continue svg { width: 1rem; height: 1rem; }
+
+    /* ---- summary ---- */
+    .summary-col { position: sticky; top: 84px; }
+    .summary h3 { margin: 0; font-size: var(--pura-text-base); font-weight: 620; }
+
+    .rows { display: flex; flex-direction: column; gap: var(--pura-space-3); }
+    .row { display: flex; align-items: center; justify-content: space-between; font-size: var(--pura-text-sm); }
+    .row[hidden] { display: none; }
+    .row .lbl { color: var(--pura-muted); }
+    .row .val { font-variant-numeric: tabular-nums; }
+    .row .val.free { color: var(--pura-success); font-weight: 600; }
+    .row.discount .val { color: var(--pura-success); font-weight: 600; }
+
+    .total-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-top: var(--pura-space-2);
+    }
+    .total-row .lbl { font-size: var(--pura-text-sm); font-weight: 600; }
+    .total-row .val { font-size: var(--pura-text-lg); font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+    .installments { font-size: var(--pura-text-xs); color: var(--pura-muted); text-align: right; margin-top: 0.2rem; }
+
+    .coupon-label {
+      display: block; font-size: var(--pura-text-xs); font-weight: 550;
+      color: var(--pura-muted-fg); margin-bottom: var(--pura-space-2);
+    }
+    .coupon-msg { font-size: var(--pura-text-xs); margin: var(--pura-space-2) 0 0; min-height: 1em; }
+    .coupon-msg.ok { color: var(--pura-success); }
+    .coupon-msg.err { color: var(--pura-danger); }
+
+    .ship-note {
+      display: flex; gap: var(--pura-space-2); align-items: flex-start;
+      font-size: var(--pura-text-xs); color: var(--pura-muted);
+      margin-top: var(--pura-space-3); line-height: 1.5;
+    }
+    .ship-note svg { width: 0.95rem; height: 0.95rem; flex: none; margin-top: 0.1rem; }
+
+    .footer-note {
+      text-align: center; font-size: var(--pura-text-xs); color: var(--pura-muted);
+      margin-top: var(--pura-space-4);
+    }
+
+    /* ---- responsive ---- */
+    @media (max-width: 880px) {
+      .grid { grid-template-columns: 1fr; }
+      .summary-col { position: static; order: 2; }
+      .cart-col { order: 1; }
+      .stepper-wrap { max-width: none; }
+    }
+    @media (max-width: 520px) {
+      .page { padding: var(--pura-space-5) var(--pura-space-4) var(--pura-space-6); }
+      .secure { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand"><span class="mark">p</span> pura store</span>
+    <div class="right">
+      <span class="secure">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V5l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Pagamento 100% sicuro
+      </span>
+      <pura-badge variant="success" dot>SSL attivo</pura-badge>
+    </div>
+  </header>
+
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v2M12 20v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2 12h2M20 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1111.2 3a6.6 6.6 0 009.8 9.8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+  </button>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Completa il tuo acquisto</h1>
+      <p>Controlla i tuoi articoli e completa l'ordine in pochi passaggi.</p>
+    </div>
+
+    <div class="stepper-wrap">
+      <pura-stepper id="stepper" steps="Carrello, Spedizione, Pagamento" active="0" aria-label="Passaggi del pagamento"></pura-stepper>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: cart items -->
+      <section class="cart-col">
+        <div class="section-title">
+          <h2>Il tuo carrello</h2>
+          <span class="count" id="cartCount">3 articoli</span>
+        </div>
+
+        <div class="cart" id="cartList">
+          <pura-item data-line="1" data-unit="289.90">
+            <img slot="media" class="thumb" src="https://i.pravatar.cc/120?img=12" alt="Cuffie senza fili" />
+            <span slot="title">Cuffie Bluetooth Aurora Pro</span>
+            Nero opaco · cancellazione attiva del rumore
+            <div slot="actions" class="item-actions">
+              <pura-number-input class="qty" value="1" min="1" max="9" aria-label="Quantità Cuffie Aurora Pro"></pura-number-input>
+              <span class="price" data-price>$289.90</span>
+              <button class="remove" type="button" aria-label="Rimuovi Cuffie Aurora Pro">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </pura-item>
+
+          <pura-item data-line="2" data-unit="149.00">
+            <img slot="media" class="thumb" src="https://i.pravatar.cc/120?img=32" alt="Caricabatterie portatile" />
+            <span slot="title">Power Bank Lumen 20.000 mAh</span>
+            Grafite · ricarica rapida USB-C da 65 W
+            <div slot="actions" class="item-actions">
+              <pura-number-input class="qty" value="2" min="1" max="9" aria-label="Quantità Power Bank Lumen"></pura-number-input>
+              <span class="price" data-price>$298.00</span>
+              <button class="remove" type="button" aria-label="Rimuovi Power Bank Lumen">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </pura-item>
+
+          <pura-item data-line="3" data-unit="79.90">
+            <img slot="media" class="thumb" src="https://i.pravatar.cc/120?img=49" alt="Cavo USB-C intrecciato" />
+            <span slot="title">Cavo USB-C intrecciato 2 m</span>
+            Verde muschio · supporta 100 W
+            <div slot="actions" class="item-actions">
+              <pura-number-input class="qty" value="1" min="1" max="9" aria-label="Quantità Cavo USB-C"></pura-number-input>
+              <span class="price" data-price>$79.90</span>
+              <button class="remove" type="button" aria-label="Rimuovi Cavo USB-C">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </pura-item>
+        </div>
+
+        <a class="continue" href="#">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Continua lo shopping
+        </a>
+      </section>
+
+      <!-- RIGHT: sticky summary -->
+      <aside class="summary-col">
+        <pura-card class="summary">
+          <h3 slot="header">Riepilogo dell'ordine</h3>
+
+          <div class="rows">
+            <div class="row">
+              <span class="lbl">Subtotale</span>
+              <span class="val" id="subtotal">$667.80</span>
+            </div>
+            <div class="row">
+              <span class="lbl">Spedizione</span>
+              <span class="val free" id="shipping">Gratuita</span>
+            </div>
+            <div class="row discount" id="discountRow" hidden>
+              <span class="lbl">Sconto (PURA10)</span>
+              <span class="val" id="discount">- $0.00</span>
+            </div>
+
+            <pura-separator></pura-separator>
+
+            <div>
+              <label class="coupon-label" for="coupon">Codice sconto</label>
+              <pura-input-group id="couponGroup">
+                <input id="coupon" type="text" placeholder="es. PURA10" autocomplete="off" />
+                <pura-button slot="suffix" size="sm" variant="secondary" id="applyCoupon">Applica</pura-button>
+              </pura-input-group>
+              <p class="coupon-msg" id="couponMsg" role="status" aria-live="polite"></p>
+            </div>
+
+            <pura-separator></pura-separator>
+
+            <div>
+              <div class="total-row">
+                <span class="lbl">Totale</span>
+                <span class="val" id="total">$667.80</span>
+              </div>
+              <div class="installments" id="installments">oppure 12 rate senza interessi da $55.65</div>
+            </div>
+          </div>
+
+          <div slot="footer" style="flex-direction: column; align-items: stretch; gap: var(--pura-space-3);">
+            <pura-button full size="lg" id="checkoutBtn">
+              Procedi al pagamento
+            </pura-button>
+            <div class="ship-note">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.6" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="17" r="1.6" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span>Consegna stimata in <strong>3-5 giorni lavorativi</strong> a Milano. Spedizione gratuita per ordini superiori a $199.</span>
+            </div>
+          </div>
+        </pura-card>
+
+        <p class="footer-note">I tuoi dati sono protetti con crittografia end-to-end.</p>
+      </aside>
+    </div>
+  </main>
+
+  <script type="module">
+    const BRL = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+    const cartList = document.getElementById("cartList");
+    const subtotalEl = document.getElementById("subtotal");
+    const totalEl = document.getElementById("total");
+    const installmentsEl = document.getElementById("installments");
+    const cartCountEl = document.getElementById("cartCount");
+    const discountRow = document.getElementById("discountRow");
+    const discountEl = document.getElementById("discount");
+
+    const COUPONS = { PURA10: 0.10, FREESHIP: 0, WELCOME: 0.05 };
+    let discountRate = 0;
+    let appliedCode = "";
+
+    function recompute() {
+      let subtotal = 0;
+      let units = 0;
+      cartList.querySelectorAll("pura-item").forEach((item) => {
+        const unit = Number(item.dataset.unit) || 0;
+        const qtyEl = item.querySelector(".qty");
+        const qty = qtyEl && qtyEl.value != null ? Number(qtyEl.value) : 1;
+        const line = unit * qty;
+        units += qty;
+        subtotal += line;
+        const priceEl = item.querySelector("[data-price]");
+        if (priceEl) priceEl.textContent = BRL.format(line);
+      });
+
+      subtotalEl.textContent = BRL.format(subtotal);
+      const visibleItems = cartList.querySelectorAll("pura-item").length;
+      cartCountEl.textContent = visibleItems + (visibleItems === 1 ? " articolo" : " articoli");
+
+      const discountValue = subtotal * discountRate;
+      if (discountValue > 0) {
+        discountRow.hidden = false;
+        discountRow.querySelector(".lbl").textContent = "Sconto (" + appliedCode + ")";
+        discountEl.textContent = "- " + BRL.format(discountValue);
+      } else {
+        discountRow.hidden = true;
+      }
+
+      const total = Math.max(0, subtotal - discountValue);
+      totalEl.textContent = BRL.format(total);
+      installmentsEl.textContent = total > 0
+        ? "oppure 12 rate senza interessi da " + BRL.format(total / 12)
+        : "Il carrello è vuoto";
+    }
+
+    // qty changes
+    cartList.addEventListener("change", recompute);
+    cartList.addEventListener("input", recompute);
+
+    // remove item
+    cartList.addEventListener("click", (e) => {
+      const btn = e.target.closest(".remove");
+      if (!btn) return;
+      const item = btn.closest("pura-item");
+      if (item) item.remove();
+      recompute();
+    });
+
+    // coupon
+    const couponInput = document.getElementById("coupon");
+    const couponGroup = document.getElementById("couponGroup");
+    const couponMsg = document.getElementById("couponMsg");
+    document.getElementById("applyCoupon").addEventListener("click", () => {
+      const code = couponInput.value.trim().toUpperCase();
+      if (!code) {
+        couponGroup.invalid = true;
+        couponMsg.textContent = "Inserisci un codice sconto.";
+        couponMsg.className = "coupon-msg err";
+        return;
+      }
+      if (code in COUPONS && COUPONS[code] > 0) {
+        discountRate = COUPONS[code];
+        appliedCode = code;
+        couponGroup.invalid = false;
+        couponMsg.textContent = "Codice applicato: " + Math.round(discountRate * 100) + "% di sconto.";
+        couponMsg.className = "coupon-msg ok";
+      } else {
+        discountRate = 0;
+        appliedCode = "";
+        couponGroup.invalid = true;
+        couponMsg.textContent = "Codice non valido o scaduto.";
+        couponMsg.className = "coupon-msg err";
+      }
+      recompute();
+    });
+
+    // stepper advance on checkout
+    const stepper = document.getElementById("stepper");
+    document.getElementById("checkoutBtn").addEventListener("click", () => {
+      const count = Number(stepper.getAttribute("data-count")) || 3;
+      const active = Number(stepper.getAttribute("active")) || 0;
+      const next = Math.min(active + 1, count - 1);
+      stepper.setAttribute("active", String(next));
+    });
+
+    recompute();
+
+    // theme toggle
+    const root = document.documentElement;
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendario · Pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Per-category event colors (work in both themes). */
+    :root {
+      --cat-reuniao: #2563eb;
+      --cat-pessoal: #16a34a;
+      --cat-prazo:   #d97706;
+      --cat-foco:    #9333ea;
+    }
+    html[data-theme="dark"] {
+      --cat-reuniao: #60a5fa;
+      --cat-pessoal: #4ade80;
+      --cat-prazo:   #fbbf24;
+      --cat-foco:    #c084fc;
+    }
+
+    /* App shell: full-height row of left rail + main. */
+    .shell {
+      display: flex;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* ---- Left rail ---------------------------------------------------- */
+    .rail {
+      flex: none;
+      width: 20.5rem;
+      border-right: 1px solid var(--pura-border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--pura-bg);
+    }
+    .rail-head {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-2);
+      padding: var(--pura-space-4) var(--pura-space-5);
+      font-weight: 650;
+      font-size: var(--pura-text-base);
+      letter-spacing: -0.01em;
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .rail-head .logo {
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--pura-radius-sm);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      font-weight: 700;
+      font-size: var(--pura-text-sm);
+      flex: none;
+    }
+    .rail-cal {
+      display: grid;
+      place-items: center;
+      padding: var(--pura-space-4) var(--pura-space-3);
+    }
+    .rail-cal pura-calendar { width: 100%; }
+
+    .rail-section {
+      padding: var(--pura-space-2) var(--pura-space-5) var(--pura-space-1);
+      font-size: var(--pura-text-xs);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--pura-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .event-list {
+      padding: var(--pura-space-1) var(--pura-space-3) var(--pura-space-5);
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .event-list pura-item { --t: time; }
+    .ev-time {
+      font-size: var(--pura-text-xs);
+      font-variant-numeric: tabular-nums;
+      color: var(--pura-muted);
+      font-weight: 600;
+      min-width: 3rem;
+    }
+    .dot {
+      display: inline-block;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      flex: none;
+    }
+    .dot-reuniao { background: var(--cat-reuniao); }
+    .dot-pessoal { background: var(--cat-pessoal); }
+    .dot-prazo   { background: var(--cat-prazo); }
+    .dot-foco    { background: var(--cat-foco); }
+
+    /* ---- Main --------------------------------------------------------- */
+    .main {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-3) var(--pura-space-5);
+      min-height: 3.75rem;
+      padding-right: 4rem; /* room for the fixed theme toggle */
+      background: color-mix(in srgb, var(--pura-bg) 80%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .topbar h1 {
+      margin: 0;
+      font-size: var(--pura-text-lg);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .topbar .sub { font-size: var(--pura-text-xs); color: var(--pura-muted); margin-top: 1px; }
+    .topbar .spacer { flex: 1 1 auto; }
+
+    .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius);
+      background: var(--pura-bg);
+      color: var(--pura-muted-fg);
+      cursor: pointer;
+      transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
+    }
+    .icon-btn:hover { background: var(--pura-subtle); color: var(--pura-fg); }
+    .icon-btn svg { width: 1.1rem; height: 1.1rem; }
+
+    .content {
+      flex: 1 1 auto;
+      padding: var(--pura-space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-4);
+      min-width: 0;
+    }
+
+    /* ---- Week grid ---------------------------------------------------- */
+    /* Layout: a left time gutter + 7 day columns. The header row mirrors the
+       same columns so day labels align with their tracks. */
+    .week-head {
+      display: grid;
+      grid-template-columns: 3.5rem repeat(7, minmax(0, 1fr));
+      border: 1px solid var(--pura-border);
+      border-bottom: none;
+      border-radius: var(--pura-radius-lg) var(--pura-radius-lg) 0 0;
+      overflow: hidden;
+      background: var(--pura-bg);
+    }
+    .week-head .gutter-cell { border-right: 1px solid var(--pura-border); }
+    .week-head .dh {
+      padding: var(--pura-space-2) var(--pura-space-2);
+      text-align: center;
+      border-right: 1px solid var(--pura-border);
+    }
+    .week-head .dh:last-child { border-right: none; }
+    .dh .dow { font-size: var(--pura-text-xs); color: var(--pura-muted); text-transform: uppercase; letter-spacing: 0.03em; font-weight: 600; }
+    .dh .dnum {
+      display: inline-grid;
+      place-items: center;
+      width: 1.9rem; height: 1.9rem;
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      font-size: var(--pura-text-base);
+      border-radius: var(--pura-radius-full);
+    }
+    .dh.today .dnum { background: var(--pura-primary); color: var(--pura-primary-fg); }
+
+    .week-body {
+      display: grid;
+      grid-template-columns: 3.5rem repeat(7, minmax(0, 1fr));
+      grid-auto-rows: 3.25rem;
+      border: 1px solid var(--pura-border);
+      border-radius: 0 0 var(--pura-radius-lg) var(--pura-radius-lg);
+      overflow: hidden;
+      background: var(--pura-bg);
+      position: relative;
+    }
+    .hour {
+      grid-column: 1;
+      border-top: 1px solid var(--pura-border);
+      border-right: 1px solid var(--pura-border);
+      padding: 2px var(--pura-space-2) 0 0;
+      text-align: right;
+      font-size: var(--pura-text-xs);
+      color: var(--pura-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    /* Each day column is a sub-grid stacked above the hour rows via grid-row. */
+    .day-col {
+      border-top: 1px solid var(--pura-border);
+      border-right: 1px solid var(--pura-border);
+      position: relative;
+    }
+    .day-col:last-child { border-right: none; }
+    .day-col.is-today { background: color-mix(in srgb, var(--pura-accent) 5%, transparent); }
+
+    /* Event chips placed by grid-row span over the body grid. */
+    .chip {
+      position: absolute;
+      left: 4px; right: 4px;
+      border-radius: var(--pura-radius-sm);
+      padding: 4px 7px;
+      font-size: var(--pura-text-xs);
+      line-height: 1.25;
+      font-weight: 550;
+      cursor: pointer;
+      overflow: hidden;
+      border-left: 3px solid;
+      transition: transform var(--pura-dur) var(--pura-ease), box-shadow var(--pura-dur) var(--pura-ease);
+    }
+    .chip:hover { transform: translateY(-1px); box-shadow: var(--pura-shadow); z-index: 5; }
+    .chip .ct { font-variant-numeric: tabular-nums; opacity: 0.85; font-weight: 600; display: block; font-size: 0.7rem; }
+    .chip .cn { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .chip.reuniao { background: color-mix(in srgb, var(--cat-reuniao) 14%, var(--pura-bg)); border-color: var(--cat-reuniao); color: color-mix(in srgb, var(--cat-reuniao) 92%, var(--pura-fg)); }
+    .chip.pessoal { background: color-mix(in srgb, var(--cat-pessoal) 14%, var(--pura-bg)); border-color: var(--cat-pessoal); color: color-mix(in srgb, var(--cat-pessoal) 92%, var(--pura-fg)); }
+    .chip.prazo   { background: color-mix(in srgb, var(--cat-prazo) 14%, var(--pura-bg)); border-color: var(--cat-prazo); color: color-mix(in srgb, var(--cat-prazo) 92%, var(--pura-fg)); }
+    .chip.foco    { background: color-mix(in srgb, var(--cat-foco) 14%, var(--pura-bg)); border-color: var(--cat-foco); color: color-mix(in srgb, var(--cat-foco) 92%, var(--pura-fg)); }
+
+    /* ---- Month grid --------------------------------------------------- */
+    .month-grid { display: none; }
+    .month-grid.active { display: block; }
+    .week-view.hidden { display: none; }
+
+    .month-dow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      border: 1px solid var(--pura-border);
+      border-bottom: none;
+      border-radius: var(--pura-radius-lg) var(--pura-radius-lg) 0 0;
+      overflow: hidden;
+    }
+    .month-dow span {
+      padding: var(--pura-space-2);
+      text-align: center;
+      font-size: var(--pura-text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--pura-muted);
+      border-right: 1px solid var(--pura-border);
+    }
+    .month-dow span:last-child { border-right: none; }
+    .month-cells {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: minmax(6.5rem, 1fr);
+      border: 1px solid var(--pura-border);
+      border-radius: 0 0 var(--pura-radius-lg) var(--pura-radius-lg);
+      overflow: hidden;
+      background: var(--pura-bg);
+    }
+    .mcell {
+      border-top: 1px solid var(--pura-border);
+      border-right: 1px solid var(--pura-border);
+      padding: var(--pura-space-2);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+    .mcell:nth-child(7n) { border-right: none; }
+    .mcell.adjacent { color: var(--pura-muted); background: var(--pura-subtle); opacity: 0.6; }
+    .mcell .mnum {
+      font-size: var(--pura-text-sm);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      align-self: flex-start;
+    }
+    .mcell.today .mnum {
+      display: inline-grid; place-items: center;
+      width: 1.6rem; height: 1.6rem;
+      border-radius: var(--pura-radius-full);
+      background: var(--pura-primary); color: var(--pura-primary-fg);
+    }
+    .mchip {
+      display: flex; align-items: center; gap: 5px;
+      font-size: var(--pura-text-xs);
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+      padding: 2px 4px;
+      border-radius: var(--pura-radius-sm);
+      cursor: pointer;
+    }
+    .mchip:hover { background: var(--pura-subtle); }
+    .mchip .ct { color: var(--pura-muted); font-variant-numeric: tabular-nums; flex: none; }
+    .mchip .cn { overflow: hidden; text-overflow: ellipsis; }
+
+    /* Dialog form layout */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--pura-space-4); }
+    .form-grid .full { grid-column: 1 / -1; }
+
+    @media (max-width: 1024px) {
+      .week-body { grid-auto-rows: 2.75rem; }
+    }
+    @media (max-width: 860px) {
+      .rail { display: none; }
+    }
+    @media (max-width: 600px) {
+      .content { padding: var(--pura-space-3); }
+      .topbar { padding: var(--pura-space-3) var(--pura-space-4); }
+      .topbar h1 { font-size: var(--pura-text-base); }
+      .form-grid { grid-template-columns: 1fr; }
+      .week-head, .week-body { grid-template-columns: 2.4rem repeat(7, minmax(0, 1fr)); }
+      .dh .dow { display: none; }
+    }
+
+    /* Fixed theme toggle (top-right) */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-3);
+      right: var(--pura-space-4);
+      z-index: 100;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-full);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .moon { display: block; }
+    html[data-theme="dark"] .theme-toggle .sun { display: none; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+
+  <div class="shell">
+    <!-- Left rail: brand, mini calendar, upcoming events -->
+    <aside class="rail">
+      <div class="rail-head">
+        <span class="logo">C</span>
+        <span>Calendario</span>
+      </div>
+
+      <div class="rail-cal">
+        <!-- Pinned to the same month/day the rest of the page references. -->
+        <pura-calendar id="miniCal" month="2026-05" value="2026-05-27"></pura-calendar>
+      </div>
+
+      <div class="rail-section">
+        <span>Prossimi eventi</span>
+        <pura-badge>4</pura-badge>
+      </div>
+      <div class="event-list">
+        <pura-item hover clickable>
+          <span slot="media" class="dot dot-reuniao"></span>
+          <span slot="title">Daily con il team</span>
+          Sala Aurora · 6 persone
+          <span slot="actions" class="ev-time">09:00</span>
+        </pura-item>
+        <pura-item hover clickable>
+          <span slot="media" class="dot dot-foco"></span>
+          <span slot="title">Focus · Revisione PR</span>
+          Senza interruzioni
+          <span slot="actions" class="ev-time">11:00</span>
+        </pura-item>
+        <pura-item hover clickable>
+          <span slot="media" class="dot dot-reuniao"></span>
+          <span slot="title">1:1 con Giulia Rossi</span>
+          Google Meet
+          <span slot="actions" class="ev-time">14:30</span>
+        </pura-item>
+        <pura-item hover clickable>
+          <span slot="media" class="dot dot-prazo"></span>
+          <span slot="title">Consegna del report</span>
+          Chiusura di maggio
+          <span slot="actions" class="ev-time">17:00</span>
+        </pura-item>
+      </div>
+    </aside>
+
+    <!-- Main: topbar + week/month grid -->
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn" id="prevBtn" type="button" aria-label="Periodo precedente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div>
+          <h1>Maggio 2026</h1>
+          <div class="sub">Settimana dal 25 al 31 maggio · America/New_York</div>
+        </div>
+        <div class="spacer"></div>
+
+        <pura-segmented-control id="viewControl" options="Giorno,Settimana,Mese" value="Settimana" size="sm" label="Modalità di visualizzazione"></pura-segmented-control>
+
+        <button class="icon-btn" id="todayBtn" type="button" aria-label="Vai a oggi" title="Oggi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </button>
+
+        <pura-button id="newEventBtn" variant="primary" size="sm">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-2px"><path d="M12 5v14M5 12h14"/></svg>
+          Nuovo evento
+        </pura-button>
+      </header>
+
+      <div class="content">
+        <!-- WEEK VIEW (hero) -->
+        <section class="week-view" id="weekView">
+          <div class="week-head">
+            <div class="gutter-cell"></div>
+            <div class="dh"><div class="dow">Lun</div><div class="dnum">25</div></div>
+            <div class="dh"><div class="dow">Mar</div><div class="dnum">26</div></div>
+            <div class="dh today"><div class="dow">Mer</div><div class="dnum">27</div></div>
+            <div class="dh"><div class="dow">Gio</div><div class="dnum">28</div></div>
+            <div class="dh"><div class="dow">Ven</div><div class="dnum">29</div></div>
+            <div class="dh"><div class="dow">Sab</div><div class="dnum">30</div></div>
+            <div class="dh"><div class="dow">Dom</div><div class="dnum">31</div></div>
+          </div>
+          <div class="week-body" id="weekBody">
+            <!-- Hour gutter + day columns injected by script -->
+          </div>
+        </section>
+
+        <!-- MONTH VIEW -->
+        <section class="month-grid" id="monthView">
+          <div class="month-dow">
+            <span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span>
+          </div>
+          <div class="month-cells" id="monthCells">
+            <!-- Cells injected by script -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- New event dialog -->
+  <pura-dialog id="eventDialog" title="Nuovo evento">
+    <form id="eventForm">
+      <div class="form-grid">
+        <pura-input class="full" name="titulo" label="Titolo" placeholder="es. Pianificazione trimestrale" value="Riunione di pianificazione"></pura-input>
+        <pura-input name="data" label="Data" type="date" value="2026-05-29"></pura-input>
+        <pura-select name="categoria" label="Categoria">
+          <option value="reuniao" selected>Riunione</option>
+          <option value="foco">Focus</option>
+          <option value="pessoal">Personale</option>
+          <option value="prazo">Scadenza</option>
+        </pura-select>
+        <pura-input name="inicio" label="Inizio" type="time" value="10:00"></pura-input>
+        <pura-input name="fim" label="Fine" type="time" value="11:00"></pura-input>
+        <pura-input class="full" name="local" label="Luogo" placeholder="Sala, link o indirizzo" value="Sala Aurora"></pura-input>
+      </div>
+    </form>
+    <div slot="footer">
+      <pura-button id="cancelBtn" variant="secondary" size="sm">Annulla</pura-button>
+      <pura-button id="saveBtn" variant="primary" size="sm" type="submit">Salva evento</pura-button>
+    </div>
+  </pura-dialog>
+
+  <pura-toast id="toast" position="bottom-right"></pura-toast>
+
+  <script type="module">
+    const root = document.documentElement;
+
+    // Theme toggle: flip between explicit light and dark.
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // ---- Event data (pinned to the week of 25 to 31 May 2026) ----------
+    // col: 1=Mon .. 7=Sun  start/end: hour in 24h (grid spans 8h to 19h).
+    const DAY_START = 8;   // first hour row
+    const DAY_END = 19;    // last hour label
+    const events = [
+      { col: 1, start: 9,    end: 10,   cat: "reuniao", title: "Avvio del progetto Orione", time: "09:00" },
+      { col: 1, start: 13.5, end: 15,   cat: "foco",    title: "Focus · architettura", time: "13:30" },
+      { col: 2, start: 10,   end: 11,   cat: "reuniao", title: "Revisione del design", time: "10:00" },
+      { col: 2, start: 16,   end: 17,   cat: "pessoal", title: "Palestra", time: "16:00" },
+      { col: 3, start: 9,    end: 9.5,  cat: "reuniao", title: "Daily con il team", time: "09:00" },
+      { col: 3, start: 11,   end: 12.5, cat: "foco",    title: "Focus · revisione PR", time: "11:00" },
+      { col: 3, start: 14.5, end: 15.5, cat: "reuniao", title: "1:1 con Giulia", time: "14:30" },
+      { col: 3, start: 17,   end: 18,   cat: "prazo",   title: "Consegna del report", time: "17:00" },
+      { col: 4, start: 9,    end: 10.5, cat: "reuniao", title: "Pianificazione dello sprint", time: "09:00" },
+      { col: 4, start: 15,   end: 16,   cat: "pessoal", title: "Visita medica", time: "15:00" },
+      { col: 5, start: 10,   end: 11,   cat: "reuniao", title: "Demo per il cliente", time: "10:00" },
+      { col: 5, start: 12,   end: 13,   cat: "pessoal", title: "Pranzo con Marco", time: "12:00" },
+      { col: 5, start: 16,   end: 17,   cat: "prazo",   title: "Chiusura di maggio", time: "16:00" },
+      { col: 6, start: 10,   end: 12,   cat: "pessoal", title: "Mercato contadino", time: "10:00" },
+    ];
+
+    // ---- Build the week grid -------------------------------------------
+    const body = document.getElementById("weekBody");
+    const rows = DAY_END - DAY_START; // number of hour rows
+    let html = "";
+    // Hour gutter cells (column 1).
+    for (let h = DAY_START; h < DAY_END; h++) {
+      html += `<div class="hour" style="grid-row:${h - DAY_START + 1}">${String(h).padStart(2, "0")}:00</div>`;
+    }
+    // Seven day columns, each spanning all hour rows.
+    for (let c = 1; c <= 7; c++) {
+      const today = c === 3 ? " is-today" : "";
+      let chips = "";
+      events.filter((e) => e.col === c).forEach((e) => {
+        const top = ((e.start - DAY_START) / rows) * 100;
+        const height = ((e.end - e.start) / rows) * 100;
+        chips += `<div class="chip ${e.cat}" style="top:${top}%;height:calc(${height}% - 3px)" tabindex="0">`
+          + `<span class="ct">${e.time}</span><span class="cn">${e.title}</span></div>`;
+      });
+      html += `<div class="day-col${today}" style="grid-column:${c + 1};grid-row:1 / ${rows + 1}">${chips}</div>`;
+    }
+    body.innerHTML = html;
+
+    // ---- Build the month grid (May 2026: Thu 1 to Sun 31) --------------
+    // Week starts Monday. May 1, 2026 is a Friday. Lead with Mon-Thu of prev month.
+    const monthCells = document.getElementById("monthCells");
+    const byDay = {};
+    // Map sample events to month days for the visible week (25 to 31).
+    const weekStartDate = 25;
+    events.forEach((e) => {
+      const d = weekStartDate + (e.col - 1);
+      (byDay[d] = byDay[d] || []).push(e);
+    });
+    const lead = [27, 28, 29, 30]; // Mon-Thu = Apr 27-30
+    let mhtml = "";
+    lead.forEach((d) => {
+      mhtml += `<div class="mcell adjacent"><span class="mnum">${d}</span></div>`;
+    });
+    for (let d = 1; d <= 31; d++) {
+      const today = d === 27 ? " today" : "";
+      let chips = "";
+      (byDay[d] || []).slice(0, 3).forEach((e) => {
+        chips += `<div class="mchip" tabindex="0"><span class="dot dot-${e.cat}"></span>`
+          + `<span class="ct">${e.time}</span><span class="cn">${e.title}</span></div>`;
+      });
+      mhtml += `<div class="mcell${today}"><span class="mnum">${d}</span>${chips}</div>`;
+    }
+    monthCells.innerHTML = mhtml;
+
+    // ---- View switching (segmented control) ----------------------------
+    const weekView = document.getElementById("weekView");
+    const monthView = document.getElementById("monthView");
+    document.getElementById("viewControl").addEventListener("change", (e) => {
+      const v = e.detail.value;
+      // "Day" reuses the week layout for this demo; "Month" swaps to the month grid.
+      if (v === "Mese") {
+        weekView.classList.add("hidden");
+        monthView.classList.add("active");
+      } else {
+        weekView.classList.remove("hidden");
+        monthView.classList.remove("active");
+      }
+    });
+
+    // ---- Dialog: open from "New event" button --------------------------
+    const dialog = document.getElementById("eventDialog");
+    const toast = document.getElementById("toast");
+    document.getElementById("newEventBtn").addEventListener("click", () => dialog.open());
+    document.getElementById("cancelBtn").addEventListener("click", () => dialog.close());
+
+    const form = document.getElementById("eventForm");
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      // Validate minimally, then close and confirm.
+      const titulo = form.querySelector('[name="titulo"]').value || "Nuovo evento";
+      dialog.close();
+      if (toast && typeof toast.show === "function") {
+        toast.show(`Evento "${titulo}" creato.`, { variant: "success" });
+      } else {
+        console.log("Event created:", titulo);
+      }
+    });
+    // Guard against an actual form submit navigating away.
+    form.addEventListener("submit", (e) => e.preventDefault());
+
+    // ---- Topbar niceties (no-op demos, must not throw) -----------------
+    document.getElementById("todayBtn").addEventListener("click", () => {
+      document.getElementById("miniCal").setAttribute("value", "2026-05-27");
+    });
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      console.log("previous period");
+    });
+
+    // Mini calendar selection updates the subtitle context.
+    document.getElementById("miniCal").addEventListener("change", (e) => {
+      console.log("selected day:", e.detail.value);
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profil — pura</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ---- theme toggle ---- */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-4);
+      right: var(--pura-space-4);
+      z-index: 50;
+    }
+
+    /* ---- page shell ---- */
+    .page { max-width: 60rem; margin: 0 auto; padding: 0 var(--pura-space-5) var(--pura-space-6); }
+
+    /* ---- cover ---- */
+    .cover {
+      height: 13rem;
+      border-radius: 0 0 var(--pura-radius-lg) var(--pura-radius-lg);
+      background:
+        radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--pura-accent) 38%, transparent), transparent 60%),
+        radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--pura-success) 28%, transparent), transparent 55%),
+        linear-gradient(135deg, var(--pura-subtle), var(--pura-subtle-hover));
+      border: 1px solid var(--pura-border);
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(currentColor 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: var(--pura-fg);
+      opacity: 0.04;
+    }
+
+    /* ---- profile header ---- */
+    .header {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--pura-space-5);
+      padding: var(--pura-space-3) var(--pura-space-1) 0;
+      flex-wrap: wrap;
+    }
+    .header pura-avatar.hero {
+      margin-top: -4.5rem; /* only the avatar overlaps the cover */
+    }
+    .header pura-avatar.hero::part(avatar) {
+      width: 7rem; height: 7rem;
+      box-shadow: inset 0 0 0 1px var(--pura-border), 0 0 0 4px var(--pura-bg);
+    }
+    .header-meta { flex: 1 1 16rem; min-width: 0; padding-bottom: var(--pura-space-1); }
+    .header-actions {
+      display: flex; gap: var(--pura-space-2); align-items: center;
+      padding-bottom: var(--pura-space-1); flex-wrap: wrap;
+    }
+    .name-row {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      flex-wrap: wrap;
+    }
+    h1.name { font-size: var(--pura-text-xl); font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+    .role { color: var(--pura-muted); font-size: var(--pura-text-sm); margin: var(--pura-space-1) 0 0; }
+    .bio { color: var(--pura-muted-fg); font-size: var(--pura-text-sm); margin: var(--pura-space-3) 0 0; max-width: 40rem; }
+    .meta-line {
+      display: flex; gap: var(--pura-space-4); flex-wrap: wrap;
+      color: var(--pura-muted); font-size: var(--pura-text-xs);
+      margin-top: var(--pura-space-3); align-items: center;
+    }
+    .meta-line span { display: inline-flex; align-items: center; gap: var(--pura-space-1); }
+    .meta-line a { color: var(--pura-accent); text-decoration: none; }
+    .meta-line a:hover { text-decoration: underline; }
+
+    /* ---- sections ---- */
+    .stats { margin-top: var(--pura-space-6); }
+    .tabs-wrap { margin-top: var(--pura-space-6); }
+
+    .posts { display: grid; gap: var(--pura-space-4); }
+    .post-head {
+      display: flex; align-items: center; gap: var(--pura-space-3);
+      font-size: var(--pura-text-sm);
+    }
+    .post-head .who { font-weight: 600; color: var(--pura-fg); }
+    .post-head .when { color: var(--pura-muted); font-size: var(--pura-text-xs); }
+    .post-body { color: var(--pura-muted-fg); font-size: var(--pura-text-sm); }
+    .post-foot { display: flex; gap: var(--pura-space-2); align-items: center; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--pura-space-4); }
+    @media (min-width: 40rem) { .about-grid { grid-template-columns: 1.4fr 1fr; } }
+    .field-list { display: grid; gap: var(--pura-space-3); margin: 0; }
+    .field-list div { display: flex; justify-content: space-between; gap: var(--pura-space-3); font-size: var(--pura-text-sm); }
+    .field-list dt { color: var(--pura-muted); }
+    .field-list dd { color: var(--pura-fg); margin: 0; font-weight: 550; text-align: right; }
+    .tags { display: flex; flex-wrap: wrap; gap: var(--pura-space-2); }
+
+    @media (max-width: 34rem) {
+      .header pura-avatar.hero { margin-top: -3.25rem; }
+      .header pura-avatar.hero::part(avatar) { width: 5.5rem; height: 5.5rem; }
+      .header-actions { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <pura-button class="theme-toggle" variant="secondary" size="sm" id="theme-toggle" aria-label="Theme umschalten">Dunkles Theme</pura-button>
+
+  <header>
+    <div class="cover" role="img" aria-label="Profil-Titelbild"></div>
+  </header>
+
+  <main class="page">
+    <section class="header">
+      <pura-avatar class="hero" size="lg" src="https://i.pravatar.cc/120?img=12" initials="EK" alt="Emma Köhler"></pura-avatar>
+
+      <div class="header-meta">
+        <div class="name-row">
+          <h1 class="name">Emma Köhler</h1>
+          <pura-badge variant="primary" dot>Pro</pura-badge>
+          <pura-badge variant="success">Verfügbar</pura-badge>
+        </div>
+        <p class="role">Product Engineer • Design Systems</p>
+        <p class="bio">Entwickelt barrierefreie Oberflächen mit Web Components. Begeistert von Typografie, Performance und davon, Komplexität so weit zu reduzieren, bis sie zu Einfachheit wird.</p>
+        <div class="meta-line">
+          <span>Berlin, Deutschland</span>
+          <span>Beigetreten im März 2021</span>
+          <span><a href="https://pura.dev" target="_blank" rel="noopener">pura.dev</a></span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <pura-button variant="primary" id="follow-btn">Folgen</pura-button>
+        <pura-button variant="secondary">Nachricht</pura-button>
+      </div>
+    </section>
+
+    <section class="stats">
+      <pura-stat-grid label="Profilstatistiken" min="9rem">
+        <pura-stat label="Beiträge" value="248"></pura-stat>
+        <pura-stat label="Follower" value="12,4 Tsd." delta="+8,2 %" trend="up"></pura-stat>
+        <pura-stat label="Folge ich" value="312"></pura-stat>
+        <pura-stat label="Likes" value="86,1 Tsd." delta="+1,4 %" trend="up"></pura-stat>
+      </pura-stat-grid>
+    </section>
+
+    <section class="tabs-wrap">
+      <pura-tabs active="0">
+        <!-- ============ POSTS ============ -->
+        <pura-tab label="Beiträge">
+          <div class="posts">
+            <pura-card hover>
+              <div class="post-head" slot="header">
+                <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" initials="EK" alt="Emma Köhler"></pura-avatar>
+                <span class="who">Emma Köhler</span>
+                <span class="when">vor 2 Stunden</span>
+              </div>
+              <p class="post-body">Wir haben v2 unseres Design Systems veröffentlicht: 123 native Komponenten, null Abhängigkeiten, Theming über CSS Custom Properties. Der Unterschied in der Bundle-Größe war beeindruckend.</p>
+              <div class="post-foot" slot="footer">
+                <pura-badge variant="info" dot>design-system</pura-badge>
+                <pura-badge>web-components</pura-badge>
+              </div>
+            </pura-card>
+
+            <pura-card hover>
+              <div class="post-head" slot="header">
+                <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" initials="EK" alt="Emma Köhler"></pura-avatar>
+                <span class="who">Emma Köhler</span>
+                <span class="when">gestern</span>
+              </div>
+              <p class="post-body">Tipp des Tages: Bevorzuge <code>::part()</code> gegenüber Spezifitäts-Tricks, wenn du eine Web Component von außen anpassen musst. So bleibt die Kapselung erhalten und alles weiterhin themenfähig.</p>
+              <div class="post-foot" slot="footer">
+                <pura-badge variant="warning" dot>tipp</pura-badge>
+                <pura-badge>css</pura-badge>
+              </div>
+            </pura-card>
+
+            <pura-card hover>
+              <div class="post-head" slot="header">
+                <pura-avatar size="sm" src="https://i.pravatar.cc/120?img=12" initials="EK" alt="Emma Köhler"></pura-avatar>
+                <span class="who">Emma Köhler</span>
+                <span class="when">vor 3 Tagen</span>
+              </div>
+              <p class="post-body">Barrierefreiheit ist kein Extra, das man am Ende dranhängt. Sie ist das Fundament. Ich habe begonnen, einen Leitfaden zu ARIA-Mustern für zusammengesetzte Komponenten zu schreiben, der bald hier erscheint.</p>
+              <div class="post-foot" slot="footer">
+                <pura-badge variant="success" dot>a11y</pura-badge>
+              </div>
+            </pura-card>
+          </div>
+        </pura-tab>
+
+        <!-- ============ ABOUT ============ -->
+        <pura-tab label="Über mich">
+          <div class="about-grid">
+            <pura-card>
+              <span slot="header">Biografie</span>
+              <p>Product Engineer mit 9 Jahren Erfahrung im Bereich Oberflächen. Leitete die Migration eines Framework-basierten Stacks zu nativen Web Components, reduzierte das Bundle um 70 % und halbierte die Ladezeit.</p>
+              <p style="margin-top: var(--pura-space-3)">Außerhalb der Arbeit schreibt sie über Typografie, betreibt einen Frontend-Newsletter und begleitet Menschen beim Berufswechsel.</p>
+            </pura-card>
+
+            <pura-card>
+              <span slot="header">Details</span>
+              <dl class="field-list">
+                <div><dt>Rolle</dt><dd>Staff Engineer</dd></div>
+                <div><dt>Unternehmen</dt><dd>Aurora Labs</dd></div>
+                <div><dt>Standort</dt><dd>Berlin, DE</dd></div>
+                <div><dt>Zeitzone</dt><dd>MEZ</dd></div>
+              </dl>
+              <pura-separator label="Fähigkeiten" style="margin: var(--pura-space-4) 0"></pura-separator>
+              <div class="tags">
+                <pura-badge>TypeScript</pura-badge>
+                <pura-badge>Web Components</pura-badge>
+                <pura-badge>CSS</pura-badge>
+                <pura-badge>Barrierefreiheit</pura-badge>
+                <pura-badge>Performance</pura-badge>
+              </div>
+            </pura-card>
+          </div>
+        </pura-tab>
+
+        <!-- ============ ACTIVITY ============ -->
+        <pura-tab label="Aktivität">
+          <pura-card>
+            <span slot="header">Letzte Aktivität</span>
+            <pura-timeline label="Aktivitätsverlauf">
+              <pura-timeline-item variant="primary">
+                <span slot="time">Heute, 09:14</span>
+                <span slot="title">Hat einen neuen Artikel veröffentlicht</span>
+                „Müheloses Theming mit CSS Custom Properties" ist online und hat bereits 2 Tsd. Aufrufe überschritten.
+              </pura-timeline-item>
+              <pura-timeline-item variant="success">
+                <span slot="time">Gestern, 16:40</span>
+                <span slot="title">Hat einen Pull Request gemergt</span>
+                Hat <code>::part()</code>-Unterstützung zu 8 weiteren Komponenten des Design Systems hinzugefügt.
+              </pura-timeline-item>
+              <pura-timeline-item variant="info">
+                <span slot="time">vor 3 Tagen</span>
+                <span slot="title">Hat einen Meilenstein erreicht</span>
+                Hat 12 Tsd. Follower erreicht. Danke an die gesamte Community!
+              </pura-timeline-item>
+              <pura-timeline-item variant="warning">
+                <span slot="time">vor 1 Woche</span>
+                <span slot="title">Hat eine Diskussion eröffnet</span>
+                Hat einen RFC zu Namenskonventionen für benannte Slots in zusammengesetzten Komponenten vorgeschlagen.
+              </pura-timeline-item>
+              <pura-timeline-item>
+                <span slot="time">vor 2 Wochen</span>
+                <span slot="title">Ist einer Organisation beigetreten</span>
+                Hat begonnen, mit dem Plattform-Team von Aurora Labs zusammenzuarbeiten.
+              </pura-timeline-item>
+            </pura-timeline>
+          </pura-card>
+        </pura-tab>
+      </pura-tabs>
+    </section>
+  </main>
+
+  <script type="module">
+    // Theme toggle: flip strictly between light/dark so prefers-color-scheme never takes over.
+    const root = document.documentElement;
+    const btn = document.getElementById("theme-toggle");
+    const sync = () => {
+      const dark = root.dataset.theme === "dark";
+      btn.textContent = dark ? "Helles Theme" : "Dunkles Theme";
+    };
+    btn.addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+      sync();
+    });
+    sync();
+
+    // Follow button: toggle label/variant.
+    const follow = document.getElementById("follow-btn");
+    let following = false;
+    follow.addEventListener("click", () => {
+      following = !following;
+      follow.textContent = following ? "Folge ich" : "Folgen";
+      follow.setAttribute("variant", following ? "secondary" : "primary");
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>

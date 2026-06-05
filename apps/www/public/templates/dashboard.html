@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard · Atlas Analytics</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.bundle.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--pura-font);
+      font-size: var(--pura-text-base);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* App shell: a full-height row of sidebar + main. */
+    .shell {
+      display: flex;
+      height: 100dvh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    pura-sidebar { flex: none; }
+
+    .main {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Brand mark in the sidebar header. */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-2);
+      font-weight: 650;
+      font-size: var(--pura-text-base);
+      letter-spacing: -0.01em;
+    }
+    .brand .logo {
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--pura-radius-sm);
+      background: var(--pura-primary);
+      color: var(--pura-primary-fg);
+      font-weight: 700;
+      font-size: var(--pura-text-sm);
+      flex: none;
+    }
+
+    .nav-section {
+      padding: var(--pura-space-3) var(--pura-space-3) var(--pura-space-1);
+      font-size: var(--pura-text-xs);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--pura-muted);
+    }
+
+    .foot-user {
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-2);
+      border-radius: var(--pura-radius);
+      min-width: 0;
+    }
+    .foot-user .meta { min-width: 0; line-height: 1.3; }
+    .foot-user .meta strong { display: block; font-size: var(--pura-text-sm); font-weight: 600;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .foot-user .meta span { display: block; font-size: var(--pura-text-xs); color: var(--pura-muted);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* Topbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-3) var(--pura-space-5);
+      min-height: 3.5rem;
+      background: color-mix(in srgb, var(--pura-bg) 80%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .topbar h1 {
+      margin: 0;
+      font-size: var(--pura-text-base);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .topbar .sub { font-size: var(--pura-text-xs); color: var(--pura-muted); margin-top: 1px; }
+    .topbar .spacer { flex: 1 1 auto; }
+
+    .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius);
+      background: var(--pura-bg);
+      color: var(--pura-muted-fg);
+      cursor: pointer;
+      transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
+    }
+    .icon-btn:hover { background: var(--pura-subtle); color: var(--pura-fg); }
+    .icon-btn svg { width: 1.1rem; height: 1.1rem; }
+
+    .avatar-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--pura-space-2);
+      padding: 0.2rem 0.3rem 0.2rem 0.2rem;
+      border: 1px solid transparent;
+      border-radius: var(--pura-radius-full);
+      background: transparent;
+      cursor: pointer;
+      color: var(--pura-fg);
+      transition: background var(--pura-dur) var(--pura-ease), border-color var(--pura-dur) var(--pura-ease);
+    }
+    .avatar-trigger:hover { background: var(--pura-subtle); border-color: var(--pura-border); }
+    .avatar-trigger:focus-visible { outline: 2px solid var(--pura-ring); outline-offset: 2px; }
+
+    .hamburger { display: none; }
+
+    /* Content grid */
+    .content {
+      flex: 1 1 auto;
+      padding: var(--pura-space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--pura-space-5);
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .page-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--pura-space-4);
+      flex-wrap: wrap;
+    }
+    .page-head h2 { margin: 0; font-size: 1.35rem; font-weight: 650; letter-spacing: -0.02em; }
+    .page-head p { margin: var(--pura-space-1) 0 0; color: var(--pura-muted); font-size: var(--pura-text-sm); }
+
+    /* Two-column lower region: table (wide) + side cards. */
+    .lower {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: var(--pura-space-5);
+      align-items: start;
+    }
+
+    .card {
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-lg);
+      background: var(--pura-bg);
+      overflow: hidden;
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--pura-space-3);
+      padding: var(--pura-space-4) var(--pura-space-5);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .card-head h3 { margin: 0; font-size: var(--pura-text-sm); font-weight: 600; }
+    .card-head .hint { font-size: var(--pura-text-xs); color: var(--pura-muted); }
+    .card-body { padding: var(--pura-space-5); }
+    .card-body.flush { padding: 0; }
+
+    /* Trend card */
+    .trend-value { font-size: var(--pura-text-xl); font-weight: 700; letter-spacing: -0.02em; }
+    .trend-row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--pura-space-4); }
+    .trend-row pura-sparkline { width: 100%; }
+    .trend-spark { margin-top: var(--pura-space-4); }
+    .trend-legend { display: flex; gap: var(--pura-space-4); margin-top: var(--pura-space-4);
+      font-size: var(--pura-text-xs); color: var(--pura-muted); }
+    .trend-legend b { color: var(--pura-fg); font-weight: 600; }
+
+    .side-stack { display: flex; flex-direction: column; gap: var(--pura-space-5); }
+
+    .cell-name { display: flex; align-items: center; gap: var(--pura-space-3); }
+    .cell-name .meta { line-height: 1.3; }
+    .cell-name .meta strong { font-weight: 600; }
+    .cell-name .meta span { display: block; font-size: var(--pura-text-xs); color: var(--pura-muted); }
+    .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+
+    @media (max-width: 1024px) {
+      .lower { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: inline-grid; }
+      .content { padding: var(--pura-space-4); }
+      .topbar { padding: var(--pura-space-3) var(--pura-space-4); }
+      .topbar .who-name { display: none; }
+    }
+
+    /* Fixed theme toggle (top-right) */
+    .theme-toggle {
+      position: fixed;
+      top: var(--pura-space-3);
+      right: var(--pura-space-4);
+      z-index: 100;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--pura-border);
+      border-radius: var(--pura-radius-full);
+      background: var(--pura-bg);
+      color: var(--pura-fg);
+      cursor: pointer;
+      box-shadow: var(--pura-shadow-sm);
+      transition: background var(--pura-dur) var(--pura-ease);
+    }
+    .theme-toggle:hover { background: var(--pura-subtle); }
+    .theme-toggle svg { width: 1.05rem; height: 1.05rem; }
+    .theme-toggle .moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .moon { display: block; }
+    html[data-theme="dark"] .theme-toggle .sun { display: none; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+
+  <div class="shell">
+    <pura-sidebar id="sidebar" collapsible>
+      <div slot="header" class="brand">
+        <span class="logo">A</span>
+        <span>Atlas Analytics</span>
+      </div>
+
+      <div class="nav-section">General</div>
+      <pura-sidebar-item active>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+        Dashboard
+      </pura-sidebar-item>
+      <pura-sidebar-item>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+        Reports
+      </pura-sidebar-item>
+      <pura-sidebar-item>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        Customers
+      </pura-sidebar-item>
+      <pura-sidebar-item>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Invoices
+      </pura-sidebar-item>
+
+      <div class="nav-section">Operations</div>
+      <pura-sidebar-item>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        Products
+      </pura-sidebar-item>
+      <pura-sidebar-item>
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.31.22.66.6 1h.09a2 2 0 0 1 0 4H21a1.65 1.65 0 0 0-1.6 1z"/></svg>
+        Settings
+      </pura-sidebar-item>
+
+      <div slot="footer">
+        <div class="foot-user">
+          <pura-avatar src="https://i.pravatar.cc/120?img=12" alt="Andrew Carter" initials="AC" size="sm" status="online"></pura-avatar>
+          <span class="meta">
+            <strong>Andrew Carter</strong>
+            <span>andrew@atlas.com</span>
+          </span>
+        </div>
+      </div>
+    </pura-sidebar>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn hamburger" id="menuBtn" type="button" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div>
+          <h1>Dashboard</h1>
+          <div class="sub">Overview · May 2026</div>
+        </div>
+        <div class="spacer"></div>
+
+        <button class="icon-btn" id="notifBtn" type="button" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </button>
+
+        <pura-dropdown-menu id="userMenu">
+          <button class="avatar-trigger" slot="trigger" type="button" aria-label="Andrew Carter's account">
+            <pura-avatar src="https://i.pravatar.cc/120?img=12" alt="Andrew Carter" initials="AC" size="sm"></pura-avatar>
+            <span class="who-name num" style="font-weight:600;font-size:var(--pura-text-sm)">Andrew</span>
+          </button>
+          <pura-menu-label>andrew@atlas.com</pura-menu-label>
+          <pura-menu-item data-action="perfil">My profile<span slot="shortcut">⌘P</span></pura-menu-item>
+          <pura-menu-item data-action="config">Settings<span slot="shortcut">⌘,</span></pura-menu-item>
+          <pura-menu-item data-action="time">Switch team</pura-menu-item>
+          <pura-menu-separator></pura-menu-separator>
+          <pura-menu-item data-action="sair">Sign out</pura-menu-item>
+        </pura-dropdown-menu>
+      </header>
+
+      <div class="content">
+        <div class="page-head">
+          <div>
+            <h2>Good morning, Andrew</h2>
+            <p>Here's a summary of Atlas's performance this month.</p>
+          </div>
+          <pura-badge variant="success" dot>All systems operational</pura-badge>
+        </div>
+
+        <!-- KPIs -->
+        <pura-stat-grid label="Monthly metrics" min="13rem">
+          <pura-stat label="Recurring revenue" value="$184,250" delta="+12.4%" trend="up">
+            <span slot="help">vs. $163,900 last month</span>
+          </pura-stat>
+          <pura-stat label="New customers" value="312" delta="+8.1%" trend="up">
+            <span slot="help">42 from referrals</span>
+          </pura-stat>
+          <pura-stat label="Conversion rate" value="4.8%" delta="-0.3 pts" trend="down">
+            <span slot="help">quarterly goal: 5.2%</span>
+          </pura-stat>
+          <pura-stat label="Churn" value="1.9%" delta="0.0 pts" trend="flat">
+            <span slot="help">stable for 3 months</span>
+          </pura-stat>
+        </pura-stat-grid>
+
+        <div class="lower">
+          <!-- Recent records table -->
+          <section class="card">
+            <div class="card-head">
+              <h3>Recent orders</h3>
+              <span class="hint">Updated 4 min ago</span>
+            </div>
+            <div class="card-body flush">
+              <pura-table>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Order</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="cell-name">
+                          <pura-avatar src="https://i.pravatar.cc/120?img=32" alt="Megan Carter" initials="MC" size="sm"></pura-avatar>
+                          <span class="meta"><strong>Megan Carter</strong><span>Techno Systems Inc.</span></span>
+                        </div>
+                      </td>
+                      <td class="num">#48217</td>
+                      <td class="num">$12,480</td>
+                      <td><pura-badge variant="success">Paid</pura-badge></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-name">
+                          <pura-avatar src="https://i.pravatar.cc/120?img=15" alt="Ryan Mitchell" initials="RM" size="sm"></pura-avatar>
+                          <span class="meta"><strong>Ryan Mitchell</strong><span>Mitchell Trading LLC</span></span>
+                        </div>
+                      </td>
+                      <td class="num">#48216</td>
+                      <td class="num">$3,190</td>
+                      <td><pura-badge variant="warning">Pending</pura-badge></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-name">
+                          <pura-avatar src="https://i.pravatar.cc/120?img=47" alt="Julia Hayes" initials="JH" size="sm"></pura-avatar>
+                          <span class="meta"><strong>Julia Hayes</strong><span>Hayes & Sons</span></span>
+                        </div>
+                      </td>
+                      <td class="num">#48215</td>
+                      <td class="num">$27,900</td>
+                      <td><pura-badge variant="success">Paid</pura-badge></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-name">
+                          <pura-avatar src="https://i.pravatar.cc/120?img=8" alt="Peter Adams" initials="PA" size="sm"></pura-avatar>
+                          <span class="meta"><strong>Peter Adams</strong><span>Adams Logistics</span></span>
+                        </div>
+                      </td>
+                      <td class="num">#48214</td>
+                      <td class="num">$8,750</td>
+                      <td><pura-badge variant="danger">Canceled</pura-badge></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="cell-name">
+                          <pura-avatar src="https://i.pravatar.cc/120?img=23" alt="Camille Brooks" initials="CB" size="sm"></pura-avatar>
+                          <span class="meta"><strong>Camille Brooks</strong><span>Brooks Digital</span></span>
+                        </div>
+                      </td>
+                      <td class="num">#48213</td>
+                      <td class="num">$5,420</td>
+                      <td><pura-badge variant="info">Processing</pura-badge></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </pura-table>
+            </div>
+          </section>
+
+          <!-- Side: trend + activity feed -->
+          <div class="side-stack">
+            <section class="card">
+              <div class="card-head">
+                <h3>Revenue · last 14 days</h3>
+                <pura-badge variant="success" dot>+12.4%</pura-badge>
+              </div>
+              <div class="card-body">
+                <div class="trend-row">
+                  <span class="trend-value num">$184.2K</span>
+                </div>
+                <div class="trend-spark">
+                  <pura-sparkline
+                    width="320" height="56" fill dot color="var(--pura-accent)"
+                    values="9,11,8,12,10,14,13,16,15,18,17,21,20,24"></pura-sparkline>
+                </div>
+                <div class="trend-legend">
+                  <span><b>Min.</b> $9.1K</span>
+                  <span><b>Max.</b> $24.3K</span>
+                  <span><b>Avg.</b> $15.6K</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head">
+                <h3>Recent activity</h3>
+                <span class="hint">Today</span>
+              </div>
+              <div class="card-body">
+                <pura-timeline label="Recent activity">
+                  <pura-timeline-item variant="success">
+                    <span slot="time">12 min ago</span>
+                    <span slot="title">Payment confirmed</span>
+                    Marian Cole paid invoice #48217 ($12,480).
+                  </pura-timeline-item>
+                  <pura-timeline-item variant="primary">
+                    <span slot="time">48 min ago</span>
+                    <span slot="title">New customer</span>
+                    Hayes &amp; Sons signed up for the annual Pro plan.
+                  </pura-timeline-item>
+                  <pura-timeline-item variant="warning">
+                    <span slot="time">2 h ago</span>
+                    <span slot="title">Invoice due soon</span>
+                    Order #48216 from Ralph Lyons is due tomorrow.
+                  </pura-timeline-item>
+                  <pura-timeline-item variant="info">
+                    <span slot="time">5 h ago</span>
+                    <span slot="title">Report generated</span>
+                    Monthly close exported to PDF by Camille Brooks.
+                  </pura-timeline-item>
+                </pura-timeline>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head">
+                <h3>Team online</h3>
+                <span class="hint">3 active</span>
+              </div>
+              <div class="card-body" style="padding: var(--pura-space-2)">
+                <pura-item hover>
+                  <pura-avatar slot="media" src="https://i.pravatar.cc/120?img=5" alt="Luke Parker" initials="LP" size="sm" status="online"></pura-avatar>
+                  <span slot="title">Luke Parker</span>
+                  Sales · reviewing proposals
+                  <pura-badge slot="actions" variant="success" dot>Active</pura-badge>
+                </pura-item>
+                <pura-item hover>
+                  <pura-avatar slot="media" src="https://i.pravatar.cc/120?img=41" alt="Bridget Nelson" initials="BN" size="sm" status="busy"></pura-avatar>
+                  <span slot="title">Bridget Nelson</span>
+                  Support · in a call
+                  <pura-badge slot="actions" variant="warning" dot>Busy</pura-badge>
+                </pura-item>
+                <pura-item hover>
+                  <pura-avatar slot="media" src="https://i.pravatar.cc/120?img=60" alt="Dean Morris" initials="DM" size="sm" status="online"></pura-avatar>
+                  <span slot="title">Dean Morris</span>
+                  Finance · reconciling
+                  <pura-badge slot="actions" variant="success" dot>Active</pura-badge>
+                </pura-item>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // Theme toggle: flip strictly between explicit "light" and "dark".
+    const root = document.documentElement;
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    });
+
+    // Mobile: open the off-canvas sidebar from the topbar hamburger.
+    const sidebar = document.getElementById("sidebar");
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      sidebar.openMobile();
+    });
+
+    // Close mobile sidebar when a nav item is chosen.
+    sidebar.addEventListener("click", (e) => {
+      if (e.target.closest("pura-sidebar-item")) sidebar.closeMobile();
+    });
+
+    // User dropdown: react to menu selections without throwing.
+    document.getElementById("userMenu").addEventListener("select", (e) => {
+      const action = e.target.getAttribute("data-action");
+      if (action) console.log("menu:", action);
+    });
+
+    // Notification button (no-op demo).
+    document.getElementById("notifBtn").addEventListener("click", () => {
+      console.log("notifications");
+    });
+  </script>
+  <pura-inspector position="bottom-left"></pura-inspector>
+</body>
+</html>
