@@ -39,6 +39,10 @@ registry/registry.json
 # CLI user-side artifacts (when dogfooding)
 .pura/
 
+# local dev scratch (standalone registry browser + verify stubs)
+/registry.html
+/components/
+
 # astro
 apps/www/.astro/
 
