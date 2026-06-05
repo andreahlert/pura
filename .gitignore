@@ -24,18 +24,16 @@ docs/superpowers/
 # git worktrees
 .worktrees/
 
-# monorepo build outputs
+# monorepo build outputs (generated into www public root by build:registry).
+# Globs cover every registry root file emitted by emitRuntime() so adding a new
+# registry/*.js|*.css never silently commits a generated artifact. No committed
+# asset lives at the public root (only favicon.svg + templates/).
 apps/www/dist/
+apps/www/public/*.js
+apps/www/public/*.css
 apps/www/public/r/
 apps/www/public/components/
 apps/www/public/lib/
-apps/www/public/base.js
-apps/www/public/tokens.css
-apps/www/public/pura.js
-apps/www/public/theme.js
-apps/www/public/theme-boot.js
-apps/www/public/theme-presets.js
-apps/www/public/i18n.js
 registry/registry.json
 
 # CLI user-side artifacts (when dogfooding)
