@@ -1,0 +1,72 @@
+// <pura-aspect-ratio> — maintains a fixed aspect ratio for slotted content.
+// Attributes: ratio (e.g. "16/9", "4:3", "1.5", default "1/1"), rounded
+// (boolean, applies var(--pura-radius)). Slotted media/content fills 100%
+// width & height with object-fit cover; overflow is clipped.
+import { PuraElement, define } from "../base.js";
+
+class PuraAspectRatio extends PuraElement {
+  static observedAttributes = ["ratio", "rounded"];
+
+  connectedCallback() {
+    this.render(
+      `<div part="wrapper"><slot></slot></div>`,
+      CSS
+    );
+    this._sync();
+  }
+
+  attributeChangedCallback() {
+    if (this.shadowRoot.childElementCount) this._sync();
+  }
+
+  // Parse the ratio attr into a valid CSS aspect-ratio value. Accepts
+  // "16/9", "16:9", "1.78" or a single number; falls back to "1 / 1".
+  _ratio() {
+    const raw = (this.getAttribute("ratio") || "1/1").trim();
+    const m = raw.match(/^(\d*\.?\d+)\s*[\/:]\s*(\d*\.?\d+)$/);
+    if (m) {
+      const w = parseFloat(m[1]);
+      const h = parseFloat(m[2]);
+      if (w > 0 && h > 0) return `${w} / ${h}`;
+    }
+    const single = parseFloat(raw);
+    if (single > 0) return `${single} / 1`;
+    return "1 / 1";
+  }
+
+  _sync() {
+    this.$('[part="wrapper"]').style.setProperty("--pura-ar", this._ratio());
+  }
+}
+
+const CSS = `
+  :host { display: block; }
+
+  [part="wrapper"] {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--pura-ar, 1 / 1);
+    overflow: hidden;
+    border-radius: 0;
+  }
+  :host([rounded]) [part="wrapper"] { border-radius: var(--pura-radius); }
+
+  /* Slotted content fills the box. Media is cropped to cover. */
+  ::slotted(*) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  ::slotted(img),
+  ::slotted(video),
+  ::slotted(picture),
+  ::slotted(canvas),
+  ::slotted(iframe),
+  ::slotted(svg) {
+    object-fit: cover;
+    border: 0;
+  }
+`;
+
+define("pura-aspect-ratio", PuraAspectRatio);
+export { PuraAspectRatio };

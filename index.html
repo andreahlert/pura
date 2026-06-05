@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pura — component library</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <script type="module" src="pura.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: var(--pura-font); background: var(--pura-bg);
+      color: var(--pura-fg); line-height: 1.5;
+      transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: var(--pura-space-6) var(--pura-space-5) 6rem; }
+    header.top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: var(--pura-space-6); margin-bottom: var(--pura-space-6);
+      border-bottom: 1px solid var(--pura-border);
+    }
+    .brand { display: flex; align-items: baseline; gap: var(--pura-space-3); }
+    .brand h1 { margin: 0; font-size: var(--pura-text-xl); font-weight: 700; letter-spacing: -0.02em; }
+    .brand p { margin: 0; color: var(--pura-muted); font-size: var(--pura-text-sm); }
+    .theme-btn {
+      font: inherit; font-size: var(--pura-text-sm); font-weight: 550; cursor: pointer;
+      display: inline-flex; align-items: center; gap: var(--pura-space-2);
+      background: var(--pura-bg); color: var(--pura-fg);
+      border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius);
+      padding: 0 var(--pura-space-4); height: 2.25rem; box-shadow: var(--pura-shadow-sm);
+    }
+    .theme-btn:hover { background: var(--pura-subtle); }
+    section { margin-bottom: var(--pura-space-6); }
+    h2 {
+      font-size: var(--pura-text-xs); font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--pura-muted); margin: 0 0 var(--pura-space-4);
+    }
+    .row { display: flex; flex-wrap: wrap; gap: var(--pura-space-3); align-items: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--pura-space-4); }
+    .stack { display: flex; flex-direction: column; gap: var(--pura-space-4); max-width: 420px; }
+    .muted { color: var(--pura-muted); font-size: var(--pura-text-sm); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <h1>pura</h1>
+        <p>web components, zero deps, agent-readable</p>
+      </div>
+      <button class="theme-btn" id="theme">
+        <span id="theme-label">Dark</span>
+      </button>
+    </header>
+
+    <section>
+      <h2>Buttons</h2>
+      <div class="row">
+        <pura-button>Primary</pura-button>
+        <pura-button variant="secondary">Secondary</pura-button>
+        <pura-button variant="ghost">Ghost</pura-button>
+        <pura-button variant="danger">Danger</pura-button>
+        <pura-button loading>Loading</pura-button>
+        <pura-button disabled>Disabled</pura-button>
+        <pura-button size="sm">Small</pura-button>
+        <pura-button size="lg">Large</pura-button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Badges</h2>
+      <div class="row">
+        <pura-badge>Neutral</pura-badge>
+        <pura-badge variant="primary">Primary</pura-badge>
+        <pura-badge variant="success" dot>Online</pura-badge>
+        <pura-badge variant="warning" dot>Pending</pura-badge>
+        <pura-badge variant="danger" dot>Error</pura-badge>
+        <pura-badge variant="info">Info</pura-badge>
+      </div>
+    </section>
+
+    <section>
+      <h2>Avatars</h2>
+      <div class="row">
+        <pura-avatar initials="AE" size="sm"></pura-avatar>
+        <pura-avatar initials="AE"></pura-avatar>
+        <pura-avatar initials="AE" size="lg"></pura-avatar>
+        <pura-avatar src="https://i.pravatar.cc/120?img=12" alt="user" status="online"></pura-avatar>
+        <pura-avatar initials="MB" status="busy"></pura-avatar>
+      </div>
+    </section>
+
+    <section>
+      <h2>Form controls</h2>
+      <div class="stack">
+        <pura-input label="Email" type="email" placeholder="andre@aex.partners" hint="Nunca compartilhamos."></pura-input>
+        <pura-input label="Senha" type="password" placeholder="••••••••" invalid hint="Mínimo 8 caracteres."></pura-input>
+        <pura-textarea label="Mensagem" placeholder="Escreva algo..." rows="3"></pura-textarea>
+        <pura-select label="País" hint="Selecione um.">
+          <option value="br">Brasil</option>
+          <option value="us">Estados Unidos</option>
+          <option value="pt">Portugal</option>
+        </pura-select>
+        <div class="row">
+          <pura-checkbox checked>Aceito os termos</pura-checkbox>
+          <pura-switch checked>Notificações</pura-switch>
+        </div>
+        <div class="row">
+          <pura-radio name="plan" value="free" checked>Free</pura-radio>
+          <pura-radio name="plan" value="pro">Pro</pura-radio>
+          <pura-radio name="plan" value="team">Team</pura-radio>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Cards</h2>
+      <div class="grid">
+        <pura-card hover>
+          <span slot="header">Plano Pro</span>
+          Tudo do Free, mais analytics, exports e suporte prioritário.
+          <pura-button slot="footer" size="sm">Assinar</pura-button>
+          <pura-button slot="footer" size="sm" variant="ghost">Detalhes</pura-button>
+        </pura-card>
+        <pura-card hover>
+          <span slot="header">Uso do mês</span>
+          Você usou 64% da cota. Renova em 12 dias.
+          <pura-progress slot="footer" value="64" style="width:100%"></pura-progress>
+        </pura-card>
+        <pura-card hover>
+          <span slot="header">Time</span>
+          3 membros ativos neste workspace.
+        </pura-card>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tabs</h2>
+      <pura-tabs active="0" style="max-width:520px">
+        <pura-tab label="Conta">Gerencie seus dados de conta, nome e email aqui.</pura-tab>
+        <pura-tab label="Cobrança">Cartões, faturas e histórico de pagamento.</pura-tab>
+        <pura-tab label="API">Suas chaves de API e webhooks.</pura-tab>
+      </pura-tabs>
+    </section>
+
+    <section>
+      <h2>Accordion</h2>
+      <pura-accordion single style="max-width:520px">
+        <pura-accordion-item label="O que é o pura?" open>Biblioteca de web components nativos, sem dependências e sem build.</pura-accordion-item>
+        <pura-accordion-item label="Funciona com React/Vue?">Sim. Custom elements funcionam em qualquer framework ou em HTML puro.</pura-accordion-item>
+        <pura-accordion-item label="Como customizo o tema?">Sobrescreva os CSS custom properties em tokens.css ou no seu :root.</pura-accordion-item>
+      </pura-accordion>
+    </section>
+
+    <section>
+      <h2>Alerts</h2>
+      <div class="stack" style="max-width:560px">
+        <pura-alert variant="info" title="Atualização disponível">Versão 1.2 já pode ser instalada.</pura-alert>
+        <pura-alert variant="success" title="Pagamento confirmado">Seu plano Pro está ativo.</pura-alert>
+        <pura-alert variant="warning" title="Cota quase cheia" dismissible>Você usou 90% do limite mensal.</pura-alert>
+        <pura-alert variant="danger" title="Falha no deploy">Verifique os logs do build.</pura-alert>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tooltip, Dialog, Spinner, Progress</h2>
+      <div class="row">
+        <pura-tooltip text="Salvar alterações (⌘S)">
+          <pura-button variant="secondary">Hover me</pura-button>
+        </pura-tooltip>
+        <pura-button id="open-dialog">Abrir dialog</pura-button>
+        <pura-spinner size="sm"></pura-spinner>
+        <pura-spinner></pura-spinner>
+        <pura-spinner size="lg"></pura-spinner>
+      </div>
+      <div style="max-width:420px; margin-top:var(--pura-space-4); display:flex; flex-direction:column; gap:var(--pura-space-3)">
+        <pura-progress value="35"></pura-progress>
+        <pura-progress value="72"></pura-progress>
+        <pura-progress indeterminate></pura-progress>
+      </div>
+    </section>
+
+    <pura-dialog id="dlg" title="Confirmar ação">
+      Tem certeza que deseja continuar? Essa ação pode ser desfeita nas próximas 24h.
+      <pura-button slot="footer" variant="ghost" id="cancel">Cancelar</pura-button>
+      <pura-button slot="footer" id="confirm">Confirmar</pura-button>
+    </pura-dialog>
+  </div>
+
+  <script type="module">
+    const root = document.documentElement;
+    const btn = document.getElementById("theme");
+    const label = document.getElementById("theme-label");
+    const sync = () => (label.textContent = root.dataset.theme === "dark" ? "Light" : "Dark");
+    btn.addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+      sync();
+    });
+    sync();
+
+    customElements.whenDefined("pura-dialog").then(() => {
+      const dlg = document.getElementById("dlg");
+      document.getElementById("open-dialog").addEventListener("click", () => dlg.open());
+      document.getElementById("cancel").addEventListener("click", () => dlg.close());
+      document.getElementById("confirm").addEventListener("click", () => dlg.close());
+    });
+  </script>
+</body>
+</html>

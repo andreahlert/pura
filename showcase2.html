@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pura — full showcase</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <script type="module" src="pura.js"></script>
+  <style>
+    body { margin: 0; font-family: var(--pura-font); background: var(--pura-bg); color: var(--pura-fg); }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+    h2 { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--pura-muted); margin: 2.2rem 0 .9rem; }
+    .row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .stack { display: flex; flex-direction: column; gap: 1rem; max-width: 420px; }
+    table { border-collapse: collapse; width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>label / field / input-group / input-otp</h2>
+    <div class="stack">
+      <pura-field label="Usuário" description="Seu nome público." >
+        <pura-input placeholder="ahlert"></pura-input>
+      </pura-field>
+      <pura-field label="Token" error="Token inválido.">
+        <pura-input value="bad" invalid></pura-input>
+      </pura-field>
+      <pura-input-group>
+        <span slot="prefix">@</span>
+        <input slot="" placeholder="handle" style="border:none;outline:none;background:transparent;flex:1;font:inherit;color:inherit" />
+        <pura-button slot="suffix" size="sm">Ir</pura-button>
+      </pura-input-group>
+      <pura-input-otp length="6"></pura-input-otp>
+    </div>
+
+    <h2>kbd / badge / skeleton / aspect-ratio / empty / item</h2>
+    <div class="row">
+      <span>Abrir busca <pura-kbd>⌘</pura-kbd><pura-kbd>K</pura-kbd></span>
+      <pura-skeleton width="120px" height="20px"></pura-skeleton>
+      <pura-skeleton circle width="40px" height="40px"></pura-skeleton>
+    </div>
+    <div style="max-width:260px;margin-top:1rem"><pura-aspect-ratio ratio="16/9"><div style="width:100%;height:100%;background:var(--pura-subtle);display:grid;place-items:center;color:var(--pura-muted)">16:9</div></pura-aspect-ratio></div>
+    <div style="max-width:380px;margin-top:1rem">
+      <pura-item bordered hover>
+        <pura-avatar slot="media" initials="AE"></pura-avatar>
+        <span slot="title">André Ahlert</span>
+        andre@aex.partners
+        <pura-badge slot="actions" variant="success" dot>ativo</pura-badge>
+      </pura-item>
+    </div>
+    <div style="max-width:380px;margin-top:1rem"><pura-empty><span slot="title">Nada aqui</span>Crie seu primeiro projeto.<pura-button slot="action" size="sm">Novo</pura-button></pura-empty></div>
+
+    <h2>button-group / toggle / toggle-group / slider</h2>
+    <div class="row">
+      <pura-button-group>
+        <pura-button variant="secondary">Esq</pura-button>
+        <pura-button variant="secondary">Meio</pura-button>
+        <pura-button variant="secondary">Dir</pura-button>
+      </pura-button-group>
+      <pura-toggle>B</pura-toggle>
+      <pura-toggle-group type="single" value="center">
+        <pura-toggle value="left">L</pura-toggle>
+        <pura-toggle value="center">C</pura-toggle>
+        <pura-toggle value="right">R</pura-toggle>
+      </pura-toggle-group>
+    </div>
+    <div class="stack" style="margin-top:1rem"><pura-slider min="0" max="100" value="40" show-value></pura-slider></div>
+
+    <h2>breadcrumb / pagination</h2>
+    <pura-breadcrumb>
+      <pura-breadcrumb-item href="#">Home</pura-breadcrumb-item>
+      <pura-breadcrumb-item href="#">Componentes</pura-breadcrumb-item>
+      <pura-breadcrumb-item current>Button</pura-breadcrumb-item>
+    </pura-breadcrumb>
+    <div style="margin-top:1rem"><pura-pagination total="10" page="3"></pura-pagination></div>
+
+    <h2>table / prose / scroll-area</h2>
+    <pura-table striped>
+      <table>
+        <thead><tr><th>Nome</th><th>Plano</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>André</td><td>Pro</td><td>Ativo</td></tr>
+          <tr><td>Maria</td><td>Free</td><td>Trial</td></tr>
+          <tr><td>João</td><td>Team</td><td>Ativo</td></tr>
+        </tbody>
+      </table>
+    </pura-table>
+    <pura-scroll-area height="100px" style="margin-top:1rem;max-width:420px;border:1px solid var(--pura-border);border-radius:var(--pura-radius);padding:.75rem">
+      <pura-prose><p>Texto longo de exemplo. <code>inline code</code>.</p><p>Mais um parágrafo pra forçar o scroll dentro da área. Lorem ipsum dolor sit amet consectetur. Outra linha. E mais outra pra garantir overflow vertical visível.</p></pura-prose>
+    </pura-scroll-area>
+
+    <h2>collapsible</h2>
+    <pura-collapsible style="max-width:420px">
+      <pura-button slot="trigger" variant="secondary">Detalhes ▾</pura-button>
+      <div style="padding:.75rem 0;color:var(--pura-muted)">Conteúdo revelado ao expandir.</div>
+    </pura-collapsible>
+
+    <h2>floating: dropdown / context / hover-card / menubar / nav / combobox / command</h2>
+    <div class="row">
+      <pura-dropdown-menu id="dd">
+        <pura-button slot="trigger" variant="secondary">Menu ▾</pura-button>
+        <pura-menu-item>Perfil</pura-menu-item>
+        <pura-menu-item>Configurações</pura-menu-item>
+        <pura-menu-separator></pura-menu-separator>
+        <pura-menu-item>Sair</pura-menu-item>
+      </pura-dropdown-menu>
+
+      <pura-hover-card>
+        <pura-button slot="trigger" variant="ghost">Hover</pura-button>
+        <div><strong>@ahlert</strong><p style="margin:.3rem 0 0;color:var(--pura-muted)">Founder na AEX.</p></div>
+      </pura-hover-card>
+
+      <pura-combobox id="cb" placeholder="Buscar framework...">
+        <option value="react" label="React"></option>
+        <option value="vue" label="Vue"></option>
+        <option value="svelte" label="Svelte"></option>
+        <option value="solid" label="Solid"></option>
+      </pura-combobox>
+    </div>
+
+    <pura-context-menu style="display:block;margin-top:1rem">
+      <div style="padding:2rem;border:1px dashed var(--pura-border);border-radius:var(--pura-radius);text-align:center;color:var(--pura-muted)">Clique com botão direito aqui</div>
+      <pura-menu-item slot="menu">Copiar</pura-menu-item>
+      <pura-menu-item slot="menu">Colar</pura-menu-item>
+    </pura-context-menu>
+
+    <div style="margin-top:1rem">
+      <pura-menubar>
+        <pura-menubar-menu label="Arquivo">
+          <pura-menu-item>Novo</pura-menu-item>
+          <pura-menu-item>Abrir</pura-menu-item>
+        </pura-menubar-menu>
+        <pura-menubar-menu label="Editar">
+          <pura-menu-item>Desfazer</pura-menu-item>
+          <pura-menu-item>Refazer</pura-menu-item>
+        </pura-menubar-menu>
+      </pura-menubar>
+    </div>
+
+    <div style="margin-top:1rem"><pura-command id="cmd" style="max-width:420px;display:block;border:1px solid var(--pura-border);border-radius:var(--pura-radius)">
+      <pura-command-item value="novo">Novo arquivo</pura-command-item>
+      <pura-command-item value="abrir">Abrir projeto</pura-command-item>
+      <pura-command-item value="config">Configurações</pura-command-item>
+    </pura-command></div>
+
+    <h2>calendar / date-picker</h2>
+    <div class="row" style="align-items:flex-start">
+      <pura-calendar value="2026-05-29" month="2026-05"></pura-calendar>
+      <pura-date-picker value="2026-05-29" placeholder="Escolher data"></pura-date-picker>
+    </div>
+
+    <h2>carousel / resizable</h2>
+    <div style="max-width:420px"><pura-carousel>
+      <div style="height:120px;background:var(--pura-subtle);display:grid;place-items:center">Slide 1</div>
+      <div style="height:120px;background:var(--pura-subtle-hover);display:grid;place-items:center">Slide 2</div>
+      <div style="height:120px;background:var(--pura-subtle);display:grid;place-items:center">Slide 3</div>
+    </pura-carousel></div>
+    <div style="height:140px;max-width:520px;margin-top:1rem;border:1px solid var(--pura-border);border-radius:var(--pura-radius);overflow:hidden">
+      <pura-resizable style="height:100%">
+        <div slot="start" style="padding:1rem;height:100%;box-sizing:border-box">Painel A</div>
+        <div slot="end" style="padding:1rem;height:100%;box-sizing:border-box">Painel B</div>
+      </pura-resizable>
+    </div>
+
+    <h2>overlays: drawer / alert-dialog / sheet + toast</h2>
+    <div class="row">
+      <pura-button id="open-drawer">Drawer</pura-button>
+      <pura-button id="open-alert" variant="danger">Alert dialog</pura-button>
+      <pura-button id="toast-btn" variant="secondary">Toast</pura-button>
+    </div>
+
+    <pura-drawer id="drawer" title="Filtros">Ajuste os filtros da busca.<pura-button slot="footer" id="drawer-close">Aplicar</pura-button></pura-drawer>
+    <pura-alert-dialog id="alert" title="Excluir conta?" description="Essa ação é permanente e não pode ser desfeita."></pura-alert-dialog>
+  </div>
+
+  <script type="module">
+    import { toast } from "./components/toast.js";
+    customElements.whenDefined("pura-drawer").then(() => {
+      document.getElementById("open-drawer").addEventListener("click", () => document.getElementById("drawer").open());
+      document.getElementById("drawer-close").addEventListener("click", () => document.getElementById("drawer").close());
+      document.getElementById("open-alert").addEventListener("click", () => document.getElementById("alert").open());
+      document.getElementById("toast-btn").addEventListener("click", () => toast("Salvo com sucesso", { variant: "success", title: "Pronto" }));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# dependencies / build
+node_modules/
+dist/
+*.log
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# agent artifacts
+.superpowers/
+.claude/
+CLAUDE.md
+**/settings.local.json
+**/scheduled_tasks.lock
+.apache-steward/
+docs/superpowers/

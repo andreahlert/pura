@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><link rel="stylesheet" href="tokens.css"></head>
+<body>
+<pura-list id="ul" marker="disc" gap="2">
+  <pura-list-item>Alpha</pura-list-item>
+  <pura-list-item>Beta</pura-list-item>
+</pura-list>
+
+<pura-list id="ol" ordered gap="3">
+  <pura-list-item>One</pura-list-item>
+  <pura-list-item>Two</pura-list-item>
+</pura-list>
+
+<pura-list id="chk" marker="check">
+  <pura-list-item>Done thing</pura-list-item>
+  <pura-list-item>Another</pura-list-item>
+</pura-list>
+
+<pura-list id="inl" inline gap="4" marker="none">
+  <pura-list-item>Home</pura-list-item>
+  <pura-list-item>Docs</pura-list-item>
+</pura-list>
+
+<pura-list id="bare">
+  <pura-list-item>Default</pura-list-item>
+</pura-list>
+
+<script type="module">
+  import "./components/list.js";
+  window.__ready = true;
+</script>
+</body></html>
