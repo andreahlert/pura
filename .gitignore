@@ -35,3 +35,6 @@ registry/registry.json
 
 # astro
 apps/www/.astro/
+
+# pnpm local store
+.pnpm-store/
