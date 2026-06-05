@@ -1,0 +1,13 @@
+{
+  "name": "pura-monorepo",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build:registry": "node scripts/build-registry.mjs",
+    "build:www": "pnpm --filter pura-site build",
+    "build": "pnpm build:registry && pnpm build:www",
+    "dev": "pnpm --filter pura-site dev",
+    "test": "node --test scripts/"
+  }
+}

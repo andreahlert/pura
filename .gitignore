@@ -23,3 +23,15 @@ docs/superpowers/
 
 # git worktrees
 .worktrees/
+
+# monorepo build outputs
+apps/www/dist/
+apps/www/public/r/
+apps/www/public/pura/
+registry/registry.json
+
+# CLI user-side artifacts (when dogfooding)
+.pura/
+
+# astro
+apps/www/.astro/
