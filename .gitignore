@@ -20,3 +20,6 @@ docs/superpowers/
 
 # playwright mcp
 .playwright-mcp/
+
+# git worktrees
+.worktrees/
