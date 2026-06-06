@@ -2,6 +2,8 @@
 // Thin wrapper over HTMLElement: open Shadow DOM, a shared reset, and a small
 // render helper. Zero dependencies, zero build step.
 
+const META = new Map();
+
 const RESET = `
   :host { box-sizing: border-box; font-family: var(--pura-font); }
   :host *, :host *::before, :host *::after { box-sizing: border-box; }
@@ -37,8 +39,24 @@ export class PuraElement extends HTMLElement {
   bool(name) {
     return this.hasAttribute(name);
   }
+
+  describe() {
+    return META.get(this.tagName.toLowerCase()) || null;
+  }
 }
 
-export function define(tag, cls) {
+export function define(tag, cls, meta) {
+  if (meta) {
+    META.set(tag, meta);
+    cls.puraMeta = meta;
+    if (meta.role || meta.name) {
+      const orig = cls.prototype.connectedCallback;
+      cls.prototype.connectedCallback = function () {
+        if (meta.role && !this.hasAttribute("role")) this.setAttribute("role", meta.role);
+        if (meta.name) this.setAttribute("data-pura", meta.name);
+        if (orig) orig.call(this);
+      };
+    }
+  }
   if (!customElements.get(tag)) customElements.define(tag, cls);
 }
