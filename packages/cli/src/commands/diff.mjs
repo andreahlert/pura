@@ -1,10 +1,12 @@
 import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import { diffLines } from "diff";
+import { readConfig } from "../config.mjs";
 import { readLock } from "../lock.mjs";
 import { readCache } from "../cache.mjs";
 
 export async function computeDiff({ cwd, name }) {
+  const config = await readConfig(cwd);
   const lock = await readLock(cwd);
   const entry = lock.components[name];
   if (!entry) throw new Error(`not installed: ${name}`);
@@ -12,7 +14,7 @@ export async function computeDiff({ cwd, name }) {
   let changed = false;
   let patch = "";
   for (const f of entry.files) {
-    const target = f.path.split("/").pop();
+    const target = relative(config.paths.components, f.path);
     const pristine = await readCache(cwd, name, target);
     const current = await readFile(join(cwd, f.path), "utf8");
     if (pristine === current) continue;

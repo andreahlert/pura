@@ -22,6 +22,7 @@ export async function runUpdate({ cwd, name, now }) {
     verifyItem(item);
     if (item.hash === entry.hash) continue; // change detection by HASH, not version
 
+    let hadConflict = false;
     for (const f of item.files) {
       const filePath = join(cwd, config.paths.components, f.target);
       const base = await readCache(cwd, n, f.target);
@@ -30,14 +31,14 @@ export async function runUpdate({ cwd, name, now }) {
       const merged = threeWayMerge({ base, yours, theirs });
       await writeFile(filePath, merged.result);
       await writeCache(cwd, n, f.target, theirs); // new pristine base
-      if (merged.conflict) conflicts.push(`${n}/${f.target}`);
+      if (merged.conflict) { conflicts.push(`${n}/${f.target}`); hadConflict = true; }
     }
 
     lock = setEntry(lock, n, {
       ...entry, version: item.version, hash: item.hash, installedAt: now(),
       files: item.files.map((f) => ({ path: join(config.paths.components, f.target), sha256: f.hash })),
     });
-    updated.push(n);
+    if (hadConflict) { /* surfaced via conflicts */ } else { updated.push(n); }
   }
 
   await writeLock(cwd, lock);
