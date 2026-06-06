@@ -188,7 +188,7 @@ const CSS = `
   .arrow { display: block; flex: none; }
 
   /* trend colors driven by resolved data-trend (mirrors the green up / red down rule) */
-  .stat[data-trend="up"] .delta { color: var(--pura-success); }
+  .stat[data-trend="up"] .delta { color: var(--pura-success-fg); }
   .stat[data-trend="down"] .delta { color: var(--pura-danger); }
   .stat[data-trend="flat"] .delta { color: var(--pura-muted-fg); }
 `;

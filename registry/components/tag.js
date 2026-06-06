@@ -208,7 +208,7 @@ const CSS = `
     background: var(--pura-primary); color: var(--pura-primary-fg); border-color: transparent;
   }
   :host([variant="success"]) [part="tag"] {
-    background: var(--pura-success-bg); color: var(--pura-success);
+    background: var(--pura-success-bg); color: var(--pura-success-fg);
     border-color: color-mix(in srgb, var(--pura-success) 30%, transparent);
   }
   :host([variant="warning"]) [part="tag"] {

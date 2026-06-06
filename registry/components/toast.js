@@ -250,7 +250,7 @@ const TOAST_CSS = `
 
   :host([variant="info"]) .ico { color: var(--pura-info); }
   :host([variant="info"]) [part="toast"] { border-color: color-mix(in srgb, var(--pura-info) 25%, transparent); }
-  :host([variant="success"]) .ico { color: var(--pura-success); }
+  :host([variant="success"]) .ico { color: var(--pura-success-fg); }
   :host([variant="success"]) [part="toast"] { border-color: color-mix(in srgb, var(--pura-success) 25%, transparent); }
   :host([variant="warning"]) .ico { color: var(--pura-warning); }
   :host([variant="warning"]) [part="toast"] { border-color: color-mix(in srgb, var(--pura-warning) 25%, transparent); }

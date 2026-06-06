@@ -326,7 +326,7 @@ const CSS = `
   .icon svg { display: block; }
 
   /* swap copy <-> check while in the copied state */
-  .check { display: none; color: var(--pura-success); }
+  .check { display: none; color: var(--pura-success-fg); }
   :host([data-copied]) .copy-icon { display: none; }
   :host([data-copied]) .trigger .check { display: inline-flex; }
 
@@ -346,7 +346,7 @@ const CSS = `
       transform var(--pura-dur) var(--pura-ease);
   }
   .confirm:popover-open { opacity: 1; transform: none; }
-  .confirm .check { display: inline-flex; color: var(--pura-success); }
+  .confirm .check { display: inline-flex; color: var(--pura-success-fg); }
   .confirm .check svg { width: 0.9em; height: 0.9em; }
 
   /* placement variants for the confirmation */

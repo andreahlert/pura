@@ -32,7 +32,7 @@ const COLORS = {
   muted: "var(--pura-muted-fg)",
   primary: "var(--pura-primary)",
   accent: "var(--pura-accent)",
-  success: "var(--pura-success)",
+  success: "var(--pura-success-fg)",
   danger: "var(--pura-danger)",
 };
 

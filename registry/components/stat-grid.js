@@ -324,7 +324,7 @@ const STAT_CSS = `
     line-height: 1;
   }
   [part="delta"]::before { content: ""; }
-  :host([trend="up"])   [part="delta"] { color: var(--pura-success); }
+  :host([trend="up"])   [part="delta"] { color: var(--pura-success-fg); }
   :host([trend="down"]) [part="delta"] { color: var(--pura-danger); }
   :host([trend="flat"]) [part="delta"] { color: var(--pura-muted); }
   :host([trend="up"])   [part="delta"]::before { content: "\\2191\\00a0"; }

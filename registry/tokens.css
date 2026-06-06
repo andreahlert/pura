@@ -7,7 +7,7 @@
   /* neutral surfaces */
   --pura-bg: #ffffff;
   --pura-fg: #09090b;
-  --pura-muted: #71717a;
+  --pura-muted: #6b6b74;
   --pura-muted-fg: #52525b;
   --pura-subtle: #f4f4f5;
   --pura-subtle-hover: #ececee;
@@ -25,6 +25,7 @@
 
   /* status */
   --pura-success: #16a34a;
+  --pura-success-fg: #15803d;
   --pura-success-bg: #f0fdf4;
   --pura-warning: #d97706;
   --pura-warning-bg: #fffbeb;
@@ -100,6 +101,7 @@
   --pura-ring: color-mix(in srgb, var(--pura-accent) 50%, transparent);
 
   --pura-success: #4ade80;
+  --pura-success-fg: #4ade80;
   --pura-success-bg: #052e16;
   --pura-warning: #fbbf24;
   --pura-warning-bg: #2c1c02;
@@ -143,6 +145,7 @@
     --pura-accent: #3b82f6;
     --pura-ring: color-mix(in srgb, var(--pura-accent) 50%, transparent);
     --pura-success: #4ade80;
+    --pura-success-fg: #4ade80;
     --pura-success-bg: #052e16;
     --pura-warning: #fbbf24;
     --pura-warning-bg: #2c1c02;

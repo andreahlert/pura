@@ -230,7 +230,7 @@ const CSS = `
   }
 
   .seg.add {
-    color: var(--pura-success);
+    color: var(--pura-success-fg);
     background: var(--pura-success-bg);
     padding: 0 var(--pura-space-1);
     text-decoration: underline;

@@ -118,7 +118,7 @@ const ITEM_CSS = `
   }
   :host-context(pura-list[marker="check"]) [part="item"]::before {
     content: "✓";
-    color: var(--pura-success);
+    color: var(--pura-success-fg);
     font-weight: 600;
     flex: none;
   }

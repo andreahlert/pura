@@ -267,7 +267,7 @@ const CSS = `
   .icon svg { display: block; }
 
   /* swap copy <-> check */
-  .check { display: none; color: var(--pura-success); }
+  .check { display: none; color: var(--pura-success-fg); }
   :host([data-copied]) .copy-icon { display: none; }
   :host([data-copied]) .check { display: inline-flex; }
 
@@ -279,7 +279,7 @@ const CSS = `
   .feedback { display: none; }
   :host([data-labelled][data-copied]) .label { display: none; }
   :host([data-labelled][data-copied]) .feedback {
-    display: inline; color: var(--pura-success);
+    display: inline; color: var(--pura-success-fg);
   }
 
   /* visually-hidden polite live region for screen readers */

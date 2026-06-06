@@ -234,7 +234,7 @@ const CSS = `
   }
   .prompt {
     flex: none;
-    color: var(--pura-success);
+    color: var(--pura-success-fg);
     white-space: pre;
     user-select: none;
     -webkit-user-select: none;

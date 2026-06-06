@@ -252,7 +252,7 @@ const CSS = `
   .btn svg { width: 1rem; height: 1rem; }
   .btn:hover { background: var(--pura-subtle); }
   .btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  .confirm { color: var(--pura-success); }
+  .confirm { color: var(--pura-success-fg); }
   .cancel { color: var(--pura-muted-fg); }
 `;
 

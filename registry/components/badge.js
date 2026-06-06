@@ -24,7 +24,7 @@ const CSS = `
   .dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: currentColor; }
 
   :host([variant="primary"]) span[part="badge"] { background: var(--pura-primary); color: var(--pura-primary-fg); border-color: transparent; }
-  :host([variant="success"]) span[part="badge"] { background: var(--pura-success-bg); color: var(--pura-success); border-color: color-mix(in srgb, var(--pura-success) 30%, transparent); }
+  :host([variant="success"]) span[part="badge"] { background: var(--pura-success-bg); color: var(--pura-success-fg); border-color: color-mix(in srgb, var(--pura-success) 30%, transparent); }
   :host([variant="warning"]) span[part="badge"] { background: var(--pura-warning-bg); color: var(--pura-warning); border-color: color-mix(in srgb, var(--pura-warning) 30%, transparent); }
   :host([variant="danger"]) span[part="badge"] { background: var(--pura-danger-bg); color: var(--pura-danger); border-color: color-mix(in srgb, var(--pura-danger) 30%, transparent); }
   :host([variant="info"]) span[part="badge"] { background: var(--pura-info-bg); color: var(--pura-info); border-color: color-mix(in srgb, var(--pura-info) 30%, transparent); }

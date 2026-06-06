@@ -352,7 +352,7 @@ const CSS = `
   }
   .copy:hover { background: var(--pura-subtle-hover); color: var(--pura-fg); }
   .copy:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  .copy.ok { color: var(--pura-success); border-color: color-mix(in srgb, var(--pura-success) 40%, transparent); }
+  .copy.ok { color: var(--pura-success-fg); border-color: color-mix(in srgb, var(--pura-success) 40%, transparent); }
 
   .body {
     display: flex;

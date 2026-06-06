@@ -68,7 +68,7 @@ const CSS = `
   :host([color="muted"])   [part="text"] { color: var(--pura-muted-fg); }
   :host([color="primary"]) [part="text"] { color: var(--pura-primary); }
   :host([color="accent"])  [part="text"] { color: var(--pura-accent); }
-  :host([color="success"]) [part="text"] { color: var(--pura-success); }
+  :host([color="success"]) [part="text"] { color: var(--pura-success-fg); }
   :host([color="danger"])  [part="text"] { color: var(--pura-danger); }
 
   /* ---- align ---- */

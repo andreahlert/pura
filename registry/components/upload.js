@@ -391,7 +391,7 @@ const CSS = `
     color: var(--pura-muted);
   }
   .item[data-status="uploading"] .status { color: var(--pura-accent); }
-  .item[data-status="done"] .status { color: var(--pura-success); }
+  .item[data-status="done"] .status { color: var(--pura-success-fg); }
   .item[data-status="error"] .status { color: var(--pura-danger); }
   .rm {
     display: grid; place-items: center; width: 1.4rem; height: 1.4rem; flex: none;

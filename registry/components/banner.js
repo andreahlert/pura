@@ -228,7 +228,7 @@ const CSS = `
   :host([variant="info"]) .ico { color: var(--pura-info); }
 
   :host([variant="success"]) [part="banner"] { background: var(--pura-success-bg); border-color: color-mix(in srgb, var(--pura-success) 25%, transparent); }
-  :host([variant="success"]) .ico { color: var(--pura-success); }
+  :host([variant="success"]) .ico { color: var(--pura-success-fg); }
 
   :host([variant="warning"]) [part="banner"] { background: var(--pura-warning-bg); border-color: color-mix(in srgb, var(--pura-warning) 25%, transparent); }
   :host([variant="warning"]) .ico { color: var(--pura-warning); }
