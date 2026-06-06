@@ -10,6 +10,7 @@
     "dev": "pnpm --filter pura-site dev",
     "smoke": "node scripts/smoke.mjs",
     "verify": "pnpm build && pnpm smoke",
-    "test": "node --test \"scripts/*.test.mjs\""
+    "test": "node --test \"scripts/*.test.mjs\" && pnpm --filter purajs test",
+    "test:cli": "pnpm --filter purajs test"
   }
 }
