@@ -1,0 +1,5 @@
+export default {
+  "description": "Field is a native web component that arranges, in a vertical stack, the label, the control (default slot), the description, and the error message of a form field. Use it to standardize the structure and spacing of any input, select, or textarea. When the error attribute is set, the invalid style is applied and the error message replaces the description.",
+  "demoHTML": "<pura-field label=\"Email\" description=\"We'll use it to send the confirmation.\">\n  <pura-input type=\"email\" placeholder=\"you@example.com\"></pura-input>\n</pura-field>\n\n<pura-field label=\"Password\" error=\"The password must be at least 8 characters.\">\n  <pura-input type=\"password\" placeholder=\"********\"></pura-input>\n</pura-field>",
+  "usage": "<pura-field label=\"Email\" description=\"We'll use it to send the confirmation.\">\n  <pura-input type=\"email\" placeholder=\"you@example.com\"></pura-input>\n</pura-field>\n\n<pura-field label=\"Password\" error=\"The password must be at least 8 characters.\">\n  <pura-input type=\"password\" placeholder=\"********\"></pura-input>\n</pura-field>"
+};

@@ -1,0 +1,5 @@
+export default {
+  "description": "Card is a native web component that groups related content onto a surface with a border, rounded corners and a shadow. Use it to highlight blocks of information, summaries or grouped actions. The header and footer slots hide automatically when empty, and the hover attribute adds an elevation on mouse over.",
+  "demoHTML": "<pura-card hover>\n  <span slot=\"header\">Pro Plan</span>\n  Unlimited access to all features, priority support and advanced reports for your team.\n  <div slot=\"footer\">\n    <pura-button variant=\"primary\">Subscribe</pura-button>\n    <pura-button variant=\"ghost\">Learn more</pura-button>\n  </div>\n</pura-card>",
+  "usage": "<pura-card hover>\n  <span slot=\"header\">Pro Plan</span>\n  Unlimited access to all features, priority support and advanced reports for your team.\n  <div slot=\"footer\">\n    <pura-button variant=\"primary\">Subscribe</pura-button>\n    <pura-button variant=\"ghost\">Learn more</pura-button>\n  </div>\n</pura-card>"
+};

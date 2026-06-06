@@ -1,0 +1,5 @@
+export default {
+  "description": "The Skeleton is a native web component that displays a placeholder with a shimmer effect while the real content is still loading. Use it to reserve space for text, images, or avatars and reduce the perceived wait. It respects prefers-reduced-motion, swapping the shimmer for a subtle pulse.",
+  "demoHTML": "<div style=\"display:flex;align-items:center;gap:16px;margin-bottom:16px\">\n  <pura-skeleton circle width=\"48px\"></pura-skeleton>\n  <div style=\"flex:1;display:flex;flex-direction:column;gap:8px\">\n    <pura-skeleton width=\"40%\"></pura-skeleton>\n    <pura-skeleton width=\"70%\"></pura-skeleton>\n  </div>\n</div>\n<pura-skeleton height=\"160px\"></pura-skeleton>",
+  "usage": "<div style=\"display:flex;align-items:center;gap:16px;margin-bottom:16px\">\n  <pura-skeleton circle width=\"48px\"></pura-skeleton>\n  <div style=\"flex:1;display:flex;flex-direction:column;gap:8px\">\n    <pura-skeleton width=\"40%\"></pura-skeleton>\n    <pura-skeleton width=\"70%\"></pura-skeleton>\n  </div>\n</div>\n<pura-skeleton height=\"160px\"></pura-skeleton>"
+};

@@ -1,0 +1,5 @@
+export default {
+  "description": "Tooltip is a native web component that wraps a trigger element and shows a short supporting text when the user hovers over it or focuses it with the keyboard. Use it to describe icons, abbreviate labels, or add extra context without taking up permanent space in the interface.",
+  "demoHTML": "<pura-tooltip text=\"Save changes\">\n  <pura-button>Save</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"Delete item\" placement=\"bottom\">\n  <pura-button variant=\"ghost\">Delete</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"More information\" placement=\"right\">\n  <span aria-label=\"help\" style=\"cursor:help;\">?</span>\n</pura-tooltip>",
+  "usage": "<pura-tooltip text=\"Save changes\">\n  <pura-button>Save</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"Delete item\" placement=\"bottom\">\n  <pura-button variant=\"ghost\">Delete</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"More information\" placement=\"right\">\n  <span aria-label=\"help\" style=\"cursor:help;\">?</span>\n</pura-tooltip>"
+};

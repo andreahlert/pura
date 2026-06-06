@@ -1,0 +1,5 @@
+export default {
+  "description": "Tabs is a native web component that organizes content into panels selectable by a tab bar. Use it when you need to group related sections in the same space, showing one at a time. Each tab is a pura-tab element with its label, and the active panel is controlled by the active attribute on pura-tabs.",
+  "demoHTML": "<pura-tabs active=\"0\">\n  <pura-tab label=\"Account\">\n    Manage your name, email and profile photo here.\n  </pura-tab>\n  <pura-tab label=\"Password\">\n    Update your password and enable two-step verification.\n  </pura-tab>\n  <pura-tab label=\"Notifications\">\n    Choose which alerts you want to receive by email.\n  </pura-tab>\n</pura-tabs>",
+  "usage": "<pura-tabs active=\"0\">\n  <pura-tab label=\"Account\">\n    Manage your name, email and profile photo here.\n  </pura-tab>\n  <pura-tab label=\"Password\">\n    Update your password and enable two-step verification.\n  </pura-tab>\n  <pura-tab label=\"Notifications\">\n    Choose which alerts you want to receive by email.\n  </pura-tab>\n</pura-tabs>"
+};

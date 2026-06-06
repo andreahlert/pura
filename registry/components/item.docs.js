@@ -1,0 +1,5 @@
+export default {
+  "description": "Item (`<pura-item>`) is a native web component that builds a flex row with media on the left, a center column for the title and description, and actions on the right. Use it to build lists, settings, notifications, or any structured row of content. When marked as clickable, it behaves like a button, with role, focus, and keyboard activation (Enter/Space).",
+  "demoHTML": "<pura-item bordered>\n  <span slot=\"media\">📁</span>\n  <span slot=\"title\">Documents</span>\n  Files and folders shared with the team\n  <button slot=\"actions\">Open</button>\n</pura-item>\n\n<pura-item hover clickable title=\"Notifications\">\n  <span slot=\"media\">🔔</span>\n  Receive alerts by email and push\n  <span slot=\"actions\">3</span>\n</pura-item>",
+  "usage": "<pura-item bordered>\n  <span slot=\"media\">📁</span>\n  <span slot=\"title\">Documents</span>\n  Files and folders shared with the team\n  <button slot=\"actions\">Open</button>\n</pura-item>\n\n<pura-item hover clickable title=\"Notifications\">\n  <span slot=\"media\">🔔</span>\n  Receive alerts by email and push\n  <span slot=\"actions\">3</span>\n</pura-item>"
+};

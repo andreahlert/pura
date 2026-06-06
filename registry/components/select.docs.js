@@ -1,0 +1,5 @@
+export default {
+  "description": "Select is a native web component (zero dependencies) that styles the browser's native <select> element while keeping its reliability and accessibility. The options are passed as <option> children in the light DOM and re-emitted internally. Use it whenever you need a single-selection field in forms, with an optional label and helper text.",
+  "demoHTML": "<pura-select label=\"State\" hint=\"Select your state of residence\" value=\"sp\">\n  <option value=\"sp\">Sao Paulo</option>\n  <option value=\"rj\">Rio de Janeiro</option>\n  <option value=\"mg\">Minas Gerais</option>\n  <option value=\"rs\">Rio Grande do Sul</option>\n  <option value=\"ba\">Bahia</option>\n</pura-select>",
+  "usage": "<pura-select label=\"State\" hint=\"Select your state of residence\" value=\"sp\">\n  <option value=\"sp\">Sao Paulo</option>\n  <option value=\"rj\">Rio de Janeiro</option>\n  <option value=\"mg\">Minas Gerais</option>\n  <option value=\"rs\">Rio Grande do Sul</option>\n  <option value=\"ba\">Bahia</option>\n</pura-select>"
+};

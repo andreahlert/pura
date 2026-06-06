@@ -1,0 +1,5 @@
+export default {
+  "description": "Progress is a native web component that displays a horizontal progress bar. Use the `value` attribute (0 to 100) to show determinate progress, or add `indeterminate` for an animated state when the duration is unknown. Ideal for uploads, loading, and workflow steps.",
+  "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1rem;max-width:24rem\">\n  <div>\n    <p style=\"margin:0 0 .5rem\">Uploading file (65%)</p>\n    <pura-progress value=\"65\"></pura-progress>\n  </div>\n  <div>\n    <p style=\"margin:0 0 .5rem\">Processing...</p>\n    <pura-progress indeterminate></pura-progress>\n  </div>\n</div>",
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:1rem;max-width:24rem\">\n  <div>\n    <p style=\"margin:0 0 .5rem\">Uploading file (65%)</p>\n    <pura-progress value=\"65\"></pura-progress>\n  </div>\n  <div>\n    <p style=\"margin:0 0 .5rem\">Processing...</p>\n    <pura-progress indeterminate></pura-progress>\n  </div>\n</div>"
+};

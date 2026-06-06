@@ -1,0 +1,5 @@
+export default {
+  "description": "The Breadcrumb is a native web component that displays the navigation hierarchy as a trail of links separated by an automatically inserted \"/\" chevron. Use it to indicate where the user is within the site structure and let them quickly jump back to previous levels. It's composed of `pura-breadcrumb` (the nav/ol container) and `pura-breadcrumb-item` (each crumb).",
+  "demoHTML": "<pura-breadcrumb>\n  <pura-breadcrumb-item href=\"/\">Home</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos\">Products</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos/calcados\">Footwear</pura-breadcrumb-item>\n  <pura-breadcrumb-item current>Running shoes</pura-breadcrumb-item>\n</pura-breadcrumb>",
+  "usage": "<pura-breadcrumb>\n  <pura-breadcrumb-item href=\"/\">Home</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos\">Products</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos/calcados\">Footwear</pura-breadcrumb-item>\n  <pura-breadcrumb-item current>Running shoes</pura-breadcrumb-item>\n</pura-breadcrumb>"
+};

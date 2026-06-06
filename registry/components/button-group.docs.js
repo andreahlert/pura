@@ -1,0 +1,5 @@
+export default {
+  "description": "Button Group is a native web component that joins adjacent pura-button elements, collapsing borders and rounded corners so the set reads as a single segmented control. Use it to group related actions (such as filters, view toggles, or mutually linked options) side by side. Supports horizontal (default) or vertical orientation.",
+  "demoHTML": "<pura-button-group>\n  <pura-button>Day</pura-button>\n  <pura-button>Week</pura-button>\n  <pura-button>Month</pura-button>\n</pura-button-group>\n\n<pura-button-group orientation=\"vertical\">\n  <pura-button>Profile</pura-button>\n  <pura-button>Settings</pura-button>\n  <pura-button>Sign out</pura-button>\n</pura-button-group>",
+  "usage": "<pura-button-group>\n  <pura-button>Day</pura-button>\n  <pura-button>Week</pura-button>\n  <pura-button>Month</pura-button>\n</pura-button-group>\n\n<pura-button-group orientation=\"vertical\">\n  <pura-button>Profile</pura-button>\n  <pura-button>Settings</pura-button>\n  <pura-button>Sign out</pura-button>\n</pura-button-group>"
+};

@@ -1,0 +1,5 @@
+export default {
+  "description": "Toggle is a native web component that works as a two-position button (pressed or not), useful for switching formatting or on/off options, such as bold in a text editor. It supports visual variants and sizes, and fires an event whenever its state changes. Use it when you need a binary control with a button-like appearance instead of a traditional checkbox.",
+  "demoHTML": "<div style=\"display:flex; gap:0.5rem; align-items:center;\">\n  <pura-toggle pressed aria-label=\"Bold\">B</pura-toggle>\n  <pura-toggle variant=\"outline\" aria-label=\"Italic\"><em>I</em></pura-toggle>\n  <pura-toggle size=\"lg\">Notifications</pura-toggle>\n  <pura-toggle disabled>Unavailable</pura-toggle>\n</div>",
+  "usage": "<div style=\"display:flex; gap:0.5rem; align-items:center;\">\n  <pura-toggle pressed aria-label=\"Bold\">B</pura-toggle>\n  <pura-toggle variant=\"outline\" aria-label=\"Italic\"><em>I</em></pura-toggle>\n  <pura-toggle size=\"lg\">Notifications</pura-toggle>\n  <pura-toggle disabled>Unavailable</pura-toggle>\n</div>"
+};

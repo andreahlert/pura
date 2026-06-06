@@ -1,0 +1,5 @@
+export default {
+  "description": "Slider is a native web component built on a styled input[type=range], giving you keyboard navigation (arrows, Home/End, PageUp/PageDown) and ARIA (role=slider) for free. Use it to let the user pick a value within a continuous range, such as volume, brightness, or price. It mirrors the value back into the host attribute and exposes the .value property, plus it emits input and change events.",
+  "demoHTML": "<label for=\"volume\" style=\"display:block;margin-bottom:.5rem;font-size:.875rem\">Volume</label>\n<pura-slider id=\"volume\" min=\"0\" max=\"100\" step=\"1\" value=\"60\" show-value aria-label=\"Volume\"></pura-slider>",
+  "usage": "<label for=\"volume\" style=\"display:block;margin-bottom:.5rem;font-size:.875rem\">Volume</label>\n<pura-slider id=\"volume\" min=\"0\" max=\"100\" step=\"1\" value=\"60\" show-value aria-label=\"Volume\"></pura-slider>\n\n<script type=\"module\">\n  const slider = document.getElementById(\"volume\");\n  slider.addEventListener(\"change\", (e) => {\n    console.log(\"New value:\", e.detail.value);\n  });\n</script>"
+};
