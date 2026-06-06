@@ -6,6 +6,7 @@
 // Events: cancel (Cancel button), confirm (Action button). Both then close.
 // API: .open() / .close().
 import { PuraElement, define } from "../base.js";
+import meta from "./alert-dialog.meta.js";
 
 class PuraAlertDialog extends PuraElement {
   static observedAttributes = ["open"];
@@ -110,5 +111,5 @@ const CSS = `
   .action:hover { background: var(--pura-primary-hover); }
 `;
 
-define("pura-alert-dialog", PuraAlertDialog);
+define("pura-alert-dialog", PuraAlertDialog, meta);
 export { PuraAlertDialog };

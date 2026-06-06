@@ -33,6 +33,7 @@
 // Events: `pura-live-region:announce` (bubbles) on every announcement, with
 //   detail { id, message, live }.
 import { PuraElement, define } from "../base.js";
+import meta from "./live-region.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -305,7 +306,7 @@ function announce(message, opts = {}) {
 announce.polite = (message) => announce(message, { live: "polite" });
 announce.assertive = (message) => announce(message, { live: "assertive" });
 
-define("pura-live-region", PuraLiveRegion);
+define("pura-live-region", PuraLiveRegion, meta);
 
 export { PuraLiveRegion, announce };
 export default announce;

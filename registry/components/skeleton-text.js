@@ -7,6 +7,7 @@
 // Animates a subtle shimmer over var(--pura-subtle); falls back to a gentle
 // pulse and honors prefers-reduced-motion (the base reset clamps durations).
 import { PuraElement, define } from "../base.js";
+import meta from "./skeleton-text.meta.js";
 
 class PuraSkeletonText extends PuraElement {
   static observedAttributes = ["lines", "gap", "last"];
@@ -94,5 +95,5 @@ const CSS = `
   }
 `;
 
-define("pura-skeleton-text", PuraSkeletonText);
+define("pura-skeleton-text", PuraSkeletonText, meta);
 export { PuraSkeletonText };

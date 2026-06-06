@@ -16,6 +16,7 @@
 // label; slot name="shortcut" = trailing muted hint. Attribute: value, disabled.
 // Emits: "select" (bubbles, composed) when activated.
 import { PuraElement, define } from "../base.js";
+import meta from "./command.meta.js";
 
 let uid = 0;
 
@@ -332,5 +333,5 @@ const CSS = `
 `;
 
 define("pura-command-item", PuraCommandItem);
-define("pura-command", PuraCommand);
+define("pura-command", PuraCommand, meta);
 export { PuraCommand, PuraCommandItem };

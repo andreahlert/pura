@@ -19,6 +19,7 @@
 // Agent-native layer: stable data-pura-* attributes mirror live state and the
 //   instance registers in window.__puraImageCompares keyed by its data-pura-id.
 import { PuraElement, define } from "../base.js";
+import meta from "./image-compare.meta.js";
 
 let uid = 0;
 
@@ -249,5 +250,5 @@ const CSS = `
   }
 `;
 
-define("pura-image-compare", PuraImageCompare);
+define("pura-image-compare", PuraImageCompare, meta);
 export { PuraImageCompare };

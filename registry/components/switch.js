@@ -1,5 +1,6 @@
 // <pura-switch> — toggle. Label via slot. Attributes: checked, disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./switch.meta.js";
 
 class PuraSwitch extends PuraElement {
   static observedAttributes = ["checked", "disabled"];
@@ -57,5 +58,5 @@ const CSS = `
   :host([disabled]) label { opacity: 0.55; cursor: not-allowed; }
 `;
 
-define("pura-switch", PuraSwitch);
+define("pura-switch", PuraSwitch, meta);
 export { PuraSwitch };

@@ -11,6 +11,7 @@
 // Slot: default = custom centered content. Parts: scrim, content.
 // Methods: open(), close(). Event: close.
 import { PuraElement, define } from "../base.js";
+import meta from "./overlay.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -134,5 +135,5 @@ const CSS = `
   @keyframes pura-spin { to { transform: rotate(360deg); } }
 `;
 
-define("pura-overlay", PuraOverlay);
+define("pura-overlay", PuraOverlay, meta);
 export { PuraOverlay };

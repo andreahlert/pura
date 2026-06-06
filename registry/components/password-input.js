@@ -2,6 +2,7 @@
 // optional strength meter. Attributes: value, placeholder, disabled, meter
 // (bool), name. Dispatches "input". Parts: input, toggle, meter, label.
 import { PuraElement, define } from "../base.js";
+import meta from "./password-input.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -197,5 +198,5 @@ const CSS = `
   .label[hidden] { display: none; }
 `;
 
-define("pura-password-input", PuraPasswordInput);
+define("pura-password-input", PuraPasswordInput, meta);
 export { PuraPasswordInput };

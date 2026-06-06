@@ -4,6 +4,7 @@
 // fills across. Mirrors combined value to the host attribute. Emits 'input' on
 // every change and 'complete' once every box is filled.
 import { PuraElement, define } from "../base.js";
+import meta from "./input-otp.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -227,5 +228,5 @@ const CSS = `
   }
 `;
 
-define("pura-input-otp", PuraInputOtp);
+define("pura-input-otp", PuraInputOtp, meta);
 export { PuraInputOtp };

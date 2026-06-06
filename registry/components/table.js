@@ -8,6 +8,7 @@
 // light DOM, targeting only this instance via a unique id attribute. All values
 // are --pura-* tokens, which inherit through the light DOM normally.
 import { PuraElement, define } from "../base.js";
+import meta from "./table.meta.js";
 
 let uid = 0;
 
@@ -114,5 +115,5 @@ function lightCSS(id, striped) {
   `;
 }
 
-define("pura-table", PuraTable);
+define("pura-table", PuraTable, meta);
 export { PuraTable };

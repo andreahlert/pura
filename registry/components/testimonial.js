@@ -15,6 +15,7 @@
 //   keyed by its data-pura-id so agents can enumerate / read every testimonial
 //   on the page without crossing the shadow boundary.
 import { PuraElement, define } from "../base.js";
+import meta from "./testimonial.meta.js";
 
 let uid = 0;
 
@@ -265,5 +266,5 @@ const CSS = `
   .role[hidden] { display: none; }
 `;
 
-define("pura-testimonial", PuraTestimonial);
+define("pura-testimonial", PuraTestimonial, meta);
 export { PuraTestimonial };

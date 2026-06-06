@@ -12,6 +12,7 @@
 // Events: change (selection changed), upload (a file finished, detail { file }),
 // remove (detail { file }). Parts: dropzone, list, item, progress, remove.
 import { PuraElement, define } from "../base.js";
+import meta from "./upload.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -415,5 +416,5 @@ const CSS = `
   .item[data-status="error"] .fill { background: var(--pura-danger); }
 `;
 
-define("pura-upload", PuraUpload);
+define("pura-upload", PuraUpload, meta);
 export { PuraUpload };

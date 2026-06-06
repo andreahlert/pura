@@ -20,6 +20,7 @@
 //   each instance registers in window.__puraMeters keyed by its data-pura-id, so
 //   an agent can enumerate / read every meter on the page without DOM diving.
 import { PuraElement, define } from "../base.js";
+import meta from "./meter.meta.js";
 
 let uid = 0;
 
@@ -216,5 +217,5 @@ const CSS = `
   .meter[data-level="danger"]  .fill { background: var(--pura-danger); }
 `;
 
-define("pura-meter", PuraMeter);
+define("pura-meter", PuraMeter, meta);
 export { PuraMeter };

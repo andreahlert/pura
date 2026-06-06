@@ -1,6 +1,7 @@
 // <pura-alert> — callout. variant: info (default) | success | warning | danger.
 // Attributes: title, dismissible.
 import { PuraElement, define } from "../base.js";
+import meta from "./alert.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -78,5 +79,5 @@ const CSS = `
   :host([variant="danger"]) .ico { color: var(--pura-danger); }
 `;
 
-define("pura-alert", PuraAlert);
+define("pura-alert", PuraAlert, meta);
 export { PuraAlert };

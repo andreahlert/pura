@@ -26,6 +26,7 @@
 //   PuraIntent.registry() returns a snapshot array of connected entries.
 //   PuraIntent.find(goalSubstring) filters that snapshot.
 import { PuraElement, define } from "../base.js";
+import meta from "./intent.meta.js";
 
 // Module-level counter kept available for parity with other pura components
 // that mint unique anchor-names; <pura-intent> is non-visual so it does not
@@ -168,7 +169,7 @@ const CSS = `
   :host { display: contents; }
 `;
 
-define("pura-intent", PuraIntent);
+define("pura-intent", PuraIntent, meta);
 
 export { PuraIntent };
 export default PuraIntent;

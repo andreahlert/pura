@@ -30,6 +30,7 @@
 // role="list"; each shortcut row is role="listitem" with an aria-label that
 // reads "<label>: <keys>". The launch key binding is exposed via data-key.
 import { PuraElement, define } from "../base.js";
+import meta from "./kbd-shortcuts.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -417,5 +418,5 @@ class PuraShortcutEl extends PuraShortcut {
 }
 
 define("pura-shortcut", PuraShortcutEl);
-define("pura-kbd-shortcuts", PuraKbdShortcuts);
+define("pura-kbd-shortcuts", PuraKbdShortcuts, meta);
 export { PuraKbdShortcuts, PuraShortcutEl as PuraShortcut };

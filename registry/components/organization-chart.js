@@ -6,6 +6,7 @@
 // Attributes: collapsible (click a node toggles its subtree), data (JSON).
 // Parts: node, line, children. Emits nodeclick with detail {label}.
 import { PuraElement, define } from "../base.js";
+import meta from "./organization-chart.meta.js";
 
 // Trivial data holder for the slotted authoring form. It renders nothing on its
 // own, the chart reads its label attribute and nested children.
@@ -202,5 +203,5 @@ const CSS = `
 `;
 
 define("pura-org-node", PuraOrgNode);
-define("pura-organization-chart", PuraOrganizationChart);
+define("pura-organization-chart", PuraOrganizationChart, meta);
 export { PuraOrganizationChart, PuraOrgNode };

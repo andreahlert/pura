@@ -13,6 +13,7 @@
 // Events: dispatches "change" (bubbles) on stroke end with detail { dataUrl }.
 // Parts: root, canvas, toolbar, button.
 import { PuraElement, define } from "../base.js";
+import meta from "./signature.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -183,5 +184,5 @@ const CSS = `
   .clear:disabled { opacity: 0.55; cursor: not-allowed; }
 `;
 
-define("pura-signature", PuraSignature);
+define("pura-signature", PuraSignature, meta);
 export { PuraSignature };

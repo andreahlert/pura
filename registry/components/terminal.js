@@ -15,6 +15,7 @@
 //
 // Parts: output, line, prompt, input
 import { PuraElement, define } from "../base.js";
+import meta from "./terminal.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -246,5 +247,5 @@ const CSS = `
   }
 `;
 
-define("pura-terminal", PuraTerminal);
+define("pura-terminal", PuraTerminal, meta);
 export { PuraTerminal };

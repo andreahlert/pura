@@ -19,6 +19,7 @@
 // data-max so an agent can read state without touching the shadow DOM. The
 // region is a role="group" with the chip list as role="list" / role="listitem".
 import { PuraElement, define } from "../base.js";
+import meta from "./tag-input.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -348,5 +349,5 @@ const CSS = `
   .entry:disabled { cursor: not-allowed; }
 `;
 
-define("pura-tag-input", PuraTagInput);
+define("pura-tag-input", PuraTagInput, meta);
 export { PuraTagInput };

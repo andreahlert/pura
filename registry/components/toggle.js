@@ -4,6 +4,7 @@
 // Default slot = content (icon and/or text). Toggles on click + Space/Enter.
 // Emits CustomEvent("change", { detail: { pressed } }).
 import { PuraElement, define } from "../base.js";
+import meta from "./toggle.meta.js";
 
 class PuraToggle extends PuraElement {
   static observedAttributes = ["pressed", "disabled"];
@@ -127,5 +128,5 @@ const CSS = `
   :host([variant="outline"][pressed]) button:hover { background: var(--pura-subtle-hover); }
 `;
 
-define("pura-toggle", PuraToggle);
+define("pura-toggle", PuraToggle, meta);
 export { PuraToggle };

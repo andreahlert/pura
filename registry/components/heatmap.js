@@ -8,6 +8,7 @@
 //   var(--pura-accent) over var(--pura-subtle) via color-mix.
 // Parts: grid, cell, legend. Emits cellclick with detail {key, value}.
 import { PuraElement, define } from "../base.js";
+import meta from "./heatmap.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -227,5 +228,5 @@ const CSS = `
   .lg-more { margin-left: var(--pura-space-1); }
 `;
 
-define("pura-heatmap", PuraHeatmap);
+define("pura-heatmap", PuraHeatmap, meta);
 export { PuraHeatmap };

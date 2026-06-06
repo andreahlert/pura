@@ -21,6 +21,7 @@
 //   attributes plus role=dialog, aria-modal and an accessible label. The cut-out
 //   rect is aria-hidden (purely visual).
 import { PuraElement, define } from "../base.js";
+import meta from "./spotlight.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -186,5 +187,5 @@ const CSS = `
   }
 `;
 
-define("pura-spotlight", PuraSpotlight);
+define("pura-spotlight", PuraSpotlight, meta);
 export { PuraSpotlight };

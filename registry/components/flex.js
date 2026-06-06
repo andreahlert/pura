@@ -8,6 +8,7 @@
 //   inline     boolean — render as inline-flex
 // Slots: default — flex children.
 import { PuraElement, define } from "../base.js";
+import meta from "./flex.meta.js";
 
 class PuraFlex extends PuraElement {
   static get observedAttributes() {
@@ -71,5 +72,5 @@ const CSS = `
   :host([justify="evenly"]) [part="flex"] { justify-content: space-evenly; }
 `;
 
-define("pura-flex", PuraFlex);
+define("pura-flex", PuraFlex, meta);
 export { PuraFlex };

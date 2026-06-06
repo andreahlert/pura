@@ -28,6 +28,7 @@
 //   Agent layer: stable data-pura-stat id + data-trend; its content is reflected
 //     into the parent grid's registry snapshot.
 import { PuraElement, define } from "../base.js";
+import meta from "./stat-grid.meta.js";
 
 let uid = 0;
 
@@ -338,6 +339,6 @@ const STAT_CSS = `
   }
 `;
 
-define("pura-stat-grid", PuraStatGrid);
+define("pura-stat-grid", PuraStatGrid, meta);
 define("pura-stat", PuraStat);
 export { PuraStatGrid, PuraStat };

@@ -4,6 +4,7 @@
 // Attributes: value, placeholder, disabled, loading, debounce.
 // Parts: input, icon, clear.
 import { PuraElement, define } from "../base.js";
+import meta from "./search-field.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -193,5 +194,5 @@ const CSS = `
   .clear svg { width: 0.85rem; height: 0.85rem; }
 `;
 
-define("pura-search-field", PuraSearchField);
+define("pura-search-field", PuraSearchField, meta);
 export { PuraSearchField };

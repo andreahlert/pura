@@ -4,6 +4,7 @@
 // plus ::-webkit-scrollbar styling (thumb var(--pura-border-strong) rounded,
 // track transparent).
 import { PuraElement, define } from "../base.js";
+import meta from "./scroll-area.meta.js";
 
 class PuraScrollArea extends PuraElement {
   static observedAttributes = ["height"];
@@ -72,5 +73,5 @@ const CSS = `
   }
 `;
 
-define("pura-scroll-area", PuraScrollArea);
+define("pura-scroll-area", PuraScrollArea, meta);
 export { PuraScrollArea };

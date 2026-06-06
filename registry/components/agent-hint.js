@@ -24,6 +24,7 @@
 //
 // Events: `pura-agent-hint:change` (bubbles) when the hint text or target changes.
 import { PuraElement, define } from "../base.js";
+import meta from "./agent-hint.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -208,5 +209,5 @@ const CSS = `
   [part="hint"] { display: contents; }
 `;
 
-define("pura-agent-hint", PuraAgentHint);
+define("pura-agent-hint", PuraAgentHint, meta);
 export { PuraAgentHint };

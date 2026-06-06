@@ -11,6 +11,7 @@
 // Events: change { detail: { value } } where value is scalar or array.
 // Parts: trigger, panel, node, tag.
 import { PuraElement, define } from "../base.js";
+import meta from "./tree-select.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -524,5 +525,5 @@ const CSS = `
   }
 `;
 
-define("pura-tree-select", PuraTreeSelect);
+define("pura-tree-select", PuraTreeSelect, meta);
 export { PuraTreeSelect };

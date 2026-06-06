@@ -29,6 +29,7 @@
 //     reveal(id) / hide(id) helper so agents can audit and drive every
 //     redaction on the page without piercing the Shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./redact.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -287,5 +288,5 @@ const CSS = `
   :host([revealed]) .content { pointer-events: auto; }
 `;
 
-define("pura-redact", PuraRedact);
+define("pura-redact", PuraRedact, meta);
 export { PuraRedact };

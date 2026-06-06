@@ -19,6 +19,7 @@
 //   keyed by that id, and data-pura-banner-* attributes mirroring live state so
 //   agents can enumerate / read / dismiss every banner without touching the DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./banner.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -251,5 +252,5 @@ const CSS = `
   }
 `;
 
-define("pura-banner", PuraBanner);
+define("pura-banner", PuraBanner, meta);
 export { PuraBanner };

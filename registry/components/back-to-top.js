@@ -17,6 +17,7 @@
 //   registers in window.__puraBackToTop keyed by its data-pura-id, so agents can
 //   enumerate buttons and call .toTop() to drive a scroll programmatically.
 import { PuraElement, define } from "../base.js";
+import meta from "./back-to-top.meta.js";
 
 let uid = 0;
 
@@ -227,5 +228,5 @@ const CSS = `
   ::slotted(*) { display: inline-flex; }
 `;
 
-define("pura-back-to-top", PuraBackToTop);
+define("pura-back-to-top", PuraBackToTop, meta);
 export { PuraBackToTop };

@@ -9,6 +9,7 @@
 //   change - CustomEvent (bubbles), detail { affixed: boolean }
 // Part: content
 import { PuraElement, define } from "../base.js";
+import meta from "./affix.meta.js";
 
 class PuraAffix extends PuraElement {
   static observedAttributes = ["offset-top", "offset-bottom"];
@@ -130,5 +131,5 @@ const CSS = `
   [part="content"] { z-index: 10; }
 `;
 
-define("pura-affix", PuraAffix);
+define("pura-affix", PuraAffix, meta);
 export { PuraAffix };

@@ -13,6 +13,7 @@
 // by CSS custom properties set on the host from _sync() so the inspector and
 // live attribute edits reflect immediately.
 import { PuraElement, define } from "../base.js";
+import meta from "./list.meta.js";
 
 class PuraList extends PuraElement {
   static observedAttributes = ["ordered", "marker", "gap", "inline"];
@@ -123,6 +124,6 @@ const ITEM_CSS = `
   }
 `;
 
-define("pura-list", PuraList);
+define("pura-list", PuraList, meta);
 define("pura-list-item", PuraListItem);
 export { PuraList, PuraListItem };

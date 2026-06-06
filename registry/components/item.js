@@ -8,6 +8,7 @@
 //   bordered    — border + radius around the item
 //   clickable   — cursor pointer + role="button" + keyboard activation (Enter/Space)
 import { PuraElement, define } from "../base.js";
+import meta from "./item.meta.js";
 
 class PuraItem extends PuraElement {
   static observedAttributes = ["title", "clickable"];
@@ -157,5 +158,5 @@ const CSS = `
   :host([clickable]:active) .item { background: var(--pura-subtle-hover); }
 `;
 
-define("pura-item", PuraItem);
+define("pura-item", PuraItem, meta);
 export { PuraItem };

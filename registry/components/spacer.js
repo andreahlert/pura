@@ -5,6 +5,7 @@
 //   (no size) — flex: 1, grows to push flex siblings apart; inert in normal flow.
 // Slots: none.
 import { PuraElement, define } from "../base.js";
+import meta from "./spacer.meta.js";
 
 class PuraSpacer extends PuraElement {
   static observedAttributes = ["size"];
@@ -41,5 +42,5 @@ const CSS = `
   [part="spacer"] { width: 100%; height: 100%; }
 `;
 
-define("pura-spacer", PuraSpacer);
+define("pura-spacer", PuraSpacer, meta);
 export { PuraSpacer };

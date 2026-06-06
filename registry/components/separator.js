@@ -1,6 +1,7 @@
 // <pura-separator> — divider rule. Attributes: orientation (horizontal default
 // | vertical), label (optional centered text).
 import { PuraElement, define } from "../base.js";
+import meta from "./separator.meta.js";
 
 class PuraSeparator extends PuraElement {
   connectedCallback() {
@@ -25,5 +26,5 @@ const CSS = `
   .labeled .label { font-size: var(--pura-text-xs); color: var(--pura-muted); white-space: nowrap; }
 `;
 
-define("pura-separator", PuraSeparator);
+define("pura-separator", PuraSeparator, meta);
 export { PuraSeparator };

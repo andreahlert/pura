@@ -6,6 +6,7 @@
 // ("YYYY-MM-DD"), months (1|2, default 2), disabled. The `value` getter returns
 // { start, end }. Emits CustomEvent('change', { detail: { start, end } }).
 import { PuraElement, define } from "../base.js";
+import meta from "./date-range-picker.meta.js";
 import { t, onLocaleChange, registerMessages, getLocale } from "../i18n.js";
 
 registerMessages({
@@ -424,5 +425,5 @@ const CSS = `
   }
 `;
 
-define("pura-date-range-picker", PuraDateRangePicker);
+define("pura-date-range-picker", PuraDateRangePicker, meta);
 export { PuraDateRangePicker };

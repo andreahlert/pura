@@ -22,6 +22,7 @@
 //   its data-pura-id, so an agent can enumerate / read every timer on the page
 //   (remaining seconds, target, completion) without DOM diving.
 import { PuraElement, define } from "../base.js";
+import meta from "./countdown.meta.js";
 
 let uid = 0;
 
@@ -320,5 +321,5 @@ const CSS = `
   .cd[data-done="true"] .compact { display: none; }
 `;
 
-define("pura-countdown", PuraCountdown);
+define("pura-countdown", PuraCountdown, meta);
 export { PuraCountdown };

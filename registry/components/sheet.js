@@ -3,6 +3,7 @@
 // footer, default = body. Attributes: side (right default | left | top | bottom),
 // title, open. API: .open() / .close().
 import { PuraElement, define } from "../base.js";
+import meta from "./sheet.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -90,5 +91,5 @@ const CSS = `
     padding: var(--pura-space-4) var(--pura-space-5); border-top: 1px solid var(--pura-border); }
 `;
 
-define("pura-sheet", PuraSheet);
+define("pura-sheet", PuraSheet, meta);
 export { PuraSheet };

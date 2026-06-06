@@ -32,6 +32,7 @@
 //   teleported; `pura-portal:unmount` (bubbles, detail { id }) when restored.
 // API: .reparent() re-resolves `to` and moves the mount; .target getter.
 import { PuraElement, define } from "../base.js";
+import meta from "./portal.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -224,5 +225,5 @@ const CSS = `
   [part="placeholder"] { display: none; }
 `;
 
-define("pura-portal", PuraPortal);
+define("pura-portal", PuraPortal, meta);
 export { PuraPortal };

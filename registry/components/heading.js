@@ -11,6 +11,7 @@
 // Slot: default — the heading text.
 // Part: heading — the rendered <hN> element.
 import { PuraElement, define } from "../base.js";
+import meta from "./heading.meta.js";
 
 // Visual size scale, all traceable to --pura-text-* tokens (top end via calc).
 const SIZES = {
@@ -96,5 +97,5 @@ const CSS = `
   }
 `;
 
-define("pura-heading", PuraHeading);
+define("pura-heading", PuraHeading, meta);
 export { PuraHeading };

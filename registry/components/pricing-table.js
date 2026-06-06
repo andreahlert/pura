@@ -26,6 +26,7 @@
 //   Agent layer: stable data-pura-pricing-tier id; content reflected into the
 //     parent table's registry snapshot.
 import { PuraElement, define } from "../base.js";
+import meta from "./pricing-table.meta.js";
 
 let uid = 0;
 
@@ -366,6 +367,6 @@ const TIER_CSS = `
   ::slotted([slot="action"]) { width: 100%; }
 `;
 
-define("pura-pricing-table", PuraPricingTable);
+define("pura-pricing-table", PuraPricingTable, meta);
 define("pura-pricing-tier", PuraPricingTier);
 export { PuraPricingTable, PuraPricingTier };

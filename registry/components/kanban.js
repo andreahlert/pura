@@ -10,6 +10,7 @@
 // <pura-kanban-card>       attrs: — ; default slot: card content
 // Events: 'change' { card, from, to, index } on the board after a drop/keyboard move.
 import { PuraElement, define } from "../base.js";
+import meta from "./kanban.meta.js";
 
 // the card currently being dragged (DataTransfer can't carry a DOM ref)
 let DRAGGING = null;
@@ -150,7 +151,7 @@ const CARD_CSS = `
   :host(:active) { cursor: grabbing; }
 `;
 
-define("pura-kanban", PuraKanban);
+define("pura-kanban", PuraKanban, meta);
 define("pura-kanban-column", PuraKanbanColumn);
 define("pura-kanban-card", PuraKanbanCard);
 export { PuraKanban, PuraKanbanColumn, PuraKanbanCard };

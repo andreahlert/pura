@@ -23,6 +23,7 @@
 // data-numbered so an agent can read state without touching the shadow DOM.
 // The copy button is a real <button> with aria-label and a live status region.
 import { PuraElement, define } from "../base.js";
+import meta from "./code-block.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -404,5 +405,5 @@ const CSS = `
   }
 `;
 
-define("pura-code-block", PuraCodeBlock);
+define("pura-code-block", PuraCodeBlock, meta);
 export { PuraCodeBlock };

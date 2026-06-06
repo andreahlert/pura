@@ -5,6 +5,7 @@
 // slot name='icon', optional slot name='shortcut', attr disabled; emits
 // CustomEvent('select',{bubbles:true})), <pura-menu-separator>, <pura-menu-label>.
 import { PuraElement, define } from "../base.js";
+import meta from "./dropdown-menu.meta.js";
 
 let uid = 0;
 
@@ -142,7 +143,7 @@ const CSS = `
   }
 `;
 
-define("pura-dropdown-menu", PuraDropdownMenu);
+define("pura-dropdown-menu", PuraDropdownMenu, meta);
 
 // ---------------------------------------------------------------------------
 // <pura-menu-item> — a single selectable row. Slots: default = label, optional

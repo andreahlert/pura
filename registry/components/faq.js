@@ -19,6 +19,7 @@
 // registry keyed by instance id. Each entry exposes a machine-readable snapshot
 // of every item's question text and open state.
 import { PuraElement, define } from "../base.js";
+import meta from "./faq.meta.js";
 
 let uid = 0;
 
@@ -249,5 +250,5 @@ const ITEM_CSS = `
 `;
 
 define("pura-faq-item", PuraFaqItem);
-define("pura-faq", PuraFaq);
+define("pura-faq", PuraFaq, meta);
 export { PuraFaq, PuraFaqItem };

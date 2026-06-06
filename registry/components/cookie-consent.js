@@ -36,6 +36,7 @@
 //   data-pura-id so agents/tooling can enumerate and drive consent without
 //   reaching into the Shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./cookie-consent.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -668,5 +669,5 @@ const CSS = `
     background: var(--pura-subtle); }
 `;
 
-define("pura-cookie-consent", PuraCookieConsent);
+define("pura-cookie-consent", PuraCookieConsent, meta);
 export { PuraCookieConsent };

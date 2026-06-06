@@ -14,6 +14,7 @@
 //   title      - iframe title for accessibility.
 // Parts: root, frame, link. Falls back to an empty state when nothing resolves.
 import { PuraElement, define } from "../base.js";
+import meta from "./map.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -124,5 +125,5 @@ const CSS = `
   }
 `;
 
-define("pura-map", PuraMap);
+define("pura-map", PuraMap, meta);
 export { PuraMap };

@@ -1,5 +1,6 @@
 // <pura-spinner> — loading indicator. size: sm | md (default) | lg.
 import { PuraElement, define } from "../base.js";
+import meta from "./spinner.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -46,5 +47,5 @@ const CSS = `
   @keyframes pura-spin { to { transform: rotate(360deg); } }
 `;
 
-define("pura-spinner", PuraSpinner);
+define("pura-spinner", PuraSpinner, meta);
 export { PuraSpinner };

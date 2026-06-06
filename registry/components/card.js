@@ -1,6 +1,7 @@
 // <pura-card> — surface container. Named slots: header, footer. Default slot = body.
 // Attribute: hover (lift on hover).
 import { PuraElement, define } from "../base.js";
+import meta from "./card.meta.js";
 
 class PuraCard extends PuraElement {
   connectedCallback() {
@@ -42,5 +43,5 @@ const CSS = `
     display: flex; gap: var(--pura-space-2); }
 `;
 
-define("pura-card", PuraCard);
+define("pura-card", PuraCard, meta);
 export { PuraCard };

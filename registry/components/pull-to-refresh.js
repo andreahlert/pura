@@ -8,6 +8,7 @@
 //     refreshing  → app-controlled busy state
 //   Parts: indicator, content. i18n: pull / release / refreshing labels.
 import { PuraElement, define } from "../base.js";
+import meta from "./pull-to-refresh.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -190,5 +191,5 @@ const CSS = `
   }
 `;
 
-define("pura-pull-to-refresh", PuraPullToRefresh);
+define("pura-pull-to-refresh", PuraPullToRefresh, meta);
 export { PuraPullToRefresh };

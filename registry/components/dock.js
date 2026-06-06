@@ -39,6 +39,7 @@
 // prefers-reduced-motion the base reset neutralizes transitions AND we disable
 // the proximity scaling entirely, so nothing depends on motion to be usable.
 import { PuraElement, define } from "../base.js";
+import meta from "./dock.meta.js";
 
 let dockUid = 0;
 let tipUid = 0;
@@ -474,6 +475,6 @@ const ITEM_CSS = `
   }
 `;
 
-define("pura-dock", PuraDock);
+define("pura-dock", PuraDock, meta);
 define("pura-dock-item", PuraDockItem);
 export { PuraDock, PuraDockItem };

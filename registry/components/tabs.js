@@ -1,6 +1,7 @@
 // <pura-tabs> with <pura-tab label="..."> children (default slot holds panels).
 // Each pura-tab's content is its slotted body. Attribute on tabs: active (index).
 import { PuraElement, define } from "../base.js";
+import meta from "./tabs.meta.js";
 
 class PuraTab extends PuraElement {
   connectedCallback() {
@@ -65,5 +66,5 @@ const CSS = `
 `;
 
 define("pura-tab", PuraTab);
-define("pura-tabs", PuraTabs);
+define("pura-tabs", PuraTabs, meta);
 export { PuraTabs, PuraTab };

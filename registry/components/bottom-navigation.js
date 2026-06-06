@@ -15,6 +15,7 @@
 //   static (bool) lays the bar inline instead of fixed to the viewport bottom.
 // Parts: nav, item, icon, label.
 import { PuraElement, define } from "../base.js";
+import meta from "./bottom-navigation.meta.js";
 
 const esc = (s) => String(s).replace(/"/g, "&quot;");
 
@@ -196,5 +197,5 @@ const CSS = `
 `;
 
 define("pura-bottom-nav-item", PuraBottomNavItem);
-define("pura-bottom-navigation", PuraBottomNavigation);
+define("pura-bottom-navigation", PuraBottomNavigation, meta);
 export { PuraBottomNavigation, PuraBottomNavItem };

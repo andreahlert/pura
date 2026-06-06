@@ -30,6 +30,7 @@
 // CSS hooks for consumers (via ::part or descendant rules keyed on data-size):
 //   exposes --pura-container-width as the live measured width on the host.
 import { PuraElement, define } from "../base.js";
+import meta from "./container.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -200,5 +201,5 @@ const CSS = `
   :host([pad][data-size="lg"]) [part="box"] { padding-inline: var(--pura-space-6); }
 `;
 
-define("pura-container", PuraContainer);
+define("pura-container", PuraContainer, meta);
 export { PuraContainer };

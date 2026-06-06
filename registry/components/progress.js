@@ -1,6 +1,7 @@
 // <pura-progress value="0..100"> — determinate bar. Add `indeterminate` for
 // an animated unknown-progress state.
 import { PuraElement, define } from "../base.js";
+import meta from "./progress.meta.js";
 
 class PuraProgress extends PuraElement {
   static observedAttributes = ["value", "indeterminate"];
@@ -51,5 +52,5 @@ const CSS = `
   }
 `;
 
-define("pura-progress", PuraProgress);
+define("pura-progress", PuraProgress, meta);
 export { PuraProgress };

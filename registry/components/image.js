@@ -9,6 +9,7 @@
 //   w, h    — explicit width / height (any CSS length or number → px).
 // No slots; purely attribute-driven. Theming via var(--pura-*) tokens.
 import { PuraElement, define } from "../base.js";
+import meta from "./image.meta.js";
 
 class PuraImage extends PuraElement {
   static get observedAttributes() {
@@ -87,5 +88,5 @@ const CSS = `
   :host([radius="full"]) .frame { border-radius: var(--pura-radius-full); }
 `;
 
-define("pura-image", PuraImage);
+define("pura-image", PuraImage, meta);
 export { PuraImage };

@@ -13,6 +13,7 @@
 // and copies the updated markup. (Source-file saving needs a build plugin that
 // injects data-pura-loc + a dev endpoint — phase 2.)
 import { PuraElement, define } from "../base.js";
+import meta from "./inspector.meta.js";
 
 // attributes that read as boolean toggles across the pura set
 const BOOL = new Set([
@@ -474,5 +475,5 @@ class _Patched extends PuraInspector {
   }
 }
 
-define("pura-inspector", _Patched);
+define("pura-inspector", _Patched, meta);
 export { _Patched as PuraInspector };

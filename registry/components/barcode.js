@@ -4,6 +4,7 @@
 // Bars render as SVG rects: var(--pura-fg) on var(--pura-bg). Includes checksums
 // and quiet zones. Graceful error state on invalid input. Zero dependencies.
 import { PuraElement, define } from "../base.js";
+import meta from "./barcode.meta.js";
 import { registerMessages, t, onLocaleChange } from "../i18n.js";
 
 registerMessages({
@@ -257,5 +258,5 @@ const CSS = `
   }
 `;
 
-define("pura-barcode", PuraBarcode);
+define("pura-barcode", PuraBarcode, meta);
 export { PuraBarcode };

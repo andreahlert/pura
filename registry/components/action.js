@@ -17,6 +17,7 @@
 //   window.__puraActions : Map<actionId, {
 //     actionId, intent, params, element, invoke() }>
 import { PuraElement, define } from "../base.js";
+import meta from "./action.meta.js";
 
 // Lazily create (never assume it exists) the global registry.
 function registry() {
@@ -171,5 +172,5 @@ const CSS = `
   :host { display: contents; }
 `;
 
-define("pura-action", PuraAction);
+define("pura-action", PuraAction, meta);
 export { PuraAction };

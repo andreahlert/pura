@@ -4,6 +4,7 @@
 // Zero dependencies: data encoding, Reed-Solomon ECC, masking and placement
 // are all implemented here. Quiet zone of 4 modules is included.
 import { PuraElement, define } from "../base.js";
+import meta from "./qr-code.meta.js";
 import { registerMessages, t, onLocaleChange } from "../i18n.js";
 
 registerMessages({
@@ -487,5 +488,5 @@ const CSS = `
   }
 `;
 
-define("pura-qr-code", PuraQRCode);
+define("pura-qr-code", PuraQRCode, meta);
 export { PuraQRCode };

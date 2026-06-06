@@ -1,6 +1,7 @@
 // <pura-avatar> — image or initials fallback. Attributes: src, alt, initials,
 // size (sm | md | lg). status: online | offline | busy (corner dot).
 import { PuraElement, define } from "../base.js";
+import meta from "./avatar.meta.js";
 
 class PuraAvatar extends PuraElement {
   connectedCallback() {
@@ -43,5 +44,5 @@ const CSS = `
   :host([status="offline"]) .status { background: var(--pura-muted); }
 `;
 
-define("pura-avatar", PuraAvatar);
+define("pura-avatar", PuraAvatar, meta);
 export { PuraAvatar };

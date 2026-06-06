@@ -31,6 +31,7 @@
 // without opening the popover or piercing the shadow DOM. The wrapped content
 // also carries aria-description with the explanation text.
 import { PuraElement, define } from "../base.js";
+import meta from "./explain.meta.js";
 
 let uid = 0;
 let anchorSeq = 0;
@@ -257,5 +258,5 @@ const CSS = `
   }
 `;
 
-define("pura-explain", PuraExplain);
+define("pura-explain", PuraExplain, meta);
 export { PuraExplain };

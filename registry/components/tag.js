@@ -23,6 +23,7 @@
 //   removable, disabled, removed) so agents/tooling can enumerate, read and remove
 //   every tag without reaching into the Shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./tag.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -224,5 +225,5 @@ const CSS = `
   }
 `;
 
-define("pura-tag", PuraTag);
+define("pura-tag", PuraTag, meta);
 export { PuraTag };

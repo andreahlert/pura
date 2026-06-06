@@ -7,6 +7,7 @@
 // Built on the native Popover API + CSS anchor positioning (see popover.js).
 // Attributes: placeholder, value, disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./combobox.meta.js";
 
 let uid = 0;
 
@@ -292,5 +293,5 @@ const CSS = `
   }
 `;
 
-define("pura-combobox", PuraCombobox);
+define("pura-combobox", PuraCombobox, meta);
 export { PuraCombobox };

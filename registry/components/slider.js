@@ -5,6 +5,7 @@
 // .value, and emits 'input' and 'change' with detail { value }. With
 // show-value an optional bubble tracks the thumb.
 import { PuraElement, define } from "../base.js";
+import meta from "./slider.meta.js";
 
 class PuraSlider extends PuraElement {
   static observedAttributes = ["min", "max", "step", "value", "disabled", "show-value"];
@@ -142,5 +143,5 @@ const CSS = `
   :host([show-value]) .bubble { display: block; }
 `;
 
-define("pura-slider", PuraSlider);
+define("pura-slider", PuraSlider, meta);
 export { PuraSlider };

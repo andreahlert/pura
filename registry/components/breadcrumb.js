@@ -4,6 +4,7 @@
 // <a>), current (aria-current=page, non-link foreground color). A chevron '/'
 // separator is auto-inserted BEFORE every item except the first.
 import { PuraElement, define } from "../base.js";
+import meta from "./breadcrumb.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -101,6 +102,6 @@ const ITEM_CSS = `
   [part="page"] { color: var(--pura-fg); font-weight: 450; }
 `;
 
-define("pura-breadcrumb", PuraBreadcrumb);
+define("pura-breadcrumb", PuraBreadcrumb, meta);
 define("pura-breadcrumb-item", PuraBreadcrumbItem);
 export { PuraBreadcrumb, PuraBreadcrumbItem };

@@ -3,6 +3,7 @@
 // description, error. When error is set, invalid styling cue is applied and the
 // error message replaces the description.
 import { PuraElement, define } from "../base.js";
+import meta from "./field.meta.js";
 
 class PuraField extends PuraElement {
   static observedAttributes = ["label", "description", "error"];
@@ -52,5 +53,5 @@ const CSS = `
   :host([error]:not([error=""])) ::slotted(*) { --pura-field-invalid: 1; }
 `;
 
-define("pura-field", PuraField);
+define("pura-field", PuraField, meta);
 export { PuraField };

@@ -3,6 +3,7 @@
 // (boolean, applies var(--pura-radius)). Slotted media/content fills 100%
 // width & height with object-fit cover; overflow is clipped.
 import { PuraElement, define } from "../base.js";
+import meta from "./aspect-ratio.meta.js";
 
 class PuraAspectRatio extends PuraElement {
   static observedAttributes = ["ratio", "rounded"];
@@ -68,5 +69,5 @@ const CSS = `
   }
 `;
 
-define("pura-aspect-ratio", PuraAspectRatio);
+define("pura-aspect-ratio", PuraAspectRatio, meta);
 export { PuraAspectRatio };

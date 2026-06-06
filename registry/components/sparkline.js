@@ -18,6 +18,7 @@
 //   stats, and each instance registers in window.__puraSparklines keyed by its
 //   data-pura-id so an agent can enumerate / read every chart on the page.
 import { PuraElement, define } from "../base.js";
+import meta from "./sparkline.meta.js";
 
 let uid = 0;
 
@@ -205,5 +206,5 @@ const CSS = `
   }
 `;
 
-define("pura-sparkline", PuraSparkline);
+define("pura-sparkline", PuraSparkline, meta);
 export { PuraSparkline };

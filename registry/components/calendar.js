@@ -6,6 +6,7 @@
 // CustomEvent('change', { detail: { value } }). Arrow keys move focus across days,
 // rolling over to the previous/next month at the edges. role=grid + gridcell.
 import { PuraElement, define } from "../base.js";
+import meta from "./calendar.meta.js";
 import { t, onLocaleChange, registerMessages, getLocale } from "../i18n.js";
 
 registerMessages({
@@ -311,5 +312,5 @@ const CSS = `
   .day.selected.today { box-shadow: none; }
 `;
 
-define("pura-calendar", PuraCalendar);
+define("pura-calendar", PuraCalendar, meta);
 export { PuraCalendar };

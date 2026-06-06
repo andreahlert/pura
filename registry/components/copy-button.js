@@ -18,6 +18,7 @@
 //   the instance registers in window.__puraCopyButtons keyed by its data-pura-id.
 //   Agents can call .copy() to trigger a copy programmatically.
 import { PuraElement, define } from "../base.js";
+import meta from "./copy-button.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -289,5 +290,5 @@ const CSS = `
   }
 `;
 
-define("pura-copy-button", PuraCopyButton);
+define("pura-copy-button", PuraCopyButton, meta);
 export { PuraCopyButton };

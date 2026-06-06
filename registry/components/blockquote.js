@@ -8,6 +8,7 @@
 //   (default) — the quoted content.
 //   author    — citation markup when richer than the `cite` attribute.
 import { PuraElement, define } from "../base.js";
+import meta from "./blockquote.meta.js";
 
 const ACCENTS = {
   default: "var(--pura-border-strong)",
@@ -79,5 +80,5 @@ const CSS = `
   [part="cite"]::before { content: "— "; }
 `;
 
-define("pura-blockquote", PuraBlockquote);
+define("pura-blockquote", PuraBlockquote, meta);
 export { PuraBlockquote };

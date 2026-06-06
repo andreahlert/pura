@@ -6,6 +6,7 @@
 // The current value is passed down to the calendar via its value attr.
 // Attributes: value (yyyy-mm-dd), placeholder, disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./date-picker.meta.js";
 import { t, onLocaleChange, registerMessages, getLocale } from "../i18n.js";
 
 registerMessages({
@@ -192,5 +193,5 @@ const CSS = `
   }
 `;
 
-define("pura-date-picker", PuraDatePicker);
+define("pura-date-picker", PuraDatePicker, meta);
 export { PuraDatePicker };

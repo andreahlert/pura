@@ -7,6 +7,7 @@
 // Slots: default — stacked children.
 // Renders <div part="stack"><slot></slot></div>.
 import { PuraElement, define } from "../base.js";
+import meta from "./stack.meta.js";
 
 const ALIGN = { start: "flex-start", center: "center", end: "flex-end", stretch: "stretch" };
 const JUSTIFY = {
@@ -59,5 +60,5 @@ const CSS = `
   }
 `;
 
-define("pura-stack", PuraStack);
+define("pura-stack", PuraStack, meta);
 export { PuraStack };

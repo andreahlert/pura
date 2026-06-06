@@ -21,6 +21,7 @@
 // Agent-native layer: stable data-pura-split-* attributes mirror live state and
 //   the instance registers in window.__puraSplitButtons keyed by its data-pura-id.
 import { PuraElement, define } from "../base.js";
+import meta from "./split-button.meta.js";
 
 let uid = 0;
 
@@ -320,5 +321,5 @@ const CSS = `
   }
 `;
 
-define("pura-split-button", PuraSplitButton);
+define("pura-split-button", PuraSplitButton, meta);
 export { PuraSplitButton };

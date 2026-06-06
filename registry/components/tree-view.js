@@ -16,6 +16,7 @@
 // window.__puraTrees registry exposes a live, serializable snapshot of each
 // tree keyed by id, so agents can read structure without touching the DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./tree-view.meta.js";
 
 let uid = 0;
 
@@ -374,6 +375,6 @@ const CSS_TREE = `
 define("pura-tree-item", PuraTreeItem);
 define("pura-tree", PuraTree);
 // Alias the spec tag name to the root tree so <pura-tree-view> also works.
-define("pura-tree-view", class extends PuraTree {});
+define("pura-tree-view", class extends PuraTree {}, meta);
 
 export { PuraTree, PuraTreeItem };

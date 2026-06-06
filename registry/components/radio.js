@@ -1,6 +1,7 @@
 // <pura-radio> — single radio. Group by shared `name`. Label via slot.
 // Attributes: checked, disabled, name, value.
 import { PuraElement, define } from "../base.js";
+import meta from "./radio.meta.js";
 
 class PuraRadio extends PuraElement {
   static observedAttributes = ["checked", "disabled"];
@@ -61,5 +62,5 @@ const CSS = `
   :host([disabled]) label { opacity: 0.55; cursor: not-allowed; }
 `;
 
-define("pura-radio", PuraRadio);
+define("pura-radio", PuraRadio, meta);
 export { PuraRadio };

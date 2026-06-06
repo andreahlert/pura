@@ -6,6 +6,7 @@
 // when `seconds`). Attributes: value, step (minutes, default 30), use24 (bool),
 // seconds (bool), min, max ("HH:MM"), disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./time-picker.meta.js";
 import { t, onLocaleChange, registerMessages, getLocale } from "../i18n.js";
 
 registerMessages({
@@ -249,5 +250,5 @@ const CSS = `
   }
 `;
 
-define("pura-time-picker", PuraTimePicker);
+define("pura-time-picker", PuraTimePicker, meta);
 export { PuraTimePicker };

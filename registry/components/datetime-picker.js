@@ -6,6 +6,7 @@
 // date half; the selects carry the time half. Attributes: value, use24 (bool),
 // minuteStep (default 5), disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./datetime-picker.meta.js";
 import { t, onLocaleChange, registerMessages, getLocale } from "../i18n.js";
 
 registerMessages({
@@ -291,5 +292,5 @@ const CSS = `
   }
 `;
 
-define("pura-datetime-picker", PuraDatetimePicker);
+define("pura-datetime-picker", PuraDatetimePicker, meta);
 export { PuraDatetimePicker };

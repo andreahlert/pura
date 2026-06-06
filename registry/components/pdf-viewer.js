@@ -11,6 +11,7 @@
 //   title     - display name in the toolbar (falls back to the src filename).
 // Parts: root, toolbar, frame, download.
 import { PuraElement, define } from "../base.js";
+import meta from "./pdf-viewer.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -109,5 +110,5 @@ const CSS = `
   }
 `;
 
-define("pura-pdf-viewer", PuraPdfViewer);
+define("pura-pdf-viewer", PuraPdfViewer, meta);
 export { PuraPdfViewer };

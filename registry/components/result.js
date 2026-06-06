@@ -10,6 +10,7 @@
 //   name="actions"   - buttons row
 // Parts: icon, title, subtitle, actions
 import { PuraElement, define } from "../base.js";
+import meta from "./result.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -163,5 +164,5 @@ const CSS = `
   }
 `;
 
-define("pura-result", PuraResult);
+define("pura-result", PuraResult, meta);
 export { PuraResult };

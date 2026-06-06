@@ -10,6 +10,7 @@
 // Parts: grid, swatch. Event: change { value }.
 // a11y: role=radiogroup with role=radio swatches, roving tabindex, arrow keys.
 import { PuraElement, define } from "../base.js";
+import meta from "./swatch-picker.meta.js";
 
 const DEFAULT_COLORS = [
   "#ef4444", "#f59e0b", "#eab308", "#22c55e", "#14b8a6", "#3b82f6",
@@ -229,5 +230,5 @@ const CSS = `
   }
 `;
 
-define("pura-swatch-picker", PuraSwatchPicker);
+define("pura-swatch-picker", PuraSwatchPicker, meta);
 export { PuraSwatchPicker };

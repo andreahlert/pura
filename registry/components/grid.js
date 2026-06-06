@@ -11,6 +11,7 @@
 // Slots: default — grid items.
 // Part: grid — the grid container <div>.
 import { PuraElement, define } from "../base.js";
+import meta from "./grid.meta.js";
 
 const SPACE = new Set(["1", "2", "3", "4", "5", "6"]);
 
@@ -76,5 +77,5 @@ const CSS = `
   }
 `;
 
-define("pura-grid", PuraGrid);
+define("pura-grid", PuraGrid, meta);
 export { PuraGrid };

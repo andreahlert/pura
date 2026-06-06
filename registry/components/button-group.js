@@ -2,6 +2,7 @@
 // adjacent borders/radii so slotted buttons read as one control.
 // Attributes: orientation (horizontal default | vertical).
 import { PuraElement, define } from "../base.js";
+import meta from "./button-group.meta.js";
 
 // pura-button exposes its rounded box as ::part(button). A part is only
 // reachable from the tree where the host physically lives — pura-button is a
@@ -84,5 +85,5 @@ const CSS = `
   }
 `;
 
-define("pura-button-group", PuraButtonGroup);
+define("pura-button-group", PuraButtonGroup, meta);
 export { PuraButtonGroup };

@@ -12,6 +12,7 @@
 // convenience methods toast.success/error/warning/info. Calling toast() ensures
 // a default <pura-toaster> exists (auto-created on <body>) then shows a toast.
 import { PuraElement, define } from "../base.js";
+import meta from "./toast.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -287,7 +288,7 @@ toast.warning = (message, opts = {}) => toast(message, { ...opts, variant: "warn
 toast.info = (message, opts = {}) => toast(message, { ...opts, variant: "info" });
 
 define("pura-toaster", PuraToaster);
-define("pura-toast", PuraToast);
+define("pura-toast", PuraToast, meta);
 
 export { PuraToast, PuraToaster, toast };
 export default toast;

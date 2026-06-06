@@ -8,6 +8,7 @@
 // Controls: play/pause, seek slider, current/total time, volume, mute.
 // Parts: controls, button, scrubber, time. Theming via var(--pura-*).
 import { PuraElement, define } from "../base.js";
+import meta from "./audio.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -188,5 +189,5 @@ const CSS = `
   input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px var(--pura-ring); }
 `;
 
-define("pura-audio", PuraAudio);
+define("pura-audio", PuraAudio, meta);
 export { PuraAudio };

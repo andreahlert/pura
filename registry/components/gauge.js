@@ -22,6 +22,7 @@
 //   each instance registers in window.__puraGauges keyed by its data-pura-id, so
 //   an agent can enumerate / read every gauge on the page without DOM diving.
 import { PuraElement, define } from "../base.js";
+import meta from "./gauge.meta.js";
 
 let uid = 0;
 
@@ -220,5 +221,5 @@ const CSS = `
   }
 `;
 
-define("pura-gauge", PuraGauge);
+define("pura-gauge", PuraGauge, meta);
 export { PuraGauge };

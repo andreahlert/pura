@@ -24,6 +24,7 @@
 //     column count is reflected to data-columns for inspection (responsive mode
 //     omits it, since the count depends on the rendered width).
 import { PuraElement, define } from "../base.js";
+import meta from "./masonry.meta.js";
 
 let uid = 0;
 
@@ -175,5 +176,5 @@ const CSS = `
   }
 `;
 
-define("pura-masonry", PuraMasonry);
+define("pura-masonry", PuraMasonry, meta);
 export { PuraMasonry };

@@ -13,6 +13,7 @@
 //   cancel  - CustomEvent (bubbles), fired on cancel / dismiss
 // Parts: trigger, popup, confirm, cancel
 import { PuraElement, define } from "../base.js";
+import meta from "./popconfirm.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -197,5 +198,5 @@ const CSS = `
   }
 `;
 
-define("pura-popconfirm", PuraPopconfirm);
+define("pura-popconfirm", PuraPopconfirm, meta);
 export { PuraPopconfirm };

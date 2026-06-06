@@ -23,6 +23,7 @@
 // roles/labels, and a global window.__puraFileDropzones registry mapping each
 // instance id to a live { files } snapshot for machine inspection.
 import { PuraElement, define } from "../base.js";
+import meta from "./file-dropzone.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -412,5 +413,5 @@ const CHIP_CSS = `
 `;
 
 define("pura-file-chip", PuraFileChip);
-define("pura-file-dropzone", PuraFileDropzone);
+define("pura-file-dropzone", PuraFileDropzone, meta);
 export { PuraFileDropzone, PuraFileChip };

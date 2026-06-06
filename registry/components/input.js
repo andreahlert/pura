@@ -1,6 +1,7 @@
 // <pura-input> — text field. Attributes: type, placeholder, value, disabled,
 // invalid, label, hint. Mirrors value back to the host attribute.
 import { PuraElement, define } from "../base.js";
+import meta from "./input.meta.js";
 
 class PuraInput extends PuraElement {
   static observedAttributes = ["label", "hint", "placeholder", "type", "value", "disabled", "invalid"];
@@ -62,5 +63,5 @@ const CSS = `
   :host([invalid]) small { color: var(--pura-danger); }
 `;
 
-define("pura-input", PuraInput);
+define("pura-input", PuraInput, meta);
 export { PuraInput };

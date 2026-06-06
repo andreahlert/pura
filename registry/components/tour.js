@@ -16,6 +16,7 @@
 //   attributes and proper ARIA (role=dialog, aria-modal, labelled/described by
 //   the coachmark title/body).
 import { PuraElement, define } from "../base.js";
+import meta from "./tour.meta.js";
 
 let uid = 0;
 
@@ -341,7 +342,7 @@ const CSS = `
   .btn.ghost:hover { background: var(--pura-subtle); color: var(--pura-fg); }
 `;
 
-define("pura-tour", PuraTour);
+define("pura-tour", PuraTour, meta);
 
 // ---------------------------------------------------------------------------
 // <pura-tour-step> — declarative step descriptor. Not rendered itself; the parent

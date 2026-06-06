@@ -11,6 +11,7 @@
 // data-overflow), and a window.__puraAvatarGroups registry keyed by instance id.
 // Sub-element: <pura-avatar-more> — the standalone "+N" overflow bubble/trigger.
 import { PuraElement, define } from "../base.js";
+import meta from "./avatar-group.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -328,6 +329,6 @@ const MORE_CSS = `
   :host([size="lg"]) .more { width: 3.5rem; height: 3.5rem; font-size: var(--pura-text-lg); }
 `;
 
-define("pura-avatar-group", PuraAvatarGroup);
+define("pura-avatar-group", PuraAvatarGroup, meta);
 define("pura-avatar-more", PuraAvatarMore);
 export { PuraAvatarGroup, PuraAvatarMore };

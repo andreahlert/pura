@@ -5,6 +5,7 @@
 // slot = card content. Attributes: placement (bottom default | top | left |
 // right), open-delay (ms, ~150 default), close-delay (ms, ~150 default), open.
 import { PuraElement, define } from "../base.js";
+import meta from "./hover-card.meta.js";
 
 let uid = 0;
 
@@ -121,5 +122,5 @@ const CSS = `
   }
 `;
 
-define("pura-hover-card", PuraHoverCard);
+define("pura-hover-card", PuraHoverCard, meta);
 export { PuraHoverCard };

@@ -18,6 +18,7 @@
 //
 // Parts: label, textarea, error, format
 import { PuraElement, define } from "../base.js";
+import meta from "./json-input.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -250,5 +251,5 @@ const CSS = `
   :host([invalid]) .error { display: block; }
 `;
 
-define("pura-json-input", PuraJsonInput);
+define("pura-json-input", PuraJsonInput, meta);
 export { PuraJsonInput };

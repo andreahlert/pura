@@ -13,6 +13,7 @@
 // ordered list with aria-current="step" on the active item and per-step labels
 // that spell out position + state for assistive tech.
 import { PuraElement, define } from "../base.js";
+import meta from "./stepper.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -260,5 +261,5 @@ const CSS = `
   .list[data-orientation="vertical"] .label { padding-top: 0.35rem; }
 `;
 
-define("pura-stepper", PuraStepper);
+define("pura-stepper", PuraStepper, meta);
 export { PuraStepper };

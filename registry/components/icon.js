@@ -9,6 +9,7 @@
 //   label         - aria-label; when absent the icon is aria-hidden
 // Part: svg
 import { PuraElement, define } from "../base.js";
+import meta from "./icon.meta.js";
 
 class PuraIcon extends PuraElement {
   static observedAttributes = ["path", "d", "size", "stroke-width", "label"];
@@ -71,5 +72,5 @@ const CSS = `
   ::slotted(svg) { display: block; width: 100%; height: 100%; }
 `;
 
-define("pura-icon", PuraIcon);
+define("pura-icon", PuraIcon, meta);
 export { PuraIcon };

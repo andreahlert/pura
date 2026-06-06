@@ -10,6 +10,7 @@
 // Parts: window, titlebar, title, controls, body, resize.
 // Emits move, resize, close. Buttons get i18n aria-labels.
 import { PuraElement, define } from "../base.js";
+import meta from "./floating-window.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -311,5 +312,5 @@ const CSS = `
   .resize svg { width: 1rem; height: 1rem; }
 `;
 
-define("pura-floating-window", PuraFloatingWindow);
+define("pura-floating-window", PuraFloatingWindow, meta);
 export { PuraFloatingWindow };

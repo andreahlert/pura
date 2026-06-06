@@ -4,6 +4,7 @@
 // Attributes: mask, placeholder, value, disabled. Dispatches "input" with
 // detail { value, unmasked }. Parts: input.
 import { PuraElement, define } from "../base.js";
+import meta from "./mask-input.meta.js";
 
 const TOKENS = {
   "9": (c) => /\d/.test(c),
@@ -162,5 +163,5 @@ const CSS = `
   input:disabled { opacity: 0.55; cursor: not-allowed; background: var(--pura-subtle); }
 `;
 
-define("pura-mask-input", PuraMaskInput);
+define("pura-mask-input", PuraMaskInput, meta);
 export { PuraMaskInput };

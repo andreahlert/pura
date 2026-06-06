@@ -10,6 +10,7 @@
 //   change { keys } - fired (bubbles) whenever the target set changes.
 // Parts: panel, item, controls, search.
 import { PuraElement, define } from "../base.js";
+import meta from "./transfer.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -268,5 +269,5 @@ const CSS = `
   }
 `;
 
-define("pura-transfer", PuraTransfer);
+define("pura-transfer", PuraTransfer, meta);
 export { PuraTransfer };

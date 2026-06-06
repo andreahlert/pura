@@ -1,6 +1,7 @@
 // <pura-badge> — small status label. variant: neutral (default) | primary |
 // success | warning | danger | info. Attribute: dot (leading dot).
 import { PuraElement, define } from "../base.js";
+import meta from "./badge.meta.js";
 
 class PuraBadge extends PuraElement {
   connectedCallback() {
@@ -29,5 +30,5 @@ const CSS = `
   :host([variant="info"]) span[part="badge"] { background: var(--pura-info-bg); color: var(--pura-info); border-color: color-mix(in srgb, var(--pura-info) 30%, transparent); }
 `;
 
-define("pura-badge", PuraBadge);
+define("pura-badge", PuraBadge, meta);
 export { PuraBadge };

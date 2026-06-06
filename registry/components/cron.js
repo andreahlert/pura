@@ -11,6 +11,7 @@
 // Events: 'change' { value, description } (bubbles) on every committed edit.
 // Parts: field, description.
 import { PuraElement, define } from "../base.js";
+import meta from "./cron.meta.js";
 import { t, getLocale, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -310,5 +311,5 @@ const CSS = `
   .desc.invalid { color: var(--pura-danger); background: var(--pura-danger-bg); border-color: var(--pura-danger); }
 `;
 
-define("pura-cron", PuraCron);
+define("pura-cron", PuraCron, meta);
 export { PuraCron };

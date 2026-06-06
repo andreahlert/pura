@@ -7,6 +7,7 @@
 // Parts: value, input, confirm, cancel.
 // Events: change { value } on confirm only; cancel on cancel.
 import { PuraElement, define } from "../base.js";
+import meta from "./inline-edit.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -255,5 +256,5 @@ const CSS = `
   .cancel { color: var(--pura-muted-fg); }
 `;
 
-define("pura-inline-edit", PuraInlineEdit);
+define("pura-inline-edit", PuraInlineEdit, meta);
 export { PuraInlineEdit };

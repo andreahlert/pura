@@ -1,6 +1,7 @@
 // <pura-button> — variants: primary (default) | secondary | ghost | danger
 // Sizes: sm | md (default) | lg. Attributes: disabled, loading, full.
 import { PuraElement, define } from "../base.js";
+import meta from "./button.meta.js";
 
 class PuraButton extends PuraElement {
   static observedAttributes = ["variant", "size", "disabled", "loading", "full"];
@@ -90,5 +91,5 @@ const CSS = `
   @keyframes pura-spin { to { transform: rotate(360deg); } }
 `;
 
-define("pura-button", PuraButton);
+define("pura-button", PuraButton, meta);
 export { PuraButton };

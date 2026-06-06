@@ -2,6 +2,7 @@
 // Options are passed as light-DOM <option> children; we read and re-emit them.
 // Attributes: label, hint, value, disabled, invalid.
 import { PuraElement, define } from "../base.js";
+import meta from "./select.meta.js";
 
 class PuraSelect extends PuraElement {
   static observedAttributes = ["label", "hint", "value", "disabled", "invalid"];
@@ -56,5 +57,5 @@ const CSS = `
   small { display: block; margin-top: var(--pura-space-2); font-size: var(--pura-text-xs); color: var(--pura-muted); }
 `;
 
-define("pura-select", PuraSelect);
+define("pura-select", PuraSelect, meta);
 export { PuraSelect };

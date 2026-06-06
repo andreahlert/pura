@@ -47,6 +47,7 @@
 //   renders an empty nav and never throws in connectedCallback. If
 //   IntersectionObserver is unavailable it falls back to a scroll listener.
 import { PuraElement, define } from "../base.js";
+import meta from "./scroll-spy.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -482,5 +483,5 @@ const CSS = `
   }
 `;
 
-define("pura-scroll-spy", PuraScrollSpy);
+define("pura-scroll-spy", PuraScrollSpy, meta);
 export { PuraScrollSpy };

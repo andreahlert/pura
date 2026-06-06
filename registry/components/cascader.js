@@ -12,6 +12,7 @@
 // Events: change { detail: { value, labels } } where both are arrays.
 // Parts: trigger, panel, column, option.
 import { PuraElement, define } from "../base.js";
+import meta from "./cascader.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -427,5 +428,5 @@ const CSS = `
   }
 `;
 
-define("pura-cascader", PuraCascader);
+define("pura-cascader", PuraCascader, meta);
 export { PuraCascader };

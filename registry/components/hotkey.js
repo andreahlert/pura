@@ -48,6 +48,7 @@
 // .list(), .find(keys) and .trigger(keys) so an agent can enumerate and invoke
 // every shortcut on the page without touching any shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./hotkey.meta.js";
 
 // Module-level counter for stable, unique ids per instance (mirrors the
 // anchor-name minting convention used by pura's floating components).
@@ -369,7 +370,7 @@ const CSS = `
   :host { display: contents; }
 `;
 
-define("pura-hotkey", PuraHotkey);
+define("pura-hotkey", PuraHotkey, meta);
 
 export { PuraHotkey };
 export default PuraHotkey;

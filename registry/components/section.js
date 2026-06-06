@@ -8,6 +8,7 @@
 //               CSS color/value. Default transparent.
 // Slots: default — section content.
 import { PuraElement, define } from "../base.js";
+import meta from "./section.meta.js";
 
 class PuraSection extends PuraElement {
   static get observedAttributes() {
@@ -63,5 +64,5 @@ const CSS = `
   }
 `;
 
-define("pura-section", PuraSection);
+define("pura-section", PuraSection, meta);
 export { PuraSection };

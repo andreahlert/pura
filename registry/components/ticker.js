@@ -13,6 +13,7 @@
 // Agent-native: role="status" + aria-live, stable data-* mirror of the live
 // numeric state, and a window.__puraTickers registry of all live instances.
 import { PuraElement, define } from "../base.js";
+import meta from "./ticker.meta.js";
 
 let uid = 0;
 
@@ -202,5 +203,5 @@ const CSS = `
   }
 `;
 
-define("pura-ticker", PuraTicker);
+define("pura-ticker", PuraTicker, meta);
 export { PuraTicker };

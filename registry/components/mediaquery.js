@@ -23,6 +23,7 @@
 //     enumerate instances by current match state. Agents can read it to learn the
 //     responsive state of the page without measuring the viewport.
 import { PuraElement, define } from "../base.js";
+import meta from "./mediaquery.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -174,5 +175,5 @@ const CSS = `
   :host([data-matches]) slot[part="fallback"] { display: none; }
 `;
 
-define("pura-mediaquery", PuraMediaQuery);
+define("pura-mediaquery", PuraMediaQuery, meta);
 export { PuraMediaQuery };

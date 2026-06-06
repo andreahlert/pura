@@ -8,6 +8,7 @@
 // ARIA: role=slider with aria-valuenow/min/max. Emits input on change, change
 //   on release.
 import { PuraElement, define } from "../base.js";
+import meta from "./knob.meta.js";
 
 // Dial geometry in a 0..100 viewBox. A gap-at-bottom arc (PrimeReact style)
 // spanning 270 degrees, from 135 degrees to 405 degrees clockwise.
@@ -262,5 +263,5 @@ const CSS = `
   }
 `;
 
-define("pura-knob", PuraKnob);
+define("pura-knob", PuraKnob, meta);
 export { PuraKnob };

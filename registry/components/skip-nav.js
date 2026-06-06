@@ -6,6 +6,7 @@
 // Renders an <a> with the sr-only-until-focus pattern, pinned top-left and styled
 // with tokens when focused. Part: link.
 import { PuraElement, define } from "../base.js";
+import meta from "./skip-nav.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -80,5 +81,5 @@ const CSS = `
   }
 `;
 
-define("pura-skip-nav", PuraSkipNav);
+define("pura-skip-nav", PuraSkipNav, meta);
 export { PuraSkipNav };

@@ -8,6 +8,7 @@
 // ARIA: role=slider with aria-valuenow/min/max. Emits change. Arrow keys adjust
 //   by step.
 import { PuraElement, define } from "../base.js";
+import meta from "./angle-slider.meta.js";
 
 const CX = 50;
 const CY = 50;
@@ -229,5 +230,5 @@ const CSS = `
   }
 `;
 
-define("pura-angle-slider", PuraAngleSlider);
+define("pura-angle-slider", PuraAngleSlider, meta);
 export { PuraAngleSlider };

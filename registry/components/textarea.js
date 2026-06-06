@@ -1,6 +1,7 @@
 // <pura-textarea> — multiline field. Attributes: label, hint, placeholder,
 // rows, value, disabled, invalid.
 import { PuraElement, define } from "../base.js";
+import meta from "./textarea.meta.js";
 
 class PuraTextarea extends PuraElement {
   static observedAttributes = ["label", "hint", "placeholder", "rows", "value", "disabled", "invalid"];
@@ -56,5 +57,5 @@ const CSS = `
   :host([invalid]) small { color: var(--pura-danger); }
 `;
 
-define("pura-textarea", PuraTextarea);
+define("pura-textarea", PuraTextarea, meta);
 export { PuraTextarea };

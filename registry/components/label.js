@@ -2,6 +2,7 @@
 // Default slot = label text. Clicking the label focuses (and, where applicable,
 // activates) the associated control found by id in the surrounding document.
 import { PuraElement, define } from "../base.js";
+import meta from "./label.meta.js";
 
 class PuraLabel extends PuraElement {
   static observedAttributes = ["for"];
@@ -59,5 +60,5 @@ const CSS = `
   :host([for]) label { cursor: pointer; }
 `;
 
-define("pura-label", PuraLabel);
+define("pura-label", PuraLabel, meta);
 export { PuraLabel };

@@ -4,6 +4,7 @@
 //   anything inside it) has focus, the skip-link style reveal.
 // Slot: default. Part: content.
 import { PuraElement, define } from "../base.js";
+import meta from "./visually-hidden.meta.js";
 
 class PuraVisuallyHidden extends PuraElement {
   connectedCallback() {
@@ -37,5 +38,5 @@ const CSS = `
   }
 `;
 
-define("pura-visually-hidden", PuraVisuallyHidden);
+define("pura-visually-hidden", PuraVisuallyHidden, meta);
 export { PuraVisuallyHidden };

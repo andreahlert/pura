@@ -3,6 +3,7 @@
 // positioning. Slots: trigger (the clickable), default slot = panel content.
 // Attributes: placement (bottom default | top | left | right), open.
 import { PuraElement, define } from "../base.js";
+import meta from "./popover.meta.js";
 
 let uid = 0;
 
@@ -61,5 +62,5 @@ const CSS = `
   }
 `;
 
-define("pura-popover", PuraPopover);
+define("pura-popover", PuraPopover, meta);
 export { PuraPopover };

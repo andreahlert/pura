@@ -11,6 +11,7 @@
 //   data-side, data-time, data-has-avatar) and an aria-label summarizing the
 //   message so assistive tech and agents can read direction + content + time.
 import { PuraElement, define } from "../base.js";
+import meta from "./chat-bubble.meta.js";
 
 class PuraChatBubble extends PuraElement {
   static observedAttributes = ["side", "time", "tail"];
@@ -141,5 +142,5 @@ const CSS = `
   }
 `;
 
-define("pura-chat-bubble", PuraChatBubble);
+define("pura-chat-bubble", PuraChatBubble, meta);
 export { PuraChatBubble };

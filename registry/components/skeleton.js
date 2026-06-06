@@ -3,6 +3,7 @@
 // Animates a subtle shimmer over var(--pura-subtle); falls back to a pulse and
 // honors prefers-reduced-motion (handled by the base reset).
 import { PuraElement, define } from "../base.js";
+import meta from "./skeleton.meta.js";
 
 class PuraSkeleton extends PuraElement {
   static observedAttributes = ["width", "height", "circle"];
@@ -76,5 +77,5 @@ const CSS = `
   }
 `;
 
-define("pura-skeleton", PuraSkeleton);
+define("pura-skeleton", PuraSkeleton, meta);
 export { PuraSkeleton };

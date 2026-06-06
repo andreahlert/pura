@@ -14,6 +14,7 @@
 // active (highlighted, aria-current="page"). Reflects the parent sidebar's
 // collapsed state so labels hide on the rail.
 import { PuraElement, define } from "../base.js";
+import meta from "./sidebar.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -237,6 +238,6 @@ const ITEM_CSS = `
   :host([collapsed]) .label { display: none; }
 `;
 
-define("pura-sidebar", PuraSidebar);
+define("pura-sidebar", PuraSidebar, meta);
 define("pura-sidebar-item", PuraSidebarItem);
 export { PuraSidebar, PuraSidebarItem };

@@ -12,6 +12,7 @@
 //   each instance registers in window.__puraStats keyed by its data-pura-id, so
 //   an agent can enumerate / read every metric on the page without DOM diving.
 import { PuraElement, define } from "../base.js";
+import meta from "./stat.meta.js";
 
 let uid = 0;
 
@@ -192,5 +193,5 @@ const CSS = `
   .stat[data-trend="flat"] .delta { color: var(--pura-muted-fg); }
 `;
 
-define("pura-stat", PuraStat);
+define("pura-stat", PuraStat, meta);
 export { PuraStat };

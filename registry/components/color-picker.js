@@ -10,6 +10,7 @@
 //   with roving tabindex + aria-selected, ARIA on the trigger, and a global
 //   window.__puraColorPickers registry of live instances.
 import { PuraElement, define } from "../base.js";
+import meta from "./color-picker.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -440,5 +441,5 @@ const CSS = `
   }
 `;
 
-define("pura-color-picker", PuraColorPicker);
+define("pura-color-picker", PuraColorPicker, meta);
 export { PuraColorPicker };

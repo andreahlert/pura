@@ -4,6 +4,7 @@
 // gets aria-current=page; Prev disabled on first page, Next on last. Clicking a
 // page emits CustomEvent("change", { detail: { page } }) and updates the page attr.
 import { PuraElement, define } from "../base.js";
+import meta from "./pagination.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -222,5 +223,5 @@ const CSS = `
   }
 `;
 
-define("pura-pagination", PuraPagination);
+define("pura-pagination", PuraPagination, meta);
 export { PuraPagination };

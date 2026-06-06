@@ -13,6 +13,7 @@
 // Slots: default — container contents.
 // Part: box — the container <div>.
 import { PuraElement, define } from "../base.js";
+import meta from "./box.meta.js";
 
 // Scale 0-6 → token (0 = none). Anything else is treated as a raw CSS length.
 const SPACE = {
@@ -118,5 +119,5 @@ const CSS = `
   :host([shadow="none"]) [part="box"] { box-shadow: none; }
 `;
 
-define("pura-box", PuraBox);
+define("pura-box", PuraBox, meta);
 export { PuraBox };

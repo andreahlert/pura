@@ -10,6 +10,7 @@
 //   font-size  - px text size (default 16)
 // Parts: content, mark
 import { PuraElement, define } from "../base.js";
+import meta from "./watermark.meta.js";
 
 class PuraWatermark extends PuraElement {
   static observedAttributes = ["text", "image", "opacity", "rotate", "gap", "font-size"];
@@ -98,5 +99,5 @@ const CSS = `
   }
 `;
 
-define("pura-watermark", PuraWatermark);
+define("pura-watermark", PuraWatermark, meta);
 export { PuraWatermark };

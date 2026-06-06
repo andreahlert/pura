@@ -26,6 +26,7 @@
 //   Agent-native: stable data-pura-reaction-* mirror of emoji/count/active and a
 //     window.__puraReactions registry entry keyed by data-pura-id.
 import { PuraElement, define } from "../base.js";
+import meta from "./reactions.meta.js";
 
 let uid = 0;
 
@@ -273,6 +274,6 @@ const PILL_CSS = `
   }
 `;
 
-define("pura-reactions", PuraReactions);
+define("pura-reactions", PuraReactions, meta);
 define("pura-reaction", PuraReaction);
 export { PuraReactions, PuraReaction };

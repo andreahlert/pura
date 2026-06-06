@@ -7,6 +7,7 @@
 // <pura-toggle> — a single two-state toggle button. Attributes: pressed,
 //   disabled, value. Emits CustomEvent('change', { detail: { pressed, value } }).
 import { PuraElement, define } from "../base.js";
+import meta from "./toggle-group.meta.js";
 
 class PuraToggle extends PuraElement {
   static observedAttributes = ["pressed", "disabled"];
@@ -289,5 +290,5 @@ const GROUP_CSS = `
 `;
 
 define("pura-toggle", PuraToggle);
-define("pura-toggle-group", PuraToggleGroup);
+define("pura-toggle-group", PuraToggleGroup, meta);
 export { PuraToggleGroup, PuraToggle };

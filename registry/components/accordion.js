@@ -2,6 +2,7 @@
 // Built on native <details>/<summary> for free a11y + keyboard.
 // Attribute on accordion: single (only one item open at a time).
 import { PuraElement, define } from "../base.js";
+import meta from "./accordion.meta.js";
 
 class PuraAccordionItem extends PuraElement {
   connectedCallback() {
@@ -59,5 +60,5 @@ const CSS = `
 `;
 
 define("pura-accordion-item", PuraAccordionItem);
-define("pura-accordion", PuraAccordion);
+define("pura-accordion", PuraAccordion, meta);
 export { PuraAccordion, PuraAccordionItem };

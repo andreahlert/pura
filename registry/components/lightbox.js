@@ -40,6 +40,7 @@
 // is a role="group"; each thumbnail trigger is a role="button" with an
 // aria-label; the modal is a role="dialog" with aria-live counter.
 import { PuraElement, define } from "../base.js";
+import meta from "./lightbox.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -537,5 +538,5 @@ const CSS = `
   .x:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
 `;
 
-define("pura-lightbox", PuraLightbox);
+define("pura-lightbox", PuraLightbox, meta);
 export { PuraLightbox };

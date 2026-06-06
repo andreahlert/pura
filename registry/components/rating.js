@@ -13,6 +13,7 @@
 // Agent-native layer: stable data-pura-rating-* attributes mirror live state and
 //   the instance registers in window.__puraRatings keyed by its data-pura-id.
 import { PuraElement, define } from "../base.js";
+import meta from "./rating.meta.js";
 
 let uid = 0;
 
@@ -292,5 +293,5 @@ const CSS = `
   }
 `;
 
-define("pura-rating", PuraRating);
+define("pura-rating", PuraRating, meta);
 export { PuraRating };

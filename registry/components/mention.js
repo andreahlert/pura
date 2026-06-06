@@ -12,6 +12,7 @@
 //   mention  { item }     - fired (bubbles) when an option is selected.
 // Parts: input, menu, option.
 import { PuraElement, define } from "../base.js";
+import meta from "./mention.meta.js";
 
 let uid = 0;
 
@@ -253,5 +254,5 @@ const CSS = `
   }
 `;
 
-define("pura-mention", PuraMention);
+define("pura-mention", PuraMention, meta);
 export { PuraMention };

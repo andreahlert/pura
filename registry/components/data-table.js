@@ -16,6 +16,7 @@
 //   "sort"   detail: { index, direction }   direction: "asc"|"desc"|null
 //   "filter" detail: { query, matched, total }
 import { PuraElement, define } from "../base.js";
+import meta from "./data-table.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -573,5 +574,5 @@ function lightCSS(id, striped) {
   `;
 }
 
-define("pura-data-table", PuraDataTable);
+define("pura-data-table", PuraDataTable, meta);
 export { PuraDataTable };

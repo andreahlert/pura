@@ -13,6 +13,7 @@
 // Attributes: disabled, variant (default | danger), inset.
 // Emits: "select" (bubbles, composed) when activated by click/Enter/Space.
 import { PuraElement, define } from "../base.js";
+import meta from "./context-menu.meta.js";
 
 let uid = 0;
 
@@ -228,5 +229,5 @@ const MENU_CSS = `
 `;
 
 define("pura-menu-item", PuraMenuItem);
-define("pura-context-menu", PuraContextMenu);
+define("pura-context-menu", PuraContextMenu, meta);
 export { PuraContextMenu, PuraMenuItem };

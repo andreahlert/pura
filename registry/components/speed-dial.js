@@ -33,6 +33,7 @@
 //   keyed by its data-pura-id, so agents can enumerate dials, read open state and
 //   actions, and invoke them without scraping the shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./speed-dial.meta.js";
 
 let uid = 0;
 let anchorUid = 0;
@@ -352,7 +353,7 @@ const CSS = `
   }
 `;
 
-define("pura-speed-dial", PuraSpeedDial);
+define("pura-speed-dial", PuraSpeedDial, meta);
 
 // ---------------------------------------------------------------------------
 // <pura-speed-dial-action> — one secondary action: a circular icon button with

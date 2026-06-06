@@ -2,6 +2,7 @@
 // backdrop + ESC for free). Named slots: header, footer. Default slot = body.
 // API: .open() / .close(), or attribute `open`. Attribute: title.
 import { PuraElement, define } from "../base.js";
+import meta from "./dialog.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -83,5 +84,5 @@ const CSS = `
     background: var(--pura-subtle); }
 `;
 
-define("pura-dialog", PuraDialog);
+define("pura-dialog", PuraDialog, meta);
 export { PuraDialog };

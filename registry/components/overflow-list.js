@@ -12,6 +12,7 @@
 // counts (not element arrays).
 // Parts: list, item, more, menu.
 import { PuraElement, define } from "../base.js";
+import meta from "./overflow-list.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 let uid = 0;
@@ -267,5 +268,5 @@ const CSS = `
   }
 `;
 
-define("pura-overflow-list", PuraOverflowList);
+define("pura-overflow-list", PuraOverflowList, meta);
 export { PuraOverflowList };

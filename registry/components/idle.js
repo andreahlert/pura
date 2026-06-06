@@ -46,6 +46,7 @@
 //
 // API: PuraIdle.registry() returns a snapshot array of connected detectors.
 import { PuraElement, define } from "../base.js";
+import meta from "./idle.meta.js";
 
 // Module-level counter for stable, unique ids per instance (parity with other
 // pura components; also used as the registry key).
@@ -334,7 +335,7 @@ const CSS = `
   :host { display: contents; }
 `;
 
-define("pura-idle", PuraIdle);
+define("pura-idle", PuraIdle, meta);
 
 export { PuraIdle };
 export default PuraIdle;

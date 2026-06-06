@@ -23,6 +23,7 @@
 //   each instance registers in window.__puraProgressRings keyed by its
 //   data-pura-id, so an agent can enumerate / read every ring without DOM diving.
 import { PuraElement, define } from "../base.js";
+import meta from "./progress-ring.meta.js";
 
 let uid = 0;
 
@@ -177,5 +178,5 @@ const CSS = `
   }
 `;
 
-define("pura-progress-ring", PuraProgressRing);
+define("pura-progress-ring", PuraProgressRing, meta);
 export { PuraProgressRing };

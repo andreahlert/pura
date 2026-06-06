@@ -31,6 +31,7 @@
 //   - global window.__puraDiffs registry maps instance id -> structured result
 //     so agents can read every diff on the page without DOM scraping.
 import { PuraElement, define } from "../base.js";
+import meta from "./diff.meta.js";
 
 let uid = 0;
 
@@ -258,5 +259,5 @@ const CSS = `
   }
 `;
 
-define("pura-diff", PuraDiff);
+define("pura-diff", PuraDiff, meta);
 export { PuraDiff };

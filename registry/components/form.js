@@ -18,6 +18,7 @@
 //   submit { ...data } - fired (bubbles) only when validation passes.
 // Parts: form, errors.
 import { PuraElement, define } from "../base.js";
+import meta from "./form.meta.js";
 
 class PuraForm extends PuraElement {
   connectedCallback() {
@@ -191,5 +192,5 @@ const CSS = `
   .errors[hidden] { display: none; }
 `;
 
-define("pura-form", PuraForm);
+define("pura-form", PuraForm, meta);
 export { PuraForm };

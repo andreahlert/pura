@@ -2,6 +2,7 @@
 // title (slot name="title" or attr title, weight 600), description (default slot,
 // muted), action area (slot name="action"). Generous padding, centered text.
 import { PuraElement, define } from "../base.js";
+import meta from "./empty.meta.js";
 
 class PuraEmpty extends PuraElement {
   static observedAttributes = ["title"];
@@ -80,5 +81,5 @@ const CSS = `
   }
 `;
 
-define("pura-empty", PuraEmpty);
+define("pura-empty", PuraEmpty, meta);
 export { PuraEmpty };

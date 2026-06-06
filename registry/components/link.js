@@ -9,6 +9,7 @@
 // Slots: default — link text/content.
 // Part: link — the inner <a> element.
 import { PuraElement, define } from "../base.js";
+import meta from "./link.meta.js";
 
 class PuraLink extends PuraElement {
   static observedAttributes = ["href", "target", "external"];
@@ -95,5 +96,5 @@ const CSS = `
   :host([variant="button"]) a:active { transform: translateY(0.5px) scale(0.99); }
 `;
 
-define("pura-link", PuraLink);
+define("pura-link", PuraLink, meta);
 export { PuraLink };

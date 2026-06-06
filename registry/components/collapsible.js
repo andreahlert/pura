@@ -4,6 +4,7 @@
 // Toggling sets/removes [open], updates aria-expanded on the trigger wrapper,
 // and animates content height via the grid-template-rows 0fr/1fr trick.
 import { PuraElement, define } from "../base.js";
+import meta from "./collapsible.meta.js";
 
 class PuraCollapsible extends PuraElement {
   static observedAttributes = ["open", "disabled"];
@@ -90,5 +91,5 @@ const CSS = `
   :host([open]) .inner { padding-top: var(--pura-space-2); }
 `;
 
-define("pura-collapsible", PuraCollapsible);
+define("pura-collapsible", PuraCollapsible, meta);
 export { PuraCollapsible };

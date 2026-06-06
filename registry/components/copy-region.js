@@ -34,6 +34,7 @@
 //     { id, el, text(), copy() } entries plus an all() helper. Agents enumerate
 //     and drive copyable regions through it.
 import { PuraElement, define } from "../base.js";
+import meta from "./copy-region.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -381,5 +382,5 @@ const CSS = `
   }
 `;
 
-define("pura-copy-region", PuraCopyRegion);
+define("pura-copy-region", PuraCopyRegion, meta);
 export { PuraCopyRegion };

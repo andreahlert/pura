@@ -6,6 +6,7 @@
 // Attributes: label (legend heading + aria-label), orientation
 // (vertical default | horizontal), value, disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./radio-group.meta.js";
 
 class PuraRadioGroup extends PuraElement {
   static observedAttributes = ["label", "orientation", "value", "disabled"];
@@ -144,5 +145,5 @@ const CSS = `
   :host([disabled]) { opacity: 0.55; pointer-events: none; }
 `;
 
-define("pura-radio-group", PuraRadioGroup);
+define("pura-radio-group", PuraRadioGroup, meta);
 export { PuraRadioGroup };

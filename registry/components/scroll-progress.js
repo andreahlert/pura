@@ -25,6 +25,7 @@
 // Degrades gracefully: with no attributes and a page that does not scroll, the
 //   percentage is 0 (never NaN) and connectedCallback never throws.
 import { PuraElement, define } from "../base.js";
+import meta from "./scroll-progress.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -184,5 +185,5 @@ const CSS = `
   }
 `;
 
-define("pura-scroll-progress", PuraScrollProgress);
+define("pura-scroll-progress", PuraScrollProgress, meta);
 export { PuraScrollProgress };

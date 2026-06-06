@@ -10,6 +10,7 @@
 // (and .min / .max / .step). Emits 'input' and 'change' with detail { min, max }.
 // Parts: root, track, fill, thumb, thumb-min, thumb-max.
 import { PuraElement, define } from "../base.js";
+import meta from "./range-slider.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -288,5 +289,5 @@ const CSS = `
   :host([disabled]) .fill { background: var(--pura-muted); }
 `;
 
-define("pura-range-slider", PuraRangeSlider);
+define("pura-range-slider", PuraRangeSlider, meta);
 export { PuraRangeSlider };

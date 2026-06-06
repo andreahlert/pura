@@ -15,6 +15,7 @@
 // CustomEvent with detail { collapsed, open, mobile }.
 // Parts: shell, header, sidebar, main, footer.
 import { PuraElement, define } from "../base.js";
+import meta from "./app-shell.meta.js";
 
 // Only allow length-ish tokens to reach inline styles (guards CSS injection).
 const LEN = /^[\d.]+(px|rem|em|vw|vh|ch|%)$/i;
@@ -230,5 +231,5 @@ const CSS = `
   }
 `;
 
-define("pura-app-shell", PuraAppShell);
+define("pura-app-shell", PuraAppShell, meta);
 export { PuraAppShell };

@@ -10,6 +10,7 @@
 //   Dispatches "visiblechange" {start,end} on the host when the window moves.
 //   Parts: viewport, item.
 import { PuraElement, define } from "../base.js";
+import meta from "./virtual-list.meta.js";
 
 const OVERSCAN = 4;
 
@@ -172,5 +173,5 @@ const CSS = `
   }
 `;
 
-define("pura-virtual-list", PuraVirtualList);
+define("pura-virtual-list", PuraVirtualList, meta);
 export { PuraVirtualList };

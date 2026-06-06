@@ -3,6 +3,7 @@
 // edge, full width, sliding up with a centered grab-handle bar on top. Slots:
 // header, footer, default = body. Attribute: title, open. API: .open() / .close().
 import { PuraElement, define } from "../base.js";
+import meta from "./drawer.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -91,5 +92,5 @@ const CSS = `
     padding: var(--pura-space-4) var(--pura-space-5); border-top: 1px solid var(--pura-border); }
 `;
 
-define("pura-drawer", PuraDrawer);
+define("pura-drawer", PuraDrawer, meta);
 export { PuraDrawer };

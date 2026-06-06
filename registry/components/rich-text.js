@@ -15,6 +15,7 @@
 // Parts: toolbar, button, editor.
 // Keyboard: Ctrl/Cmd+B / I / U map to bold / italic / underline.
 import { PuraElement, define } from "../base.js";
+import meta from "./rich-text.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -349,5 +350,5 @@ const CSS = `
   }
 `;
 
-define("pura-rich-text", PuraRichText);
+define("pura-rich-text", PuraRichText, meta);
 export { PuraRichText };

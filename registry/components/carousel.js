@@ -7,6 +7,7 @@
 //   hide-controls hide the prev/next arrow buttons
 //   per-view      slides visible at once (default 1) — drives slide width
 import { PuraElement, define } from "../base.js";
+import meta from "./carousel.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -324,5 +325,5 @@ const CSS = `
   :host([hide-dots]) .dots { display: none; }
 `;
 
-define("pura-carousel", PuraCarousel);
+define("pura-carousel", PuraCarousel, meta);
 export { PuraCarousel };

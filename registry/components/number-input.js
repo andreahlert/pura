@@ -6,6 +6,7 @@
 // value (also PageUp/PageDown for ×10, Home/End jump to min/max) on the field.
 // Parts: root, decrement, input, increment.
 import { PuraElement, define } from "../base.js";
+import meta from "./number-input.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -301,5 +302,5 @@ const CSS = `
   .field:disabled { cursor: not-allowed; background: var(--pura-subtle); }
 `;
 
-define("pura-number-input", PuraNumberInput);
+define("pura-number-input", PuraNumberInput, meta);
 export { PuraNumberInput };

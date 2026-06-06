@@ -29,6 +29,7 @@
 //     { id, state, label, remaining, run, undo, commit, el } entries plus a
 //     .pending() helper listing every instance currently awaiting resolution.
 import { PuraElement, define } from "../base.js";
+import meta from "./undo.meta.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -243,5 +244,5 @@ const CSS = `
   .undo:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
 `;
 
-define("pura-undo", PuraUndo);
+define("pura-undo", PuraUndo, meta);
 export { PuraUndo };

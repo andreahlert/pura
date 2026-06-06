@@ -14,6 +14,7 @@
 //   and the instance registers in window.__puraMarquees keyed by data-pura-id,
 //   so agents can enumerate, read and drive every marquee without DOM spelunking.
 import { PuraElement, define } from "../base.js";
+import meta from "./marquee.meta.js";
 
 let uid = 0;
 
@@ -171,5 +172,5 @@ const CSS = `
   }
 `;
 
-define("pura-marquee", PuraMarquee);
+define("pura-marquee", PuraMarquee, meta);
 export { PuraMarquee };

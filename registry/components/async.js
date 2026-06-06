@@ -22,6 +22,7 @@
 // and registers in the global window.__puraAsync registry, so agents can read
 // the current phase of any async region without walking the DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./async.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -224,5 +225,5 @@ const CSS = `
   }
 `;
 
-define("pura-async", PuraAsync);
+define("pura-async", PuraAsync, meta);
 export { PuraAsync };

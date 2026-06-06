@@ -15,6 +15,7 @@
 //   can read the thread structure. Each instance also registers itself in the
 //   global window.__puraComments registry keyed by a stable id.
 import { PuraElement, define } from "../base.js";
+import meta from "./comment.meta.js";
 
 let uid = 0;
 
@@ -286,5 +287,5 @@ const CSS = `
   }
 `;
 
-define("pura-comment", PuraComment);
+define("pura-comment", PuraComment, meta);
 export { PuraComment };

@@ -1,5 +1,6 @@
 // <pura-checkbox> — label via slot. Attributes: checked, disabled.
 import { PuraElement, define } from "../base.js";
+import meta from "./checkbox.meta.js";
 
 class PuraCheckbox extends PuraElement {
   static observedAttributes = ["checked", "disabled"];
@@ -53,5 +54,5 @@ const CSS = `
   :host([disabled]) label { opacity: 0.55; cursor: not-allowed; }
 `;
 
-define("pura-checkbox", PuraCheckbox);
+define("pura-checkbox", PuraCheckbox, meta);
 export { PuraCheckbox };

@@ -4,6 +4,7 @@
 // for the start panel, default 50). Drag the divider with a pointer or focus it
 // (role=separator, tabindex 0) and use arrow keys to nudge the split.
 import { PuraElement, define } from "../base.js";
+import meta from "./resizable.meta.js";
 
 class PuraResizable extends PuraElement {
   static observedAttributes = ["orientation", "min", "value"];
@@ -192,5 +193,5 @@ const CSS = `
   :host([data-active]) .grip { background: var(--pura-accent); }
 `;
 
-define("pura-resizable", PuraResizable);
+define("pura-resizable", PuraResizable, meta);
 export { PuraResizable };

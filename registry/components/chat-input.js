@@ -27,6 +27,7 @@
 // ({ el, value getter, send(), clear(), focus() }) so agents/tooling can read
 // the draft and drive the composer without reaching into the shadow root.
 import { PuraElement, define } from "../base.js";
+import meta from "./chat-input.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -247,5 +248,5 @@ const CSS = `
   .send:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 `;
 
-define("pura-chat-input", PuraChatInput);
+define("pura-chat-input", PuraChatInput, meta);
 export { PuraChatInput };

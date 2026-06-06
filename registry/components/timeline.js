@@ -16,6 +16,7 @@
 //   Agent layer: stable data-pura-timeline-item id + data-variant; its text
 //     content is reflected into the parent timeline's registry snapshot.
 import { PuraElement, define } from "../base.js";
+import meta from "./timeline.meta.js";
 
 let uid = 0;
 
@@ -249,6 +250,6 @@ const ITEM_CSS = `
   :host([variant="info"])    .dot { background: var(--pura-info);    border-color: var(--pura-info); }
 `;
 
-define("pura-timeline", PuraTimeline);
+define("pura-timeline", PuraTimeline, meta);
 define("pura-timeline-item", PuraTimelineItem);
 export { PuraTimeline, PuraTimelineItem };

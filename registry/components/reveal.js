@@ -41,6 +41,7 @@
 //   (animation, once, delay) and live state (hidden|visible), so an agent can
 //   enumerate, read and drive every reveal on the page without DOM diving.
 import { PuraElement, define } from "../base.js";
+import meta from "./reveal.meta.js";
 
 let uid = 0;
 
@@ -224,5 +225,5 @@ const CSS = `
   }
 `;
 
-define("pura-reveal", PuraReveal);
+define("pura-reveal", PuraReveal, meta);
 export { PuraReveal };

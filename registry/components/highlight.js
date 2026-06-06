@@ -6,6 +6,7 @@
 //   whole-word   match only on word boundaries
 // Parts: text, mark. Input is HTML-escaped, no injection.
 import { PuraElement, define } from "../base.js";
+import meta from "./highlight.meta.js";
 
 class PuraHighlight extends PuraElement {
   static observedAttributes = ["query", "text", "ignore-case", "whole-word"];
@@ -104,5 +105,5 @@ const CSS = `
   }
 `;
 
-define("pura-highlight", PuraHighlight);
+define("pura-highlight", PuraHighlight, meta);
 export { PuraHighlight };

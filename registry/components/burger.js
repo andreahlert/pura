@@ -15,6 +15,7 @@
 //
 // Parts: button, line
 import { PuraElement, define } from "../base.js";
+import meta from "./burger.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -141,5 +142,5 @@ const CSS = `
   :host([open]) .line:nth-child(3) { top: 50%; transform: rotate(-45deg); }
 `;
 
-define("pura-burger", PuraBurger);
+define("pura-burger", PuraBurger, meta);
 export { PuraBurger };

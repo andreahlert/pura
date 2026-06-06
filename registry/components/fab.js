@@ -21,6 +21,7 @@
 //   agents can enumerate every FAB on the page, read its state, and drive it
 //   via .click() without touching the Shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./fab.meta.js";
 
 let uid = 0;
 
@@ -200,5 +201,5 @@ const CSS = `
   }
 `;
 
-define("pura-fab", PuraFab);
+define("pura-fab", PuraFab, meta);
 export { PuraFab };

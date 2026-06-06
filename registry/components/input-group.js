@@ -4,6 +4,7 @@
 // an optional suffix (slot name="suffix"). The container shows a shared focus
 // ring whenever focus is within it (:focus-within). Attributes: disabled, invalid.
 import { PuraElement, define } from "../base.js";
+import meta from "./input-group.meta.js";
 
 class PuraInputGroup extends PuraElement {
   static observedAttributes = ["disabled", "invalid"];
@@ -115,5 +116,5 @@ const CSS = `
   }
 `;
 
-define("pura-input-group", PuraInputGroup);
+define("pura-input-group", PuraInputGroup, meta);
 export { PuraInputGroup };

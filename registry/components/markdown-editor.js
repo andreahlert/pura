@@ -16,6 +16,7 @@
 // Events: "input" on every edit.
 // Parts: toolbar, editor, preview.
 import { PuraElement, define } from "../base.js";
+import meta from "./markdown-editor.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -475,5 +476,5 @@ const CSS = `
   .preview pre code { background: transparent; padding: 0; }
 `;
 
-define("pura-markdown-editor", PuraMarkdownEditor);
+define("pura-markdown-editor", PuraMarkdownEditor, meta);
 export { PuraMarkdownEditor };

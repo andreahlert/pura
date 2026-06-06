@@ -3,6 +3,7 @@
 // blockquote, code, pre, hr, img. Comfortable reading measure + vertical rhythm.
 // No attributes; purely presentational. Theming via var(--pura-*) tokens.
 import { PuraElement, define } from "../base.js";
+import meta from "./prose.meta.js";
 
 class PuraProse extends PuraElement {
   connectedCallback() {
@@ -152,5 +153,5 @@ const CSS = `
   }
 `;
 
-define("pura-prose", PuraProse);
+define("pura-prose", PuraProse, meta);
 export { PuraProse };

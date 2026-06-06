@@ -3,6 +3,7 @@
 // Slot: default = code text.
 // Theming via var(--pura-*) tokens. part="code".
 import { PuraElement, define } from "../base.js";
+import meta from "./code.meta.js";
 
 class PuraCode extends PuraElement {
   static get observedAttributes() {
@@ -35,5 +36,5 @@ const CSS = `
   }
 `;
 
-define("pura-code", PuraCode);
+define("pura-code", PuraCode, meta);
 export { PuraCode };

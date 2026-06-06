@@ -46,6 +46,7 @@
 //     query(state) helper, so an agent can enumerate and drive every optimistic
 //     action on the page.
 import { PuraElement, define } from "../base.js";
+import meta from "./optimistic.meta.js";
 
 // Module-level counter for stable, unique ids + anchor-names per instance.
 let uid = 0;
@@ -319,5 +320,5 @@ const CSS = `
   }
 `;
 
-define("pura-optimistic", PuraOptimistic);
+define("pura-optimistic", PuraOptimistic, meta);
 export { PuraOptimistic };

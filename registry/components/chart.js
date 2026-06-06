@@ -19,6 +19,7 @@
 // because var() does not resolve in raw SVG stroke/fill presentation attributes.
 // Renders a graceful muted empty state when data is missing or invalid.
 import { PuraElement, define } from "../base.js";
+import meta from "./chart.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -384,6 +385,6 @@ const CSS = `
   }
 `;
 
-define("pura-chart", PuraChart);
+define("pura-chart", PuraChart, meta);
 define("pura-series", PuraSeries);
 export { PuraChart, PuraSeries };

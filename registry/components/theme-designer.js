@@ -7,6 +7,7 @@
 //   position  — right (default) | left.
 // API: .open() / .close() / .toggle(). Emits 'change' { id }.
 import { PuraElement, define } from "../base.js";
+import meta from "./theme-designer.meta.js";
 import { listPresets, applyTheme, getTheme, getCustom } from "../theme.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
@@ -223,5 +224,5 @@ const CSS = `
   .launcher:hover { background: var(--pura-subtle); }
 `;
 
-define("pura-theme-designer", PuraThemeDesigner);
+define("pura-theme-designer", PuraThemeDesigner, meta);
 export { PuraThemeDesigner };

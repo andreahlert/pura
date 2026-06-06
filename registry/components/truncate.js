@@ -20,6 +20,7 @@
 //   data-pura-truncate, data-lines, data-expanded, data-overflowing on host;
 //   global window.__puraTruncate registry keyed by id.
 import { PuraElement, define } from "../base.js";
+import meta from "./truncate.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -197,5 +198,5 @@ const CSS = `
   [part="toggle"][hidden] { display: none; }
 `;
 
-define("pura-truncate", PuraTruncate);
+define("pura-truncate", PuraTruncate, meta);
 export { PuraTruncate };

@@ -29,6 +29,7 @@
 // Set .handler = (args, action) => result to give it imperative behavior;
 // otherwise invoking just emits 'run' for listeners to react to.
 import { PuraElement, define } from "../base.js";
+import meta from "./command-registry.meta.js";
 
 const PROTOCOL_VERSION = "1.0";
 let uid = 0;
@@ -307,6 +308,6 @@ const REGISTRY_CSS = `
 `;
 
 define("pura-command-action", PuraCommandAction);
-define("pura-command-registry", PuraCommandRegistry);
+define("pura-command-registry", PuraCommandRegistry, meta);
 
 export { PuraCommandRegistry, PuraCommandAction };

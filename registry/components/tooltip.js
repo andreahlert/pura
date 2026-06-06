@@ -1,6 +1,7 @@
 // <pura-tooltip text="..."> wraps a trigger (default slot). Shows on hover/focus.
 // Attribute: text, placement (top default | bottom | left | right).
 import { PuraElement, define } from "../base.js";
+import meta from "./tooltip.meta.js";
 
 class PuraTooltip extends PuraElement {
   connectedCallback() {
@@ -35,5 +36,5 @@ const CSS = `
   :host([placement="left"]:hover) [part="tip"], :host([placement="right"]:hover) [part="tip"] { transform: translateY(-50%) translateX(0); }
 `;
 
-define("pura-tooltip", PuraTooltip);
+define("pura-tooltip", PuraTooltip, meta);
 export { PuraTooltip };

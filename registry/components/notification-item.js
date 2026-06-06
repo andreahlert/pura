@@ -21,6 +21,7 @@
 //   its data-pura-id. Agents can call .markRead(), .markUnread() and .dismiss()
 //   to drive the component without touching the Shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./notification-item.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -351,5 +352,5 @@ const CSS = `
   .dismiss:active { background: var(--pura-subtle-hover); }
 `;
 
-define("pura-notification-item", PuraNotificationItem);
+define("pura-notification-item", PuraNotificationItem, meta);
 export { PuraNotificationItem };

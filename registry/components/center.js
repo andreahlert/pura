@@ -2,6 +2,7 @@
 // Attributes: axis (both default | x | y), min-h (CSS length, e.g. for a hero).
 // Slot: default (the content to center). Theming via var(--pura-*) tokens.
 import { PuraElement, define } from "../base.js";
+import meta from "./center.meta.js";
 
 class PuraCenter extends PuraElement {
   static get observedAttributes() {
@@ -49,5 +50,5 @@ const CSS = `
   }
 `;
 
-define("pura-center", PuraCenter);
+define("pura-center", PuraCenter, meta);
 export { PuraCenter };

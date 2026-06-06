@@ -13,6 +13,7 @@
 // data-total, data-online, data-overflow) on host + inner group, and a
 // window.__puraPresence registry keyed by instance id.
 import { PuraElement, define } from "../base.js";
+import meta from "./presence.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -358,5 +359,5 @@ const CSS = `
   }
 `;
 
-define("pura-presence", PuraPresence);
+define("pura-presence", PuraPresence, meta);
 export { PuraPresence };

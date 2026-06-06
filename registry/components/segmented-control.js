@@ -14,6 +14,7 @@
 // Events: CustomEvent('change', { detail: { value }, bubbles: true }) on user
 //   interaction only (not on programmatic value/attribute updates).
 import { PuraElement, define } from "../base.js";
+import meta from "./segmented-control.meta.js";
 
 class PuraSegmentedControl extends PuraElement {
   static observedAttributes = ["options", "value", "disabled", "size"];
@@ -272,5 +273,5 @@ const CSS = `
   :host([size="lg"]) .segment { height: 2.25rem; font-size: var(--pura-text-base); padding: 0 var(--pura-space-5); }
 `;
 
-define("pura-segmented-control", PuraSegmentedControl);
+define("pura-segmented-control", PuraSegmentedControl, meta);
 export { PuraSegmentedControl };

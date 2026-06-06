@@ -9,6 +9,7 @@
 //     window  (bool) → observe the document viewport instead of the host
 //   Dispatches "load" (bubbles) on the host. Parts: content, sentinel, loader.
 import { PuraElement, define } from "../base.js";
+import meta from "./infinite-scroll.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
 
 registerMessages({
@@ -142,5 +143,5 @@ const CSS = `
   @keyframes pura-spin { to { transform: rotate(360deg); } }
 `;
 
-define("pura-infinite-scroll", PuraInfiniteScroll);
+define("pura-infinite-scroll", PuraInfiniteScroll, meta);
 export { PuraInfiniteScroll };

@@ -10,6 +10,7 @@
 //     threshold (px)                      → trigger / snap distance (default 64)
 //   Parts: content, action.
 import { PuraElement, define } from "../base.js";
+import meta from "./swipe.meta.js";
 
 class PuraSwipe extends PuraElement {
   static observedAttributes = ["direction", "threshold"];
@@ -149,5 +150,5 @@ const CSS = `
   .action.right { right: 0; justify-content: flex-end; }
 `;
 
-define("pura-swipe", PuraSwipe);
+define("pura-swipe", PuraSwipe, meta);
 export { PuraSwipe };

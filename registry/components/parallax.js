@@ -17,6 +17,7 @@
 //
 // Parts: viewport, layer
 import { PuraElement, define } from "../base.js";
+import meta from "./parallax.meta.js";
 
 class PuraParallax extends PuraElement {
   static observedAttributes = ["speed", "axis", "image"];
@@ -168,5 +169,5 @@ const CSS = `
   ::slotted([data-speed]) { will-change: transform; }
 `;
 
-define("pura-parallax", PuraParallax);
+define("pura-parallax", PuraParallax, meta);
 export { PuraParallax };

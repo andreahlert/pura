@@ -7,6 +7,7 @@
 // open, Escape closes. Smooth fade in/out.
 // Attributes (item): label (trigger text), href (renders a plain link instead).
 import { PuraElement, define } from "../base.js";
+import meta from "./navigation-menu.meta.js";
 
 let uid = 0;
 
@@ -233,5 +234,5 @@ const CSS = `
 `;
 
 define("pura-navigation-menu-item", PuraNavigationMenuItem);
-define("pura-navigation-menu", PuraNavigationMenu);
+define("pura-navigation-menu", PuraNavigationMenu, meta);
 export { PuraNavigationMenu, PuraNavigationMenuItem };

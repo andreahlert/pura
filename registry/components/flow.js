@@ -11,6 +11,7 @@
 // Events: 'nodemove' { id, x, y } (bubbles) on the flow after a node is dragged.
 // Parts: canvas, edges, node.
 import { PuraElement, define } from "../base.js";
+import meta from "./flow.meta.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 
@@ -256,7 +257,7 @@ const NODE_CSS = `
   .body:empty { display: none; }
 `;
 
-define("pura-flow", PuraFlow);
+define("pura-flow", PuraFlow, meta);
 define("pura-flow-node", PuraFlowNode);
 define("pura-flow-edge", PuraFlowEdge);
 export { PuraFlow, PuraFlowNode, PuraFlowEdge };

@@ -10,6 +10,7 @@
 //   as       p|span|div   explicit tag override
 // Slot: default (text content). Part: text. Theming via var(--pura-*) tokens.
 import { PuraElement, define } from "../base.js";
+import meta from "./text.meta.js";
 
 const TAGS = new Set(["p", "span", "div"]);
 
@@ -89,5 +90,5 @@ const CSS = `
   }
 `;
 
-define("pura-text", PuraText);
+define("pura-text", PuraText, meta);
 export { PuraText };

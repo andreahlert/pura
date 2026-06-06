@@ -13,6 +13,7 @@
 //   in window.__puraToolbars keyed by its data-pura-id, so agents can enumerate
 //   and read every toolbar without touching the shadow DOM.
 import { PuraElement, define } from "../base.js";
+import meta from "./toolbar.meta.js";
 
 let uid = 0;
 
@@ -170,5 +171,5 @@ const CSS = `
   }
 `;
 
-define("pura-toolbar", PuraToolbar);
+define("pura-toolbar", PuraToolbar, meta);
 export { PuraToolbar };

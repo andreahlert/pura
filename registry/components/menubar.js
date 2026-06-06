@@ -12,6 +12,7 @@
 // <pura-menubar-menu>        — attrs: label (trigger text), disabled.
 // <pura-menu-item>           — attrs: disabled, inset. Dispatches "select".
 import { PuraElement, define } from "../base.js";
+import meta from "./menubar.meta.js";
 
 let uid = 0;
 
@@ -367,5 +368,5 @@ const BAR_CSS = `
 
 define("pura-menu-item", PuraMenuItem);
 define("pura-menubar-menu", PuraMenubarMenu);
-define("pura-menubar", PuraMenubar);
+define("pura-menubar", PuraMenubar, meta);
 export { PuraMenubar, PuraMenubarMenu, PuraMenuItem };
