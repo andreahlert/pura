@@ -297,7 +297,10 @@ const CSS = `
   }
   .day:hover { background: var(--pura-subtle); }
   .day:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  .day.adjacent { color: var(--pura-muted); opacity: 0.6; }
+  /* Adjacent-month days are real, focusable buttons, so they must meet text
+     contrast: lean on the muted token alone, no opacity multiplier that would
+     drag the effective ratio below 4.5. */
+  .day.adjacent { color: var(--pura-muted); }
 
   /* today — subtle ring */
   .day.today { box-shadow: inset 0 0 0 1px var(--pura-border-strong); }

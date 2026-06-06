@@ -15,6 +15,13 @@ class PuraProgress extends PuraElement {
     );
     this._fill = this.$(".fill");
     this._track = this.$('[part="track"]');
+    // role=progressbar needs an accessible name. The host can't carry the role
+    // (it's on the inner track), so forward the host's aria-label/labelledby
+    // down to the element that actually has the role.
+    const label = this.getAttribute("aria-label");
+    const labelledby = this.getAttribute("aria-labelledby");
+    if (label) this._track.setAttribute("aria-label", label);
+    else if (labelledby) this._track.setAttribute("aria-labelledby", labelledby);
     this._sync();
   }
 

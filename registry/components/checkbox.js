@@ -10,14 +10,19 @@ class PuraCheckbox extends PuraElement {
       `<label part="root">
          <span class="box" part="box" role="checkbox"
            tabindex="${this.hasAttribute("disabled") ? -1 : 0}"
-           aria-checked="${this.hasAttribute("checked")}">
+           aria-checked="${this.hasAttribute("checked")}"
+           aria-labelledby="txt">
            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
          </span>
-         <span class="txt"><slot></slot></span>
+         <span class="txt" id="txt"><slot></slot></span>
        </label>`,
       CSS
     );
     this._box = this.$(".box");
+    // If the consumer named the control on the host (no visible slotted text),
+    // forward that name onto the role=checkbox node, which carries the semantics.
+    const hostLabel = this.getAttribute("aria-label");
+    if (hostLabel) { this._box.setAttribute("aria-label", hostLabel); this._box.removeAttribute("aria-labelledby"); }
     const toggle = () => {
       if (this.hasAttribute("disabled")) return;
       this.toggleAttribute("checked");

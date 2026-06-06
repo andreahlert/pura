@@ -87,8 +87,7 @@ class PuraToggleGroup extends PuraElement {
   connectedCallback() {
     const single = this.getAttribute("type") === "single";
     this.render(
-      `<div part="group" role="group"
-         aria-orientation="${this.getAttribute("orientation") === "vertical" ? "vertical" : "horizontal"}">
+      `<div part="group" role="group">
          <slot></slot>
        </div>`,
       GROUP_CSS
@@ -116,9 +115,9 @@ class PuraToggleGroup extends PuraElement {
 
   attributeChangedCallback(name, oldV, newV) {
     if (!this._group) return;
-    if (name === "orientation") {
-      this._group.setAttribute("aria-orientation", newV === "vertical" ? "vertical" : "horizontal");
-    }
+    // Orientation drives the CSS flex-direction (via :host([orientation]))
+    // and arrow-key roving logic, not an ARIA attribute: role=group disallows
+    // aria-orientation, so setting it trips aria-allowed-attr.
     if (name === "value" && this._isSingle() && oldV !== newV) {
       this._applySingleValue(newV);
     }

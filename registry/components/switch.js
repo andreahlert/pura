@@ -10,14 +10,19 @@ class PuraSwitch extends PuraElement {
       `<label part="root">
          <span class="track" part="track" role="switch"
            tabindex="${this.hasAttribute("disabled") ? -1 : 0}"
-           aria-checked="${this.hasAttribute("checked")}">
+           aria-checked="${this.hasAttribute("checked")}"
+           aria-labelledby="txt">
            <span class="thumb" part="thumb"></span>
          </span>
-         <span class="txt"><slot></slot></span>
+         <span class="txt" id="txt"><slot></slot></span>
        </label>`,
       CSS
     );
     this._track = this.$(".track");
+    // No visible slotted label? Forward the host's aria-label onto the
+    // role=switch node so it still has an accessible name.
+    const hostLabel = this.getAttribute("aria-label");
+    if (hostLabel) { this._track.setAttribute("aria-label", hostLabel); this._track.removeAttribute("aria-labelledby"); }
     const toggle = () => {
       if (this.hasAttribute("disabled")) return;
       this.toggleAttribute("checked");

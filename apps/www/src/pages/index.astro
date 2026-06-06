@@ -24,7 +24,7 @@ const total = components.length;
       <pura-textarea placeholder="Message" data-i18n-ph="home.f.message" rows="2"></pura-textarea>
       <div class="row">
         <pura-badge>Badge</pura-badge><pura-badge variant="success" dot data-i18n="home.live">Live</pura-badge>
-        <pura-checkbox checked data-i18n="home.agree">Agree</pura-checkbox><pura-switch checked></pura-switch>
+        <pura-checkbox checked data-i18n="home.agree">Agree</pura-checkbox><pura-switch checked aria-label="Notifications"></pura-switch>
       </div>
       <div class="row"><pura-button size="sm" data-i18n="home.alertdialog">Alert Dialog</pura-button><pura-button size="sm" variant="secondary" data-i18n="home.buttongroup">Button Group</pura-button></div>
     </div>
@@ -46,8 +46,8 @@ const total = components.length;
       <span class="sub" data-i18n="home.milestone.sub">Define your financial target.</span>
       <pura-field label="Goal name"><pura-input placeholder="e.g. New Car" data-i18n-ph="home.f.goal"></pura-input></pura-field>
       <div class="row two">
-        <pura-field label="Amount"><pura-input value="$15,000"></pura-input></pura-field>
-        <pura-field label="Date"><pura-input value="Dec 2025"></pura-input></pura-field>
+        <pura-field label="Amount"><pura-input value="$15,000" aria-label="Amount"></pura-input></pura-field>
+        <pura-field label="Date"><pura-input value="Dec 2025" aria-label="Date"></pura-input></pura-field>
       </div>
       <pura-button full data-i18n="home.creategoal">Create Goal</pura-button>
     </div>

@@ -92,7 +92,10 @@ class PuraThemeDesigner extends PuraElement {
   _reflectOpen() {
     const open = this.hasAttribute("open");
     this.$(".root").classList.toggle("is-open", open);
-    this._panel.setAttribute("aria-hidden", open ? "false" : "true");
+    // `inert` (not aria-hidden) on the closed panel: it pulls the panel's
+    // focusable controls out of both the tab order and the a11y tree, so a
+    // dialog full of buttons doesn't trip aria-hidden-focus while hidden.
+    this._panel.inert = !open;
   }
 
   open() { this.setAttribute("open", ""); }
@@ -155,7 +158,7 @@ class PuraThemeDesigner extends PuraElement {
     return `<div class="root">
       ${launcher}
       <div class="backdrop"></div>
-      <aside class="panel" part="panel" role="dialog" aria-label="${t("theme-designer.designer")}" aria-hidden="true">
+      <aside class="panel" part="panel" role="dialog" aria-label="${t("theme-designer.designer")}" inert>
         <header>
           <strong>${t("theme-designer.theme")}</strong>
           <button class="close" aria-label="${t("theme-designer.close")}">
