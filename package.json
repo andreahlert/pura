@@ -2,15 +2,22 @@
   "name": "pura-monorepo",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build:registry": "node scripts/gen-components-data.mjs && node scripts/build-registry.mjs",
     "build:www": "pnpm --filter pura-site build",
     "build": "pnpm build:registry && pnpm build:www",
     "dev": "pnpm --filter pura-site dev",
     "smoke": "node scripts/smoke.mjs",
+    "check:a11y": "node scripts/check-a11y.mjs",
     "verify": "pnpm build && pnpm smoke",
     "test": "node --test \"scripts/*.test.mjs\" && pnpm --filter purajs test",
     "test:cli": "pnpm --filter purajs test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "playwright": "^1.60.0"
   }
 }
