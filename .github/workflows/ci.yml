@@ -1,0 +1,26 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test
+      - run: node scripts/check-meta.mjs
+      - run: node scripts/check-i18n.mjs
+      - run: pnpm build
+      - run: pnpm smoke
+      - name: a11y
+        run: |
+          pnpm --filter pura-site preview --port 4400 &
+          npx wait-on http://localhost:4400/pura/
+          PURA_BASE=http://localhost:4400/pura node scripts/check-a11y.mjs
