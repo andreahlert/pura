@@ -34,6 +34,8 @@ apps/www/public/*.css
 apps/www/public/r/
 apps/www/public/components/
 apps/www/public/lib/
+apps/www/public/agents.json
+apps/www/public/llms.txt
 registry/registry.json
 
 # CLI user-side artifacts (when dogfooding)

@@ -8,7 +8,7 @@
 // under public/pura would instead serve at "/pura/pura/..." and 404.
 import { createHash } from "node:crypto";
 import { readdir, readFile, writeFile, mkdir, rm, cp } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join, basename } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -56,6 +56,30 @@ export function parseTokens(source) {
   return out;
 }
 
+export function buildAgentsIndex(version, metas) {
+  return {
+    version,
+    components: metas.map((m) => ({
+      name: m.name, tag: m.tag, role: m.role, summary: m.summary,
+      attributes: m.attributes, events: m.events, slots: m.slots,
+    })),
+  };
+}
+
+export function llmsText(metas) {
+  return metas.map((m) => {
+    const attrs = m.attributes.map((a) => `  - ${a.name}${a.type ? ` (${a.type})` : ""}`).join("\n");
+    return [
+      `## ${m.tag}`,
+      `role: ${m.role || "none"}`,
+      m.summary,
+      m.attributes.length ? `attributes:\n${attrs}` : "",
+      m.slots.length ? `slots: ${m.slots.join(", ")}` : "",
+      m.events.length ? `events: ${m.events.join(", ")}` : "",
+    ].filter(Boolean).join("\n");
+  }).join("\n\n") + "\n";
+}
+
 export function buildItem(name, source) {
   const h = hash(source);
   return {
@@ -72,13 +96,19 @@ async function main() {
   await rm(OUT_R, { recursive: true, force: true });
   await mkdir(OUT_R, { recursive: true });
 
-  const files = (await readdir(COMPONENTS)).filter((f) => f.endsWith(".js")).sort();
+  const files = (await readdir(COMPONENTS))
+    .filter((f) => f.endsWith(".js") && !f.endsWith(".meta.js"))
+    .sort();
   const index = [];
+  const metas = [];
 
   for (const file of files) {
     const name = basename(file, ".js");
     const source = await readFile(join(COMPONENTS, file), "utf8");
     const item = buildItem(name, source);
+    const meta = (await import(pathToFileURL(join(COMPONENTS, `${name}.meta.js`)).href)).default;
+    item.meta = meta;
+    metas.push(meta);
     await writeFile(join(OUT_R, `${name}.json`), JSON.stringify(item, null, 2));
     index.push({ name, hash: item.hash, deps: item.deps, tokens: item.tokens.length > 0 });
   }
@@ -88,6 +118,9 @@ async function main() {
   await writeFile(join(REGISTRY, "registry.json"), JSON.stringify(registry, null, 2));
 
   await emitRuntime();
+
+  await writeFile(join(WWW_PUBLIC, "agents.json"), JSON.stringify(buildAgentsIndex(VERSION, metas), null, 2));
+  await writeFile(join(WWW_PUBLIC, "llms.txt"), llmsText(metas));
 
   console.log(`registry build: ${index.length} components, version ${VERSION}`);
 }

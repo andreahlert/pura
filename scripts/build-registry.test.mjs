@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { hash, parseDeps, parseTokens, buildItem } from "./build-registry.mjs";
+import { hash, parseDeps, parseTokens, buildItem, buildAgentsIndex, llmsText } from "./build-registry.mjs";
 
 test("hash is deterministic sha256 with prefix", () => {
   const h = hash("hello");
@@ -41,4 +41,21 @@ test("buildItem assembles a registry item", () => {
   assert.equal(item.files[0].content, src);
   assert.match(item.files[0].hash, /^sha256-/);
   assert.equal(item.hash, item.files[0].hash);
+});
+
+test("buildAgentsIndex projects meta records", () => {
+  const metas = [{ name: "button", tag: "pura-button", role: "button", summary: "s",
+    attributes: [{ name: "variant" }], events: [], slots: ["default"] }];
+  const idx = buildAgentsIndex("1.0.0", metas);
+  assert.equal(idx.version, "1.0.0");
+  assert.equal(idx.components[0].tag, "pura-button");
+  assert.equal(idx.components[0].role, "button");
+});
+
+test("llmsText renders one block per component", () => {
+  const txt = llmsText([{ name: "button", tag: "pura-button", role: "button",
+    summary: "Action button.", attributes: [{ name: "variant", type: "string" }], events: [], slots: ["default"] }]);
+  assert.match(txt, /pura-button/);
+  assert.match(txt, /role: button/);
+  assert.match(txt, /Action button\./);
 });
