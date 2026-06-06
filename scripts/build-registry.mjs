@@ -80,6 +80,12 @@ export function llmsText(metas) {
   }).join("\n\n") + "\n";
 }
 
+// A component source file is a plain `<name>.js`, excluding the colocated
+// `.meta.js` (structural metadata) and `.docs.js` (prose/demo) sidecars.
+export function isComponentFile(f) {
+  return f.endsWith(".js") && !/\.(meta|docs)\.js$/.test(f);
+}
+
 export function buildItem(name, source) {
   const h = hash(source);
   return {
@@ -97,7 +103,7 @@ async function main() {
   await mkdir(OUT_R, { recursive: true });
 
   const files = (await readdir(COMPONENTS))
-    .filter((f) => f.endsWith(".js") && !f.endsWith(".meta.js"))
+    .filter(isComponentFile)
     .sort();
   const index = [];
   const metas = [];

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { hash, parseDeps, parseTokens, buildItem, buildAgentsIndex, llmsText } from "./build-registry.mjs";
+import { hash, parseDeps, parseTokens, buildItem, buildAgentsIndex, llmsText, isComponentFile } from "./build-registry.mjs";
 
 test("hash is deterministic sha256 with prefix", () => {
   const h = hash("hello");
@@ -41,6 +41,15 @@ test("buildItem assembles a registry item", () => {
   assert.equal(item.files[0].content, src);
   assert.match(item.files[0].hash, /^sha256-/);
   assert.equal(item.hash, item.files[0].hash);
+});
+
+test("isComponentFile accepts component sources, rejects meta/docs sidecars", () => {
+  assert.equal(isComponentFile("button.js"), true);
+  assert.equal(isComponentFile("dropdown-menu.js"), true);
+  assert.equal(isComponentFile("button.meta.js"), false);
+  assert.equal(isComponentFile("button.docs.js"), false);
+  assert.equal(isComponentFile("accordion.docs.js"), false);
+  assert.equal(isComponentFile("README.md"), false);
 });
 
 test("buildAgentsIndex projects meta records", () => {
