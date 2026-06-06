@@ -49,10 +49,9 @@ export function define(tag, cls, meta) {
   if (meta) {
     META.set(tag, meta);
     cls.puraMeta = meta;
-    if (meta.role || meta.name) {
+    if (meta.name) {
       const orig = cls.prototype.connectedCallback;
       cls.prototype.connectedCallback = function () {
-        if (meta.role && !this.hasAttribute("role")) this.setAttribute("role", meta.role);
         if (meta.name) this.setAttribute("data-pura", meta.name);
         if (orig) orig.call(this);
       };

@@ -16,7 +16,12 @@ globalThis.customElements = { get: (t) => registry.get(t), define: (t, c) => reg
 
 const { PuraElement, define } = await import("../registry/base.js");
 
-test("define stores meta and injects role + data-pura on connect", () => {
+// define() stores meta for agents (puraMeta/describe/data-pura) but must NOT
+// stamp `role` on the host: each component authors its own ARIA on the element
+// that actually carries the semantics (often an inner shadow node), so a host
+// role would duplicate it and break a11y (e.g. role=button over an inner
+// <button> trips nested-interactive). The role stays available via describe().
+test("define stores meta and tags host with data-pura, never role", () => {
   let connected = false;
   class Foo extends PuraElement { connectedCallback() { connected = true; } }
   const meta = { name: "foo", role: "button" };
@@ -25,7 +30,7 @@ test("define stores meta and injects role + data-pura on connect", () => {
 
   const el = new Foo(); el._tag = "pura-foo";
   el.connectedCallback();
-  assert.equal(el.getAttribute("role"), "button");
+  assert.equal(el.getAttribute("role"), null);
   assert.equal(el.getAttribute("data-pura"), "foo");
   assert.equal(connected, true);
   assert.equal(el.describe(), meta);
