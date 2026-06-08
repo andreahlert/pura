@@ -17,6 +17,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./terminal.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { terminalTemplate } from "./terminal.template.js";
 
 registerMessages({
   "terminal.label": {
@@ -52,17 +53,8 @@ class PuraTerminal extends PuraElement {
     this._history = this._history || [];
     this._histIndex = this._history.length;
 
-    const prompt = this.getAttribute("prompt") ?? "$ ";
-
-    this.render(
-      `<div class="output" part="output" role="log" aria-live="polite"></div>
-       <div class="line" part="line">
-         <span class="prompt" part="prompt">${this._esc(prompt)}</span>
-         <input class="input" part="input" type="text" autocomplete="off"
-           autocapitalize="off" spellcheck="false" aria-label="${this._esc(t("terminal.label"))}" />
-       </div>`,
-      CSS
-    );
+    const { html, css } = terminalTemplate(this);
+    this.render(html, css);
 
     this._output = this.$(".output");
     this._input = this.$(".input");
@@ -195,57 +187,7 @@ class PuraTerminal extends PuraElement {
   _scroll() {
     if (this._output) this._output.scrollTop = this._output.scrollHeight;
   }
-
-  _esc(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
 }
-
-const CSS = `
-  :host {
-    display: block;
-    border: 1px solid var(--pura-border-strong);
-    border-radius: var(--pura-radius);
-    background: var(--pura-fg);
-    color: var(--pura-bg);
-    overflow: hidden;
-    font-family: var(--pura-font-mono);
-    font-size: var(--pura-text-sm);
-    cursor: text;
-  }
-
-  .output {
-    padding: var(--pura-space-3);
-    max-height: 20rem;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    word-break: break-word;
-    line-height: 1.5;
-  }
-  .row { min-height: 1.2em; }
-
-  .line {
-    display: flex; align-items: baseline; gap: var(--pura-space-1);
-    padding: 0 var(--pura-space-3) var(--pura-space-3);
-  }
-  .prompt {
-    flex: none;
-    color: var(--pura-success-fg);
-    white-space: pre;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  .input {
-    flex: 1 1 auto; min-width: 0;
-    font: inherit; color: inherit;
-    background: transparent; border: none; outline: none;
-    padding: 0;
-  }
-`;
 
 define("pura-terminal", PuraTerminal, meta);
 export { PuraTerminal };
