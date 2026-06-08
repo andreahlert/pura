@@ -12,6 +12,7 @@
 // Part: heading — the rendered <hN> element.
 import { PuraElement, define } from "../base.js";
 import meta from "./heading.meta.js";
+import { headingTemplate } from "./heading.template.js";
 
 // Visual size scale, all traceable to --pura-text-* tokens (top end via calc).
 const SIZES = {
@@ -60,8 +61,8 @@ class PuraHeading extends PuraElement {
   }
 
   _render() {
-    const tag = `h${this._level()}`;
-    this.render(`<${tag} part="heading"><slot></slot></${tag}>`, CSS);
+    const { html, css } = headingTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -82,20 +83,6 @@ class PuraHeading extends PuraElement {
     s.setProperty("--_align", align);
   }
 }
-
-const CSS = `
-  :host { display: block; }
-  [part="heading"] {
-    margin: 0;
-    font-size: var(--_size, var(--pura-text-xl));
-    font-weight: var(--_weight, 700);
-    color: var(--_color, var(--pura-fg));
-    letter-spacing: var(--_tracking, -0.02em);
-    text-align: var(--_align, start);
-    line-height: 1.2;
-    text-wrap: balance;
-  }
-`;
 
 define("pura-heading", PuraHeading, meta);
 export { PuraHeading };
