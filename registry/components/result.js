@@ -12,6 +12,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./result.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { resultTemplate } from "./result.template.js";
 
 registerMessages({
   "result.404.title": {
@@ -88,22 +89,8 @@ class PuraResult extends PuraElement {
   }
 
   _render() {
-    const cfg = STATUS[this.status];
-    const title = this._title();
-    const subtitle = this._subtitle();
-    this.render(
-      `<div part="result" role="status">
-         <div part="icon" class="icon" aria-hidden="true">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
-                stroke-linecap="round" stroke-linejoin="round" focusable="false">${cfg.svg}</svg>
-         </div>
-         ${title ? `<h2 part="title" class="title">${escText(title)}</h2>` : ""}
-         ${subtitle ? `<p part="subtitle" class="subtitle">${escText(subtitle)}</p>` : ""}
-         <div class="body"><slot></slot></div>
-         <div part="actions" class="actions"><slot name="actions"></slot></div>
-       </div>`,
-      CSS.replaceAll("STATUS_COLOR", `var(${cfg.token})`)
-    );
+    const { html, css } = resultTemplate(this);
+    this.render(html, css);
 
     // hide empty body / actions regions
     for (const sel of [".body", ".actions"]) {
@@ -125,44 +112,6 @@ class PuraResult extends PuraElement {
     if (el && title) el.textContent = title;
   }
 }
-
-function escText(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-const CSS = `
-  :host { display: block; }
-  [part="result"] {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; gap: var(--pura-space-2);
-    padding: var(--pura-space-6) var(--pura-space-5);
-    color: var(--pura-fg);
-  }
-  .icon {
-    display: grid; place-items: center;
-    width: 4rem; height: 4rem; margin-bottom: var(--pura-space-2);
-    border-radius: var(--pura-radius-full);
-    color: STATUS_COLOR;
-    background: color-mix(in srgb, STATUS_COLOR 12%, transparent);
-  }
-  .icon svg { width: 2.25rem; height: 2.25rem; display: block; }
-  .title {
-    margin: 0; font-size: var(--pura-text-xl); font-weight: 600; line-height: 1.25;
-    color: var(--pura-fg);
-  }
-  .subtitle {
-    margin: 0; font-size: var(--pura-text-base); line-height: 1.55;
-    color: var(--pura-muted-fg); max-width: 32rem;
-  }
-  .body {
-    margin-top: var(--pura-space-2); font-size: var(--pura-text-sm);
-    color: var(--pura-muted-fg); max-width: 32rem;
-  }
-  .actions {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-    gap: var(--pura-space-2); margin-top: var(--pura-space-3);
-  }
-`;
 
 define("pura-result", PuraResult, meta);
 export { PuraResult };
