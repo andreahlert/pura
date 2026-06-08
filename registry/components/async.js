@@ -24,6 +24,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./async.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { asyncTemplate } from "./async.template.js";
 
 registerMessages({
   "async.loading": {
@@ -99,18 +100,8 @@ class PuraAsync extends PuraElement {
     this._pid = this._pid || `pura-async-${uid++}`;
     this.setAttribute("data-pura-id", this._pid);
 
-    this.render(
-      `<div part="region" data-pura-async data-state="${this._currentState()}">
-         <slot name="loading">
-           <span class="spin" part="spinner" role="status" aria-label="${LABELS.loading()}"></span>
-         </slot>
-         <slot name="error"></slot>
-         <slot name="empty"></slot>
-         <slot></slot>
-       </div>
-       <span part="status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></span>`,
-      CSS
-    );
+    const { html, css } = asyncTemplate(this);
+    this.render(html, css);
 
     this._region = this.$('[part="region"]');
     this._status = this.$('[part="status"]');
@@ -189,41 +180,6 @@ class PuraAsync extends PuraElement {
     }
   }
 }
-
-const CSS = `
-  :host { display: block; }
-
-  [part="region"] { display: contents; }
-
-  /* By default every state slot is hidden; the active state reveals exactly one.
-     idle (and any unknown value normalized to it) shows nothing. */
-  [part="region"] > slot { display: none; }
-
-  :host([state="loading"]) [part="region"] > slot[name="loading"],
-  :host([state="error"])   [part="region"] > slot[name="error"],
-  :host([state="empty"])   [part="region"] > slot[name="empty"],
-  :host([state="ready"])   [part="region"] > slot:not([name]) {
-    display: block;
-  }
-
-  /* default loading spinner (only the fallback inside the loading slot) */
-  .spin {
-    display: inline-block; width: 1.25rem; height: 1.25rem;
-    border: 2.5px solid color-mix(in srgb, var(--pura-fg) 18%, transparent);
-    border-top-color: var(--pura-fg); border-radius: 50%;
-    animation: pura-spin 0.65s linear infinite;
-    margin: var(--pura-space-4) auto;
-  }
-  @keyframes pura-spin { to { transform: rotate(360deg); } }
-
-  /* visually-hidden live region for state announcements */
-  .sr-only {
-    position: absolute; width: 1px; height: 1px;
-    padding: 0; margin: -1px; overflow: hidden;
-    clip: rect(0 0 0 0); clip-path: inset(50%);
-    white-space: nowrap; border: 0;
-  }
-`;
 
 define("pura-async", PuraAsync, meta);
 export { PuraAsync };
