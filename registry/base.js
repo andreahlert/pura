@@ -16,7 +16,8 @@ const RESET = `
   }
 `;
 
-export class PuraElement extends HTMLElement {
+const HTMLElementBase = typeof HTMLElement !== "undefined" ? HTMLElement : class {};
+export class PuraElement extends HTMLElementBase {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -49,6 +50,11 @@ export class PuraElement extends HTMLElement {
   describe() {
     return META.get(this.tagName.toLowerCase()) || null;
   }
+}
+
+export function renderDSD(tag, { html, css }, attrs = {}) {
+  const attrStr = Object.entries(attrs).map(([k, v]) => ` ${k}="${v}"`).join("");
+  return `<${tag}${attrStr}><template shadowrootmode="open"><style>${RESET}${css}</style>${html}</template></${tag}>`;
 }
 
 export function define(tag, cls, meta) {

@@ -81,9 +81,10 @@ export function llmsText(metas) {
 }
 
 // A component source file is a plain `<name>.js`, excluding the colocated
-// `.meta.js` (structural metadata) and `.docs.js` (prose/demo) sidecars.
+// `.meta.js` (structural metadata), `.docs.js` (prose/demo), and
+// `.template.js` (pure SSR template, imported by the component) sidecars.
 export function isComponentFile(f) {
-  return f.endsWith(".js") && !/\.(meta|docs)\.js$/.test(f);
+  return f.endsWith(".js") && !/\.(meta|docs|template)\.js$/.test(f);
 }
 
 export function buildItem(name, source) {
