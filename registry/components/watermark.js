@@ -11,6 +11,7 @@
 // Parts: content, mark
 import { PuraElement, define } from "../base.js";
 import meta from "./watermark.meta.js";
+import { watermarkTemplate } from "./watermark.template.js";
 
 class PuraWatermark extends PuraElement {
   static observedAttributes = ["text", "image", "opacity", "rotate", "gap", "font-size"];
@@ -44,11 +45,8 @@ class PuraWatermark extends PuraElement {
   }
 
   _render() {
-    this.render(
-      `<div part="content" class="content"><slot></slot></div>
-       <div part="mark" class="mark" aria-hidden="true"></div>`,
-      CSS
-    );
+    const { html, css } = watermarkTemplate(this);
+    this.render(html, css);
     const mark = this.$(".mark");
     mark.style.backgroundImage = `url("${this._tile()}")`;
     mark.style.backgroundSize = `${this.gap}px ${this.gap}px`;
@@ -88,16 +86,6 @@ function escAttr(s) {
 function escText(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
-
-const CSS = `
-  :host { display: block; position: relative; color: var(--pura-fg); }
-  [part="content"] { position: relative; z-index: 0; }
-  [part="mark"] {
-    position: absolute; inset: 0; z-index: 1;
-    pointer-events: none; user-select: none;
-    background-repeat: repeat;
-  }
-`;
 
 define("pura-watermark", PuraWatermark, meta);
 export { PuraWatermark };
