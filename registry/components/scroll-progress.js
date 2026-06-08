@@ -27,6 +27,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./scroll-progress.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { scrollProgressTemplate } from "./scroll-progress.template.js";
 
 registerMessages({
   "scroll-progress.aria": {
@@ -53,14 +54,8 @@ class PuraScrollProgress extends PuraElement {
     this.dataset.puraId = this._id;
     registry().set(this._id, this);
 
-    this.render(
-      `<div class="bar" part="bar" role="progressbar"
-            aria-label="${t("scroll-progress.aria")}"
-            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-         <div class="fill" part="fill"></div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = scrollProgressTemplate(this);
+    this.render(html, css);
 
     this._bar = this.$(".bar");
     this._fill = this.$(".fill");
@@ -164,26 +159,6 @@ class PuraScrollProgress extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: contents; }
-
-  .bar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    width: 100%;
-    height: var(--_sp-height, 3px);
-    background: transparent;
-    z-index: 2147483646;
-    pointer-events: none;
-  }
-
-  .fill {
-    height: 100%;
-    width: 0%;
-    background: var(--_sp-color, var(--pura-primary));
-    transition: width var(--pura-dur) var(--pura-ease);
-  }
-`;
 
 define("pura-scroll-progress", PuraScrollProgress, meta);
 export { PuraScrollProgress };

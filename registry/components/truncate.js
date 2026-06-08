@@ -22,6 +22,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./truncate.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { truncateTemplate } from "./truncate.template.js";
 
 registerMessages({
   "truncate.more": { en: "more", "pt-BR": "mais", fr: "plus", de: "mehr", it: "altro" },
@@ -35,13 +36,8 @@ class PuraTruncate extends PuraElement {
 
   connectedCallback() {
     this._id = `pura-truncate-${uid++}`;
-    this.render(
-      `<div part="content" id="${this._id}-content"><slot></slot></div>
-       <button part="toggle" type="button" hidden
-               aria-controls="${this._id}-content"
-               aria-expanded="false"></button>`,
-      CSS
-    );
+    const { html, css } = truncateTemplate(this);
+    this.render(html, css);
     this._content = this.$('[part="content"]');
     this._toggle = this.$('[part="toggle"]');
     this._slot = this.$("slot");
@@ -162,41 +158,6 @@ class PuraTruncate extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-
-  [part="content"] {
-    color: var(--pura-fg);
-    font-size: var(--pura-text-sm);
-    line-height: 1.6;
-  }
-  /* Visual clamp only — the full text remains in the DOM and accessibility
-     tree, so screen readers and agents read everything. */
-  [part="content"][data-clamped] {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: var(--pura-truncate-lines, 3);
-    line-clamp: var(--pura-truncate-lines, 3);
-    overflow: hidden;
-  }
-
-  [part="toggle"] {
-    margin-top: var(--pura-space-1);
-    display: inline-flex; align-items: center;
-    font: inherit; font-size: var(--pura-text-sm); font-weight: 550;
-    line-height: 1; cursor: pointer;
-    background: transparent; color: var(--pura-accent);
-    border: none; border-radius: var(--pura-radius-sm);
-    padding: var(--pura-space-1) 0;
-    transition: color var(--pura-dur) var(--pura-ease);
-  }
-  [part="toggle"]:hover { color: var(--pura-primary); }
-  [part="toggle"]:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--pura-ring);
-  }
-  [part="toggle"][hidden] { display: none; }
-`;
 
 define("pura-truncate", PuraTruncate, meta);
 export { PuraTruncate };

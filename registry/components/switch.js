@@ -1,23 +1,14 @@
 // <pura-switch> — toggle. Label via slot. Attributes: checked, disabled.
 import { PuraElement, define } from "../base.js";
 import meta from "./switch.meta.js";
+import { switchTemplate } from "./switch.template.js";
 
 class PuraSwitch extends PuraElement {
   static observedAttributes = ["checked", "disabled"];
 
   connectedCallback() {
-    this.render(
-      `<label part="root">
-         <span class="track" part="track" role="switch"
-           tabindex="${this.hasAttribute("disabled") ? -1 : 0}"
-           aria-checked="${this.hasAttribute("checked")}"
-           aria-labelledby="txt">
-           <span class="thumb" part="thumb"></span>
-         </span>
-         <span class="txt" id="txt"><slot></slot></span>
-       </label>`,
-      CSS
-    );
+    const { html, css } = switchTemplate(this);
+    this.render(html, css);
     this._track = this.$(".track");
     // No visible slotted label? Forward the host's aria-label onto the
     // role=switch node so it still has an accessible name.
@@ -42,26 +33,6 @@ class PuraSwitch extends PuraElement {
   set checked(v) { this.toggleAttribute("checked", !!v); }
 }
 
-const CSS = `
-  :host { display: inline-block; }
-  label { display: inline-flex; align-items: center; gap: var(--pura-space-3);
-    font-size: var(--pura-text-sm); color: var(--pura-fg); cursor: pointer; user-select: none; }
-  .track {
-    position: relative; display: inline-flex; align-items: center; flex: none;
-    width: 2.5rem; height: 1.4rem; border-radius: var(--pura-radius-full);
-    background: var(--pura-border-strong); padding: 2px;
-    transition: background var(--pura-dur) var(--pura-ease), box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  .thumb {
-    width: 1rem; height: 1rem; border-radius: 50%; background: #fff;
-    box-shadow: var(--pura-shadow-sm);
-    transition: transform var(--pura-dur) var(--pura-ease);
-  }
-  .track:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  :host([checked]) .track { background: var(--pura-primary); }
-  :host([checked]) .thumb { transform: translateX(1.1rem); }
-  :host([disabled]) label { opacity: 0.55; cursor: not-allowed; }
-`;
 
 define("pura-switch", PuraSwitch, meta);
 export { PuraSwitch };

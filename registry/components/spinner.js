@@ -2,6 +2,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./spinner.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { spinnerTemplate } from "./spinner.template.js";
 
 registerMessages({
   "spinner.loading": {
@@ -15,10 +16,8 @@ registerMessages({
 
 class PuraSpinner extends PuraElement {
   connectedCallback() {
-    this.render(
-      `<span part="spinner" role="status" aria-label="${this.getAttribute("label") || t("spinner.loading")}"></span>`,
-      CSS
-    );
+    const { html, css } = spinnerTemplate(this);
+    this.render(html, css);
     this._i18nOff = onLocaleChange(() => this._applyI18n());
   }
 
@@ -34,18 +33,6 @@ class PuraSpinner extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline-block; line-height: 0; }
-  [part="spinner"] {
-    display: inline-block; width: 1.25rem; height: 1.25rem;
-    border: 2.5px solid color-mix(in srgb, var(--pura-fg) 18%, transparent);
-    border-top-color: var(--pura-fg); border-radius: 50%;
-    animation: pura-spin 0.65s linear infinite;
-  }
-  :host([size="sm"]) [part="spinner"] { width: 0.9rem; height: 0.9rem; border-width: 2px; }
-  :host([size="lg"]) [part="spinner"] { width: 2rem; height: 2rem; border-width: 3px; }
-  @keyframes pura-spin { to { transform: rotate(360deg); } }
-`;
 
 define("pura-spinner", PuraSpinner, meta);
 export { PuraSpinner };

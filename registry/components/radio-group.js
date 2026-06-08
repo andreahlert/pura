@@ -7,20 +7,14 @@
 // (vertical default | horizontal), value, disabled.
 import { PuraElement, define } from "../base.js";
 import meta from "./radio-group.meta.js";
+import { radioGroupTemplate } from "./radio-group.template.js";
 
 class PuraRadioGroup extends PuraElement {
   static observedAttributes = ["label", "orientation", "value", "disabled"];
 
   connectedCallback() {
-    this.render(
-      `${this.getAttribute("label") ? `<div class="legend" part="label">${this.getAttribute("label")}</div>` : ""}
-       <div class="group" part="group" role="radiogroup"
-         aria-label="${this.getAttribute("label") || ""}"
-         aria-orientation="${this.getAttribute("orientation") === "horizontal" ? "horizontal" : "vertical"}">
-         <slot></slot>
-       </div>`,
-      CSS
-    );
+    const { html, css } = radioGroupTemplate(this);
+    this.render(html, css);
     this._slot = this.$("slot");
 
     // Re-sync roving state whenever the set of slotted radios changes.
@@ -132,18 +126,6 @@ class PuraRadioGroup extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-  .legend {
-    font-size: var(--pura-text-sm); font-weight: 550;
-    color: var(--pura-fg); margin-bottom: var(--pura-space-3);
-  }
-  .group { display: flex; flex-direction: column; gap: var(--pura-space-3); }
-  :host([orientation="horizontal"]) .group {
-    flex-direction: row; flex-wrap: wrap; gap: var(--pura-space-4);
-  }
-  :host([disabled]) { opacity: 0.55; pointer-events: none; }
-`;
 
 define("pura-radio-group", PuraRadioGroup, meta);
 export { PuraRadioGroup };
