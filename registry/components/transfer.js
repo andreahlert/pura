@@ -12,6 +12,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./transfer.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { transferTemplate } from "./transfer.template.js";
 
 registerMessages({
   "transfer.source": { en: "Source", "pt-BR": "Origem", fr: "Source", de: "Quelle", it: "Origine" },
@@ -28,20 +29,8 @@ class PuraTransfer extends PuraElement {
     this._checked = new Set();      // checked item keys (either panel)
     this._query = { source: "", target: "" };
 
-    const searchable = this.hasAttribute("searchable");
-    this.render(
-      `<div class="wrap">
-         ${this._panelChrome("source", searchable)}
-         <div part="controls" class="controls">
-           <button class="ctl" data-act="all-right" type="button" aria-label="Move all right">&raquo;</button>
-           <button class="ctl" data-act="right" type="button" aria-label="Move right">&rsaquo;</button>
-           <button class="ctl" data-act="left" type="button" aria-label="Move left">&lsaquo;</button>
-           <button class="ctl" data-act="all-left" type="button" aria-label="Move all left">&laquo;</button>
-         </div>
-         ${this._panelChrome("target", searchable)}
-       </div>`,
-      CSS
-    );
+    const { html, css } = transferTemplate(this);
+    this.render(html, css);
 
     this._sourceList = this.$('[data-list="source"]');
     this._targetList = this.$('[data-list="target"]');
@@ -120,17 +109,6 @@ class PuraTransfer extends PuraElement {
     try { const v = JSON.parse(raw); return Array.isArray(v) ? v : []; } catch (_) { return []; }
   }
 
-  // ---- chrome (rendered once) ---------------------------------------------
-  _panelChrome(side, searchable) {
-    const titleKey = side === "source" ? "transfer.source" : "transfer.target";
-    return `<div part="panel" class="panel" data-panel="${side}">
-      <div class="title" data-title="${side}">${t(titleKey)}</div>
-      ${searchable ? `<input part="search" class="search" data-search="${side}"
-        type="text" placeholder="${esc(t("transfer.search"))}" />` : ""}
-      <ul class="list" data-list="${side}" role="listbox" aria-multiselectable="true"></ul>
-    </div>`;
-  }
-
   // ---- list bodies (rebuilt on move/search) -------------------------------
   _itemsFor(side) {
     const inTarget = side === "target";
@@ -198,76 +176,6 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;")
     .replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
-
-const CSS = `
-  :host { display: block; }
-  .wrap {
-    display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--pura-space-3);
-    align-items: stretch;
-  }
-
-  .panel {
-    display: flex; flex-direction: column; min-width: 0;
-    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius);
-    background: var(--pura-bg); overflow: hidden;
-  }
-  .title {
-    padding: var(--pura-space-2) var(--pura-space-3);
-    font-size: var(--pura-text-sm); font-weight: 550; color: var(--pura-fg);
-    border-bottom: 1px solid var(--pura-border);
-  }
-  .search {
-    margin: var(--pura-space-2); width: calc(100% - var(--pura-space-2) * 2);
-    font: inherit; font-size: var(--pura-text-sm); color: var(--pura-fg);
-    background: var(--pura-bg);
-    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius-sm);
-    padding: 0 var(--pura-space-2); height: 2rem;
-    transition: border-color var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  .search::placeholder { color: var(--pura-muted); }
-  .search:focus {
-    outline: none; border-color: var(--pura-accent);
-    box-shadow: 0 0 0 3px var(--pura-ring);
-  }
-
-  .list {
-    list-style: none; margin: 0; padding: var(--pura-space-1);
-    overflow-y: auto; flex: 1; max-height: 16rem; min-height: 6rem;
-  }
-  .item { border-radius: var(--pura-radius-sm); }
-  .item label {
-    display: flex; align-items: center; gap: var(--pura-space-2);
-    padding: var(--pura-space-2); cursor: pointer; user-select: none;
-    font-size: var(--pura-text-sm); color: var(--pura-fg);
-  }
-  .item label:hover { background: var(--pura-subtle); }
-  .item input { accent-color: var(--pura-accent); flex: none; }
-  .item-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-  .controls {
-    display: flex; flex-direction: column; justify-content: center;
-    gap: var(--pura-space-2);
-  }
-  .ctl {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 2rem; height: 2rem; padding: 0;
-    font: inherit; font-size: var(--pura-text-base); line-height: 1; cursor: pointer;
-    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius-sm);
-    background: var(--pura-bg); color: var(--pura-fg);
-    box-shadow: var(--pura-shadow-sm);
-    transition: background var(--pura-dur) var(--pura-ease),
-      border-color var(--pura-dur) var(--pura-ease);
-  }
-  .ctl:hover { background: var(--pura-subtle); }
-  .ctl:active { transform: translateY(0.5px) scale(0.98); }
-  .ctl:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-
-  @media (max-width: 480px) {
-    .wrap { grid-template-columns: 1fr; }
-    .controls { flex-direction: row; }
-  }
-`;
 
 define("pura-transfer", PuraTransfer, meta);
 export { PuraTransfer };

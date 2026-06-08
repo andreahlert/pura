@@ -11,6 +11,7 @@
 // a11y: role=radiogroup with role=radio swatches, roving tabindex, arrow keys.
 import { PuraElement, define } from "../base.js";
 import meta from "./swatch-picker.meta.js";
+import { swatchPickerTemplate } from "./swatch-picker.template.js";
 
 const DEFAULT_COLORS = [
   "#ef4444", "#f59e0b", "#eab308", "#22c55e", "#14b8a6", "#3b82f6",
@@ -46,26 +47,8 @@ class PuraSwatchPicker extends PuraElement {
   }
 
   _renderAll() {
-    const colors = this._colorList();
-    const cols = parseInt(this.getAttribute("columns"), 10);
-    const size = this._size();
-    const swatches = colors
-      .map((c, i) => {
-        const sel = String(c).toLowerCase() === String(this._value || "").toLowerCase();
-        return `<button type="button" class="swatch" part="swatch" role="radio"
-          data-color="${esc(c)}" aria-checked="${sel ? "true" : "false"}"
-          aria-label="${esc(c)}" tabindex="${sel ? 0 : -1}"
-          style="background:${esc(c)}"></button>`;
-      })
-      .join("");
-
-    this.render(
-      `<div class="grid" part="grid" role="radiogroup"
-         style="grid-template-columns:repeat(${cols > 0 ? cols : "auto-fill"}, minmax(${size}, 1fr));--swatch-size:${size}">
-         ${swatches}
-       </div>`,
-      CSS
-    );
+    const { html, css } = swatchPickerTemplate(this);
+    this.render(html, css);
     this._grid = this.$(".grid");
     this._grid.addEventListener("click", (e) => {
       const sw = e.target.closest(".swatch");
@@ -78,12 +61,6 @@ class PuraSwatchPicker extends PuraElement {
       const first = this._swatches()[0];
       if (first) first.tabIndex = 0;
     }
-  }
-
-  _size() {
-    const raw = this.getAttribute("size");
-    if (!raw) return "1.75rem";
-    return /^\d+$/.test(raw) ? `${raw}px` : raw;
   }
 
   _swatches() {
@@ -196,39 +173,6 @@ class PuraSwatchPicker extends PuraElement {
     this._renderAll();
   }
 }
-
-function esc(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-const CSS = `
-  :host { display: block; }
-  .grid {
-    display: grid;
-    gap: var(--pura-space-2);
-  }
-  .swatch {
-    width: var(--swatch-size, 1.75rem);
-    aspect-ratio: 1; padding: 0; cursor: pointer;
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius-sm);
-    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
-    transition: transform var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  .swatch:hover { transform: scale(1.08); }
-  .swatch:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--pura-bg), 0 0 0 4px var(--pura-ring);
-  }
-  .swatch[aria-checked="true"] {
-    box-shadow: 0 0 0 2px var(--pura-bg), 0 0 0 4px var(--pura-accent);
-  }
-`;
 
 define("pura-swatch-picker", PuraSwatchPicker, meta);
 export { PuraSwatchPicker };

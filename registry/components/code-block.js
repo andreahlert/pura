@@ -25,6 +25,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./code-block.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { codeBlockTemplate } from "./code-block.template.js";
 
 registerMessages({
   "code-block.label": {
@@ -103,25 +104,8 @@ class PuraCodeBlock extends PuraElement {
 
     // The header (with the copy button) is always present — the copy
     // affordance is the fixed feature; filename/language are optional within it.
-    this.render(
-      `<figure part="root">
-         <figcaption part="header" class="header">
-           <span class="meta">
-             ${file ? `<span part="filename" class="filename">${this._esc(file)}</span>` : ""}
-             ${lang ? `<span part="language" class="language">${this._esc(lang)}</span>` : ""}
-           </span>
-           <button part="copy" class="copy" type="button"
-             aria-label="${this._esc(t("code-block.copyAria"))}">
-             <span class="copy-label" aria-hidden="true">${this._esc(t("code-block.copy"))}</span>
-           </button>
-         </figcaption>
-         <div part="body" class="body">
-           <pre part="pre" class="pre"><code part="code" class="code"><slot></slot></code></pre>
-           <span class="sr-status" part="status" role="status" aria-live="polite"></span>
-         </div>
-       </figure>`,
-      CSS
-    );
+    const { html, css } = codeBlockTemplate(this);
+    this.render(html, css);
 
     this._slot = this.$("slot");
     this._copyBtn = this.$(".copy");
@@ -287,123 +271,7 @@ class PuraCodeBlock extends PuraElement {
     gutter.innerHTML = nums;
     this._gutter = gutter;
   }
-
-  _esc(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
 }
-
-const CSS = `
-  :host { display: block; }
-
-  figure[part="root"] {
-    margin: 0;
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius-lg);
-    background: var(--pura-subtle);
-    overflow: hidden;
-    font-size: var(--pura-text-sm);
-  }
-
-  .header {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--pura-space-3);
-    padding: var(--pura-space-2) var(--pura-space-3);
-    border-bottom: 1px solid var(--pura-border);
-    background: var(--pura-bg);
-  }
-  .meta {
-    display: inline-flex; align-items: center; gap: var(--pura-space-2);
-    min-width: 0;
-  }
-  .filename {
-    font-family: var(--pura-font-mono);
-    font-size: var(--pura-text-xs);
-    color: var(--pura-fg);
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  .language {
-    font-size: var(--pura-text-xs); line-height: 1;
-    text-transform: uppercase; letter-spacing: 0.03em;
-    color: var(--pura-muted);
-    padding: 0.2rem var(--pura-space-2);
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius-full);
-    background: var(--pura-subtle);
-  }
-
-  .copy {
-    display: inline-flex; align-items: center; gap: var(--pura-space-1);
-    flex: none;
-    font: inherit; font-size: var(--pura-text-xs); font-weight: 550;
-    line-height: 1; cursor: pointer;
-    color: var(--pura-muted-fg);
-    background: transparent;
-    border: 1px solid var(--pura-border-strong);
-    border-radius: var(--pura-radius-sm);
-    padding: 0.3rem var(--pura-space-2);
-    transition: background var(--pura-dur) var(--pura-ease),
-      color var(--pura-dur) var(--pura-ease),
-      border-color var(--pura-dur) var(--pura-ease);
-  }
-  .copy:hover { background: var(--pura-subtle-hover); color: var(--pura-fg); }
-  .copy:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  .copy.ok { color: var(--pura-success-fg); border-color: color-mix(in srgb, var(--pura-success) 40%, transparent); }
-
-  .body {
-    display: flex;
-    align-items: stretch;
-    overflow-x: auto;
-    background: var(--pura-subtle);
-  }
-
-  .gutter {
-    flex: none;
-    display: flex; flex-direction: column;
-    text-align: right;
-    padding: var(--pura-space-3) var(--pura-space-2);
-    font-family: var(--pura-font-mono);
-    font-size: var(--pura-text-xs);
-    line-height: 1.6;
-    color: var(--pura-muted);
-    background: var(--pura-bg);
-    border-right: 1px solid var(--pura-border);
-    user-select: none;
-    -webkit-user-select: none;
-    position: sticky; left: 0;
-  }
-  .gutter span { display: block; }
-
-  .pre {
-    margin: 0;
-    flex: 1 1 auto;
-    min-width: 0;
-    padding: var(--pura-space-3) var(--pura-space-4);
-    overflow: visible;
-  }
-  .code {
-    display: block;
-    font-family: var(--pura-font-mono);
-    font-size: var(--pura-text-xs);
-    line-height: 1.6;
-    color: var(--pura-fg);
-    white-space: pre;
-    tab-size: 2;
-  }
-  ::slotted(*) { white-space: inherit; }
-
-  .sr-status {
-    position: absolute;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0 0 0 0);
-    white-space: nowrap; border: 0;
-  }
-`;
 
 define("pura-code-block", PuraCodeBlock, meta);
 export { PuraCodeBlock };
