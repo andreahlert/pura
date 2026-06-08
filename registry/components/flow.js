@@ -12,6 +12,7 @@
 // Parts: canvas, edges, node.
 import { PuraElement, define } from "../base.js";
 import meta from "./flow.meta.js";
+import { flowTemplate, flowEdgeTemplate } from "./flow.template.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 
@@ -19,13 +20,8 @@ class PuraFlow extends PuraElement {
   static observedAttributes = ["width", "height", "edges", "readonly"];
 
   connectedCallback() {
-    this.render(
-      `<div part="canvas" class="canvas">
-         <svg part="edges" class="edges" aria-hidden="true"></svg>
-         <slot></slot>
-       </div>`,
-      CSS
-    );
+    const { html, css } = flowTemplate(this);
+    this.render(html, css);
     this._canvas = this.$(".canvas");
     this._svg = this.$(".edges");
     this._applySize();
@@ -203,7 +199,8 @@ class PuraFlowNode extends PuraElement {
 // <pura-flow-edge> holds from/to attributes only; the flow reads + renders it.
 class PuraFlowEdge extends PuraElement {
   connectedCallback() {
-    this.render(`<slot></slot>`, `:host { display: none; }`);
+    const { html, css } = flowEdgeTemplate(this);
+    this.render(html, css);
   }
 }
 
@@ -211,27 +208,6 @@ function esc(v) {
   return v == null ? "" : String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
-const CSS = `
-  :host { display: block; }
-  .canvas {
-    position: relative; overflow: hidden;
-    background: var(--pura-bg);
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius-lg);
-    background-image: radial-gradient(var(--pura-border) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-  .edges {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    pointer-events: none; overflow: visible;
-  }
-  .edge {
-    fill: none; stroke: var(--pura-border-strong); stroke-width: 2;
-  }
-  ::slotted(pura-flow-node) {
-    position: absolute; z-index: 1;
-  }
-`;
 
 const NODE_CSS = `
   :host { display: block; position: absolute; }

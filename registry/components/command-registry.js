@@ -30,6 +30,7 @@
 // otherwise invoking just emits 'run' for listeners to react to.
 import { PuraElement, define } from "../base.js";
 import meta from "./command-registry.meta.js";
+import { commandActionTemplate } from "./command-registry.template.js";
 
 const PROTOCOL_VERSION = "1.0";
 let uid = 0;
@@ -97,10 +98,8 @@ class PuraCommandAction extends PuraElement {
     if (!this.getAttribute("id")) this.setAttribute("id", `pura-cmd-${uid++}`);
     // Invisible by default, but render through the helper to stay on-convention
     // and to expose a machine-readable part for tooling / a11y trees.
-    this.render(
-      `<span part="action" hidden></span>`,
-      CSS
-    );
+    const { html, css } = commandActionTemplate(this);
+    this.render(html, css);
     // ARIA + stable data-* so an a11y tree / agent can read capabilities even
     // without touching the JS registry.
     this.setAttribute("role", "button");
@@ -172,11 +171,6 @@ class PuraCommandAction extends PuraElement {
     return undefined;
   }
 }
-
-const CSS = `
-  :host { display: none !important; }
-  [part="action"] { display: none; }
-`;
 
 // ---------------------------------------------------------------------------
 // <pura-command-registry>

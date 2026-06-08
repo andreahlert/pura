@@ -11,13 +11,15 @@
 // Events: 'change' { card, from, to, index } on the board after a drop/keyboard move.
 import { PuraElement, define } from "../base.js";
 import meta from "./kanban.meta.js";
+import { kanbanTemplate, kanbanCardTemplate } from "./kanban.template.js";
 
 // the card currently being dragged (DataTransfer can't carry a DOM ref)
 let DRAGGING = null;
 
 class PuraKanban extends PuraElement {
   connectedCallback() {
-    this.render(`<div part="board" class="board" role="group"><slot></slot></div>`, BOARD_CSS);
+    const { html, css } = kanbanTemplate(this);
+    this.render(html, css);
   }
   get columns() { return [...this.querySelectorAll(":scope > pura-kanban-column")]; }
 }
@@ -87,7 +89,8 @@ class PuraKanbanCard extends PuraElement {
   connectedCallback() {
     this.setAttribute("draggable", "true");
     if (!this.hasAttribute("tabindex")) this.setAttribute("tabindex", "0");
-    this.render(`<div part="card" class="card"><slot></slot></div>`, CARD_CSS);
+    const { html, css } = kanbanCardTemplate(this);
+    this.render(html, css);
 
     this.addEventListener("dragstart", (e) => {
       DRAGGING = this;
@@ -122,11 +125,7 @@ class PuraKanbanCard extends PuraElement {
 
 function esc(v) { return v == null ? "" : String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 
-const BOARD_CSS = `
-  :host { display: block; }
-  .board { display: flex; gap: var(--pura-space-4); align-items: flex-start; overflow-x: auto; padding-bottom: var(--pura-space-2); }
-  ::slotted(pura-kanban-column) { flex: 0 0 clamp(220px, 22vw, 300px); }
-`;
+
 const COL_CSS = `
   :host { display: block; }
   .col { display: flex; flex-direction: column; gap: var(--pura-space-3);
@@ -140,15 +139,6 @@ const COL_CSS = `
     border: 1px solid var(--pura-border); border-radius: var(--pura-radius-full); min-width: 1.25rem; text-align: center; padding: 1px 6px; }
   .body { display: flex; flex-direction: column; gap: var(--pura-space-2); min-height: 2rem; }
   .foot { margin-top: var(--pura-space-1); }
-`;
-const CARD_CSS = `
-  :host { display: block; cursor: grab; }
-  :host(.dragging) { opacity: .4; }
-  :host(.lifted) .card { outline: 2px solid var(--pura-accent); outline-offset: 2px; }
-  :host(:focus-visible) .card { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  .card { background: var(--pura-bg); border: 1px solid var(--pura-border); border-radius: var(--pura-radius);
-    padding: var(--pura-space-3); box-shadow: var(--pura-shadow-sm); font-size: var(--pura-text-sm); color: var(--pura-fg); }
-  :host(:active) { cursor: grabbing; }
 `;
 
 define("pura-kanban", PuraKanban, meta);

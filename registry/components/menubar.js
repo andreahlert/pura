@@ -13,6 +13,7 @@
 // <pura-menu-item>           — attrs: disabled, inset. Dispatches "select".
 import { PuraElement, define } from "../base.js";
 import meta from "./menubar.meta.js";
+import { menuItemTemplate, menubarTemplate } from "./menubar.template.js";
 
 let uid = 0;
 
@@ -21,15 +22,8 @@ class PuraMenuItem extends PuraElement {
   static observedAttributes = ["disabled", "inset"];
 
   connectedCallback() {
-    this.render(
-      `<div part="item" role="menuitem" tabindex="-1"
-        aria-disabled="${this.hasAttribute("disabled") ? "true" : "false"}">
-         <span class="icon" part="icon" aria-hidden="true"><slot name="icon"></slot></span>
-         <span class="label"><slot></slot></span>
-         <span class="shortcut" part="shortcut"><slot name="shortcut"></slot></span>
-       </div>`,
-      ITEM_CSS
-    );
+    const { html, css } = menuItemTemplate(this);
+    this.render(html, css);
     this._item = this.$('[part="item"]');
     this.addEventListener("click", (e) => {
       if (this.hasAttribute("disabled")) {
@@ -49,28 +43,6 @@ class PuraMenuItem extends PuraElement {
   focus() { this._item?.focus(); }
 }
 
-const ITEM_CSS = `
-  :host { display: block; }
-  [part="item"] {
-    display: flex; align-items: center; gap: var(--pura-space-2);
-    font: inherit; font-size: var(--pura-text-sm);
-    color: var(--pura-fg); cursor: pointer; user-select: none;
-    padding: var(--pura-space-2) var(--pura-space-3);
-    border-radius: var(--pura-radius-sm);
-    transition: background var(--pura-dur) var(--pura-ease), color var(--pura-dur) var(--pura-ease);
-  }
-  [part="item"]:hover, [part="item"]:focus-visible, [part="item"][data-active] {
-    outline: none; background: var(--pura-subtle); color: var(--pura-fg);
-  }
-  .icon { display: inline-flex; width: 1rem; height: 1rem; flex: none; color: var(--pura-muted); }
-  .icon:empty { display: none; }
-  .label { flex: 1; }
-  .shortcut { margin-left: var(--pura-space-5); font-size: var(--pura-text-xs);
-    color: var(--pura-muted); letter-spacing: 0.04em; }
-  .shortcut:empty { display: none; }
-  :host([inset]) .icon { display: inline-flex; }
-  :host([disabled]) [part="item"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-`;
 
 // ── <pura-menubar-menu> ──────────────────────────────────────────────────────
 class PuraMenubarMenu extends PuraElement {
@@ -240,10 +212,8 @@ const MENU_CSS = `
 // ── <pura-menubar> ───────────────────────────────────────────────────────────
 class PuraMenubar extends PuraElement {
   connectedCallback() {
-    this.render(
-      `<div part="bar" role="menubar" aria-orientation="horizontal"><slot></slot></div>`,
-      BAR_CSS
-    );
+    const { html, css } = menubarTemplate(this);
+    this.render(html, css);
     this._bar = this.$('[part="bar"]');
 
     // Roving tabindex across top-level triggers; only one is in the tab order.
@@ -355,16 +325,6 @@ class PuraMenubar extends PuraElement {
   }
 }
 
-const BAR_CSS = `
-  :host { display: block; }
-  [part="bar"] {
-    display: flex; align-items: center; gap: var(--pura-space-1);
-    background: var(--pura-bg); color: var(--pura-fg);
-    border: 1px solid var(--pura-border); border-radius: var(--pura-radius);
-    box-shadow: var(--pura-shadow-sm);
-    padding: var(--pura-space-1);
-  }
-`;
 
 define("pura-menu-item", PuraMenuItem);
 define("pura-menubar-menu", PuraMenubarMenu);

@@ -17,6 +17,7 @@
 //   the coachmark title/body).
 import { PuraElement, define } from "../base.js";
 import meta from "./tour.meta.js";
+import { tourStepTemplate } from "./tour.template.js";
 
 let uid = 0;
 
@@ -357,7 +358,8 @@ class PuraTourStep extends PuraElement {
     this.dataset.puraTourStep = this.getAttribute("target") || "";
     // Minimal shadow so the element is well-formed even if styled/queried.
     if (!this.shadowRoot.childElementCount) {
-      this.render(`<slot></slot>`, `:host { display: none !important; }`);
+      const { html, css } = tourStepTemplate(this);
+      this.render(html, css);
     }
   }
 }

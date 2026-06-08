@@ -27,6 +27,7 @@
 //     parent table's registry snapshot.
 import { PuraElement, define } from "../base.js";
 import meta from "./pricing-table.meta.js";
+import { pricingTableTemplate } from "./pricing-table.template.js";
 
 let uid = 0;
 
@@ -55,7 +56,8 @@ class PuraPricingTable extends PuraElement {
     if (!this.hasAttribute("role")) this.setAttribute("role", "list");
     this._syncLabel();
 
-    this.render(`<div part="grid" class="grid"><slot></slot></div>`, CSS);
+    const { html, css } = pricingTableTemplate(this);
+    this.render(html, css);
 
     this._applyMin();
     this._slot = this.$("slot");
@@ -250,16 +252,6 @@ function esc(v) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
   );
 }
-
-const CSS = `
-  :host { display: block; }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--pura-pricing-min, 15rem), 1fr));
-    gap: var(--pura-space-4);
-    align-items: stretch;
-  }
-`;
 
 const TIER_CSS = `
   :host { display: block; height: 100%; }

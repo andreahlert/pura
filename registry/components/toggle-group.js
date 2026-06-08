@@ -8,19 +8,14 @@
 //   disabled, value. Emits CustomEvent('change', { detail: { pressed, value } }).
 import { PuraElement, define } from "../base.js";
 import meta from "./toggle-group.meta.js";
+import { toggleTemplate, toggleGroupTemplate } from "./toggle-group.template.js";
 
 class PuraToggle extends PuraElement {
   static observedAttributes = ["pressed", "disabled"];
 
   connectedCallback() {
-    this.render(
-      `<button part="toggle" type="button"
-         aria-pressed="${this.hasAttribute("pressed")}"
-         ${this.hasAttribute("disabled") ? "disabled" : ""}>
-         <slot></slot>
-       </button>`,
-      TOGGLE_CSS
-    );
+    const { html, css } = toggleTemplate(this);
+    this.render(html, css);
     this._btn = this.$("button");
     this._btn.addEventListener("click", () => {
       if (this.hasAttribute("disabled")) return;
@@ -56,42 +51,14 @@ class PuraToggle extends PuraElement {
   }
 }
 
-const TOGGLE_CSS = `
-  :host { display: inline-flex; }
-  button {
-    display: inline-flex; align-items: center; justify-content: center;
-    gap: var(--pura-space-2);
-    font: inherit; font-size: var(--pura-text-sm); font-weight: 550;
-    line-height: 1; white-space: nowrap; cursor: pointer;
-    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius);
-    padding: 0 var(--pura-space-3); height: 2.25rem; min-width: 2.25rem;
-    background: var(--pura-bg); color: var(--pura-fg);
-    transition: background var(--pura-dur) var(--pura-ease),
-      color var(--pura-dur) var(--pura-ease),
-      border-color var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  button:hover { background: var(--pura-subtle); }
-  button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  button[aria-pressed="true"] {
-    background: var(--pura-primary); color: var(--pura-primary-fg);
-    border-color: var(--pura-primary);
-  }
-  button[aria-pressed="true"]:hover { background: var(--pura-primary-hover); }
-  button:disabled { opacity: 0.55; cursor: not-allowed; }
-`;
 
 class PuraToggleGroup extends PuraElement {
   static observedAttributes = ["type", "value", "disabled", "orientation"];
 
   connectedCallback() {
     const single = this.getAttribute("type") === "single";
-    this.render(
-      `<div part="group" role="group">
-         <slot></slot>
-       </div>`,
-      GROUP_CSS
-    );
+    const { html, css } = toggleGroupTemplate(this);
+    this.render(html, css);
     this._group = this.$("[part=group]");
 
     // React to any child toggle flipping state.
@@ -244,49 +211,6 @@ class PuraToggleGroup extends PuraElement {
   }
 }
 
-const GROUP_CSS = `
-  :host { display: inline-flex; vertical-align: middle; }
-
-  [part="group"] {
-    display: inline-flex;
-    flex-direction: row;
-    isolation: isolate;
-  }
-  :host([orientation="vertical"]) [part="group"] { flex-direction: column; }
-
-  ::slotted(pura-toggle) { position: relative; }
-
-  /* HORIZONTAL: collapse the seam so the toggles read as one segmented control. */
-  :host(:not([orientation="vertical"])) ::slotted(pura-toggle:not(:first-child)) {
-    margin-left: -1px;
-  }
-  :host(:not([orientation="vertical"])) ::slotted(pura-toggle:not(:first-child))::part(toggle) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  :host(:not([orientation="vertical"])) ::slotted(pura-toggle:not(:last-child))::part(toggle) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  /* VERTICAL: collapse the seam top-to-bottom. */
-  :host([orientation="vertical"]) ::slotted(pura-toggle:not(:first-child)) {
-    margin-top: -1px;
-  }
-  :host([orientation="vertical"]) ::slotted(pura-toggle:not(:first-child))::part(toggle) {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  :host([orientation="vertical"]) ::slotted(pura-toggle:not(:last-child))::part(toggle) {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  /* Lift the pressed/hovered/focused toggle so its border wins over neighbors. */
-  ::slotted(pura-toggle:hover),
-  ::slotted(pura-toggle:focus-within),
-  ::slotted(pura-toggle[pressed]) { z-index: 1; }
-`;
 
 define("pura-toggle", PuraToggle);
 define("pura-toggle-group", PuraToggleGroup, meta);

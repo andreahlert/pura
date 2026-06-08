@@ -13,6 +13,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./pdf-viewer.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { pdfViewerTemplate } from "./pdf-viewer.template.js";
 
 registerMessages({
   "pdf.download": { en: "Download", "pt-BR": "Baixar", fr: "Télécharger", de: "Herunterladen", it: "Scarica" },
@@ -38,7 +39,8 @@ class PuraPdfViewer extends PuraElement {
     this.style.setProperty("--_h", height);
 
     if (!src) {
-      this.render(`<div class="empty" part="root">${t("pdf.empty")}</div>`, CSS);
+      const { html, css } = pdfViewerTemplate(this);
+      this.render(html, css);
       this._i18nOff = onLocaleChange(() => { const e = this.$(".empty"); if (e) e.textContent = t("pdf.empty"); });
       return;
     }

@@ -14,6 +14,7 @@
 // live attribute edits reflect immediately.
 import { PuraElement, define } from "../base.js";
 import meta from "./list.meta.js";
+import { listItemTemplate } from "./list.template.js";
 
 class PuraList extends PuraElement {
   static observedAttributes = ["ordered", "marker", "gap", "inline"];
@@ -98,31 +99,11 @@ const CSS = `
 
 class PuraListItem extends PuraElement {
   connectedCallback() {
-    this.render(`<li part="item"><slot></slot></li>`, ITEM_CSS);
+    const { html, css } = listItemTemplate(this);
+    this.render(html, css);
   }
 }
 
-const ITEM_CSS = `
-  :host { line-height: 1.7; }
-  [part="item"] {
-    margin: 0;
-    list-style: inherit;
-  }
-
-  /* Inside a check-markered list, draw a tick and lay the row out as flex. */
-  :host-context(pura-list[marker="check"]) [part="item"] {
-    display: flex;
-    gap: var(--pura-space-2);
-    align-items: baseline;
-    list-style: none;
-  }
-  :host-context(pura-list[marker="check"]) [part="item"]::before {
-    content: "✓";
-    color: var(--pura-success-fg);
-    font-weight: 600;
-    flex: none;
-  }
-`;
 
 define("pura-list", PuraList, meta);
 define("pura-list-item", PuraListItem);

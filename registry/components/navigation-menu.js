@@ -8,6 +8,7 @@
 // Attributes (item): label (trigger text), href (renders a plain link instead).
 import { PuraElement, define } from "../base.js";
 import meta from "./navigation-menu.meta.js";
+import { navigationMenuTemplate } from "./navigation-menu.template.js";
 
 let uid = 0;
 
@@ -95,10 +96,8 @@ class PuraNavigationMenu extends PuraElement {
     }
     this.setAttribute("role", "navigation");
 
-    this.render(
-      `<ul part="list" class="list" role="list"><slot></slot></ul>`,
-      CSS
-    );
+    const { html, css } = navigationMenuTemplate(this);
+    this.render(html, css);
 
     this._items = [...this.querySelectorAll(":scope > pura-navigation-menu-item")];
 

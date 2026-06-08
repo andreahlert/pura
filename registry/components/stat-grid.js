@@ -29,6 +29,7 @@
 //     into the parent grid's registry snapshot.
 import { PuraElement, define } from "../base.js";
 import meta from "./stat-grid.meta.js";
+import { statGridTemplate } from "./stat-grid.template.js";
 
 let uid = 0;
 
@@ -57,7 +58,8 @@ class PuraStatGrid extends PuraElement {
     if (!this.hasAttribute("role")) this.setAttribute("role", "group");
     this._syncLabel();
 
-    this.render(`<div part="grid" class="grid"><slot></slot></div>`, CSS);
+    const { html, css } = statGridTemplate(this);
+    this.render(html, css);
 
     this._applyMin();
     this._slot = this.$("slot");
@@ -254,35 +256,6 @@ function esc(v) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
   );
 }
-
-const CSS = `
-  :host { display: block; }
-
-  /* The container background bleeds through a 1px gap to draw dividers that
-     adapt to any wrapped column count. Each cell repaints its own surface. */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--pura-stat-min, 11rem), 1fr));
-    gap: 1px;
-    background: var(--pura-border);
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius-lg);
-    overflow: hidden;
-  }
-
-  :host([dividers="none"]) .grid {
-    gap: 0;
-    background: transparent;
-    border-color: transparent;
-  }
-
-  ::slotted(pura-stat) {
-    background: var(--pura-bg);
-  }
-  :host([dividers="none"]) ::slotted(pura-stat) {
-    background: transparent;
-  }
-`;
 
 const STAT_CSS = `
   :host { display: block; height: 100%; }

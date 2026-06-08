@@ -16,6 +16,7 @@
 // Parts: nav, item, icon, label.
 import { PuraElement, define } from "../base.js";
 import meta from "./bottom-navigation.meta.js";
+import { bottomNavigationTemplate } from "./bottom-navigation.template.js";
 
 const esc = (s) => String(s).replace(/"/g, "&quot;");
 
@@ -44,7 +45,8 @@ class PuraBottomNavigation extends PuraElement {
   static observedAttributes = ["value", "labels", "static"];
 
   connectedCallback() {
-    this.render(`<nav part="nav" class="nav"><slot></slot></nav>`, CSS);
+    const { html, css } = bottomNavigationTemplate(this);
+    this.render(html, css);
     this._nav = this.$(".nav");
     this._slot = this.$("slot");
     this._slot.addEventListener("slotchange", () => this._scheduleRender());
@@ -155,46 +157,6 @@ class PuraBottomNavigation extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-  :host(:not([static])) {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
-  }
-  slot { display: none; }
-
-  .nav {
-    display: flex; align-items: stretch; justify-content: space-around;
-    gap: var(--pura-space-1);
-    background: var(--pura-bg); color: var(--pura-muted-fg);
-    border-top: 1px solid var(--pura-border);
-    padding: var(--pura-space-1) var(--pura-space-2);
-    padding-bottom: max(var(--pura-space-1), env(safe-area-inset-bottom));
-  }
-
-  .item {
-    flex: 1 1 0; min-width: 0;
-    display: inline-flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: var(--pura-space-1);
-    padding: var(--pura-space-2) var(--pura-space-1);
-    border: none; background: transparent; cursor: pointer;
-    color: inherit; font: inherit;
-    border-radius: var(--pura-radius-sm);
-    transition: color var(--pura-dur) var(--pura-ease),
-      background var(--pura-dur) var(--pura-ease);
-  }
-  .item:hover { background: var(--pura-subtle); color: var(--pura-fg); }
-  .item:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--pura-ring); }
-  .item[data-active="true"] { color: var(--pura-accent); }
-
-  .icon { display: inline-flex; align-items: center; justify-content: center;
-    width: 1.5rem; height: 1.5rem; flex: none; }
-  .icon svg, .icon { width: 1.5rem; height: 1.5rem; }
-
-  .label {
-    font-size: var(--pura-text-xs); font-weight: 550; line-height: 1;
-    max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-`;
 
 define("pura-bottom-nav-item", PuraBottomNavItem);
 define("pura-bottom-navigation", PuraBottomNavigation, meta);

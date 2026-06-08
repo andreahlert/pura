@@ -16,6 +16,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./map.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { mapTemplate } from "./map.template.js";
 
 registerMessages({
   "map.larger": { en: "View larger map", "pt-BR": "Ver mapa ampliado", fr: "Voir une carte plus grande", de: "Größere Karte anzeigen", it: "Visualizza mappa più grande" },
@@ -40,7 +41,8 @@ class PuraMap extends PuraElement {
     const resolved = this._resolve();
 
     if (!resolved) {
-      this.render(`<div class="empty" part="root">${t("map.empty")}</div>`, CSS);
+      const { html, css } = mapTemplate(this);
+      this.render(html, css);
       this._i18nOff = onLocaleChange(() => { const e = this.$(".empty"); if (e) e.textContent = t("map.empty"); });
       return;
     }

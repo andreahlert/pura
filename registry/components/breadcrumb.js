@@ -6,6 +6,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./breadcrumb.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { breadcrumbTemplate } from "./breadcrumb.template.js";
 
 registerMessages({
   "breadcrumb.label": {
@@ -19,12 +20,8 @@ registerMessages({
 
 class PuraBreadcrumb extends PuraElement {
   connectedCallback() {
-    this.render(
-      `<nav part="nav" aria-label="${t("breadcrumb.label")}">
-         <ol part="list"><slot></slot></ol>
-       </nav>`,
-      NAV_CSS
-    );
+    const { html, css } = breadcrumbTemplate(this);
+    this.render(html, css);
     this._i18nOff = onLocaleChange(() => this._applyI18n());
   }
 
@@ -61,15 +58,6 @@ class PuraBreadcrumbItem extends PuraElement {
   }
 }
 
-const NAV_CSS = `
-  :host { display: block; }
-  ol {
-    display: flex; flex-wrap: wrap; align-items: center;
-    gap: var(--pura-space-2);
-    margin: 0; padding: 0; list-style: none;
-    font-size: var(--pura-text-sm); color: var(--pura-muted);
-  }
-`;
 
 const ITEM_CSS = `
   :host {
