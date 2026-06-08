@@ -14,6 +14,7 @@
 //   and read every toolbar without touching the shadow DOM.
 import { PuraElement, define } from "../base.js";
 import meta from "./toolbar.meta.js";
+import { toolbarTemplate } from "./toolbar.template.js";
 
 let uid = 0;
 
@@ -33,13 +34,8 @@ class PuraToolbar extends PuraElement {
     this.dataset.puraId = this._id;
     registry().set(this._id, this);
 
-    this.render(
-      `<div part="toolbar" role="toolbar"
-            aria-orientation="${this._orientation()}">
-         <slot></slot>
-       </div>`,
-      CSS
-    );
+    const { html, css } = toolbarTemplate(this);
+    this.render(html, css);
     this._wrap = this.$("[part=toolbar]");
     this._slot = this.$("slot");
 
@@ -145,31 +141,6 @@ class PuraToolbar extends PuraElement {
     this.setAttribute("data-pura-toolbar-items", String(this._targets().length));
   }
 }
-
-const CSS = `
-  :host { display: block; }
-  :host([orientation="vertical"]) { display: inline-block; }
-
-  [part="toolbar"] {
-    display: flex; flex-direction: row; align-items: center;
-    flex-wrap: wrap; gap: var(--pura-space-2);
-    padding: var(--pura-space-2);
-    background: var(--pura-bg);
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius);
-    box-shadow: var(--pura-shadow-sm);
-  }
-  :host([orientation="vertical"]) [part="toolbar"] {
-    flex-direction: column; flex-wrap: nowrap; align-items: stretch;
-    width: max-content;
-  }
-
-  /* Let slotted separators stretch across the cross axis. */
-  ::slotted(pura-separator) { align-self: stretch; }
-  :host(:not([orientation="vertical"])) ::slotted(pura-separator) {
-    height: 1.5rem; align-self: center;
-  }
-`;
 
 define("pura-toolbar", PuraToolbar, meta);
 export { PuraToolbar };
