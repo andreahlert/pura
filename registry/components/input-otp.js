@@ -6,6 +6,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./input-otp.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { inputOtpTemplate } from "./input-otp.template.js";
 
 registerMessages({
   "input-otp.group": {
@@ -29,12 +30,8 @@ class PuraInputOtp extends PuraElement {
 
   connectedCallback() {
     this._len = this._length();
-    this.render(
-      `<div part="root" role="group" aria-label="${t("input-otp.group")}">
-         ${Array.from({ length: this._len }, (_, i) => this._slot(i)).join("")}
-       </div>`,
-      CSS
-    );
+    const { html, css } = inputOtpTemplate(this);
+    this.render(html, css);
     this._root = this.$("[part=\"root\"]");
     this._inputs = this.$$("input");
     this._inputs.forEach((input, i) => {
@@ -77,14 +74,6 @@ class PuraInputOtp extends PuraElement {
   _length() {
     const n = parseInt(this.getAttribute("length"), 10);
     return Number.isFinite(n) && n > 0 ? n : 6;
-  }
-
-  _slot(i) {
-    return `<input part="slot" type="text" inputmode="${this.hasAttribute("alphanumeric") ? "text" : "numeric"}"
-      autocomplete="${i === 0 ? "one-time-code" : "off"}" maxlength="1"
-      aria-label="${t("input-otp.digit", { n: i + 1, total: this._len })}"
-      ${this.hasAttribute("disabled") ? "disabled" : ""}
-      ${this.hasAttribute("invalid") ? 'aria-invalid="true"' : ""} />`;
   }
 
   _filter(str) {
@@ -199,34 +188,6 @@ class PuraInputOtp extends PuraElement {
 
   focus() { this._focus(0); }
 }
-
-const CSS = `
-  :host { display: inline-block; }
-  [part="root"] {
-    display: inline-flex; align-items: center; gap: var(--pura-space-2);
-  }
-  input {
-    width: 2.5rem; height: 2.75rem; padding: 0;
-    font: inherit; font-size: var(--pura-text-lg); font-weight: 550;
-    text-align: center; color: var(--pura-fg); background: var(--pura-bg);
-    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius);
-    box-shadow: var(--pura-shadow-sm);
-    transition: border-color var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  :host([mono]) input { font-family: var(--pura-font-mono); }
-  input:hover { border-color: var(--pura-fg); }
-  input:focus {
-    outline: none; border-color: var(--pura-accent);
-    box-shadow: 0 0 0 3px var(--pura-ring);
-    z-index: 1;
-  }
-  input:disabled { opacity: 0.55; cursor: not-allowed; background: var(--pura-subtle); }
-  :host([invalid]) input {
-    border-color: var(--pura-danger);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--pura-danger) 30%, transparent);
-  }
-`;
 
 define("pura-input-otp", PuraInputOtp, meta);
 export { PuraInputOtp };
