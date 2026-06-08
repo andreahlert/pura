@@ -13,6 +13,7 @@
 // Parts: input, menu, option.
 import { PuraElement, define } from "../base.js";
 import meta from "./mention.meta.js";
+import { mentionTemplate } from "./mention.template.js";
 
 let uid = 0;
 
@@ -26,20 +27,8 @@ class PuraMention extends PuraElement {
     this._filtered = [];
     this._range = null; // [start, end] of the active trigger token
 
-    const multiline = this.hasAttribute("multiline");
-    const ph = esc(this.getAttribute("placeholder") || "");
-    const val = esc(this.getAttribute("value") || "");
-    const control = multiline
-      ? `<textarea part="input" class="control" rows="${this.getAttribute("rows") || 4}" placeholder="${ph}">${val}</textarea>`
-      : `<input part="input" class="control" type="text" autocomplete="off" placeholder="${ph}" value="${val}" />`;
-
-    this.render(
-      `<div class="anchor" part="anchor">
-         ${control}
-       </div>
-       <div part="menu" class="menu" role="listbox" popover="manual" tabindex="-1"></div>`,
-      CSS.replaceAll("ANCHOR", this._name)
-    );
+    const { html, css } = mentionTemplate(this);
+    this.render(html, css);
 
     this._control = this.$(".control");
     this._menu = this.$(".menu");
@@ -201,58 +190,6 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;")
     .replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
-
-const CSS = `
-  :host { display: block; }
-  .anchor { anchor-name: ANCHOR; position: relative; display: block; }
-
-  .control {
-    width: 100%; font: inherit; font-size: var(--pura-text-sm);
-    color: var(--pura-fg); background: var(--pura-bg);
-    border: 1px solid var(--pura-border-strong); border-radius: var(--pura-radius);
-    box-shadow: var(--pura-shadow-sm);
-    transition: border-color var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  input.control { padding: 0 var(--pura-space-3); height: 2.25rem; }
-  textarea.control {
-    padding: var(--pura-space-3); min-height: 4.5rem; line-height: 1.55;
-    resize: vertical;
-  }
-  .control::placeholder { color: var(--pura-muted); }
-  .control:hover { border-color: var(--pura-fg); }
-  .control:focus {
-    outline: none; border-color: var(--pura-accent);
-    box-shadow: 0 0 0 3px var(--pura-ring);
-  }
-
-  .menu {
-    position: absolute; position-anchor: ANCHOR;
-    margin: 0; inset: auto; box-sizing: border-box;
-    top: anchor(bottom); left: anchor(left); margin-top: var(--pura-space-2);
-    min-width: anchor-size(width); width: max-content; max-width: min(24rem, 92vw);
-    max-height: 16rem; overflow-y: auto;
-    background: var(--pura-bg); color: var(--pura-fg);
-    border: 1px solid var(--pura-border); border-radius: var(--pura-radius);
-    box-shadow: var(--pura-shadow-lg); padding: var(--pura-space-1);
-    font-size: var(--pura-text-sm);
-    opacity: 0; transform: translateY(-4px);
-    transition: opacity var(--pura-dur) var(--pura-ease), transform var(--pura-dur) var(--pura-ease);
-  }
-  .menu:popover-open { opacity: 1; transform: none; }
-
-  .option {
-    padding: var(--pura-space-2) var(--pura-space-2);
-    border-radius: var(--pura-radius-sm); cursor: pointer;
-    color: var(--pura-fg); user-select: none;
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  .option.active { background: var(--pura-subtle); }
-
-  @supports not (anchor-name: --x) {
-    .menu { position: absolute; top: 100%; left: 0; inset: auto; margin-top: var(--pura-space-2); }
-  }
-`;
 
 define("pura-mention", PuraMention, meta);
 export { PuraMention };

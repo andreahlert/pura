@@ -18,6 +18,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./data-table.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { dataTableTemplate } from "./data-table.template.js";
 
 registerMessages({
   "dataTable.search": { en: "Search…", "pt-BR": "Buscar…", fr: "Rechercher…", de: "Suchen…", it: "Cerca…" },
@@ -49,7 +50,8 @@ class PuraDataTable extends PuraElement {
 
     // Render the shadow shell once. All later updates mutate existing DOM so the
     // search input keeps focus/value (same reason pagination.js updates in place).
-    this.render(SHELL(), SHADOW_CSS);
+    const { html, css } = dataTableTemplate(this);
+    this.render(html, css);
 
     // Instance-scoped light-DOM style for the slotted table's descendants.
     this._style = document.createElement("style");
@@ -395,104 +397,6 @@ class PuraDataTable extends PuraElement {
     if (this._style) this._style.textContent = lightCSS(this._id, this.hasAttribute("striped"));
   }
 }
-
-// Shadow shell, rendered once. The slot holds the real <table>.
-function SHELL() {
-  return `
-    <div class="root" part="root">
-      <div part="toolbar" class="toolbar" hidden>
-        <input part="search" class="search" type="search" autocomplete="off"
-          spellcheck="false" aria-label="search" />
-      </div>
-      <div part="table" class="table">
-        <slot></slot>
-      </div>
-      <div part="footer" class="footer" hidden>
-        <span part="count" class="count"></span>
-        <div part="pager" class="pager" hidden>
-          <button part="prev" type="button" class="navbtn"></button>
-          <span part="page-label" class="page-label"></span>
-          <button part="next" type="button" class="navbtn"></button>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// Shadow styles: host shell, toolbar, footer, and the directly slotted <table>.
-const SHADOW_CSS = `
-  :host { display: block; }
-
-  .root {
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius);
-    background: var(--pura-bg);
-    overflow: hidden;
-  }
-
-  .toolbar {
-    display: flex; align-items: center; gap: var(--pura-space-2);
-    padding: var(--pura-space-3) var(--pura-space-4);
-    border-bottom: 1px solid var(--pura-border);
-  }
-  .toolbar[hidden] { display: none; }
-
-  .search {
-    font: inherit; font-size: var(--pura-text-sm);
-    color: var(--pura-fg); background: var(--pura-bg);
-    border: 1px solid var(--pura-border-strong);
-    border-radius: var(--pura-radius);
-    padding: 0 var(--pura-space-3); height: 2.25rem;
-    width: 100%; max-width: 20rem;
-    transition: border-color var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-  .search::placeholder { color: var(--pura-muted); }
-  .search:focus-visible {
-    outline: none; border-color: var(--pura-accent);
-    box-shadow: 0 0 0 3px var(--pura-ring);
-  }
-
-  .table { width: 100%; overflow-x: auto; }
-
-  ::slotted(table) {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--pura-text-sm);
-    color: var(--pura-fg);
-    caption-side: bottom;
-  }
-  ::slotted(style) { display: none; }
-
-  .footer {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--pura-space-3); flex-wrap: wrap;
-    padding: var(--pura-space-3) var(--pura-space-4);
-    border-top: 1px solid var(--pura-border);
-    font-size: var(--pura-text-xs); color: var(--pura-muted);
-  }
-  .footer[hidden] { display: none; }
-
-  .pager { display: flex; align-items: center; gap: var(--pura-space-2); }
-  .pager[hidden] { display: none; }
-
-  .page-label { color: var(--pura-muted-fg); font-size: var(--pura-text-xs); }
-
-  .navbtn {
-    display: inline-flex; align-items: center; justify-content: center;
-    font: inherit; font-size: var(--pura-text-base); line-height: 1;
-    cursor: pointer; color: var(--pura-fg);
-    background: var(--pura-bg);
-    border: 1px solid var(--pura-border-strong);
-    border-radius: var(--pura-radius);
-    min-width: 2rem; height: 2rem; padding: 0 var(--pura-space-2);
-    box-shadow: var(--pura-shadow-sm);
-    transition: background var(--pura-dur) var(--pura-ease);
-  }
-  .navbtn:hover { background: var(--pura-subtle); }
-  .navbtn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-  .navbtn:disabled { opacity: 0.55; cursor: not-allowed; background: var(--pura-bg); }
-`;
 
 // Styles applied to the slotted table's descendants, scoped to one instance.
 // Mirrors table.js look, plus sortable headers + stripe-by-class.

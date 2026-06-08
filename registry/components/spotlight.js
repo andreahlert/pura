@@ -22,6 +22,7 @@
 //   rect is aria-hidden (purely visual).
 import { PuraElement, define } from "../base.js";
 import meta from "./spotlight.meta.js";
+import { spotlightTemplate } from "./spotlight.template.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -37,14 +38,8 @@ class PuraSpotlight extends PuraElement {
     this._id = this.id || `pura-spotlight-${this._uid}`;
     this._active = false;
 
-    this.render(
-      `<dialog part="overlay" role="dialog" aria-modal="true"
-               aria-label="${(this.getAttribute("label") || "Spotlight").replace(/"/g, "&quot;")}"
-               data-pura-spotlight="${this._id}" data-active="false">
-         <div part="spot" class="spot" aria-hidden="true"></div>
-       </dialog>`,
-      CSS
-    );
+    const { html, css } = spotlightTemplate(this);
+    this.render(html, css);
 
     this._dlg = this.$("dialog");
     this._spot = this.$(".spot");
@@ -161,31 +156,6 @@ class PuraSpotlight extends PuraElement {
     }
   }
 }
-
-const CSS = `
-  :host { display: contents; }
-
-  dialog[part="overlay"] {
-    border: none; background: transparent; padding: 0; margin: 0;
-    max-width: 100vw; max-height: 100dvh; width: 100vw; height: 100dvh;
-    inset: 0; overflow: visible; color: var(--pura-fg);
-  }
-  dialog[part="overlay"]::backdrop { background: transparent; }
-
-  /* Cut-out: a transparent rect whose huge box-shadow dims everything else. */
-  .spot {
-    position: fixed; display: none; pointer-events: none;
-    border-radius: var(--pura-radius);
-    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.55);
-    outline: 2px solid var(--pura-accent);
-    outline-offset: 2px;
-    transition: top var(--pura-dur) var(--pura-ease),
-      left var(--pura-dur) var(--pura-ease),
-      width var(--pura-dur) var(--pura-ease),
-      height var(--pura-dur) var(--pura-ease),
-      box-shadow var(--pura-dur) var(--pura-ease);
-  }
-`;
 
 define("pura-spotlight", PuraSpotlight, meta);
 export { PuraSpotlight };
