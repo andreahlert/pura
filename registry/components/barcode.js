@@ -6,6 +6,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./barcode.meta.js";
 import { registerMessages, t, onLocaleChange } from "../i18n.js";
+import { barcodeTemplate } from "./barcode.template.js";
 
 registerMessages({
   "barcode.empty": {
@@ -183,7 +184,8 @@ class PuraBarcode extends PuraElement {
     const showText = this.bool("displayvalue");
 
     if (!value) {
-      this.render(`<div part="error" class="err">${esc(t("barcode.empty"))}</div>`, CSS);
+      const { html, css } = barcodeTemplate(this);
+      this.render(html, css);
       return;
     }
 

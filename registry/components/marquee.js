@@ -15,6 +15,7 @@
 //   so agents can enumerate, read and drive every marquee without DOM spelunking.
 import { PuraElement, define } from "../base.js";
 import meta from "./marquee.meta.js";
+import { marqueeTemplate } from "./marquee.template.js";
 
 let uid = 0;
 
@@ -32,16 +33,8 @@ class PuraMarquee extends PuraElement {
     this.dataset.puraId = this._id;
     registry().set(this._id, this);
 
-    this.render(
-      `<div class="marquee" part="marquee" role="marquee"
-            aria-label="${esc(this.getAttribute("label") || "Scrolling content")}">
-         <div class="track" part="track">
-           <div class="group" part="group"><slot></slot></div>
-           <div class="group mirror" part="group-mirror" aria-hidden="true"></div>
-         </div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = marqueeTemplate(this);
+    this.render(html, css);
 
     this._slot = this.$("slot");
     this._mirror = this.$(".mirror");
@@ -127,9 +120,6 @@ class PuraMarquee extends PuraElement {
 }
 
 // Minimal attribute-value escaping for interpolated label text.
-function esc(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-}
 
 const CSS = `
   :host { display: block; overflow: hidden; }

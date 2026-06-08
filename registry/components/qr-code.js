@@ -6,6 +6,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./qr-code.meta.js";
 import { registerMessages, t, onLocaleChange } from "../i18n.js";
+import { qrCodeTemplate } from "./qr-code.template.js";
 
 registerMessages({
   "qr.error": {
@@ -437,7 +438,8 @@ class PuraQRCode extends PuraElement {
     const level = (this.getAttribute("level") || "M").toUpperCase();
 
     if (!value) {
-      this.render(`<div part="error" class="err">${escapeHtml(t("qr.empty"))}</div>`, CSS);
+      const { html, css } = qrCodeTemplate(this);
+      this.render(html, css);
       return;
     }
 
