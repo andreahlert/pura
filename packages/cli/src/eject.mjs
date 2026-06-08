@@ -9,3 +9,12 @@ export function ejectSource(source, name) {
   out = out.replace(/:host\b/g, `.pura-${name}`);
   return out;
 }
+
+// Best-effort eject can leave constructs it can't convert. Surface them so the
+// user reviews manually rather than shipping broken light-DOM output.
+export function ejectWarnings(out) {
+  const warnings = [];
+  if (/:host\b/.test(out)) warnings.push("contains :host selectors eject could not rewrite");
+  if (/this\.render\(/.test(out)) warnings.push("still calls this.render (shadow DOM)");
+  return warnings;
+}
