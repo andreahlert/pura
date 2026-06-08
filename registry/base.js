@@ -27,6 +27,12 @@ export class PuraElement extends HTMLElement {
     this.shadowRoot.innerHTML = `<style>${RESET}${css}</style>${html}`;
   }
 
+  // Light-DOM render path used by ejected components: writes to the element's
+  // own children (no shadow root) so the consuming app's CSS can target classes.
+  renderLight(html, css = "") {
+    this.innerHTML = (css ? `<style>${css}</style>` : "") + html;
+  }
+
   $(sel) {
     return this.shadowRoot.querySelector(sel);
   }
