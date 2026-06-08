@@ -1,0 +1,14 @@
+---
+import { ssrButton } from "../lib/dsd.js";
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SSR demo</title>
+    <!-- Design tokens so DSD custom properties (var(--pura-*)) resolve with JS off. -->
+    <link rel="stylesheet" href="/pura/tokens.css" />
+  </head>
+  <body>
+    <Fragment set:html={ssrButton({ variant: "primary" })} />
+  </body>
+</html>
