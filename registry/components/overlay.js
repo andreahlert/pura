@@ -87,14 +87,5 @@ class PuraOverlay extends PuraElement {
   }
 }
 
-function esc(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-
 define("pura-overlay", PuraOverlay, meta);
 export { PuraOverlay };

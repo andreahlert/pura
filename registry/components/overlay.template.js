@@ -2,6 +2,14 @@
 import { EMPTY_SHIM } from "../base.js";
 import { t } from "../i18n.js";
 
+function esc(s) {
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
 export function overlayTemplate(el = EMPTY_SHIM) {
   const showSpinner = el.bool("spinner");
   const message = el.getAttribute("message") || "";
