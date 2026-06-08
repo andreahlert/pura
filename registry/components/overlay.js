@@ -13,6 +13,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./overlay.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { overlayTemplate } from "./overlay.template.js";
 
 registerMessages({
   "overlay.loading": {
@@ -58,17 +59,8 @@ class PuraOverlay extends PuraElement {
   _renderAll() {
     const showSpinner = this.bool("spinner");
     const message = this.getAttribute("message") || "";
-    this.render(
-      `<div class="scrim" part="scrim" role="presentation"
-         aria-label="${t("overlay.loading")}">
-         <div class="content" part="content">
-           ${showSpinner ? `<span class="spinner" aria-hidden="true"></span>` : ""}
-           ${showSpinner && message ? `<span class="msg">${esc(message)}</span>` : ""}
-           <slot></slot>
-         </div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = overlayTemplate(this);
+    this.render(html, css);
     this._scrim = this.$(".scrim");
     this._scrim.addEventListener("click", (e) => {
       // Only the scrim itself (not its content) dismisses.
@@ -103,37 +95,6 @@ function esc(s) {
     .replaceAll('"', "&quot;");
 }
 
-const CSS = `
-  :host { display: contents; }
-
-  .scrim {
-    position: fixed; inset: 0; z-index: 1000;
-    display: none; align-items: center; justify-content: center;
-    background: rgb(0 0 0 / 0.45);
-    opacity: 0; transition: opacity var(--pura-dur) var(--pura-ease);
-  }
-  :host([open]) .scrim { display: flex; opacity: 1; }
-  :host([blur]) .scrim { backdrop-filter: blur(3px); }
-
-  /* target=parent covers the nearest positioned ancestor of the host */
-  :host([target="parent"]) .scrim { position: absolute; }
-
-  .content {
-    display: flex; flex-direction: column; align-items: center;
-    gap: var(--pura-space-3); color: var(--pura-primary-fg);
-    text-align: center; max-width: 90%;
-  }
-
-  .spinner {
-    width: 2rem; height: 2rem;
-    border: 3px solid color-mix(in srgb, #fff 30%, transparent);
-    border-top-color: #fff; border-radius: 50%;
-    animation: pura-spin 0.65s linear infinite;
-  }
-  .msg { font-size: var(--pura-text-sm); color: #fff; }
-
-  @keyframes pura-spin { to { transform: rotate(360deg); } }
-`;
 
 define("pura-overlay", PuraOverlay, meta);
 export { PuraOverlay };

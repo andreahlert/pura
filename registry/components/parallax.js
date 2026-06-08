@@ -18,19 +18,15 @@
 // Parts: viewport, layer
 import { PuraElement, define } from "../base.js";
 import meta from "./parallax.meta.js";
+import { parallaxTemplate } from "./parallax.template.js";
 
 class PuraParallax extends PuraElement {
   static observedAttributes = ["speed", "axis", "image"];
 
   connectedCallback() {
     const image = this.getAttribute("image");
-    this.render(
-      `<div class="viewport" part="viewport">
-         ${image ? `<div class="bg" part="layer" data-speed="${this._num(this.getAttribute("speed"), 0.5)}"></div>` : ""}
-         <div class="content" part="layer"><slot></slot></div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = parallaxTemplate(this);
+    this.render(html, css);
 
     this._viewport = this.$(".viewport");
     this._content = this.$(".content");
@@ -142,32 +138,6 @@ class PuraParallax extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; position: relative; overflow: hidden; }
-
-  .viewport {
-    position: relative;
-    width: 100%; height: 100%;
-    overflow: hidden;
-  }
-
-  .bg {
-    position: absolute; inset: -15% 0;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    will-change: transform;
-    z-index: 0;
-  }
-
-  .content {
-    position: relative;
-    z-index: 1;
-    will-change: transform;
-  }
-
-  ::slotted([data-speed]) { will-change: transform; }
-`;
 
 define("pura-parallax", PuraParallax, meta);
 export { PuraParallax };
