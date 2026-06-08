@@ -17,6 +17,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./burger.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { burgerTemplate } from "./burger.template.js";
 
 registerMessages({
   "burger.label": {
@@ -32,20 +33,8 @@ class PuraBurger extends PuraElement {
   static observedAttributes = ["open", "size", "label"];
 
   connectedCallback() {
-    const size = this.getAttribute("size") || "1.5rem";
-    this.render(
-      `<button part="button" type="button"
-         aria-expanded="${this.hasAttribute("open") ? "true" : "false"}"
-         aria-label="${this._esc(this.getAttribute("label") || t("burger.label"))}"
-         style="--burger-size: ${this._esc(size)}">
-         <span class="lines" aria-hidden="true">
-           <span part="line" class="line"></span>
-           <span part="line" class="line"></span>
-           <span part="line" class="line"></span>
-         </span>
-       </button>`,
-      CSS
-    );
+    const { html, css } = burgerTemplate(this);
+    this.render(html, css);
 
     this._btn = this.$("button");
     this._onClick = () => this.toggle();
@@ -89,58 +78,7 @@ class PuraBurger extends PuraElement {
     if (v) this.setAttribute("open", "");
     else this.removeAttribute("open");
   }
-
-  _esc(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
 }
-
-const CSS = `
-  :host { display: inline-block; }
-
-  button {
-    display: inline-grid; place-items: center;
-    width: calc(var(--burger-size) + var(--pura-space-3));
-    height: calc(var(--burger-size) + var(--pura-space-3));
-    padding: 0; margin: 0;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: var(--pura-radius-sm);
-    color: var(--pura-fg);
-    cursor: pointer;
-  }
-  button:hover { background: var(--pura-subtle); }
-  button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--pura-ring); }
-
-  .lines {
-    position: relative;
-    width: var(--burger-size);
-    height: var(--burger-size);
-  }
-  .line {
-    position: absolute;
-    left: 12%;
-    width: 76%;
-    height: 2px;
-    border-radius: var(--pura-radius-full);
-    background: currentColor;
-    transition: transform var(--pura-dur) var(--pura-ease),
-      opacity var(--pura-dur) var(--pura-ease),
-      top var(--pura-dur) var(--pura-ease);
-  }
-  .line:nth-child(1) { top: 30%; }
-  .line:nth-child(2) { top: 50%; }
-  .line:nth-child(3) { top: 70%; }
-
-  /* Morph to an X when open. */
-  :host([open]) .line:nth-child(1) { top: 50%; transform: rotate(45deg); }
-  :host([open]) .line:nth-child(2) { opacity: 0; }
-  :host([open]) .line:nth-child(3) { top: 50%; transform: rotate(-45deg); }
-`;
 
 define("pura-burger", PuraBurger, meta);
 export { PuraBurger };
