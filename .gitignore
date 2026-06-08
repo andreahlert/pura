@@ -45,6 +45,12 @@ registry/registry.json
 /registry.html
 /components/
 
+# codemod / analysis scratch (root-level diagnostics, never committed)
+/_*.mjs
+/_*.txt
+/_*.json
+/_*.html
+
 # astro
 apps/www/.astro/
 
