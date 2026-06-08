@@ -2,13 +2,12 @@
 // Each pura-tab's content is its slotted body. Attribute on tabs: active (index).
 import { PuraElement, define } from "../base.js";
 import meta from "./tabs.meta.js";
+import { tabTemplate } from "./tabs.template.js";
 
 class PuraTab extends PuraElement {
   connectedCallback() {
-    this.render(`<div part="panel" role="tabpanel"><slot></slot></div>`, `
-      :host { display: block; }
-      [part="panel"] { font-size: var(--pura-text-sm); color: var(--pura-muted-fg); line-height: 1.6; }
-    `);
+    const { html, css } = tabTemplate(this);
+    this.render(html, css);
   }
 }
 
