@@ -33,6 +33,7 @@
 // API: .reparent() re-resolves `to` and moves the mount; .target getter.
 import { PuraElement, define } from "../base.js";
 import meta from "./portal.meta.js";
+import { portalTemplate } from "./portal.template.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -64,10 +65,8 @@ class PuraPortal extends PuraElement {
     // (e.g. the host itself was re-parented) must NOT re-snapshot children —
     // they already live in the mount — so just re-resolve + re-attach.
     if (!this._mount) {
-      this.render(
-        `<slot></slot><span part="placeholder" aria-hidden="true" hidden></span>`,
-        CSS
-      );
+      const { html, css } = portalTemplate(this);
+      this.render(html, css);
       this._slot = this.$("slot");
 
       // The mount is a plain div that lives in the target (light DOM). It is the
@@ -217,13 +216,6 @@ class PuraPortal extends PuraElement {
   }
 }
 
-const CSS = `
-  /* The portal host is a logical anchor only; it has no visual footprint. Its
-     teleported content lives in the target (light DOM) where tokens still
-     inherit, so this shadow CSS intentionally styles nothing but the host. */
-  :host { display: contents; }
-  [part="placeholder"] { display: none; }
-`;
 
 define("pura-portal", PuraPortal, meta);
 export { PuraPortal };

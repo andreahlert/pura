@@ -19,16 +19,12 @@
 // Parts: form, errors.
 import { PuraElement, define } from "../base.js";
 import meta from "./form.meta.js";
+import { formTemplate } from "./form.template.js";
 
 class PuraForm extends PuraElement {
   connectedCallback() {
-    this.render(
-      `<div part="form" class="form">
-         <slot></slot>
-         <div part="errors" class="errors" role="alert" aria-live="polite" hidden></div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = formTemplate(this);
+    this.render(html, css);
     this._errors = this.$(".errors");
 
     // Prefer the slotted native <form>: listen for its submit (a SubmitEvent),
@@ -176,21 +172,6 @@ function CSS_ESC(s) {
   return String(s).replace(/["\\]/g, "\\$&");
 }
 
-const CSS = `
-  :host { display: block; }
-  .form { display: block; }
-  .errors {
-    margin-top: var(--pura-space-3);
-    display: flex; flex-direction: column; gap: var(--pura-space-1);
-    padding: var(--pura-space-3);
-    background: var(--pura-danger-bg);
-    border: 1px solid var(--pura-danger);
-    border-radius: var(--pura-radius);
-    color: var(--pura-danger);
-    font-size: var(--pura-text-sm); font-weight: 550; line-height: 1.4;
-  }
-  .errors[hidden] { display: none; }
-`;
 
 define("pura-form", PuraForm, meta);
 export { PuraForm };

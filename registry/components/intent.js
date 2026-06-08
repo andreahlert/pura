@@ -27,6 +27,7 @@
 //   PuraIntent.find(goalSubstring) filters that snapshot.
 import { PuraElement, define } from "../base.js";
 import meta from "./intent.meta.js";
+import { intentTemplate } from "./intent.template.js";
 
 // Module-level counter kept available for parity with other pura components
 // that mint unique anchor-names; <pura-intent> is non-visual so it does not
@@ -55,7 +56,8 @@ class PuraIntent extends PuraElement {
     if (this._id == null) this._id = `pura-intent-${uid++}`;
     // Non-visual: just project children through. The semantic layer lives on
     // the host element in the light DOM where crawlers/AT can see it.
-    this.render(`<slot></slot>`, CSS);
+    const { html, css } = intentTemplate(this);
+    this.render(html, css);
     this._reflect();
     this._register();
   }
@@ -163,11 +165,6 @@ class PuraIntent extends PuraElement {
   }
 }
 
-const CSS = `
-  /* Non-visual annotation: the host disappears from layout, children flow
-     as if it were not present. No color/box affordances by design. */
-  :host { display: contents; }
-`;
 
 define("pura-intent", PuraIntent, meta);
 

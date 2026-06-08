@@ -25,6 +25,7 @@
 // Events: `pura-agent-hint:change` (bubbles) when the hint text or target changes.
 import { PuraElement, define } from "../base.js";
 import meta from "./agent-hint.meta.js";
+import { agentHintTemplate } from "./agent-hint.template.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -50,10 +51,8 @@ class PuraAgentHint extends PuraElement {
   connectedCallback() {
     this._hintId = this.id || `pura-agent-hint-${uid++}`;
 
-    this.render(
-      `<span part="hint"><slot></slot></span>`,
-      CSS
-    );
+    const { html, css } = agentHintTemplate(this);
+    this.render(html, css);
 
     this._slot = this.$("slot");
     // Re-publish to the registry + re-announce when the slotted text changes.
@@ -172,42 +171,6 @@ class PuraAgentHint extends PuraElement {
   }
 }
 
-const CSS = `
-  /* sr-only: visually hidden but present in the DOM + accessibility tree.
-     The host stays in the a11y tree; slotted text is announced by AT/agents. */
-  :host {
-    position: absolute !important;
-    width: 1px; height: 1px;
-    padding: 0; margin: -1px; border: 0;
-    overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  /* Opt-in visible escape hatch for authoring / debugging. */
-  :host([visible]) {
-    position: static !important;
-    width: auto; height: auto;
-    padding: var(--pura-space-1) var(--pura-space-2); margin: 0;
-    overflow: visible; clip: auto; clip-path: none;
-    white-space: normal;
-    display: inline-block;
-    font-size: var(--pura-text-xs); line-height: 1.5;
-    color: var(--pura-muted-fg);
-    background: var(--pura-subtle);
-    border: 1px dashed var(--pura-border-strong);
-    border-radius: var(--pura-radius-sm);
-  }
-  :host([visible][data-level="warning"]) {
-    color: var(--pura-warning);
-    border-color: color-mix(in srgb, var(--pura-warning) 45%, transparent);
-  }
-  :host([visible][data-level="tip"]) {
-    color: var(--pura-accent);
-    border-color: color-mix(in srgb, var(--pura-accent) 45%, transparent);
-  }
-
-  [part="hint"] { display: contents; }
-`;
 
 define("pura-agent-hint", PuraAgentHint, meta);
 export { PuraAgentHint };

@@ -3,6 +3,7 @@
 // Slot: default (the content to center). Theming via var(--pura-*) tokens.
 import { PuraElement, define } from "../base.js";
 import meta from "./center.meta.js";
+import { centerTemplate } from "./center.template.js";
 
 class PuraCenter extends PuraElement {
   static get observedAttributes() {
@@ -10,7 +11,8 @@ class PuraCenter extends PuraElement {
   }
 
   connectedCallback() {
-    this.render(`<div part="center"><slot></slot></div>`, CSS);
+    const { html, css } = centerTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -27,28 +29,6 @@ class PuraCenter extends PuraElement {
   }
 }
 
-const CSS = `
-  :host {
-    display: grid;
-    --pura-center-min-h: auto;
-  }
-  [part="center"] {
-    display: grid;
-    place-items: center;
-    place-content: center;
-    min-height: var(--pura-center-min-h);
-  }
-  /* axis="x" — center horizontally only, keep content top-aligned */
-  :host([axis="x"]) [part="center"] {
-    place-items: start center;
-    place-content: start center;
-  }
-  /* axis="y" — center vertically only, keep content left-aligned */
-  :host([axis="y"]) [part="center"] {
-    place-items: center start;
-    place-content: center start;
-  }
-`;
 
 define("pura-center", PuraCenter, meta);
 export { PuraCenter };

@@ -42,6 +42,7 @@
 //   enumerate, read and drive every reveal on the page without DOM diving.
 import { PuraElement, define } from "../base.js";
 import meta from "./reveal.meta.js";
+import { revealTemplate } from "./reveal.template.js";
 
 let uid = 0;
 
@@ -60,10 +61,8 @@ class PuraReveal extends PuraElement {
     this.dataset.puraId = this._id;
     registry().set(this._id, this);
 
-    this.render(
-      `<div class="content" part="content"><slot></slot></div>`,
-      CSS
-    );
+    const { html, css } = revealTemplate(this);
+    this.render(html, css);
 
     this._revealed = false;
     this._syncStyle();
@@ -195,35 +194,6 @@ class PuraReveal extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-
-  .content { will-change: opacity, transform; }
-
-  /* The hidden initial state and the delay are scoped to no-preference so that
-     reduced-motion users see the content immediately, from first paint, with
-     zero delay and zero dependence on the observer firing. opacity/transform
-     keep slotted content in the accessibility tree the whole time. */
-  @media (prefers-reduced-motion: no-preference) {
-    .content {
-      opacity: 1;
-      transform: none;
-      transition:
-        opacity var(--pura-dur) var(--pura-ease),
-        transform var(--pura-dur) var(--pura-ease);
-      transition-delay: var(--_reveal-delay, 0ms);
-    }
-
-    :host(:not([revealed])) .content { opacity: 0; }
-
-    :host([animation="slide-up"]:not([revealed])) .content {
-      transform: translateY(var(--pura-space-5));
-    }
-    :host([animation="zoom"]:not([revealed])) .content {
-      transform: scale(0.94);
-    }
-  }
-`;
 
 define("pura-reveal", PuraReveal, meta);
 export { PuraReveal };

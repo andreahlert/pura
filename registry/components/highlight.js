@@ -7,12 +7,14 @@
 // Parts: text, mark. Input is HTML-escaped, no injection.
 import { PuraElement, define } from "../base.js";
 import meta from "./highlight.meta.js";
+import { highlightTemplate } from "./highlight.template.js";
 
 class PuraHighlight extends PuraElement {
   static observedAttributes = ["query", "text", "ignore-case", "whole-word"];
 
   connectedCallback() {
-    this.render(`<span part="text" class="text"></span>`, CSS);
+    const { html, css } = highlightTemplate(this);
+    this.render(html, css);
     this._out = this.$(".text");
     this._update();
   }
@@ -93,17 +95,6 @@ function esc(s) {
     .replaceAll('"', "&quot;");
 }
 
-const CSS = `
-  :host { display: inline; }
-  .text { color: inherit; font: inherit; }
-  mark {
-    background: var(--pura-warning-bg);
-    color: var(--pura-fg);
-    border-radius: var(--pura-radius-sm);
-    padding: 0 0.1em;
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--pura-warning) 35%, transparent);
-  }
-`;
 
 define("pura-highlight", PuraHighlight, meta);
 export { PuraHighlight };

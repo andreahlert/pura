@@ -12,6 +12,7 @@
 // Part: grid — the grid container <div>.
 import { PuraElement, define } from "../base.js";
 import meta from "./grid.meta.js";
+import { gridTemplate } from "./grid.template.js";
 
 const SPACE = new Set(["1", "2", "3", "4", "5", "6"]);
 
@@ -22,7 +23,8 @@ class PuraGrid extends PuraElement {
 
   connectedCallback() {
     if (!this.shadowRoot.childElementCount) {
-      this.render(`<div part="grid"><slot></slot></div>`, CSS);
+      const { html, css } = gridTemplate(this);
+      this.render(html, css);
     }
     this._sync();
   }
@@ -64,18 +66,6 @@ function track(value, min) {
   return null;
 }
 
-const CSS = `
-  :host { display: block; }
-  [part="grid"] {
-    display: grid;
-    grid-template-columns: var(--_cols, repeat(auto-fit, minmax(16rem, 1fr)));
-    grid-template-rows: var(--_rows, none);
-    gap: var(--_gap, var(--pura-space-4));
-    align-items: var(--_align, stretch);
-    justify-items: var(--_justify, stretch);
-    grid-auto-flow: var(--_flow, row);
-  }
-`;
 
 define("pura-grid", PuraGrid, meta);
 export { PuraGrid };

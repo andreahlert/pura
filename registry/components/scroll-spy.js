@@ -48,6 +48,7 @@
 //   IntersectionObserver is unavailable it falls back to a scroll listener.
 import { PuraElement, define } from "../base.js";
 import meta from "./scroll-spy.meta.js";
+import { scrollSpyTemplate } from "./scroll-spy.template.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -83,10 +84,8 @@ class PuraScrollSpy extends PuraElement {
     // Per-section visibility ratios, keyed by section element, for tie-breaking.
     this._ratios = new Map();
 
-    this.render(
-      `<nav part="nav" role="navigation"><slot></slot></nav>`,
-      CSS
-    );
+    const { html, css } = scrollSpyTemplate(this);
+    this.render(html, css);
 
     this._slot = this.$("slot");
     // Re-collect when slotted links change (e.g. a framework re-renders the TOC).
@@ -459,29 +458,6 @@ class PuraScrollSpy extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-  [part="nav"] { display: block; }
-  /* The component manages aria-current on slotted links; authors style the
-     active state via [aria-current] on their own links. We expose a minimal,
-     token-based hint so it looks intentional out of the box without forcing it. */
-  ::slotted(a) {
-    color: var(--pura-muted-fg);
-    text-decoration: none;
-    border-radius: var(--pura-radius-sm);
-    transition: color var(--pura-dur) var(--pura-ease),
-      background var(--pura-dur) var(--pura-ease);
-  }
-  ::slotted(a:hover) { color: var(--pura-fg); }
-  ::slotted(a:focus-visible) {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--pura-ring);
-  }
-  ::slotted(a[aria-current="location"]) {
-    color: var(--pura-fg);
-    font-weight: 600;
-  }
-`;
 
 define("pura-scroll-spy", PuraScrollSpy, meta);
 export { PuraScrollSpy };

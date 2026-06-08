@@ -31,6 +31,7 @@
 //   exposes --pura-container-width as the live measured width on the host.
 import { PuraElement, define } from "../base.js";
 import meta from "./container.meta.js";
+import { containerTemplate } from "./container.template.js";
 
 // Module-level counter for stable, unique ids per instance.
 let uid = 0;
@@ -61,7 +62,8 @@ class PuraContainer extends PuraElement {
     this._size = null;
     this._width = 0;
 
-    this.render(`<div part="box"><slot></slot></div>`, CSS);
+    const { html, css } = containerTemplate(this);
+    this.render(html, css);
     this._box = this.$("[part='box']");
 
     // Stable host attributes for agents / consumer CSS.
@@ -182,24 +184,6 @@ class PuraContainer extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-
-  [part="box"] {
-    width: 100%;
-    /* Establish a CSS container too, so native @container queries also work
-       for slotted descendants where supported — belt and suspenders. */
-    container-type: inline-size;
-  }
-
-  :host([center]) [part="box"] { margin-inline: auto; }
-
-  /* Optional breakpoint-scaled inline padding. */
-  :host([pad]) [part="box"] { padding-inline: var(--pura-space-3); }
-  :host([pad][data-size="sm"]) [part="box"] { padding-inline: var(--pura-space-4); }
-  :host([pad][data-size="md"]) [part="box"] { padding-inline: var(--pura-space-5); }
-  :host([pad][data-size="lg"]) [part="box"] { padding-inline: var(--pura-space-6); }
-`;
 
 define("pura-container", PuraContainer, meta);
 export { PuraContainer };

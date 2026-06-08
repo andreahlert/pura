@@ -47,6 +47,7 @@
 // API: PuraIdle.registry() returns a snapshot array of connected detectors.
 import { PuraElement, define } from "../base.js";
 import meta from "./idle.meta.js";
+import { idleTemplate } from "./idle.template.js";
 
 // Module-level counter for stable, unique ids per instance (parity with other
 // pura components; also used as the registry key).
@@ -84,7 +85,8 @@ class PuraIdle extends PuraElement {
     this._onActivity = this._onActivity.bind(this);
 
     // Non-visual: project children through untouched.
-    this.render(`<slot></slot>`, CSS);
+    const { html, css } = idleTemplate(this);
+    this.render(html, css);
 
     this._bind();
     this._reflect();
@@ -329,11 +331,6 @@ class PuraIdle extends PuraElement {
   }
 }
 
-const CSS = `
-  /* Invisible wrapper: the host disappears from layout, children flow as if it
-     were not present. No color/box affordances by design. */
-  :host { display: contents; }
-`;
 
 define("pura-idle", PuraIdle, meta);
 

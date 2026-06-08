@@ -10,6 +10,7 @@
 // No slots; purely attribute-driven. Theming via var(--pura-*) tokens.
 import { PuraElement, define } from "../base.js";
 import meta from "./image.meta.js";
+import { imageTemplate } from "./image.template.js";
 
 class PuraImage extends PuraElement {
   static get observedAttributes() {
@@ -17,10 +18,8 @@ class PuraImage extends PuraElement {
   }
 
   connectedCallback() {
-    this.render(
-      `<div part="frame" class="frame"><img part="image" loading="lazy" decoding="async" alt=""></div>`,
-      CSS
-    );
+    const { html, css } = imageTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -52,41 +51,6 @@ function len(v) {
   return /^-?\d*\.?\d+$/.test(v.trim()) ? `${v.trim()}px` : v;
 }
 
-const CSS = `
-  :host {
-    display: inline-block;
-    width: var(--_w, auto);
-    height: var(--_h, auto);
-    vertical-align: middle;
-  }
-  .frame {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: var(--_ratio, auto);
-    overflow: hidden;
-    background: var(--pura-subtle);
-    border-radius: var(--pura-radius);
-  }
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    color: var(--pura-muted);
-    font-size: var(--pura-text-sm);
-  }
-
-  /* ---- object-fit ---- */
-  :host([fit="contain"]) img { object-fit: contain; }
-  :host([fit="fill"]) img { object-fit: fill; }
-
-  /* ---- radius ---- */
-  :host([radius="sm"]) .frame { border-radius: var(--pura-radius-sm); }
-  :host([radius="md"]) .frame { border-radius: var(--pura-radius); }
-  :host([radius="lg"]) .frame { border-radius: var(--pura-radius-lg); }
-  :host([radius="full"]) .frame { border-radius: var(--pura-radius-full); }
-`;
 
 define("pura-image", PuraImage, meta);
 export { PuraImage };

@@ -9,6 +9,7 @@
 //   author    — citation markup when richer than the `cite` attribute.
 import { PuraElement, define } from "../base.js";
 import meta from "./blockquote.meta.js";
+import { blockquoteTemplate } from "./blockquote.template.js";
 
 const ACCENTS = {
   default: "var(--pura-border-strong)",
@@ -26,13 +27,8 @@ class PuraBlockquote extends PuraElement {
   }
 
   connectedCallback() {
-    this.render(
-      `<blockquote part="quote">
-         <slot></slot>
-         <cite part="cite"><span class="cite-text"></span><slot name="author"></slot></cite>
-       </blockquote>`,
-      CSS
-    );
+    const { html, css } = blockquoteTemplate(this);
+    this.render(html, css);
     this._sync();
     // re-evaluate cite visibility when the author slot changes
     this.$('slot[name="author"]').addEventListener("slotchange", () => this._sync());
@@ -58,27 +54,6 @@ class PuraBlockquote extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; --_accent: var(--pura-border-strong); }
-  [part="quote"] {
-    margin: 0;
-    padding: var(--pura-space-1) 0 var(--pura-space-1) var(--pura-space-4);
-    border-left: 3px solid var(--_accent);
-    color: var(--pura-muted-fg);
-    font-style: italic;
-    font-size: var(--pura-text-base);
-    line-height: 1.7;
-  }
-  [part="cite"] {
-    display: block;
-    margin-top: var(--pura-space-2);
-    color: var(--pura-muted);
-    font-style: normal;
-    font-size: var(--pura-text-sm);
-    font-weight: 500;
-  }
-  [part="cite"]::before { content: "— "; }
-`;
 
 define("pura-blockquote", PuraBlockquote, meta);
 export { PuraBlockquote };

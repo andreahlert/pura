@@ -11,6 +11,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./infinite-scroll.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { infiniteScrollTemplate } from "./infinite-scroll.template.js";
 
 registerMessages({
   "infinite-scroll.loading": {
@@ -33,18 +34,8 @@ class PuraInfiniteScroll extends PuraElement {
   static observedAttributes = ["threshold", "disabled", "loading", "done", "height", "window"];
 
   connectedCallback() {
-    this.render(
-      `<div part="content" class="content">
-         <slot></slot>
-         <div part="sentinel" class="sentinel" aria-hidden="true"></div>
-         <div part="loader" class="loader">
-           <span class="spin" aria-hidden="true"></span>
-           <span class="loadlabel"></span>
-           <span class="donelabel"></span>
-         </div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = infiniteScrollTemplate(this);
+    this.render(html, css);
     this._content = this.$(".content");
     this._sentinel = this.$(".sentinel");
     this._loadLabel = this.$(".loadlabel");
@@ -116,32 +107,6 @@ class PuraInfiniteScroll extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-
-  .content {
-    color: var(--pura-fg);
-    scrollbar-width: thin;
-    scrollbar-color: var(--pura-border-strong) transparent;
-  }
-
-  .sentinel { width: 100%; height: 1px; }
-
-  .loader {
-    display: none;
-    align-items: center; justify-content: center; gap: var(--pura-space-2);
-    padding: var(--pura-space-4);
-    color: var(--pura-muted-fg);
-    font-size: var(--pura-text-sm);
-  }
-  .spin {
-    display: none; width: 1rem; height: 1rem;
-    border: 2px solid color-mix(in srgb, var(--pura-fg) 18%, transparent);
-    border-top-color: var(--pura-fg); border-radius: 50%;
-    animation: pura-spin 0.65s linear infinite;
-  }
-  @keyframes pura-spin { to { transform: rotate(360deg); } }
-`;
 
 define("pura-infinite-scroll", PuraInfiniteScroll, meta);
 export { PuraInfiniteScroll };

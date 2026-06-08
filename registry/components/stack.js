@@ -8,6 +8,7 @@
 // Renders <div part="stack"><slot></slot></div>.
 import { PuraElement, define } from "../base.js";
 import meta from "./stack.meta.js";
+import { stackTemplate } from "./stack.template.js";
 
 const ALIGN = { start: "flex-start", center: "center", end: "flex-end", stretch: "stretch" };
 const JUSTIFY = {
@@ -21,7 +22,8 @@ class PuraStack extends PuraElement {
   }
 
   connectedCallback() {
-    this.render(`<div part="stack"><slot></slot></div>`, CSS);
+    const { html, css } = stackTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -39,26 +41,6 @@ class PuraStack extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-  [part="stack"] {
-    display: flex;
-    flex-direction: column;
-    align-items: var(--_align, stretch);
-    justify-content: var(--_justify, flex-start);
-    gap: var(--_gap, var(--pura-space-4));
-  }
-  /* divide: drop the flex gap and let each child reserve the spacing as padding,
-     so the 1px rule sits centered in the whitespace between siblings. */
-  :host([divide]) [part="stack"] { gap: 0; }
-  :host([divide]) ::slotted(:not(:last-child)) {
-    border-bottom: 1px solid var(--pura-border);
-    padding-bottom: var(--_gap, var(--pura-space-4));
-  }
-  :host([divide]) ::slotted(:not(:first-child)) {
-    padding-top: var(--_gap, var(--pura-space-4));
-  }
-`;
 
 define("pura-stack", PuraStack, meta);
 export { PuraStack };

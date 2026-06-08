@@ -19,6 +19,7 @@
 //   data-pura-id so an agent can enumerate / read every chart on the page.
 import { PuraElement, define } from "../base.js";
 import meta from "./sparkline.meta.js";
+import { sparklineTemplate } from "./sparkline.template.js";
 
 let uid = 0;
 
@@ -44,14 +45,8 @@ class PuraSparkline extends PuraElement {
     this.dataset.puraId = this._id;
     registry().set(this._id, this);
 
-    this.render(
-      `<svg class="chart" part="chart" role="img" preserveAspectRatio="none">
-         <polygon class="area" part="area" points=""></polygon>
-         <polyline class="line" part="line" points=""></polyline>
-         <circle class="dot" part="dot" r="0" cx="0" cy="0"></circle>
-       </svg>`,
-      CSS
-    );
+    const { html, css } = sparklineTemplate(this);
+    this.render(html, css);
 
     this._svg = this.$(".chart");
     this._area = this.$(".area");
@@ -175,36 +170,6 @@ function round(n) {
   return Math.round(n * 100) / 100;
 }
 
-const CSS = `
-  :host { display: inline-block; line-height: 0; }
-
-  .chart {
-    display: block;
-    overflow: visible;
-    color: var(--spark-color, var(--pura-fg));
-  }
-
-  .line {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .area {
-    fill: currentColor;
-    opacity: 0.14;
-    stroke: none;
-  }
-
-  .dot {
-    fill: currentColor;
-    stroke: var(--pura-bg);
-    stroke-width: 1;
-  }
-`;
 
 define("pura-sparkline", PuraSparkline, meta);
 export { PuraSparkline };

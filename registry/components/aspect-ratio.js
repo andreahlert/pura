@@ -4,15 +4,14 @@
 // width & height with object-fit cover; overflow is clipped.
 import { PuraElement, define } from "../base.js";
 import meta from "./aspect-ratio.meta.js";
+import { aspectRatioTemplate } from "./aspect-ratio.template.js";
 
 class PuraAspectRatio extends PuraElement {
   static observedAttributes = ["ratio", "rounded"];
 
   connectedCallback() {
-    this.render(
-      `<div part="wrapper"><slot></slot></div>`,
-      CSS
-    );
+    const { html, css } = aspectRatioTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -40,34 +39,6 @@ class PuraAspectRatio extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-
-  [part="wrapper"] {
-    position: relative;
-    width: 100%;
-    aspect-ratio: var(--pura-ar, 1 / 1);
-    overflow: hidden;
-    border-radius: 0;
-  }
-  :host([rounded]) [part="wrapper"] { border-radius: var(--pura-radius); }
-
-  /* Slotted content fills the box. Media is cropped to cover. */
-  ::slotted(*) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  ::slotted(img),
-  ::slotted(video),
-  ::slotted(picture),
-  ::slotted(canvas),
-  ::slotted(iframe),
-  ::slotted(svg) {
-    object-fit: cover;
-    border: 0;
-  }
-`;
 
 define("pura-aspect-ratio", PuraAspectRatio, meta);
 export { PuraAspectRatio };

@@ -3,15 +3,14 @@
 // activates) the associated control found by id in the surrounding document.
 import { PuraElement, define } from "../base.js";
 import meta from "./label.meta.js";
+import { labelTemplate } from "./label.template.js";
 
 class PuraLabel extends PuraElement {
   static observedAttributes = ["for"];
 
   connectedCallback() {
-    this.render(
-      `<label part="label"><slot></slot></label>`,
-      CSS
-    );
+    const { html, css } = labelTemplate(this);
+    this.render(html, css);
     this._label = this.$("label");
     this._onClick = (e) => this._activate(e);
     this._label.addEventListener("click", this._onClick);
@@ -49,16 +48,6 @@ class PuraLabel extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline-block; }
-  label {
-    display: inline-flex; align-items: center; gap: var(--pura-space-2);
-    font: inherit; font-size: var(--pura-text-sm); font-weight: 550;
-    line-height: 1; color: var(--pura-fg);
-    cursor: default; user-select: none;
-  }
-  :host([for]) label { cursor: pointer; }
-`;
 
 define("pura-label", PuraLabel, meta);
 export { PuraLabel };

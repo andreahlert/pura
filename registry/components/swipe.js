@@ -11,19 +11,14 @@
 //   Parts: content, action.
 import { PuraElement, define } from "../base.js";
 import meta from "./swipe.meta.js";
+import { swipeTemplate } from "./swipe.template.js";
 
 class PuraSwipe extends PuraElement {
   static observedAttributes = ["direction", "threshold"];
 
   connectedCallback() {
-    this.render(
-      `<div class="track">
-         <div part="action" class="action left"><slot name="left-action"></slot></div>
-         <div part="action" class="action right"><slot name="right-action"></slot></div>
-         <div part="content" class="content"><slot></slot></div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = swipeTemplate(this);
+    this.render(html, css);
     this._content = this.$(".content");
     this._track = this.$(".track");
 
@@ -130,25 +125,6 @@ class PuraSwipe extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; overflow: hidden; }
-
-  .track { position: relative; }
-
-  .content {
-    position: relative; z-index: 1;
-    background: var(--pura-bg); color: var(--pura-fg);
-    transition: transform var(--pura-dur) var(--pura-ease);
-  }
-
-  .action {
-    position: absolute; top: 0; bottom: 0;
-    display: flex; align-items: center;
-    z-index: 0;
-  }
-  .action.left { left: 0; justify-content: flex-start; }
-  .action.right { right: 0; justify-content: flex-end; }
-`;
 
 define("pura-swipe", PuraSwipe, meta);
 export { PuraSwipe };

@@ -10,17 +10,15 @@
 // Part: content
 import { PuraElement, define } from "../base.js";
 import meta from "./affix.meta.js";
+import { affixTemplate } from "./affix.template.js";
 
 class PuraAffix extends PuraElement {
   static observedAttributes = ["offset-top", "offset-bottom"];
 
   connectedCallback() {
     this._affixed = false;
-    this.render(
-      `<div class="sentinel" aria-hidden="true"></div>
-       <div class="placeholder"><div part="content" class="content"><slot></slot></div></div>`,
-      CSS
-    );
+    const { html, css } = affixTemplate(this);
+    this.render(html, css);
     this._sentinel = this.$(".sentinel");
     this._placeholder = this.$(".placeholder");
     this._content = this.$(".content");
@@ -124,12 +122,6 @@ function numOrNull(v) {
   return Number.isFinite(n) ? n : null;
 }
 
-const CSS = `
-  :host { display: block; }
-  .sentinel { width: 100%; height: 1px; margin-bottom: -1px; }
-  .placeholder { display: block; }
-  [part="content"] { z-index: 10; }
-`;
 
 define("pura-affix", PuraAffix, meta);
 export { PuraAffix };

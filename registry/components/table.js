@@ -9,6 +9,7 @@
 // are --pura-* tokens, which inherit through the light DOM normally.
 import { PuraElement, define } from "../base.js";
 import meta from "./table.meta.js";
+import { tableTemplate } from "./table.template.js";
 
 let uid = 0;
 
@@ -19,10 +20,8 @@ class PuraTable extends PuraElement {
     this._id = `pura-table-${++uid}`;
     this.setAttribute("data-pura-table", this._id);
 
-    this.render(
-      `<div part="container" class="container"><slot></slot></div>`,
-      SHADOW_CSS
-    );
+    const { html, css } = tableTemplate(this);
+    this.render(html, css);
 
     // Light-DOM style element, scoped to this instance.
     this._style = document.createElement("style");
@@ -45,27 +44,6 @@ class PuraTable extends PuraElement {
 }
 
 // Styles applied to the host wrapper + the directly slotted <table>.
-const SHADOW_CSS = `
-  :host { display: block; }
-
-  .container {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius);
-    background: var(--pura-bg);
-  }
-
-  ::slotted(table) {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--pura-text-sm);
-    color: var(--pura-fg);
-    caption-side: bottom;
-  }
-
-  ::slotted(style) { display: none; }
-`;
 
 // Styles applied to the slotted table's descendants, scoped to one instance.
 function lightCSS(id, striped) {

@@ -52,6 +52,16 @@ export class PuraElement extends HTMLElementBase {
   }
 }
 
+// Default arg for pure templates: a no-attribute element stand-in. Client code
+// calls nameTemplate(this) (el === the real element, byte-identical output);
+// server/SSR calls nameTemplate() so attribute-dependent markup degrades to its
+// no-attribute form. Provides exactly the read surface templates may touch.
+export const EMPTY_SHIM = {
+  getAttribute: () => null,
+  hasAttribute: () => false,
+  bool: () => false,
+};
+
 export function renderDSD(tag, { html, css }, attrs = {}) {
   const attrStr = Object.entries(attrs).map(([k, v]) => ` ${k}="${v}"`).join("");
   return `<${tag}${attrStr}><template shadowrootmode="open"><style>${RESET}${css}</style>${html}</template></${tag}>`;

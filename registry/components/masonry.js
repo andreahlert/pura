@@ -25,6 +25,7 @@
 //     omits it, since the count depends on the rendered width).
 import { PuraElement, define } from "../base.js";
 import meta from "./masonry.meta.js";
+import { masonryTemplate } from "./masonry.template.js";
 
 let uid = 0;
 
@@ -55,10 +56,8 @@ class PuraMasonry extends PuraElement {
 
     // role="none" on the wrapper drops the intervening generic from the a11y
     // tree, so the host's list role associates directly with the listitems.
-    this.render(
-      `<div part="masonry" class="masonry" role="none"><slot></slot></div>`,
-      CSS
-    );
+    const { html, css } = masonryTemplate(this);
+    this.render(html, css);
 
     this._col = this.$(".masonry");
     this._applyLayout();
@@ -152,29 +151,6 @@ class PuraMasonry extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-
-  .masonry {
-    /* Native CSS multi-column flow. column-width (responsive) OR column-count
-       (fixed, set via --pura-masonry-count) decides the layout. */
-    column-width: var(--pura-masonry-min, 16rem);
-    column-count: var(--pura-masonry-count, auto);
-    column-gap: var(--pura-masonry-gap, var(--pura-space-4));
-  }
-
-  /* Each slotted item is a column item: keep it whole, and add vertical rhythm
-     equal to the gap so rows breathe like the columns do. inline-block + width
-     100% makes break-inside reliable across engines. */
-  ::slotted(*) {
-    display: inline-block;
-    width: 100%;
-    margin: 0 0 var(--pura-masonry-gap, var(--pura-space-4));
-    break-inside: avoid;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-  }
-`;
 
 define("pura-masonry", PuraMasonry, meta);
 export { PuraMasonry };

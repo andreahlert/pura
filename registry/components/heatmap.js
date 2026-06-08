@@ -10,6 +10,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./heatmap.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { heatmapTemplate } from "./heatmap.template.js";
 
 registerMessages({
   "heatmap.less": { en: "Less", "pt-BR": "Menos", fr: "Moins", de: "Weniger", it: "Meno" },
@@ -40,11 +41,8 @@ class PuraHeatmap extends PuraElement {
 
   connectedCallback() {
     this._data = this._data ?? this._parseAttr();
-    this.render(
-      `<div class="root" part="grid"></div>
-       <div class="legend" part="legend" aria-hidden="true"></div>`,
-      CSS
-    );
+    const { html, css } = heatmapTemplate(this);
+    this.render(html, css);
     this._root = this.$(".root");
     this._legend = this.$(".legend");
     this._root.addEventListener("click", (e) => this._onClick(e));
@@ -201,32 +199,6 @@ class PuraHeatmap extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline-block; color: var(--pura-fg); }
-
-  .root { display: block; overflow-x: auto; }
-  .svg { display: block; max-width: 100%; height: auto; }
-
-  .cell {
-    stroke: var(--pura-border);
-    stroke-width: 0.5;
-    cursor: pointer;
-    transition: stroke var(--pura-dur) var(--pura-ease);
-  }
-  .cell:hover { stroke: var(--pura-border-strong); }
-
-  .legend {
-    display: flex; align-items: center; gap: var(--pura-space-1);
-    margin-top: var(--pura-space-2);
-    font-size: var(--pura-text-xs); color: var(--pura-muted-fg);
-  }
-  .legend .sw {
-    display: inline-block; width: 12px; height: 12px;
-    border-radius: 2.5px; border: 1px solid var(--pura-border);
-  }
-  .lg-less { margin-right: var(--pura-space-1); }
-  .lg-more { margin-left: var(--pura-space-1); }
-`;
 
 define("pura-heatmap", PuraHeatmap, meta);
 export { PuraHeatmap };

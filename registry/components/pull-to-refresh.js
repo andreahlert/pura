@@ -10,6 +10,7 @@
 import { PuraElement, define } from "../base.js";
 import meta from "./pull-to-refresh.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";
+import { pullToRefreshTemplate } from "./pull-to-refresh.template.js";
 
 registerMessages({
   "pull-to-refresh.pull": {
@@ -42,15 +43,8 @@ class PuraPullToRefresh extends PuraElement {
   static observedAttributes = ["height", "refreshing"];
 
   connectedCallback() {
-    this.render(
-      `<div part="indicator" class="indicator">
-         <span class="arrow" aria-hidden="true"></span>
-         <span class="spin" aria-hidden="true"></span>
-         <span class="label"></span>
-       </div>
-       <div part="content" class="content"><slot></slot></div>`,
-      CSS
-    );
+    const { html, css } = pullToRefreshTemplate(this);
+    this.render(html, css);
     this._indicator = this.$(".indicator");
     this._content = this.$(".content");
     this._label = this.$(".label");
@@ -149,47 +143,6 @@ class PuraPullToRefresh extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; overflow: hidden; }
-
-  .indicator {
-    display: flex; align-items: center; justify-content: center;
-    gap: var(--pura-space-2);
-    height: 0; overflow: hidden;
-    color: var(--pura-muted-fg);
-    font-size: var(--pura-text-sm);
-    transition: height var(--pura-dur) var(--pura-ease);
-  }
-
-  .arrow {
-    width: 0.85rem; height: 0.85rem;
-    border-left: 2px solid currentColor; border-bottom: 2px solid currentColor;
-    transform: rotate(-45deg);
-    transition: transform var(--pura-dur) var(--pura-ease);
-  }
-  .indicator[data-state="release"] .arrow { transform: rotate(135deg); }
-  .indicator[data-state="refreshing"] .arrow,
-  .indicator[data-state="pull"] .spin,
-  .indicator[data-state="release"] .spin { display: none; }
-  .indicator[data-state="refreshing"] .spin { display: inline-block; }
-
-  .spin {
-    display: none; width: 1rem; height: 1rem;
-    border: 2px solid color-mix(in srgb, var(--pura-fg) 18%, transparent);
-    border-top-color: var(--pura-fg); border-radius: 50%;
-    animation: pura-spin 0.65s linear infinite;
-  }
-  @keyframes pura-spin { to { transform: rotate(360deg); } }
-
-  .content {
-    color: var(--pura-fg);
-    transition: transform var(--pura-dur) var(--pura-ease);
-    touch-action: pan-y;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-    scrollbar-color: var(--pura-border-strong) transparent;
-  }
-`;
 
 define("pura-pull-to-refresh", PuraPullToRefresh, meta);
 export { PuraPullToRefresh };

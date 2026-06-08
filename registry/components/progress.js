@@ -2,17 +2,14 @@
 // an animated unknown-progress state.
 import { PuraElement, define } from "../base.js";
 import meta from "./progress.meta.js";
+import { progressTemplate } from "./progress.template.js";
 
 class PuraProgress extends PuraElement {
   static observedAttributes = ["value", "indeterminate"];
 
   connectedCallback() {
-    this.render(
-      `<div part="track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-         <div class="fill" part="fill"></div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = progressTemplate(this);
+    this.render(html, css);
     this._fill = this.$(".fill");
     this._track = this.$('[part="track"]');
     // role=progressbar needs an accessible name. The host can't carry the role
@@ -38,26 +35,6 @@ class PuraProgress extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-  [part="track"] {
-    width: 100%; height: 0.5rem; border-radius: var(--pura-radius-full);
-    background: var(--pura-subtle); overflow: hidden;
-  }
-  .fill {
-    height: 100%; width: 0%; border-radius: inherit;
-    background: var(--pura-primary);
-    transition: width var(--pura-dur) var(--pura-ease);
-  }
-  :host([indeterminate]) .fill {
-    width: 40% !important;
-    animation: pura-indet 1.1s var(--pura-ease) infinite;
-  }
-  @keyframes pura-indet {
-    0% { transform: translateX(-120%); }
-    100% { transform: translateX(280%); }
-  }
-`;
 
 define("pura-progress", PuraProgress, meta);
 export { PuraProgress };

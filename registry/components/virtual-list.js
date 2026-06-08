@@ -11,6 +11,7 @@
 //   Parts: viewport, item.
 import { PuraElement, define } from "../base.js";
 import meta from "./virtual-list.meta.js";
+import { virtualListTemplate } from "./virtual-list.template.js";
 
 const OVERSCAN = 4;
 
@@ -18,13 +19,8 @@ class PuraVirtualList extends PuraElement {
   static observedAttributes = ["item-height", "height"];
 
   connectedCallback() {
-    this.render(
-      `<div part="viewport" class="viewport">
-         <div class="spacer"></div>
-         <div class="window" part="window"></div>
-       </div>`,
-      CSS
-    );
+    const { html, css } = virtualListTemplate(this);
+    this.render(html, css);
     this._viewport = this.$(".viewport");
     this._spacer = this.$(".spacer");
     this._window = this.$(".window");
@@ -141,37 +137,6 @@ class PuraVirtualList extends PuraElement {
 
 const DEFAULT_RENDER = (item) => String(item);
 
-const CSS = `
-  :host { display: block; }
-
-  .viewport {
-    position: relative;
-    overflow: auto;
-    height: 18rem;
-    color: var(--pura-fg);
-    border-radius: var(--pura-radius);
-    scrollbar-width: thin;
-    scrollbar-color: var(--pura-border-strong) transparent;
-  }
-  .viewport::-webkit-scrollbar { width: 0.5rem; }
-  .viewport::-webkit-scrollbar-track { background: transparent; }
-  .viewport::-webkit-scrollbar-thumb {
-    background: var(--pura-border-strong);
-    border-radius: var(--pura-radius-full);
-    border: 2px solid transparent; background-clip: padding-box;
-  }
-
-  .spacer { width: 1px; }
-  .window {
-    position: absolute; top: 0; left: 0; right: 0;
-    will-change: transform;
-  }
-  .item {
-    box-sizing: border-box;
-    display: flex; align-items: center;
-    font-size: var(--pura-text-base);
-  }
-`;
 
 define("pura-virtual-list", PuraVirtualList, meta);
 export { PuraVirtualList };

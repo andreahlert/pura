@@ -14,6 +14,7 @@
 // numeric state, and a window.__puraTickers registry of all live instances.
 import { PuraElement, define } from "../base.js";
 import meta from "./ticker.meta.js";
+import { tickerTemplate } from "./ticker.template.js";
 
 let uid = 0;
 
@@ -34,14 +35,8 @@ class PuraTicker extends PuraElement {
     this._current = clampNum(this.getAttribute("value"));
     this._displayed = this._current;
 
-    this.render(
-      `<span part="ticker" role="status" aria-live="polite" aria-atomic="true">
-         <span part="prefix" class="prefix" aria-hidden="true"></span>
-         <span part="number" class="number"></span>
-         <span part="suffix" class="suffix" aria-hidden="true"></span>
-       </span>`,
-      CSS
-    );
+    const { html, css } = tickerTemplate(this);
+    this.render(html, css);
     this._root = this.$('[part="ticker"]');
     this._prefixEl = this.$(".prefix");
     this._numberEl = this.$(".number");
@@ -188,20 +183,6 @@ class PuraTicker extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline-block; }
-  [part="ticker"] {
-    display: inline-flex; align-items: baseline; gap: var(--pura-space-1);
-    font-family: var(--pura-font-mono);
-    font-size: var(--pura-text-xl); font-weight: 600; line-height: 1;
-    color: var(--pura-fg);
-    font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
-  }
-  .number { font-variant-numeric: tabular-nums; }
-  .prefix, .suffix {
-    font-size: 0.7em; font-weight: 550; color: var(--pura-muted);
-  }
-`;
 
 define("pura-ticker", PuraTicker, meta);
 export { PuraTicker };

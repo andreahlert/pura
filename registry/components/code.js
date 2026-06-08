@@ -4,6 +4,7 @@
 // Theming via var(--pura-*) tokens. part="code".
 import { PuraElement, define } from "../base.js";
 import meta from "./code.meta.js";
+import { codeTemplate } from "./code.template.js";
 
 class PuraCode extends PuraElement {
   static get observedAttributes() {
@@ -11,7 +12,8 @@ class PuraCode extends PuraElement {
   }
 
   connectedCallback() {
-    this.render(`<code part="code"><slot></slot></code>`, CSS);
+    const { html, css } = codeTemplate(this);
+    this.render(html, css);
   }
 
   // Re-render on live attribute edits (inspector / dynamic changes).
@@ -20,21 +22,6 @@ class PuraCode extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline; }
-  code {
-    font-family: var(--pura-font-mono);
-    font-size: 0.875em;
-    color: var(--pura-fg);
-  }
-  /* default subtle chip */
-  :host(:not([variant="plain"])) code {
-    background: var(--pura-subtle);
-    border: 1px solid var(--pura-border);
-    border-radius: var(--pura-radius-sm);
-    padding: 0.15em 0.4em;
-  }
-`;
 
 define("pura-code", PuraCode, meta);
 export { PuraCode };

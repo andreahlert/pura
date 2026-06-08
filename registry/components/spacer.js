@@ -6,6 +6,7 @@
 // Slots: none.
 import { PuraElement, define } from "../base.js";
 import meta from "./spacer.meta.js";
+import { spacerTemplate } from "./spacer.template.js";
 
 class PuraSpacer extends PuraElement {
   static observedAttributes = ["size"];
@@ -16,7 +17,8 @@ class PuraSpacer extends PuraElement {
 
   connectedCallback() {
     this._sync();
-    this.render(`<div part="spacer"></div>`, CSS);
+    const { html, css } = spacerTemplate(this);
+    this.render(html, css);
   }
 
   // Resolve `size` to the --_size custom prop on the host. Scale steps 1–6 map to
@@ -33,14 +35,6 @@ class PuraSpacer extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: block; }
-  /* No size: grow to fill (pushes flex siblings apart); inert in block flow. */
-  :host(:not([size])) { flex: 1 1 0%; }
-  /* Fixed size: main-axis basis covers flex row/column; height covers block flow. */
-  :host([size]) { flex: 0 0 var(--_size); height: var(--_size); }
-  [part="spacer"] { width: 100%; height: 100%; }
-`;
 
 define("pura-spacer", PuraSpacer, meta);
 export { PuraSpacer };

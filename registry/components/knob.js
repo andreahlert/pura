@@ -9,6 +9,7 @@
 //   on release.
 import { PuraElement, define } from "../base.js";
 import meta from "./knob.meta.js";
+import { knobTemplate } from "./knob.template.js";
 
 // Dial geometry in a 0..100 viewBox. A gap-at-bottom arc (PrimeReact style)
 // spanning 270 degrees, from 135 degrees to 405 degrees clockwise.
@@ -45,16 +46,8 @@ class PuraKnob extends PuraElement {
   static observedAttributes = ["value", "min", "max", "step", "size", "stroke-width", "readonly", "disabled", "value-template"];
 
   connectedCallback() {
-    this.render(
-      `<div class="knob" part="root">
-         <svg class="svg" part="svg" viewBox="0 0 100 100" role="slider" tabindex="0">
-           <path class="range" part="range" fill="none"></path>
-           <path class="value" part="value" fill="none"></path>
-           <text class="text" part="text" x="50" y="50" text-anchor="middle" dominant-baseline="central"></text>
-         </svg>
-       </div>`,
-      CSS
-    );
+    const { html, css } = knobTemplate(this);
+    this.render(html, css);
     this._svg = this.$(".svg");
     this._range = this.$(".range");
     this._valueArc = this.$(".value");
@@ -231,37 +224,6 @@ class PuraKnob extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline-block; --knob-size: 100px; --knob-stroke: 9; }
-  :host([disabled]) { opacity: 0.55; }
-  :host([disabled]) .svg, :host([readonly]) .svg { cursor: default; }
-
-  .knob { display: inline-flex; }
-  .svg {
-    display: block; width: var(--knob-size); height: var(--knob-size);
-    cursor: ns-resize; touch-action: none; outline: none;
-  }
-  .svg:focus-visible { outline: none; }
-  .svg:focus-visible .range { stroke: var(--pura-border-strong); }
-
-  .range {
-    stroke: var(--pura-subtle);
-    stroke-width: var(--knob-stroke);
-    stroke-linecap: round;
-  }
-  .value {
-    stroke: var(--pura-accent);
-    stroke-width: var(--knob-stroke);
-    stroke-linecap: round;
-    transition: d var(--pura-dur) var(--pura-ease);
-  }
-  .text {
-    fill: var(--pura-fg);
-    font-family: var(--pura-font);
-    font-size: 18px; font-weight: 650;
-    font-variant-numeric: tabular-nums;
-  }
-`;
 
 define("pura-knob", PuraKnob, meta);
 export { PuraKnob };

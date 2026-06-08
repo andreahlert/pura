@@ -3,6 +3,7 @@
 // Attributes: orientation (horizontal default | vertical).
 import { PuraElement, define } from "../base.js";
 import meta from "./button-group.meta.js";
+import { buttonGroupTemplate } from "./button-group.template.js";
 
 // pura-button exposes its rounded box as ::part(button). A part is only
 // reachable from the tree where the host physically lives — pura-button is a
@@ -36,10 +37,8 @@ class PuraButtonGroup extends PuraElement {
 
   connectedCallback() {
     injectDocumentSheet();
-    this.render(
-      `<div part="group" role="group"><slot></slot></div>`,
-      CSS
-    );
+    const { html, css } = buttonGroupTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -54,36 +53,6 @@ class PuraButtonGroup extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: inline-flex; vertical-align: middle; }
-
-  [part="group"] {
-    display: inline-flex;
-    flex-direction: row;
-    isolation: isolate;
-  }
-  :host([orientation="vertical"]) [part="group"] {
-    flex-direction: column;
-  }
-
-  ::slotted(pura-button) { position: relative; }
-
-  /* HORIZONTAL: pull each button onto its neighbor so borders overlap (1px). */
-  :host(:not([orientation="vertical"])) ::slotted(pura-button:not(:first-child)) {
-    margin-left: -1px;
-  }
-  /* VERTICAL: collapse the seam top-to-bottom. */
-  :host([orientation="vertical"]) ::slotted(pura-button:not(:first-child)) {
-    margin-top: -1px;
-  }
-
-  /* Lift the hovered/focused button so its full border wins over the neighbor.
-     The radius corners themselves are reset from document scope (see above). */
-  ::slotted(pura-button:hover),
-  ::slotted(pura-button:focus-within) {
-    z-index: 1;
-  }
-`;
 
 define("pura-button-group", PuraButtonGroup, meta);
 export { PuraButtonGroup };

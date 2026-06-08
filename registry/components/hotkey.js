@@ -49,6 +49,7 @@
 // every shortcut on the page without touching any shadow DOM.
 import { PuraElement, define } from "../base.js";
 import meta from "./hotkey.meta.js";
+import { hotkeyTemplate } from "./hotkey.template.js";
 
 // Module-level counter for stable, unique ids per instance (mirrors the
 // anchor-name minting convention used by pura's floating components).
@@ -125,7 +126,8 @@ class PuraHotkey extends PuraElement {
 
     // Non-visual: project any children through, expose nothing visible. The
     // semantic + machine-readable layer lives on the host in the light DOM.
-    this.render(`<slot></slot>`, CSS);
+    const { html, css } = hotkeyTemplate(this);
+    this.render(html, css);
 
     // role=application keeps the (invisible) host in the a11y tree as an
     // interactive shortcut owner without claiming any visible widget role.
@@ -364,11 +366,6 @@ class PuraHotkey extends PuraElement {
   }
 }
 
-const CSS = `
-  /* Invisible declarative binder: the host disappears from layout, any children
-     flow as if it were not present. No color/box affordances by design. */
-  :host { display: contents; }
-`;
 
 define("pura-hotkey", PuraHotkey, meta);
 

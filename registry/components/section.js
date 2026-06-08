@@ -9,6 +9,7 @@
 // Slots: default — section content.
 import { PuraElement, define } from "../base.js";
 import meta from "./section.meta.js";
+import { sectionTemplate } from "./section.template.js";
 
 class PuraSection extends PuraElement {
   static get observedAttributes() {
@@ -16,10 +17,8 @@ class PuraSection extends PuraElement {
   }
 
   connectedCallback() {
-    this.render(
-      `<section part="section"><div class="inner"><slot></slot></div></section>`,
-      CSS
-    );
+    const { html, css } = sectionTemplate(this);
+    this.render(html, css);
     this._sync();
   }
 
@@ -45,24 +44,6 @@ class PuraSection extends PuraElement {
   }
 }
 
-const CSS = `
-  :host {
-    display: block;
-    --_py: var(--pura-space-6);
-    --_bg: transparent;
-  }
-  [part="section"] {
-    padding: var(--_py) var(--pura-space-4);
-    background: var(--_bg);
-    color: var(--pura-fg);
-  }
-  .inner { width: 100%; }
-  /* container: center content at a comfortable reading max-width */
-  :host([container]) .inner {
-    max-width: 65rem;
-    margin-inline: auto;
-  }
-`;
 
 define("pura-section", PuraSection, meta);
 export { PuraSection };

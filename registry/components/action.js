@@ -18,6 +18,7 @@
 //     actionId, intent, params, element, invoke() }>
 import { PuraElement, define } from "../base.js";
 import meta from "./action.meta.js";
+import { actionTemplate } from "./action.template.js";
 
 // Lazily create (never assume it exists) the global registry.
 function registry() {
@@ -31,7 +32,8 @@ class PuraAction extends PuraElement {
   connectedCallback() {
     // The shadow is a transparent passthrough: the wrapped control stays in
     // light DOM (where agents crawling the page / a11y tree can see it).
-    this.render(`<slot></slot>`, CSS);
+    const { html, css } = actionTemplate(this);
+    this.render(html, css);
     this._slot = this.$("slot");
     this._control = null;
     this._registeredId = null;
@@ -168,9 +170,6 @@ class PuraAction extends PuraElement {
   }
 }
 
-const CSS = `
-  :host { display: contents; }
-`;
 
 define("pura-action", PuraAction, meta);
 export { PuraAction };
