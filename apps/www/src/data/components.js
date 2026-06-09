@@ -7745,6 +7745,42 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "scroll-reveal",
+  "title": "Scroll Reveal",
+  "category": "Utility",
+  "blurb": "Scrubs a reveal to the element's progress through the viewport using the native scroll-driven CSS timeline (animation-timeline: view()), no IntersectionObserver and no per-frame JS.",
+  "description": "`<pura-scroll-reveal>` reveals slotted content as it scrolls through the viewport, driven entirely by the native CSS scroll-driven-animation timeline (`animation-timeline: view()`). Where `<pura-reveal>` uses an IntersectionObserver to flip a binary hidden/visible state, this *scrubs* the entrance to the element's progress through the viewport, so scrolling halfway plays the animation halfway, and scrolling back reverses it, with no observer and no per-frame JavaScript. The whole effect is pure CSS, so it survives SSR untouched. Choose an `animation` (fade, slide-*, zoom, blur), a slide `distance`, and a `range` preset (`enter`, `cover`, `early`) or a raw CSS `animation-range`. When the engine lacks scroll timelines or the user prefers reduced motion, the content is simply visible from first paint. Each instance registers in `window.__puraScrollReveals` by `data-pura-id` and mirrors its resolved config in `data-pura-reveal-*` (animation, range, native).",
+  "attributes": [
+    {
+      "name": "animation",
+      "type": "\"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"blur\"",
+      "default": "fade",
+      "desc": "Entrance style scrubbed across the scroll range. Invalid values fall back to fade."
+    },
+    {
+      "name": "distance",
+      "type": "number",
+      "default": "28",
+      "desc": "Pixels the slide variants travel from their offset start to rest."
+    },
+    {
+      "name": "range",
+      "type": "\"enter\" | \"cover\" | \"early\" | string",
+      "default": "enter",
+      "desc": "Preset scroll window the reveal scrubs over, or any raw CSS animation-range value (e.g. \"entry 0% exit 0%\")."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"height: 140px; display: grid; place-items: center; color: var(--pura-muted, #888); font: 14px system-ui;\">\n  Scroll the page, each block scrubs in with its scroll position\n</div>\n\n<pura-scroll-reveal animation=\"slide-up\">\n  <article style=\"padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n    <h3 style=\"margin-top: 0;\">Slide up</h3>\n    <p>This block is tied to the native scroll timeline, the reveal scrubs as it crosses the viewport.</p>\n  </article>\n</pura-scroll-reveal>\n\n<pura-scroll-reveal animation=\"blur\" range=\"cover\">\n  <article style=\"margin-top: var(--pura-space-4, 1rem); padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n    <h3 style=\"margin-top: 0;\">Blur across the crossing</h3>\n    <p>With <code>range=\"cover\"</code> the de-blur scrubs across the whole time the block is on screen.</p>\n  </article>\n</pura-scroll-reveal>",
+  "usage": "<pura-scroll-reveal animation=\"slide-up\">\n  <article>\n    <h3>Slide up</h3>\n    <p>Scrubs in with the native scroll timeline, no IntersectionObserver.</p>\n  </article>\n</pura-scroll-reveal>\n\n<pura-scroll-reveal animation=\"blur\" range=\"cover\" distance=\"40\">\n  <article>\n    <h3>Blur across the crossing</h3>\n    <p>Any raw CSS animation-range also works, e.g. range=\"entry 0% exit 0%\".</p>\n  </article>\n</pura-scroll-reveal>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "scroll-spy",
   "title": "Scroll Spy",
   "category": "Navigation",
