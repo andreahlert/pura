@@ -3791,6 +3791,30 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "grid-pattern",
+  "title": "Grid Pattern",
+  "category": "Display",
+  "blurb": "A tiled grid backdrop with a glowing patch that sweeps across it. Pure CSS @keyframes on a moving mask, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-grid-pattern>` lays a tiled grid behind its slotted content and sweeps a glowing patch across it, in the style of Magic UI's (Animated) Grid Pattern. A dim base grid is always visible; a brighter copy is revealed through a moving radial mask, so the motion is one pure CSS `@keyframes` with no animation runtime. Add the `dots` attribute for a dot grid, and theme with `--pura-grid-line`, `--pura-grid-glow`, `--pura-grid-cell`, `--pura-grid-spot` (glow size), and `--pura-grid-duration`. Under reduced motion the glow rests in one spot via the base reset. It registers in `window.__puraGridPatterns` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "dots",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Render dots instead of crossed grid lines."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-grid-pattern style=\"border-radius: 12px; background: #07080f; --pura-grid-glow: #6366f1;\">\n  <div style=\"padding: 3.5rem 1.5rem; text-align: center; font: 700 22px system-ui; color: #fff; letter-spacing: -.02em;\">\n    Grid Pattern\n    <div style=\"font-weight: 400; font-size: 13px; color: rgba(255,255,255,.7); margin-top: .4rem;\">A glow drifts across the grid, pure CSS.</div>\n  </div>\n</pura-grid-pattern>",
+  "usage": "<pura-grid-pattern>\n  <section class=\"hero\">Content over a grid</section>\n</pura-grid-pattern>\n\n<!-- Dot grid, custom glow -->\n<pura-grid-pattern dots style=\"--pura-grid-glow: #22c55e;\">\n  <div>...</div>\n</pura-grid-pattern>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "grid",
   "title": "Grid",
   "category": "Primitives",
@@ -5271,6 +5295,23 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "magic-card",
+  "title": "Magic Card",
+  "category": "Display",
+  "blurb": "A card whose gradient border and soft spotlight follow the pointer. SSR-safe resting paint, progressive enhancement, no animation runtime.",
+  "description": "`<pura-magic-card>` lights its gradient border and casts a soft radial spotlight that follows the pointer across the card, in the style of Magic UI's Magic Card. The resting paint (centred and dimmed) is rendered by the pure template, so it is SSR-safe; on the client the element updates `--pura-magic-x` and `--pura-magic-y` on pointer move to steer the glow. Theme it with `--pura-magic-card-bg`, `--pura-magic-card-border`, `--pura-magic-card-glow`, and `--pura-magic-card-size`. Because the glow is pointer-driven rather than a keyframe, it simply rests when the pointer leaves. It registers in `window.__puraMagicCards` by `data-pura-id` for agent enumeration.",
+  "attributes": [],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-magic-card style=\"max-width: 340px; --pura-magic-card-bg: #0b0b12; --pura-magic-card-border: #8b5cf6;\">\n  <div style=\"padding: 2rem 1.5rem; font: 15px system-ui; color: #fff;\">\n    <b style=\"display:block; margin-bottom:.35rem; font-size: 17px;\">Magic Card</b>\n    <span style=\"color: rgba(255,255,255,.65);\">Move your pointer across the card. The border and spotlight track the cursor.</span>\n  </div>\n</pura-magic-card>",
+  "usage": "<pura-magic-card>\n  <div class=\"card-body\">Hover me</div>\n</pura-magic-card>\n\n<!-- Custom palette -->\n<pura-magic-card style=\"--pura-magic-card-bg: #0b0b12; --pura-magic-card-border: #06b6d4; --pura-magic-card-glow: rgba(6,182,212,.22);\">\n  <div class=\"card-body\">Cyan magic</div>\n</pura-magic-card>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "map",
   "title": "Map",
   "category": "Display",
@@ -6042,6 +6083,42 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "orbiting-circles",
+  "title": "Orbiting Circles",
+  "category": "Display",
+  "blurb": "Satellites ride a circular orbit around centred content. Pure CSS @keyframes with staggered delays, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-orbiting-circles>` sends satellites around a circular orbit encircling its slotted centre content, in the style of Magic UI's Orbiting Circles. The motion is pure CSS: one `@keyframes` rotates each satellite's arm, and a negative `animation-delay` spreads them evenly around the ring so the orbit is filled from the first frame, with no animation runtime. Set `count`, `duration`, and `reverse`, and theme with `--pura-orbit-size`, `--pura-orbit-radius`, `--pura-orbit-dot`, `--pura-orbit-color`, and `--pura-orbit-glow`. Under reduced motion the satellites come to rest via the base reset. It registers in `window.__puraOrbitingCircles` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "5",
+      "desc": "Number of orbiting satellites (max 24)."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "20",
+      "desc": "Seconds for one full orbit."
+    },
+    {
+      "name": "reverse",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Orbit counter-clockwise."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-orbiting-circles count=\"6\" duration=\"16\" style=\"--pura-orbit-size: 220px; --pura-orbit-radius: 88px; --pura-orbit-color: #8b5cf6;\">\n  <div style=\"font: 700 16px system-ui; text-align: center; color: var(--pura-fg, #18181b);\">Orbit</div>\n</pura-orbiting-circles>",
+  "usage": "<pura-orbiting-circles count=\"6\" duration=\"16\">\n  <img src=\"/logo.svg\" alt=\"\" width=\"48\" height=\"48\">\n</pura-orbiting-circles>\n\n<!-- Reverse, custom radius -->\n<pura-orbiting-circles count=\"4\" reverse style=\"--pura-orbit-radius: 110px;\">\n  <span>Core</span>\n</pura-orbiting-circles>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "organization-chart",
   "title": "Organization Chart",
   "category": "Display",
@@ -6251,6 +6328,30 @@ export const components = [
   ],
   "demoHTML": "",
   "usage": "",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "particles",
+  "title": "Particles",
+  "category": "Display",
+  "blurb": "A field of dots that drift and twinkle behind content. Deterministic pure CSS @keyframes, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-particles>` floats a field of small dots that drift and twinkle behind its slotted content, in the style of Magic UI's Particles. The motion is pure CSS: each dot rides a deterministic `@keyframes` (fixed position and timing per index, so server and client paint byte-identically), with no animation runtime. Set the density with `count`, and theme with `--pura-particle-color` and `--pura-particle-opacity`. Under reduced motion the field comes to rest via the base reset. It registers in `window.__puraParticles` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "60",
+      "desc": "Number of particles (max 200)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-particles count=\"80\" style=\"border-radius: 12px; background: #06070d; --pura-particle-color: #c4b5fd;\">\n  <div style=\"padding: 3.5rem 1.5rem; text-align: center; font: 700 22px system-ui; color: #fff; letter-spacing: -.02em;\">\n    Particles\n    <div style=\"font-weight: 400; font-size: 13px; color: rgba(255,255,255,.7); margin-top: .4rem;\">Ambient drifting field, pure CSS.</div>\n  </div>\n</pura-particles>",
+  "usage": "<pura-particles count=\"80\">\n  <section class=\"hero\">Content over a particle field</section>\n</pura-particles>\n\n<!-- Sparser, custom color -->\n<pura-particles count=\"40\" style=\"--pura-particle-color: #38bdf8;\">\n  <div>...</div>\n</pura-particles>",
   "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
@@ -7946,6 +8047,36 @@ export const components = [
   "demoHTML": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>",
   "usage": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "shine-border",
+  "title": "Shine Border",
+  "category": "Display",
+  "blurb": "A conic sheen rotates around the rounded border of any container. Pure CSS via @property angle + mask-composite, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-shine-border>` rotates a conic sheen around the rounded border of any container, in the style of Magic UI's Shine Border. The motion is pure CSS: a `::before` ring painted with a `conic-gradient`, clipped to the border with a `mask-composite` trick, and spun by animating an `@property` angle, so there is no animation runtime and the effect works server-rendered. Tune it with the `duration` and `width` attributes, or theme the sheen with `--pura-shine-border-color` and `--pura-shine-border-color-2` (default primary→accent). Under reduced motion the sheen rests statically via the base reset. It registers in `window.__puraShineBorders` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "4",
+      "desc": "Seconds for the sheen to complete one rotation."
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "default": "1.5",
+      "desc": "Border thickness in pixels."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-shine-border duration=\"3\" style=\"max-width: 320px;\">\n  <div style=\"padding: 1.5rem; border-radius: 12px; background: var(--pura-bg, #fff); font: 15px system-ui;\">\n    <b style=\"display:block; margin-bottom:.3rem;\">Shine Border</b>\n    <span style=\"color: var(--pura-muted-fg, #71717a);\">A sheen circles the frame, pure CSS, server-renderable.</span>\n  </div>\n</pura-shine-border>",
+  "usage": "<pura-shine-border duration=\"3\">\n  <div class=\"card\">Framed content</div>\n</pura-shine-border>\n\n<!-- Custom sheen colors -->\n<pura-shine-border style=\"--pura-shine-border-color: #06b6d4; --pura-shine-border-color-2: #3b82f6;\">\n  <div class=\"card\">Cyan sheen</div>\n</pura-shine-border>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },

@@ -205,3 +205,8 @@ import "./components/meteors.js";
 import "./components/aurora.js";
 import "./components/text-shimmer.js";
 import "./components/retro-grid.js";
+import "./components/shine-border.js";
+import "./components/magic-card.js";
+import "./components/orbiting-circles.js";
+import "./components/particles.js";
+import "./components/grid-pattern.js";
