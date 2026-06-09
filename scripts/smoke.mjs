@@ -22,7 +22,7 @@ const TYPES = {
 };
 
 // Routes that must render, plus runtime assets only reachable via JS at runtime.
-const ROUTES = ["/pura/", "/pura/docs/button", "/pura/theme", "/pura/templates"];
+const ROUTES = ["/pura/", "/pura/docs/button", "/pura/docs/pillar/display", "/pura/docs/pillar/animations", "/pura/theme", "/pura/templates"];
 const ASSETS = [
   "/pura/tokens.css", "/pura/pura.js", "/pura/base.js", "/pura/i18n.js",
   "/pura/animate.js",
