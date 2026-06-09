@@ -33,7 +33,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-accordion single>\n  <pura-accordion-item label=\"What is pura?\" open>\n    pura is a UI library built with native Web Components, with no dependencies.\n  </pura-accordion-item>\n  <pura-accordion-item label=\"Do I need a framework?\">\n    No. The components work on any HTML page, with or without a framework.\n  </pura-accordion-item>\n  <pura-accordion-item label=\"How does accessibility work?\">\n    Each item uses native <details>/<summary>, with keyboard and screen reader support.\n  </pura-accordion-item>\n</pura-accordion>",
-  "usage": "<pura-accordion single>\n  <pura-accordion-item label=\"What is pura?\" open>\n    pura is a UI library built with native Web Components, with no dependencies.\n  </pura-accordion-item>\n  <pura-accordion-item label=\"Do I need a framework?\">\n    No. The components work on any HTML page, with or without a framework.\n  </pura-accordion-item>\n  <pura-accordion-item label=\"How does accessibility work?\">\n    Each item uses native <details>/<summary>, with keyboard and screen reader support.\n  </pura-accordion-item>\n</pura-accordion>"
+  "usage": "<pura-accordion single>\n  <pura-accordion-item label=\"What is pura?\" open>\n    pura is a UI library built with native Web Components, with no dependencies.\n  </pura-accordion-item>\n  <pura-accordion-item label=\"Do I need a framework?\">\n    No. The components work on any HTML page, with or without a framework.\n  </pura-accordion-item>\n  <pura-accordion-item label=\"How does accessibility work?\">\n    Each item uses native <details>/<summary>, with keyboard and screen reader support.\n  </pura-accordion-item>\n</pura-accordion>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "action",
@@ -68,7 +71,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-action id=\"acao-salvar\" intent=\"save document\" action-id=\"save-doc\" params='{\"force\":false}'>\n  <button>Save document</button>\n</pura-action>\n<p id=\"acao-status\">Waiting for action...</p>\n<button id=\"acao-invoke\">Invoke via agent</button>\n<script type=\"module\">\n  const status = document.getElementById('acao-status');\n  document.getElementById('acao-salvar').addEventListener('invoke', (e) => {\n    status.textContent = 'Action \"' + e.detail.intent + '\" (' + e.detail.actionId + ') invoked. params=' + JSON.stringify(e.detail.params);\n  });\n  // Simulates an agent discovering and triggering the action through the global registry.\n  document.getElementById('acao-invoke').addEventListener('click', () => {\n    window.__puraActions?.get('save-doc')?.invoke();\n  });\n</script>",
-  "usage": "<pura-action id=\"acao-salvar\" intent=\"save document\" action-id=\"save-doc\" params='{\"force\":false}'>\n  <button>Save document</button>\n</pura-action>\n<p id=\"acao-status\">Waiting for action...</p>\n<button id=\"acao-invoke\">Invoke via agent</button>\n<script type=\"module\">\n  const status = document.getElementById('acao-status');\n  document.getElementById('acao-salvar').addEventListener('invoke', (e) => {\n    status.textContent = 'Action \"' + e.detail.intent + '\" (' + e.detail.actionId + ') invoked. params=' + JSON.stringify(e.detail.params);\n  });\n  // Simulates an agent discovering and triggering the action through the global registry.\n  document.getElementById('acao-invoke').addEventListener('click', () => {\n    window.__puraActions?.get('save-doc')?.invoke();\n  });\n</script>"
+  "usage": "<pura-action id=\"acao-salvar\" intent=\"save document\" action-id=\"save-doc\" params='{\"force\":false}'>\n  <button>Save document</button>\n</pura-action>\n<p id=\"acao-status\">Waiting for action...</p>\n<button id=\"acao-invoke\">Invoke via agent</button>\n<script type=\"module\">\n  const status = document.getElementById('acao-status');\n  document.getElementById('acao-salvar').addEventListener('invoke', (e) => {\n    status.textContent = 'Action \"' + e.detail.intent + '\" (' + e.detail.actionId + ') invoked. params=' + JSON.stringify(e.detail.params);\n  });\n  // Simulates an agent discovering and triggering the action through the global registry.\n  document.getElementById('acao-invoke').addEventListener('click', () => {\n    window.__puraActions?.get('save-doc')?.invoke();\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "affix",
@@ -97,7 +103,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "agent-hint",
@@ -144,7 +153,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:.5rem;max-width:320px\">\n  <label for=\"cupom\">Coupon code</label>\n  <input id=\"cupom\" type=\"text\" placeholder=\"e.g. PURA10\" />\n  <pura-agent-hint for=\"cupom\" level=\"tip\" visible>\n    Enter the coupon in uppercase, with no spaces. Only one coupon per order.\n  </pura-agent-hint>\n</div>",
-  "usage": "<label for=\"cupom\">Coupon code</label>\n<input id=\"cupom\" type=\"text\" placeholder=\"e.g. PURA10\" />\n<pura-agent-hint for=\"cupom\" level=\"tip\">\n  Enter the coupon in uppercase, with no spaces. Only one coupon per order.\n</pura-agent-hint>\n\n<!-- Agents can enumerate every hint on the page:\n     window.__puraAgentHints.query(\"cupom\") -->"
+  "usage": "<label for=\"cupom\">Coupon code</label>\n<input id=\"cupom\" type=\"text\" placeholder=\"e.g. PURA10\" />\n<pura-agent-hint for=\"cupom\" level=\"tip\">\n  Enter the coupon in uppercase, with no spaces. Only one coupon per order.\n</pura-agent-hint>\n\n<!-- Agents can enumerate every hint on the page:\n     window.__puraAgentHints.query(\"cupom\") -->",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "alert-dialog",
@@ -183,7 +195,10 @@ export const components = [
     "action"
   ],
   "demoHTML": "<button id=\"open-ad\">Delete account</button>\n\n<pura-alert-dialog\n  id=\"ad\"\n  title=\"Are you sure?\"\n  description=\"This action cannot be undone. Your account will be permanently removed.\"\n>\n  <button slot=\"cancel\" data-action=\"cancel\">Cancel</button>\n  <button slot=\"action\" data-action=\"confirm\">Yes, delete</button>\n</pura-alert-dialog>\n\n<script type=\"module\">\n  const dialog = document.getElementById(\"ad\");\n  document.getElementById(\"open-ad\").addEventListener(\"click\", () => dialog.open());\n  dialog.addEventListener(\"confirm\", () => console.log(\"confirmed\"));\n  dialog.addEventListener(\"cancel\", () => console.log(\"canceled\"));\n</script>",
-  "usage": "<button id=\"open-ad\">Delete account</button>\n\n<pura-alert-dialog\n  id=\"ad\"\n  title=\"Are you sure?\"\n  description=\"This action cannot be undone. Your account will be permanently removed.\"\n>\n  <button slot=\"cancel\" data-action=\"cancel\">Cancel</button>\n  <button slot=\"action\" data-action=\"confirm\">Yes, delete</button>\n</pura-alert-dialog>\n\n<script type=\"module\">\n  const dialog = document.getElementById(\"ad\");\n  document.getElementById(\"open-ad\").addEventListener(\"click\", () => dialog.open());\n  dialog.addEventListener(\"confirm\", () => console.log(\"confirmed\"));\n  dialog.addEventListener(\"cancel\", () => console.log(\"canceled\"));\n</script>"
+  "usage": "<button id=\"open-ad\">Delete account</button>\n\n<pura-alert-dialog\n  id=\"ad\"\n  title=\"Are you sure?\"\n  description=\"This action cannot be undone. Your account will be permanently removed.\"\n>\n  <button slot=\"cancel\" data-action=\"cancel\">Cancel</button>\n  <button slot=\"action\" data-action=\"confirm\">Yes, delete</button>\n</pura-alert-dialog>\n\n<script type=\"module\">\n  const dialog = document.getElementById(\"ad\");\n  document.getElementById(\"open-ad\").addEventListener(\"click\", () => dialog.open());\n  dialog.addEventListener(\"confirm\", () => console.log(\"confirmed\"));\n  dialog.addEventListener(\"cancel\", () => console.log(\"canceled\"));\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "alert",
@@ -218,7 +233,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-alert variant=\"info\" title=\"Update available\">\n  A new version of the system is ready to install.\n</pura-alert>\n\n<pura-alert variant=\"success\" title=\"Payment confirmed\" dismissible>\n  We received your payment and your order is already being processed.\n</pura-alert>\n\n<pura-alert variant=\"warning\" title=\"Storage almost full\">\n  You've used 90% of your storage. Consider freeing up space.\n</pura-alert>\n\n<pura-alert variant=\"danger\" title=\"Failed to save\" dismissible>\n  We couldn't save your changes. Please try again.\n</pura-alert>",
-  "usage": "<pura-alert variant=\"info\" title=\"Update available\">\n  A new version of the system is ready to install.\n</pura-alert>\n\n<pura-alert variant=\"success\" title=\"Payment confirmed\" dismissible>\n  We received your payment and your order is already being processed.\n</pura-alert>\n\n<pura-alert variant=\"warning\" title=\"Storage almost full\">\n  You've used 90% of your storage. Consider freeing up space.\n</pura-alert>\n\n<pura-alert variant=\"danger\" title=\"Failed to save\" dismissible>\n  We couldn't save your changes. Please try again.\n</pura-alert>"
+  "usage": "<pura-alert variant=\"info\" title=\"Update available\">\n  A new version of the system is ready to install.\n</pura-alert>\n\n<pura-alert variant=\"success\" title=\"Payment confirmed\" dismissible>\n  We received your payment and your order is already being processed.\n</pura-alert>\n\n<pura-alert variant=\"warning\" title=\"Storage almost full\">\n  You've used 90% of your storage. Consider freeing up space.\n</pura-alert>\n\n<pura-alert variant=\"danger\" title=\"Failed to save\" dismissible>\n  We couldn't save your changes. Please try again.\n</pura-alert>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "angle-slider",
@@ -263,7 +281,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "app-shell",
@@ -307,7 +328,10 @@ export const components = [
     "footer"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "aspect-ratio",
@@ -334,7 +358,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex;gap:1rem;flex-wrap:wrap;max-width:680px\">\n  <pura-aspect-ratio ratio=\"16/9\" rounded style=\"flex:1;min-width:280px\">\n    <img src=\"https://picsum.photos/seed/pura-paisagem/800/450\" alt=\"Landscape at dusk\" />\n  </pura-aspect-ratio>\n\n  <pura-aspect-ratio ratio=\"1/1\" rounded style=\"width:160px\">\n    <img src=\"https://picsum.photos/seed/pura-perfil/400/400\" alt=\"Profile photo\" />\n  </pura-aspect-ratio>\n</div>",
-  "usage": "<div style=\"display:flex;gap:1rem;flex-wrap:wrap;max-width:680px\">\n  <pura-aspect-ratio ratio=\"16/9\" rounded style=\"flex:1;min-width:280px\">\n    <img src=\"https://picsum.photos/seed/pura-paisagem/800/450\" alt=\"Landscape at dusk\" />\n  </pura-aspect-ratio>\n\n  <pura-aspect-ratio ratio=\"1/1\" rounded style=\"width:160px\">\n    <img src=\"https://picsum.photos/seed/pura-perfil/400/400\" alt=\"Profile photo\" />\n  </pura-aspect-ratio>\n</div>"
+  "usage": "<div style=\"display:flex;gap:1rem;flex-wrap:wrap;max-width:680px\">\n  <pura-aspect-ratio ratio=\"16/9\" rounded style=\"flex:1;min-width:280px\">\n    <img src=\"https://picsum.photos/seed/pura-paisagem/800/450\" alt=\"Landscape at dusk\" />\n  </pura-aspect-ratio>\n\n  <pura-aspect-ratio ratio=\"1/1\" rounded style=\"width:160px\">\n    <img src=\"https://picsum.photos/seed/pura-perfil/400/400\" alt=\"Profile photo\" />\n  </pura-aspect-ratio>\n</div>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "async",
@@ -360,7 +387,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"max-width:420px;font-family:system-ui\">\n  <pura-async id=\"conta\" state=\"loading\">\n    <div slot=\"error\">Could not load the data. Please try again.</div>\n    <div slot=\"empty\">No transactions found.</div>\n    <ul>\n      <li>Payment received: $1,200.00</li>\n      <li>Monthly subscription: $49.90</li>\n    </ul>\n  </pura-async>\n\n  <div style=\"margin-top:12px;display:flex;gap:8px;flex-wrap:wrap\">\n    <button id=\"btn-loading\">loading</button>\n    <button id=\"btn-ready\">ready</button>\n    <button id=\"btn-empty\">empty</button>\n    <button id=\"btn-error\">error</button>\n  </div>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/async.js\";\n  const el = document.getElementById(\"conta\");\n  document.getElementById(\"btn-loading\").onclick = () => el.setState(\"loading\");\n  document.getElementById(\"btn-ready\").onclick = () => el.setState(\"ready\");\n  document.getElementById(\"btn-empty\").onclick = () => el.setState(\"empty\");\n  document.getElementById(\"btn-error\").onclick = () => el.setState(\"error\");\n  el.addEventListener(\"statechange\", (e) =>\n    console.log(\"state:\", e.detail.previous, \"->\", e.detail.state)\n  );\n</script>",
-  "usage": "<pura-async id=\"conta\" state=\"loading\">\n  <div slot=\"error\">Could not load the data. Please try again.</div>\n  <div slot=\"empty\">No transactions found.</div>\n  <ul>\n    <li>Payment received: $1,200.00</li>\n    <li>Monthly subscription: $49.90</li>\n  </ul>\n</pura-async>\n\n<script type=\"module\">\n  import \"/pura/lib/async.js\";\n  const el = document.getElementById(\"conta\");\n  // Switch phase via the validated method (writes to the state attribute)\n  el.setState(\"ready\");\n  el.addEventListener(\"statechange\", (e) =>\n    console.log(\"state:\", e.detail.previous, \"->\", e.detail.state)\n  );\n  // Agent-native reading, without traversing the DOM:\n  // window.__puraAsync.snapshot();  // [{ id, domId, state }]\n  // window.__puraAsync.state(\"conta\");\n</script>"
+  "usage": "<pura-async id=\"conta\" state=\"loading\">\n  <div slot=\"error\">Could not load the data. Please try again.</div>\n  <div slot=\"empty\">No transactions found.</div>\n  <ul>\n    <li>Payment received: $1,200.00</li>\n    <li>Monthly subscription: $49.90</li>\n  </ul>\n</pura-async>\n\n<script type=\"module\">\n  import \"/pura/lib/async.js\";\n  const el = document.getElementById(\"conta\");\n  // Switch phase via the validated method (writes to the state attribute)\n  el.setState(\"ready\");\n  el.addEventListener(\"statechange\", (e) =>\n    console.log(\"state:\", e.detail.previous, \"->\", e.detail.state)\n  );\n  // Agent-native reading, without traversing the DOM:\n  // window.__puraAsync.snapshot();  // [{ id, domId, state }]\n  // window.__puraAsync.state(\"conta\");\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "audio",
@@ -403,7 +433,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "auto-animate",
@@ -430,7 +463,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-3, 0.75rem); justify-items: start;\">\n  <pura-button id=\"aa-add\" size=\"sm\">Add item</pura-button>\n  <pura-auto-animate style=\"display: grid; gap: 0.5rem; width: 100%;\" id=\"aa-list\">\n    <div style=\"padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 10px; font: 15px system-ui;\">First item</div>\n    <div style=\"padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 10px; font: 15px system-ui;\">Second item</div>\n  </pura-auto-animate>\n</div>\n<script>\n  (() => {\n    const list = document.querySelector('#aa-list');\n    let n = 3;\n    document.querySelector('#aa-add').addEventListener('click', () => {\n      const el = document.createElement('div');\n      el.style.cssText = 'padding:0.6rem 0.9rem;background:var(--pura-subtle,#f4f4f5);border-radius:10px;font:15px system-ui;cursor:pointer;';\n      el.textContent = 'Item ' + (n++);\n      el.addEventListener('click', () => el.remove());\n      list.prepend(el);\n    });\n  })();\n</script>",
-  "usage": "<pura-auto-animate>\n  <div>First item</div>\n  <div>Second item</div>\n</pura-auto-animate>\n\n<script>\n  // Any add/remove/reorder of the children animates automatically.\n  const list = document.querySelector('pura-auto-animate');\n  list.prepend(makeItem());   // animates in\n  list.children[2].remove();  // animates out\n</script>"
+  "usage": "<pura-auto-animate>\n  <div>First item</div>\n  <div>Second item</div>\n</pura-auto-animate>\n\n<script>\n  // Any add/remove/reorder of the children animates automatically.\n  const list = document.querySelector('pura-auto-animate');\n  list.prepend(makeItem());   // animates in\n  list.children[2].remove();  // animates out\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "avatar-group",
@@ -465,7 +501,36 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-avatar-group max=\"4\" size=\"md\" label=\"Project team\">\n  <pura-avatar initials=\"AS\" name=\"Anna Smith\"></pura-avatar>\n  <pura-avatar initials=\"BC\" name=\"Brian Carter\"></pura-avatar>\n  <pura-avatar initials=\"CL\" name=\"Carla Lee\"></pura-avatar>\n  <pura-avatar initials=\"DM\" name=\"Diego Morris\"></pura-avatar>\n  <pura-avatar initials=\"EF\" name=\"Elena Fisher\"></pura-avatar>\n  <pura-avatar initials=\"GR\" name=\"Gabriel Ross\"></pura-avatar>\n</pura-avatar-group>",
-  "usage": "<pura-avatar-group max=\"4\" size=\"md\" label=\"Project team\">\n  <pura-avatar initials=\"AS\" name=\"Anna Smith\"></pura-avatar>\n  <pura-avatar initials=\"BC\" name=\"Brian Carter\"></pura-avatar>\n  <pura-avatar initials=\"CL\" name=\"Carla Lee\"></pura-avatar>\n  <pura-avatar initials=\"DM\" name=\"Diego Morris\"></pura-avatar>\n  <pura-avatar initials=\"EF\" name=\"Elena Fisher\"></pura-avatar>\n  <pura-avatar initials=\"GR\" name=\"Gabriel Ross\"></pura-avatar>\n</pura-avatar-group>"
+  "usage": "<pura-avatar-group max=\"4\" size=\"md\" label=\"Project team\">\n  <pura-avatar initials=\"AS\" name=\"Anna Smith\"></pura-avatar>\n  <pura-avatar initials=\"BC\" name=\"Brian Carter\"></pura-avatar>\n  <pura-avatar initials=\"CL\" name=\"Carla Lee\"></pura-avatar>\n  <pura-avatar initials=\"DM\" name=\"Diego Morris\"></pura-avatar>\n  <pura-avatar initials=\"EF\" name=\"Elena Fisher\"></pura-avatar>\n  <pura-avatar initials=\"GR\" name=\"Gabriel Ross\"></pura-avatar>\n</pura-avatar-group>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    },
+    {
+      "slug": "button",
+      "title": "Button"
+    },
+    {
+      "slug": "inspector",
+      "title": "Inspector"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "kanban",
+      "title": "Kanban"
+    }
+  ]
 },
 {
   "slug": "avatar",
@@ -508,7 +573,76 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;align-items:center;gap:1rem\">\n  <pura-avatar src=\"https://i.pravatar.cc/150?img=12\" alt=\"Anna Smith\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"MC\" status=\"busy\"></pura-avatar>\n  <pura-avatar size=\"sm\" initials=\"JP\"></pura-avatar>\n  <pura-avatar size=\"lg\" src=\"https://i.pravatar.cc/150?img=32\" alt=\"Carla Lee\" status=\"offline\"></pura-avatar>\n</div>",
-  "usage": "<div style=\"display:flex;align-items:center;gap:1rem\">\n  <pura-avatar src=\"https://i.pravatar.cc/150?img=12\" alt=\"Anna Smith\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"MC\" status=\"busy\"></pura-avatar>\n  <pura-avatar size=\"sm\" initials=\"JP\"></pura-avatar>\n  <pura-avatar size=\"lg\" src=\"https://i.pravatar.cc/150?img=32\" alt=\"Carla Lee\" status=\"offline\"></pura-avatar>\n</div>"
+  "usage": "<div style=\"display:flex;align-items:center;gap:1rem\">\n  <pura-avatar src=\"https://i.pravatar.cc/150?img=12\" alt=\"Anna Smith\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"MC\" status=\"busy\"></pura-avatar>\n  <pura-avatar size=\"sm\" initials=\"JP\"></pura-avatar>\n  <pura-avatar size=\"lg\" src=\"https://i.pravatar.cc/150?img=32\" alt=\"Carla Lee\" status=\"offline\"></pura-avatar>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    },
+    {
+      "slug": "chat",
+      "title": "Chat"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    },
+    {
+      "slug": "kanban",
+      "title": "Kanban"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "back-to-top",
@@ -549,7 +683,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<div style=\"height: 1400px; padding: 1rem; line-height: 1.7;\">\n  <h2>Long example page</h2>\n  <p>Scroll down the page. After you pass 300px, the \"Back to top\" button appears in the bottom-right corner.</p>\n  <p style=\"margin-top: 1000px;\">Keep scrolling to the end. Click the floating button to smoothly return to the top.</p>\n</div>\n\n<pura-back-to-top offset=\"300\" label=\"Back to top\"></pura-back-to-top>",
-  "usage": "<pura-back-to-top offset=\"300\" label=\"Back to top\"></pura-back-to-top>"
+  "usage": "<pura-back-to-top offset=\"300\" label=\"Back to top\"></pura-back-to-top>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "badge",
@@ -576,7 +713,84 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;\">\n  <pura-badge>Draft</pura-badge>\n  <pura-badge variant=\"primary\">New</pura-badge>\n  <pura-badge variant=\"success\" dot>Active</pura-badge>\n  <pura-badge variant=\"warning\" dot>Pending</pura-badge>\n  <pura-badge variant=\"danger\">Error</pura-badge>\n  <pura-badge variant=\"info\">Beta</pura-badge>\n</div>",
-  "usage": "<div style=\"display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;\">\n  <pura-badge>Draft</pura-badge>\n  <pura-badge variant=\"primary\">New</pura-badge>\n  <pura-badge variant=\"success\" dot>Active</pura-badge>\n  <pura-badge variant=\"warning\" dot>Pending</pura-badge>\n  <pura-badge variant=\"danger\">Error</pura-badge>\n  <pura-badge variant=\"info\">Beta</pura-badge>\n</div>"
+  "usage": "<div style=\"display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;\">\n  <pura-badge>Draft</pura-badge>\n  <pura-badge variant=\"primary\">New</pura-badge>\n  <pura-badge variant=\"success\" dot>Active</pura-badge>\n  <pura-badge variant=\"warning\" dot>Pending</pura-badge>\n  <pura-badge variant=\"danger\">Error</pura-badge>\n  <pura-badge variant=\"info\">Beta</pura-badge>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    },
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "chat",
+      "title": "Chat"
+    },
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    },
+    {
+      "slug": "kanban",
+      "title": "Kanban"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "notifications",
+      "title": "Notifications"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "pricing",
+      "title": "Pricing"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    }
+  ]
 },
 {
   "slug": "banner",
@@ -631,7 +845,40 @@ export const components = [
     "action"
   ],
   "demoHTML": "<pura-banner variant=\"promo\" dismissible title=\"Annual plan with 30% off\"\n  message=\"Offer valid until the end of the month for new subscribers.\">\n  <pura-button slot=\"action\" size=\"sm\" variant=\"ghost\">Get the deal</pura-button>\n</pura-banner>\n\n<pura-banner id=\"aviso-manut\" variant=\"warning\" dismissible sticky\n  title=\"Scheduled maintenance\"\n  message=\"The system will be unavailable this Saturday, from 2 AM to 4 AM.\">\n</pura-banner>",
-  "usage": "<pura-banner variant=\"promo\" dismissible title=\"Annual plan with 30% off\"\n  message=\"Offer valid until the end of the month for new subscribers.\">\n  <pura-button slot=\"action\" size=\"sm\" variant=\"ghost\">Get the deal</pura-button>\n</pura-banner>\n\n<pura-banner id=\"aviso-manut\" variant=\"warning\" dismissible sticky\n  title=\"Scheduled maintenance\"\n  message=\"The system will be unavailable this Saturday, from 2 AM to 4 AM.\">\n</pura-banner>"
+  "usage": "<pura-banner variant=\"promo\" dismissible title=\"Annual plan with 30% off\"\n  message=\"Offer valid until the end of the month for new subscribers.\">\n  <pura-button slot=\"action\" size=\"sm\" variant=\"ghost\">Get the deal</pura-button>\n</pura-banner>\n\n<pura-banner id=\"aviso-manut\" variant=\"warning\" dismissible sticky\n  title=\"Scheduled maintenance\"\n  message=\"The system will be unavailable this Saturday, from 2 AM to 4 AM.\">\n</pura-banner>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "testimonial",
+      "title": "Testimonial"
+    },
+    {
+      "slug": "faq",
+      "title": "FAQ"
+    },
+    {
+      "slug": "pricing-table",
+      "title": "Pricing Table"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "landing",
+      "title": "Landing"
+    }
+  ]
 },
 {
   "slug": "barcode",
@@ -668,7 +915,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "blockquote",
@@ -696,7 +946,10 @@ export const components = [
     "author — citation markup when richer than the cite attribute"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<pura-blockquote cite=\"Ada Lovelace\">\n  The Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves.\n</pura-blockquote>\n\n<pura-blockquote variant=\"primary\" cite=\"Grace Hopper\">\n  The most dangerous phrase in the language is: we've always done it this way.\n</pura-blockquote>\n\n<pura-blockquote variant=\"success\">\n  Simplicity is the ultimate sophistication.\n  <span slot=\"author\">Leonardo da Vinci, <em>Notebooks</em></span>\n</pura-blockquote>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<!-- Default accent with a plain citation -->\n<pura-blockquote cite=\"Marie Curie\">\n  Nothing in life is to be feared, it is only to be understood.\n</pura-blockquote>\n\n<!-- Colored accent variant -->\n<pura-blockquote variant=\"warning\" cite=\"Carl Sagan\">\n  Somewhere, something incredible is waiting to be known.\n</pura-blockquote>\n\n<!-- Rich citation via the author slot -->\n<pura-blockquote variant=\"info\">\n  We are all in the gutter, but some of us are looking at the stars.\n  <span slot=\"author\">Oscar Wilde, <em>Lady Windermere's Fan</em></span>\n</pura-blockquote>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<!-- Default accent with a plain citation -->\n<pura-blockquote cite=\"Marie Curie\">\n  Nothing in life is to be feared, it is only to be understood.\n</pura-blockquote>\n\n<!-- Colored accent variant -->\n<pura-blockquote variant=\"warning\" cite=\"Carl Sagan\">\n  Somewhere, something incredible is waiting to be known.\n</pura-blockquote>\n\n<!-- Rich citation via the author slot -->\n<pura-blockquote variant=\"info\">\n  We are all in the gutter, but some of us are looking at the stars.\n  <span slot=\"author\">Oscar Wilde, <em>Lady Windermere's Fan</em></span>\n</pura-blockquote>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "bottom-navigation",
@@ -731,7 +984,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "box",
@@ -830,7 +1086,10 @@ export const components = [
     "default - container contents"
   ],
   "demoHTML": "<pura-box p=\"4\" bg=\"subtle\" radius=\"md\" border>\n  This is a simple padded box with a subtle background and a border.\n</pura-box>\n\n<pura-box p=\"5\" bg=\"primary\" radius=\"lg\" shadow=\"md\" my=\"3\">\n  A primary card with large rounded corners and a medium shadow.\n</pura-box>\n\n<pura-box p=\"4\" border=\"strong\" radius=\"sm\" color=\"muted\" w=\"320px\">\n  A fixed-width box with a strong border and muted text.\n</pura-box>\n\n<pura-box px=\"6\" py=\"3\" bg=\"bg\" shadow=\"sm\" mx=\"auto\" w=\"full\">\n  A full-width banner centered with auto horizontal margins.\n</pura-box>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/box.js\"></script>\n\n<!-- Padded card with a subtle background -->\n<pura-box p=\"4\" bg=\"subtle\" radius=\"md\" border>\n  Card contents go here.\n</pura-box>\n\n<!-- Primary panel with shadow and vertical margin -->\n<pura-box p=\"5\" bg=\"primary\" radius=\"lg\" shadow=\"md\" my=\"3\">\n  Highlighted panel.\n</pura-box>\n\n<!-- Centered, full-width container -->\n<pura-box px=\"6\" py=\"3\" mx=\"auto\" w=\"full\">\n  Centered content.\n</pura-box>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/box.js\"></script>\n\n<!-- Padded card with a subtle background -->\n<pura-box p=\"4\" bg=\"subtle\" radius=\"md\" border>\n  Card contents go here.\n</pura-box>\n\n<!-- Primary panel with shadow and vertical margin -->\n<pura-box p=\"5\" bg=\"primary\" radius=\"lg\" shadow=\"md\" my=\"3\">\n  Highlighted panel.\n</pura-box>\n\n<!-- Centered, full-width container -->\n<pura-box px=\"6\" py=\"3\" mx=\"auto\" w=\"full\">\n  Centered content.\n</pura-box>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "breadcrumb",
@@ -857,7 +1116,44 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-breadcrumb>\n  <pura-breadcrumb-item href=\"/\">Home</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos\">Products</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos/calcados\">Footwear</pura-breadcrumb-item>\n  <pura-breadcrumb-item current>Running shoes</pura-breadcrumb-item>\n</pura-breadcrumb>",
-  "usage": "<pura-breadcrumb>\n  <pura-breadcrumb-item href=\"/\">Home</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos\">Products</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos/calcados\">Footwear</pura-breadcrumb-item>\n  <pura-breadcrumb-item current>Running shoes</pura-breadcrumb-item>\n</pura-breadcrumb>"
+  "usage": "<pura-breadcrumb>\n  <pura-breadcrumb-item href=\"/\">Home</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos\">Products</pura-breadcrumb-item>\n  <pura-breadcrumb-item href=\"/produtos/calcados\">Footwear</pura-breadcrumb-item>\n  <pura-breadcrumb-item current>Running shoes</pura-breadcrumb-item>\n</pura-breadcrumb>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "code-block",
+      "title": "Code Block"
+    },
+    {
+      "slug": "reactions",
+      "title": "Reactions"
+    },
+    {
+      "slug": "scroll-spy",
+      "title": "Scroll Spy"
+    },
+    {
+      "slug": "toggle",
+      "title": "Toggle"
+    },
+    {
+      "slug": "prose",
+      "title": "Typography"
+    },
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    }
+  ]
 },
 {
   "slug": "burger",
@@ -890,7 +1186,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "button-group",
@@ -911,7 +1210,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-button-group>\n  <pura-button>Day</pura-button>\n  <pura-button>Week</pura-button>\n  <pura-button>Month</pura-button>\n</pura-button-group>\n\n<pura-button-group orientation=\"vertical\">\n  <pura-button>Profile</pura-button>\n  <pura-button>Settings</pura-button>\n  <pura-button>Sign out</pura-button>\n</pura-button-group>",
-  "usage": "<pura-button-group>\n  <pura-button>Day</pura-button>\n  <pura-button>Week</pura-button>\n  <pura-button>Month</pura-button>\n</pura-button-group>\n\n<pura-button-group orientation=\"vertical\">\n  <pura-button>Profile</pura-button>\n  <pura-button>Settings</pura-button>\n  <pura-button>Sign out</pura-button>\n</pura-button-group>"
+  "usage": "<pura-button-group>\n  <pura-button>Day</pura-button>\n  <pura-button>Week</pura-button>\n  <pura-button>Month</pura-button>\n</pura-button-group>\n\n<pura-button-group orientation=\"vertical\">\n  <pura-button>Profile</pura-button>\n  <pura-button>Settings</pura-button>\n  <pura-button>Sign out</pura-button>\n</pura-button-group>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "pagination",
+      "title": "Pagination"
+    },
+    {
+      "slug": "table",
+      "title": "Table"
+    },
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    }
+  ]
 },
 {
   "slug": "button",
@@ -956,7 +1288,92 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex; gap:.75rem; flex-wrap:wrap; align-items:center\">\n  <pura-button>Save</pura-button>\n  <pura-button variant=\"secondary\">Cancel</pura-button>\n  <pura-button variant=\"ghost\">Details</pura-button>\n  <pura-button variant=\"danger\">Delete</pura-button>\n  <pura-button loading>Sending</pura-button>\n  <pura-button disabled>Unavailable</pura-button>\n  <pura-button size=\"sm\">Small</pura-button>\n  <pura-button size=\"lg\">Large</pura-button>\n</div>",
-  "usage": "<div style=\"display:flex; gap:.75rem; flex-wrap:wrap; align-items:center\">\n  <pura-button>Save</pura-button>\n  <pura-button variant=\"secondary\">Cancel</pura-button>\n  <pura-button variant=\"ghost\">Details</pura-button>\n  <pura-button variant=\"danger\">Delete</pura-button>\n  <pura-button loading>Sending</pura-button>\n  <pura-button disabled>Unavailable</pura-button>\n  <pura-button size=\"sm\">Small</pura-button>\n  <pura-button size=\"lg\">Large</pura-button>\n</div>"
+  "usage": "<div style=\"display:flex; gap:.75rem; flex-wrap:wrap; align-items:center\">\n  <pura-button>Save</pura-button>\n  <pura-button variant=\"secondary\">Cancel</pura-button>\n  <pura-button variant=\"ghost\">Details</pura-button>\n  <pura-button variant=\"danger\">Delete</pura-button>\n  <pura-button loading>Sending</pura-button>\n  <pura-button disabled>Unavailable</pura-button>\n  <pura-button size=\"sm\">Small</pura-button>\n  <pura-button size=\"lg\">Large</pura-button>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "empty",
+      "title": "Empty"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    },
+    {
+      "slug": "error-404",
+      "title": "404"
+    },
+    {
+      "slug": "kanban",
+      "title": "Kanban"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "notifications",
+      "title": "Notifications"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "pricing",
+      "title": "Pricing"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    },
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "calendar",
@@ -983,7 +1400,40 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-calendar value=\"2026-05-29\" month=\"2026-05\"></pura-calendar>",
-  "usage": "<pura-calendar value=\"2026-05-29\" month=\"2026-05\"></pura-calendar>"
+  "usage": "<pura-calendar value=\"2026-05-29\" month=\"2026-05\"></pura-calendar>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "dialog",
+      "title": "Dialog"
+    },
+    {
+      "slug": "toast",
+      "title": "Toast"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    }
+  ]
 },
 {
   "slug": "card",
@@ -1006,7 +1456,64 @@ export const components = [
     "footer"
   ],
   "demoHTML": "<pura-card hover>\n  <span slot=\"header\">Pro Plan</span>\n  Unlimited access to all features, priority support and advanced reports for your team.\n  <div slot=\"footer\">\n    <pura-button variant=\"primary\">Subscribe</pura-button>\n    <pura-button variant=\"ghost\">Learn more</pura-button>\n  </div>\n</pura-card>",
-  "usage": "<pura-card hover>\n  <span slot=\"header\">Pro Plan</span>\n  Unlimited access to all features, priority support and advanced reports for your team.\n  <div slot=\"footer\">\n    <pura-button variant=\"primary\">Subscribe</pura-button>\n    <pura-button variant=\"ghost\">Learn more</pura-button>\n  </div>\n</pura-card>"
+  "usage": "<pura-card hover>\n  <span slot=\"header\">Pro Plan</span>\n  Unlimited access to all features, priority support and advanced reports for your team.\n  <div slot=\"footer\">\n    <pura-button variant=\"primary\">Subscribe</pura-button>\n    <pura-button variant=\"ghost\">Learn more</pura-button>\n  </div>\n</pura-card>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "checkbox",
+      "title": "Checkbox"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    },
+    {
+      "slug": "stepper",
+      "title": "Stepper"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "kanban",
+      "title": "Kanban"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    },
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "carousel",
@@ -1053,7 +1560,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>",
-  "usage": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>"
+  "usage": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "cascader",
@@ -1100,7 +1610,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "center",
@@ -1127,7 +1640,10 @@ export const components = [
     "default — the content to center"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/center.js\"></script>\n\n<div style=\"width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--pura-space-4)\">\n\n  <!-- Both axes: content sits dead-center -->\n  <pura-center min-h=\"200px\" style=\"background:var(--pura-subtle);border:1px solid var(--pura-border);border-radius:var(--pura-radius-lg);padding:var(--pura-space-4)\">\n    <div style=\"text-align:center\">\n      <strong style=\"display:block;font-size:var(--pura-text-lg);color:var(--pura-fg)\">Welcome aboard</strong>\n      <span style=\"color:var(--pura-muted-fg);font-size:var(--pura-text-sm)\">Centered on both axes</span>\n    </div>\n  </pura-center>\n\n  <!-- axis=\"x\": horizontal only, content stays at the top -->\n  <pura-center axis=\"x\" min-h=\"200px\" style=\"background:var(--pura-subtle);border:1px solid var(--pura-border);border-radius:var(--pura-radius-lg);padding:var(--pura-space-4)\">\n    <span style=\"padding:var(--pura-space-2) var(--pura-space-3);background:var(--pura-bg);border:1px solid var(--pura-border);border-radius:var(--pura-radius-full);font-size:var(--pura-text-sm);color:var(--pura-fg)\">axis=&quot;x&quot; &middot; top</span>\n  </pura-center>\n\n  <!-- axis=\"y\": vertical only, content stays on the left -->\n  <pura-center axis=\"y\" min-h=\"200px\" style=\"background:var(--pura-subtle);border:1px solid var(--pura-border);border-radius:var(--pura-radius-lg);padding:var(--pura-space-4)\">\n    <span style=\"padding:var(--pura-space-2) var(--pura-space-3);background:var(--pura-bg);border:1px solid var(--pura-border);border-radius:var(--pura-radius-full);font-size:var(--pura-text-sm);color:var(--pura-fg)\">axis=&quot;y&quot; &middot; left</span>\n  </pura-center>\n\n</div>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/center.js\"></script>\n\n<!-- Full-viewport splash screen -->\n<pura-center min-h=\"100vh\">\n  <div style=\"text-align: center;\">\n    <h1>Loading your workspace</h1>\n    <p>Hang tight, this only takes a moment.</p>\n  </div>\n</pura-center>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/center.js\"></script>\n\n<!-- Full-viewport splash screen -->\n<pura-center min-h=\"100vh\">\n  <div style=\"text-align: center;\">\n    <h1>Loading your workspace</h1>\n    <p>Hang tight, this only takes a moment.</p>\n  </div>\n</pura-center>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "chart",
@@ -1178,7 +1694,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "chat-bubble",
@@ -1212,7 +1731,40 @@ export const components = [
     "avatar"
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:0.5rem;max-width:32rem\">\n  <pura-chat-bubble side=\"received\" time=\"2:32 PM\" tail>\n    <span slot=\"avatar\">MJ</span>\n    Hi! Did you see the proposal I sent yesterday?\n  </pura-chat-bubble>\n  <pura-chat-bubble side=\"sent\" time=\"2:33 PM\" tail>\n    I did, it looks great. I'll approve it later today.\n  </pura-chat-bubble>\n  <pura-chat-bubble side=\"received\" time=\"2:35 PM\" tail>\n    <span slot=\"avatar\">MJ</span>\n    Perfect, just let me know here if anything comes up.\n  </pura-chat-bubble>\n</div>",
-  "usage": "<div style=\"display:flex;flex-direction:column;gap:0.5rem;max-width:32rem\">\n  <pura-chat-bubble side=\"received\" time=\"2:32 PM\" tail>\n    <span slot=\"avatar\">MJ</span>\n    Hi! Did you see the proposal I sent yesterday?\n  </pura-chat-bubble>\n  <pura-chat-bubble side=\"sent\" time=\"2:33 PM\" tail>\n    I did, it looks great. I'll approve it later today.\n  </pura-chat-bubble>\n  <pura-chat-bubble side=\"received\" time=\"2:35 PM\" tail>\n    <span slot=\"avatar\">MJ</span>\n    Perfect, just let me know here if anything comes up.\n  </pura-chat-bubble>\n</div>"
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:0.5rem;max-width:32rem\">\n  <pura-chat-bubble side=\"received\" time=\"2:32 PM\" tail>\n    <span slot=\"avatar\">MJ</span>\n    Hi! Did you see the proposal I sent yesterday?\n  </pura-chat-bubble>\n  <pura-chat-bubble side=\"sent\" time=\"2:33 PM\" tail>\n    I did, it looks great. I'll approve it later today.\n  </pura-chat-bubble>\n  <pura-chat-bubble side=\"received\" time=\"2:35 PM\" tail>\n    <span slot=\"avatar\">MJ</span>\n    Perfect, just let me know here if anything comes up.\n  </pura-chat-bubble>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "chat-input",
+      "title": "Chat Input"
+    },
+    {
+      "slug": "presence",
+      "title": "Presence"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    },
+    {
+      "slug": "inspector",
+      "title": "Inspector"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "chat",
+      "title": "Chat"
+    }
+  ]
 },
 {
   "slug": "chat-input",
@@ -1260,7 +1812,40 @@ export const components = [
     "actions"
   ],
   "demoHTML": "<pura-chat-input\n  id=\"composer\"\n  placeholder=\"Type a message...\"\n  send-label=\"Send message\"\n  maxlength=\"500\">\n  <button slot=\"actions\" type=\"button\" aria-label=\"Attach file\"\n    style=\"display:inline-grid;place-items:center;width:2.25rem;height:2.25rem;border:none;background:transparent;cursor:pointer;font-size:1.4rem;line-height:1;padding:0;border-radius:8px\">+</button>\n</pura-chat-input>\n<p id=\"log\" style=\"font:14px system-ui;color:#555;margin-top:.75rem\"></p>\n<script type=\"module\">\n  import \"/pura/lib/chat-input.js\";\n  const composer = document.getElementById(\"composer\");\n  const log = document.getElementById(\"log\");\n  composer.addEventListener(\"send\", (e) => {\n    log.textContent = \"Message sent: \" + e.detail.value;\n  });\n</script>",
-  "usage": "<pura-chat-input\n  id=\"composer\"\n  placeholder=\"Type a message...\"\n  send-label=\"Send message\"\n  maxlength=\"500\">\n  <button slot=\"actions\" type=\"button\" aria-label=\"Attach file\"\n    style=\"display:inline-grid;place-items:center;width:2.25rem;height:2.25rem;border:none;background:transparent;cursor:pointer;font-size:1.4rem;line-height:1;padding:0;border-radius:8px\">+</button>\n</pura-chat-input>\n<script type=\"module\">\n  import \"/pura/lib/chat-input.js\";\n  const composer = document.getElementById(\"composer\");\n  composer.addEventListener(\"send\", (e) => {\n    console.log(\"send:\", e.detail.value);\n  });\n</script>"
+  "usage": "<pura-chat-input\n  id=\"composer\"\n  placeholder=\"Type a message...\"\n  send-label=\"Send message\"\n  maxlength=\"500\">\n  <button slot=\"actions\" type=\"button\" aria-label=\"Attach file\"\n    style=\"display:inline-grid;place-items:center;width:2.25rem;height:2.25rem;border:none;background:transparent;cursor:pointer;font-size:1.4rem;line-height:1;padding:0;border-radius:8px\">+</button>\n</pura-chat-input>\n<script type=\"module\">\n  import \"/pura/lib/chat-input.js\";\n  const composer = document.getElementById(\"composer\");\n  composer.addEventListener(\"send\", (e) => {\n    console.log(\"send:\", e.detail.value);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "chat-bubble",
+      "title": "Chat Bubble"
+    },
+    {
+      "slug": "presence",
+      "title": "Presence"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    },
+    {
+      "slug": "inspector",
+      "title": "Inspector"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "chat",
+      "title": "Chat"
+    }
+  ]
 },
 {
   "slug": "checkbox",
@@ -1289,7 +1874,48 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-checkbox checked>I accept the terms of use</pura-checkbox>\n<pura-checkbox>Receive news by email</pura-checkbox>\n<pura-checkbox disabled>Unavailable option</pura-checkbox>",
-  "usage": "<pura-checkbox checked>I accept the terms of use</pura-checkbox>\n<pura-checkbox>Receive news by email</pura-checkbox>\n<pura-checkbox disabled>Unavailable option</pura-checkbox>"
+  "usage": "<pura-checkbox checked>I accept the terms of use</pura-checkbox>\n<pura-checkbox>Receive news by email</pura-checkbox>\n<pura-checkbox disabled>Unavailable option</pura-checkbox>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "meter",
+      "title": "Meter"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "stepper",
+      "title": "Stepper"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "code-block",
@@ -1324,7 +1950,40 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<pura-code-block id=\"cb-demo\" language=\"js\" filename=\"greeting.js\" numbered>function greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\ngreet(\"Andrew\");</pura-code-block>\n\n<script type=\"module\">\n  import \"/pura/lib/code-block.js\";\n  document.getElementById(\"cb-demo\").addEventListener(\"pura-copy\", (e) => {\n    console.log(\"Code copied:\", e.detail.text);\n  });\n</script>",
-  "usage": "<pura-code-block id=\"cb-demo\" language=\"js\" filename=\"greeting.js\" numbered>function greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\ngreet(\"Andrew\");</pura-code-block>\n\n<script type=\"module\">\n  import \"/pura/lib/code-block.js\";\n  document.getElementById(\"cb-demo\").addEventListener(\"pura-copy\", (e) => {\n    console.log(\"Code copied:\", e.detail.text);\n  });\n</script>"
+  "usage": "<pura-code-block id=\"cb-demo\" language=\"js\" filename=\"greeting.js\" numbered>function greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\ngreet(\"Andrew\");</pura-code-block>\n\n<script type=\"module\">\n  import \"/pura/lib/code-block.js\";\n  document.getElementById(\"cb-demo\").addEventListener(\"pura-copy\", (e) => {\n    console.log(\"Code copied:\", e.detail.text);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "reactions",
+      "title": "Reactions"
+    },
+    {
+      "slug": "scroll-spy",
+      "title": "Scroll Spy"
+    },
+    {
+      "slug": "prose",
+      "title": "Typography"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    }
+  ]
 },
 {
   "slug": "code",
@@ -1345,7 +2004,10 @@ export const components = [
     "default — the code text to display"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/code.js\"></script>\n\n<p>Run <pura-code>npm install pura</pura-code> to add the library to your project.</p>\n\n<p>Set the <pura-code>--pura-accent</pura-code> token to recolor every component at once.</p>\n\n<p>Press <pura-code variant=\"plain\">Ctrl + S</pura-code> to save without the chip styling.</p>\n\n<p>The default export is <pura-code>PuraElement</pura-code>, a thin wrapper around <pura-code variant=\"plain\">HTMLElement</pura-code>.</p>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/code.js\"></script>\n\n<!-- Default subtle chip -->\n<pura-code>const value = 42;</pura-code>\n\n<!-- Plain variant: bare monospace text, no chip -->\n<pura-code variant=\"plain\">git status</pura-code>\n\n<!-- Inline within a sentence -->\n<p>Call <pura-code>render()</pura-code> to update the component.</p>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/code.js\"></script>\n\n<!-- Default subtle chip -->\n<pura-code>const value = 42;</pura-code>\n\n<!-- Plain variant: bare monospace text, no chip -->\n<pura-code variant=\"plain\">git status</pura-code>\n\n<!-- Inline within a sentence -->\n<p>Call <pura-code>render()</pura-code> to update the component.</p>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "collapsible",
@@ -1376,7 +2038,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-collapsible open>\n  <span slot=\"trigger\">Order details</span>\n  <p>Your order has been confirmed and will ship within 2 business days. You'll receive the tracking number by email as soon as the carrier picks up the package.</p>\n</pura-collapsible>",
-  "usage": "<pura-collapsible open>\n  <span slot=\"trigger\">Order details</span>\n  <p>Your order has been confirmed and will ship within 2 business days. You'll receive the tracking number by email as soon as the carrier picks up the package.</p>\n</pura-collapsible>"
+  "usage": "<pura-collapsible open>\n  <span slot=\"trigger\">Order details</span>\n  <p>Your order has been confirmed and will ship within 2 business days. You'll receive the tracking number by email as soon as the carrier picks up the package.</p>\n</pura-collapsible>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "color-picker",
@@ -1410,7 +2075,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;align-items:center;gap:1rem;flex-wrap:wrap\">\n  <label style=\"font:inherit\">Brand color</label>\n  <pura-color-picker id=\"cp\" value=\"#2563eb\" label=\"Choose brand color\"></pura-color-picker>\n  <span id=\"saida\" style=\"font-family:monospace\">#2563eb</span>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/color-picker.js\";\n  const cp = document.getElementById(\"cp\");\n  const saida = document.getElementById(\"saida\");\n  cp.addEventListener(\"change\", (e) => { saida.textContent = e.detail.value; });\n  cp.addEventListener(\"input\", (e) => { saida.textContent = e.detail.value; });\n</script>",
-  "usage": "<div style=\"display:flex;align-items:center;gap:1rem;flex-wrap:wrap\">\n  <label style=\"font:inherit\">Brand color</label>\n  <pura-color-picker id=\"cp\" value=\"#2563eb\" label=\"Choose brand color\"></pura-color-picker>\n  <span id=\"saida\" style=\"font-family:monospace\">#2563eb</span>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/color-picker.js\";\n  const cp = document.getElementById(\"cp\");\n  const saida = document.getElementById(\"saida\");\n  cp.addEventListener(\"change\", (e) => { saida.textContent = e.detail.value; });\n  cp.addEventListener(\"input\", (e) => { saida.textContent = e.detail.value; });\n</script>"
+  "usage": "<div style=\"display:flex;align-items:center;gap:1rem;flex-wrap:wrap\">\n  <label style=\"font:inherit\">Brand color</label>\n  <pura-color-picker id=\"cp\" value=\"#2563eb\" label=\"Choose brand color\"></pura-color-picker>\n  <span id=\"saida\" style=\"font-family:monospace\">#2563eb</span>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/color-picker.js\";\n  const cp = document.getElementById(\"cp\");\n  const saida = document.getElementById(\"saida\");\n  cp.addEventListener(\"change\", (e) => { saida.textContent = e.detail.value; });\n  cp.addEventListener(\"input\", (e) => { saida.textContent = e.detail.value; });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "combobox",
@@ -1445,7 +2113,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-combobox placeholder=\"Select a state...\" value=\"sp\">\n  <option value=\"sp\" label=\"São Paulo\"></option>\n  <option value=\"rj\" label=\"Rio de Janeiro\"></option>\n  <option value=\"mg\" label=\"Minas Gerais\"></option>\n  <option value=\"ba\" label=\"Bahia\"></option>\n  <option value=\"pr\" label=\"Paraná\"></option>\n  <option value=\"rs\" label=\"Rio Grande do Sul\"></option>\n  <option value=\"pe\" label=\"Pernambuco\"></option>\n  <option value=\"ce\" label=\"Ceará\"></option>\n</pura-combobox>",
-  "usage": "<pura-combobox placeholder=\"Select a state...\" value=\"sp\">\n  <option value=\"sp\" label=\"São Paulo\"></option>\n  <option value=\"rj\" label=\"Rio de Janeiro\"></option>\n  <option value=\"mg\" label=\"Minas Gerais\"></option>\n  <option value=\"ba\" label=\"Bahia\"></option>\n  <option value=\"pr\" label=\"Paraná\"></option>\n  <option value=\"rs\" label=\"Rio Grande do Sul\"></option>\n  <option value=\"pe\" label=\"Pernambuco\"></option>\n  <option value=\"ce\" label=\"Ceará\"></option>\n</pura-combobox>\n\n<script type=\"module\">\n  const cb = document.querySelector(\"pura-combobox\");\n  cb.addEventListener(\"change\", (e) => {\n    console.log(\"selected:\", e.detail.value, e.detail.label);\n  });\n</script>"
+  "usage": "<pura-combobox placeholder=\"Select a state...\" value=\"sp\">\n  <option value=\"sp\" label=\"São Paulo\"></option>\n  <option value=\"rj\" label=\"Rio de Janeiro\"></option>\n  <option value=\"mg\" label=\"Minas Gerais\"></option>\n  <option value=\"ba\" label=\"Bahia\"></option>\n  <option value=\"pr\" label=\"Paraná\"></option>\n  <option value=\"rs\" label=\"Rio Grande do Sul\"></option>\n  <option value=\"pe\" label=\"Pernambuco\"></option>\n  <option value=\"ce\" label=\"Ceará\"></option>\n</pura-combobox>\n\n<script type=\"module\">\n  const cb = document.querySelector(\"pura-combobox\");\n  cb.addEventListener(\"change\", (e) => {\n    console.log(\"selected:\", e.detail.value, e.detail.label);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "command-registry",
@@ -1506,7 +2177,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"font-family:system-ui;display:flex;flex-direction:column;gap:12px;max-width:420px\">\n  <p style=\"margin:0;color:#555\">Invisible registry with 2 capabilities. The button lists and runs them via <code>window.__puraCommands</code>.</p>\n  <button id=\"run-cmds\" style=\"padding:8px 14px;border:1px solid #ccc;border-radius:8px;cursor:pointer\">Run agent commands</button>\n  <pre id=\"cmd-out\" style=\"background:#f5f5f5;border-radius:8px;padding:12px;margin:0;font-size:13px;white-space:pre-wrap\"></pre>\n\n  <pura-command-registry namespace=\"conta\">\n    <pura-command-action id=\"salvar\" title=\"Save profile\" description=\"Persists the user's profile changes\" keywords=\"save store profile\"></pura-command-action>\n    <pura-command-action id=\"exportar\" title=\"Export data\" description=\"Generates a file with the account data\" keywords=\"export download csv\"></pura-command-action>\n  </pura-command-registry>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/command-registry.js\";\n\n  const reg = document.querySelector(\"pura-command-registry\");\n  reg.querySelector(\"#salvar\").handler = () => \"Profile saved successfully\";\n  reg.querySelector(\"#exportar\").handler = () => \"Export started\";\n\n  document.getElementById(\"run-cmds\").addEventListener(\"click\", () => {\n    const out = document.getElementById(\"cmd-out\");\n    const cmds = window.__puraCommands.list();\n    const lines = cmds.map(c => `- ${c.id}: ${c.title}`);\n    const r1 = window.__puraCommands.run(\"conta:salvar\");\n    const r2 = window.__puraCommands.run(\"conta:exportar\");\n    out.textContent =\n      \"Available commands:\\n\" + lines.join(\"\\n\") +\n      \"\\n\\nrun(conta:salvar) -> \" + r1 +\n      \"\\nrun(conta:exportar) -> \" + r2;\n  });\n</script>",
-  "usage": "<pura-command-registry namespace=\"conta\">\n  <pura-command-action id=\"salvar\" title=\"Save profile\" description=\"Persists the user's profile changes\" keywords=\"save store profile\"></pura-command-action>\n  <pura-command-action id=\"exportar\" title=\"Export data\" description=\"Generates a file with the account data\" keywords=\"export download csv\"></pura-command-action>\n</pura-command-registry>\n\n<script type=\"module\">\n  import \"/pura/lib/command-registry.js\";\n\n  const reg = document.querySelector(\"pura-command-registry\");\n  // Give each action imperative behavior (optional):\n  reg.querySelector(\"#salvar\").handler = () => \"Profile saved successfully\";\n  reg.querySelector(\"#exportar\").handler = () => \"Export started\";\n\n  // An agent or command palette enumerates and invokes capabilities:\n  const commands = window.__puraCommands.list(); // [{ id: \"conta:salvar\", title, description, keywords, ... }]\n  const result = window.__puraCommands.run(\"conta:salvar\");\n\n  // React to any invocation (even without a handler):\n  reg.addEventListener(\"run\", (e) => {\n    console.log(\"command executed:\", e.detail.id, e.detail.args);\n  });\n</script>"
+  "usage": "<pura-command-registry namespace=\"conta\">\n  <pura-command-action id=\"salvar\" title=\"Save profile\" description=\"Persists the user's profile changes\" keywords=\"save store profile\"></pura-command-action>\n  <pura-command-action id=\"exportar\" title=\"Export data\" description=\"Generates a file with the account data\" keywords=\"export download csv\"></pura-command-action>\n</pura-command-registry>\n\n<script type=\"module\">\n  import \"/pura/lib/command-registry.js\";\n\n  const reg = document.querySelector(\"pura-command-registry\");\n  // Give each action imperative behavior (optional):\n  reg.querySelector(\"#salvar\").handler = () => \"Profile saved successfully\";\n  reg.querySelector(\"#exportar\").handler = () => \"Export started\";\n\n  // An agent or command palette enumerates and invokes capabilities:\n  const commands = window.__puraCommands.list(); // [{ id: \"conta:salvar\", title, description, keywords, ... }]\n  const result = window.__puraCommands.run(\"conta:salvar\");\n\n  // React to any invocation (even without a handler):\n  reg.addEventListener(\"run\", (e) => {\n    console.log(\"command executed:\", e.detail.id, e.detail.args);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "command",
@@ -1555,7 +2229,10 @@ export const components = [
     "shortcut"
   ],
   "demoHTML": "<pura-command id=\"cmd\" placeholder=\"Type a command or search…\" empty=\"No results found.\" style=\"max-width: 420px\">\n  <pura-command-item value=\"novo-arquivo\">\n    New file\n    <span slot=\"shortcut\">Ctrl N</span>\n  </pura-command-item>\n  <pura-command-item value=\"abrir\">\n    Open…\n    <span slot=\"shortcut\">Ctrl O</span>\n  </pura-command-item>\n  <pura-command-item value=\"salvar\">\n    Save\n    <span slot=\"shortcut\">Ctrl S</span>\n  </pura-command-item>\n  <pura-command-item value=\"configuracoes\">\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-command-item>\n  <pura-command-item value=\"sair\" disabled>\n    Quit\n  </pura-command-item>\n</pura-command>\n\n<script type=\"module\">\n  document.getElementById(\"cmd\").addEventListener(\"command\", (e) => {\n    console.log(\"command:\", e.detail.value, e.detail.label);\n  });\n</script>",
-  "usage": "<pura-command id=\"cmd\" placeholder=\"Type a command or search…\" empty=\"No results found.\" style=\"max-width: 420px\">\n  <pura-command-item value=\"novo-arquivo\">\n    New file\n    <span slot=\"shortcut\">Ctrl N</span>\n  </pura-command-item>\n  <pura-command-item value=\"abrir\">\n    Open…\n    <span slot=\"shortcut\">Ctrl O</span>\n  </pura-command-item>\n  <pura-command-item value=\"salvar\">\n    Save\n    <span slot=\"shortcut\">Ctrl S</span>\n  </pura-command-item>\n  <pura-command-item value=\"configuracoes\">\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-command-item>\n  <pura-command-item value=\"sair\" disabled>\n    Quit\n  </pura-command-item>\n</pura-command>\n\n<script type=\"module\">\n  document.getElementById(\"cmd\").addEventListener(\"command\", (e) => {\n    console.log(\"command:\", e.detail.value, e.detail.label);\n  });\n</script>"
+  "usage": "<pura-command id=\"cmd\" placeholder=\"Type a command or search…\" empty=\"No results found.\" style=\"max-width: 420px\">\n  <pura-command-item value=\"novo-arquivo\">\n    New file\n    <span slot=\"shortcut\">Ctrl N</span>\n  </pura-command-item>\n  <pura-command-item value=\"abrir\">\n    Open…\n    <span slot=\"shortcut\">Ctrl O</span>\n  </pura-command-item>\n  <pura-command-item value=\"salvar\">\n    Save\n    <span slot=\"shortcut\">Ctrl S</span>\n  </pura-command-item>\n  <pura-command-item value=\"configuracoes\">\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-command-item>\n  <pura-command-item value=\"sair\" disabled>\n    Quit\n  </pura-command-item>\n</pura-command>\n\n<script type=\"module\">\n  document.getElementById(\"cmd\").addEventListener(\"command\", (e) => {\n    console.log(\"command:\", e.detail.value, e.detail.label);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "comment",
@@ -1589,7 +2266,10 @@ export const components = [
     "actions"
   ],
   "demoHTML": "<pura-comment author=\"Mary Stone\" time=\"2 hours ago\" avatar=\"https://i.pravatar.cc/64?img=47\">\n  I loved the new component API, it's so much simpler to use now.\n  <div slot=\"actions\">\n    <a href=\"#\">Reply</a>\n    <a href=\"#\">Like</a>\n  </div>\n\n  <pura-comment author=\"Andrew Ahlert\" time=\"1 hour ago\">\n    Agreed! The support for nested replies turned out great.\n    <div slot=\"actions\">\n      <a href=\"#\">Reply</a>\n    </div>\n  </pura-comment>\n</pura-comment>",
-  "usage": "<pura-comment author=\"Mary Stone\" time=\"2 hours ago\" avatar=\"https://i.pravatar.cc/64?img=47\">\n  I loved the new component API, it's so much simpler to use now.\n  <div slot=\"actions\">\n    <a href=\"#\">Reply</a>\n    <a href=\"#\">Like</a>\n  </div>\n\n  <pura-comment author=\"Andrew Ahlert\" time=\"1 hour ago\">\n    Agreed! The support for nested replies turned out great.\n    <div slot=\"actions\">\n      <a href=\"#\">Reply</a>\n    </div>\n  </pura-comment>\n</pura-comment>"
+  "usage": "<pura-comment author=\"Mary Stone\" time=\"2 hours ago\" avatar=\"https://i.pravatar.cc/64?img=47\">\n  I loved the new component API, it's so much simpler to use now.\n  <div slot=\"actions\">\n    <a href=\"#\">Reply</a>\n    <a href=\"#\">Like</a>\n  </div>\n\n  <pura-comment author=\"Andrew Ahlert\" time=\"1 hour ago\">\n    Agreed! The support for nested replies turned out great.\n    <div slot=\"actions\">\n      <a href=\"#\">Reply</a>\n    </div>\n  </pura-comment>\n</pura-comment>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "container",
@@ -1636,7 +2316,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-container id=\"demo-container\" center pad max=\"48rem\" label=\"Product card\" style=\"border:1px solid var(--pura-border, #e5e7eb); border-radius:12px; background:#fff;\">\n  <div style=\"display:flex; gap:16px; flex-wrap:wrap; align-items:center; padding:16px 0;\">\n    <div style=\"flex:1; min-width:180px;\">\n      <h3 style=\"margin:0 0 4px;\">Aurora wireless headphones</h3>\n      <p style=\"margin:0; color:#6b7280;\">Noise cancellation and 30h of battery life.</p>\n    </div>\n    <strong style=\"font-size:1.25rem;\">$499.00</strong>\n  </div>\n  <p id=\"demo-status\" style=\"margin:0; font-size:.85rem; color:#2563eb;\">Measuring container size...</p>\n</pura-container>\n<script type=\"module\">\n  import \"/pura/lib/container.js\";\n  const c = document.getElementById(\"demo-container\");\n  const status = document.getElementById(\"demo-status\");\n  c.addEventListener(\"pura-container:resize\", (e) => {\n    status.textContent = `Current breakpoint: ${e.detail.size} (${e.detail.width}px)`;\n  });\n</script>",
-  "usage": "<pura-container id=\"product\" center pad max=\"48rem\" label=\"Product card\">\n  <div style=\"display:flex; gap:16px; flex-wrap:wrap; align-items:center;\">\n    <div style=\"flex:1; min-width:180px;\">\n      <h3>Aurora wireless headphones</h3>\n      <p>Noise cancellation and 30h of battery life.</p>\n    </div>\n    <strong>$499.00</strong>\n  </div>\n</pura-container>\n<script type=\"module\">\n  import \"/pura/lib/container.js\";\n  const c = document.getElementById(\"product\");\n  c.addEventListener(\"pura-container:resize\", (e) => {\n    console.log(\"new breakpoint:\", e.detail.size, e.detail.width);\n  });\n  // Agents can also read every container on the page:\n  // window.__puraContainers.query(\"lg\")\n</script>"
+  "usage": "<pura-container id=\"product\" center pad max=\"48rem\" label=\"Product card\">\n  <div style=\"display:flex; gap:16px; flex-wrap:wrap; align-items:center;\">\n    <div style=\"flex:1; min-width:180px;\">\n      <h3>Aurora wireless headphones</h3>\n      <p>Noise cancellation and 30h of battery life.</p>\n    </div>\n    <strong>$499.00</strong>\n  </div>\n</pura-container>\n<script type=\"module\">\n  import \"/pura/lib/container.js\";\n  const c = document.getElementById(\"product\");\n  c.addEventListener(\"pura-container:resize\", (e) => {\n    console.log(\"new breakpoint:\", e.detail.size, e.detail.width);\n  });\n  // Agents can also read every container on the page:\n  // window.__puraContainers.query(\"lg\")\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "context-menu",
@@ -1682,7 +2365,10 @@ export const components = [
     "shortcut"
   ],
   "demoHTML": "<pura-context-menu id=\"cm-demo\">\n  <div style=\"display:grid;place-items:center;height:160px;border:1px dashed var(--pura-border);border-radius:var(--pura-radius);color:var(--pura-muted)\">\n    Right-click here\n  </div>\n\n  <pura-menu-item slot=\"menu\">\n    Back\n    <span slot=\"shortcut\">Ctrl+[</span>\n  </pura-menu-item>\n  <pura-menu-item slot=\"menu\">\n    Reload\n    <span slot=\"shortcut\">Ctrl+R</span>\n  </pura-menu-item>\n  <pura-menu-item slot=\"menu\" disabled>Save as...</pura-menu-item>\n  <pura-menu-item slot=\"menu\" variant=\"danger\">Delete</pura-menu-item>\n</pura-context-menu>\n\n<script type=\"module\">\n  const cm = document.getElementById(\"cm-demo\");\n  cm.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>",
-  "usage": "<pura-context-menu id=\"cm-demo\">\n  <div style=\"display:grid;place-items:center;height:160px;border:1px dashed var(--pura-border);border-radius:var(--pura-radius);color:var(--pura-muted)\">\n    Right-click here\n  </div>\n\n  <pura-menu-item slot=\"menu\">\n    Back\n    <span slot=\"shortcut\">Ctrl+[</span>\n  </pura-menu-item>\n  <pura-menu-item slot=\"menu\">\n    Reload\n    <span slot=\"shortcut\">Ctrl+R</span>\n  </pura-menu-item>\n  <pura-menu-item slot=\"menu\" disabled>Save as...</pura-menu-item>\n  <pura-menu-item slot=\"menu\" variant=\"danger\">Delete</pura-menu-item>\n</pura-context-menu>\n\n<script type=\"module\">\n  const cm = document.getElementById(\"cm-demo\");\n  cm.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>"
+  "usage": "<pura-context-menu id=\"cm-demo\">\n  <div style=\"display:grid;place-items:center;height:160px;border:1px dashed var(--pura-border);border-radius:var(--pura-radius);color:var(--pura-muted)\">\n    Right-click here\n  </div>\n\n  <pura-menu-item slot=\"menu\">\n    Back\n    <span slot=\"shortcut\">Ctrl+[</span>\n  </pura-menu-item>\n  <pura-menu-item slot=\"menu\">\n    Reload\n    <span slot=\"shortcut\">Ctrl+R</span>\n  </pura-menu-item>\n  <pura-menu-item slot=\"menu\" disabled>Save as...</pura-menu-item>\n  <pura-menu-item slot=\"menu\" variant=\"danger\">Delete</pura-menu-item>\n</pura-context-menu>\n\n<script type=\"module\">\n  const cm = document.getElementById(\"cm-demo\");\n  cm.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "cookie-consent",
@@ -1751,7 +2437,10 @@ export const components = [
     "categories"
   ],
   "demoHTML": "<pura-cookie-consent\n  id=\"consent\"\n  heading=\"Your privacy\"\n  position=\"bottom-right\"\n  accept-label=\"Accept all\"\n  decline-label=\"Decline\"\n  settings-label=\"Preferences\">\n  We use cookies to improve your experience and analyze traffic. You can accept, decline or adjust your preferences.\n</pura-cookie-consent>\n\n<p id=\"estado\" style=\"font:14px system-ui;color:#555\">Waiting for your choice...</p>\n<button id=\"reabrir\" type=\"button\">Review consent</button>\n\n<script type=\"module\">\n  import \"/pura/lib/cookie-consent.js\";\n  const consent = document.getElementById(\"consent\");\n  const estado = document.getElementById(\"estado\");\n  consent.addEventListener(\"change\", (e) => {\n    const cats = Object.entries(e.detail.categories)\n      .filter(([, on]) => on).map(([id]) => id).join(\", \");\n    estado.textContent = `Choice: ${e.detail.choice} (${cats})`;\n  });\n  document.getElementById(\"reabrir\").addEventListener(\"click\", () => consent.reset());\n</script>",
-  "usage": "<pura-cookie-consent\n  id=\"consent\"\n  heading=\"Your privacy\"\n  position=\"bottom-right\"\n  accept-label=\"Accept all\"\n  decline-label=\"Decline\"\n  settings-label=\"Preferences\">\n  We use cookies to improve your experience and analyze traffic. You can accept, decline or adjust your preferences.\n</pura-cookie-consent>\n\n<p id=\"estado\" style=\"font:14px system-ui;color:#555\">Waiting for your choice...</p>\n<button id=\"reabrir\" type=\"button\">Review consent</button>\n\n<script type=\"module\">\n  import \"/pura/lib/cookie-consent.js\";\n  const consent = document.getElementById(\"consent\");\n  const estado = document.getElementById(\"estado\");\n  consent.addEventListener(\"change\", (e) => {\n    const cats = Object.entries(e.detail.categories)\n      .filter(([, on]) => on).map(([id]) => id).join(\", \");\n    estado.textContent = `Choice: ${e.detail.choice} (${cats})`;\n  });\n  document.getElementById(\"reabrir\").addEventListener(\"click\", () => consent.reset());\n</script>"
+  "usage": "<pura-cookie-consent\n  id=\"consent\"\n  heading=\"Your privacy\"\n  position=\"bottom-right\"\n  accept-label=\"Accept all\"\n  decline-label=\"Decline\"\n  settings-label=\"Preferences\">\n  We use cookies to improve your experience and analyze traffic. You can accept, decline or adjust your preferences.\n</pura-cookie-consent>\n\n<p id=\"estado\" style=\"font:14px system-ui;color:#555\">Waiting for your choice...</p>\n<button id=\"reabrir\" type=\"button\">Review consent</button>\n\n<script type=\"module\">\n  import \"/pura/lib/cookie-consent.js\";\n  const consent = document.getElementById(\"consent\");\n  const estado = document.getElementById(\"estado\");\n  consent.addEventListener(\"change\", (e) => {\n    const cats = Object.entries(e.detail.categories)\n      .filter(([, on]) => on).map(([id]) => id).join(\", \");\n    estado.textContent = `Choice: ${e.detail.choice} (${cats})`;\n  });\n  document.getElementById(\"reabrir\").addEventListener(\"click\", () => consent.reset());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "copy-button",
@@ -1799,7 +2488,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<div style=\"display:flex; flex-direction:column; gap:1rem; max-width:420px; font-family:system-ui\">\n  <div style=\"display:flex; align-items:center; gap:.5rem\">\n    <code id=\"chave\" style=\"padding:.4rem .6rem; background:#f4f4f5; border-radius:6px; flex:1\">sk-pura-2f9a-7c41-d8e0</code>\n    <pura-copy-button target=\"#chave\" label=\"Copy key\"></pura-copy-button>\n  </div>\n\n  <pura-copy-button value=\"npm install pura\">Copy command</pura-copy-button>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/copy-button.js\";\n</script>",
-  "usage": "<div style=\"display:flex; align-items:center; gap:.5rem\">\n  <code id=\"chave\">sk-pura-2f9a-7c41-d8e0</code>\n  <pura-copy-button target=\"#chave\" label=\"Copy key\"></pura-copy-button>\n</div>\n\n<pura-copy-button value=\"npm install pura\">Copy command</pura-copy-button>"
+  "usage": "<div style=\"display:flex; align-items:center; gap:.5rem\">\n  <code id=\"chave\">sk-pura-2f9a-7c41-d8e0</code>\n  <pura-copy-button target=\"#chave\" label=\"Copy key\"></pura-copy-button>\n</div>\n\n<pura-copy-button value=\"npm install pura\">Copy command</pura-copy-button>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "copy-region",
@@ -1847,7 +2539,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<pura-copy-region value=\"npm install pura\" label=\"Copy command\" style=\"max-width:32rem\">\n  <pre style=\"margin:0;padding:1rem 1.25rem;background:#0f172a;color:#e2e8f0;border-radius:8px;font-family:ui-monospace,monospace;font-size:.9rem;overflow:auto\"><code>npm install pura</code></pre>\n</pura-copy-region>\n\n<p id=\"status-copy\" role=\"status\" style=\"margin-top:.75rem;font-size:.85rem;color:#475569\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/copy-region.js\";\n  const status = document.getElementById(\"status-copy\");\n  document.querySelector(\"pura-copy-region\").addEventListener(\"copy\", (e) => {\n    status.textContent = `Copied: ${e.detail.value}`;\n  });\n</script>",
-  "usage": "<pura-copy-region value=\"npm install pura\" label=\"Copy command\" style=\"max-width:32rem\">\n  <pre style=\"margin:0;padding:1rem 1.25rem;background:#0f172a;color:#e2e8f0;border-radius:8px;font-family:ui-monospace,monospace;font-size:.9rem;overflow:auto\"><code>npm install pura</code></pre>\n</pura-copy-region>\n\n<p id=\"status-copy\" role=\"status\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/copy-region.js\";\n  const status = document.getElementById(\"status-copy\");\n  document.querySelector(\"pura-copy-region\").addEventListener(\"copy\", (e) => {\n    status.textContent = `Copied: ${e.detail.value}`;\n  });\n</script>"
+  "usage": "<pura-copy-region value=\"npm install pura\" label=\"Copy command\" style=\"max-width:32rem\">\n  <pre style=\"margin:0;padding:1rem 1.25rem;background:#0f172a;color:#e2e8f0;border-radius:8px;font-family:ui-monospace,monospace;font-size:.9rem;overflow:auto\"><code>npm install pura</code></pre>\n</pura-copy-region>\n\n<p id=\"status-copy\" role=\"status\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/copy-region.js\";\n  const status = document.getElementById(\"status-copy\");\n  document.querySelector(\"pura-copy-region\").addEventListener(\"copy\", (e) => {\n    status.textContent = `Copied: ${e.detail.value}`;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "count-up",
@@ -1910,7 +2605,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"display: flex; gap: 2.5rem; flex-wrap: wrap; font: 600 2rem system-ui;\">\n  <pura-count-up to=\"1284\" separator=\",\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"1500\"></pura-count-up>\n</div>",
-  "usage": "<pura-count-up to=\"1284\" separator=\",\"></pura-count-up>\n<pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\"></pura-count-up>\n<pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"2000\"></pura-count-up>\n\n<!-- Trigger manually -->\n<pura-count-up to=\"500\" start=\"manual\" id=\"score\"></pura-count-up>\n<script>document.querySelector('#score').start();</script>"
+  "usage": "<pura-count-up to=\"1284\" separator=\",\"></pura-count-up>\n<pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\"></pura-count-up>\n<pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"2000\"></pura-count-up>\n\n<!-- Trigger manually -->\n<pura-count-up to=\"500\" start=\"manual\" id=\"score\"></pura-count-up>\n<script>document.querySelector('#score').start();</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "countdown",
@@ -1964,7 +2662,10 @@ export const components = [
     "complete"
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1rem;align-items:flex-start\">\n  <p style=\"margin:0;font-weight:600\">Offer ends in:</p>\n  <pura-countdown seconds=\"90\" pad-days id=\"promo\">\n    <span slot=\"complete\">Offer ended!</span>\n  </pura-countdown>\n  <pura-countdown to=\"2026-12-31T23:59:59Z\" compact></pura-countdown>\n</div>",
-  "usage": "<pura-countdown to=\"2026-12-31T23:59:59Z\" pad-days>\n  <span slot=\"complete\">Offer ended!</span>\n</pura-countdown>\n\n<!-- Compact variant from a duration -->\n<pura-countdown seconds=\"3600\" compact></pura-countdown>\n\n<!-- Programmatic control: start() / pause() / reset() -->\n<script type=\"module\">\n  import \"/pura/lib/countdown.js\";\n  const cd = document.querySelector(\"pura-countdown\");\n  cd.addEventListener(\"complete\", () => console.log(\"done\"));\n  cd.addEventListener(\"tick\", (e) => console.log(e.detail.total));\n</script>"
+  "usage": "<pura-countdown to=\"2026-12-31T23:59:59Z\" pad-days>\n  <span slot=\"complete\">Offer ended!</span>\n</pura-countdown>\n\n<!-- Compact variant from a duration -->\n<pura-countdown seconds=\"3600\" compact></pura-countdown>\n\n<!-- Programmatic control: start() / pause() / reset() -->\n<script type=\"module\">\n  import \"/pura/lib/countdown.js\";\n  const cd = document.querySelector(\"pura-countdown\");\n  cd.addEventListener(\"complete\", () => console.log(\"done\"));\n  cd.addEventListener(\"tick\", (e) => console.log(e.detail.total));\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "cron",
@@ -1991,7 +2692,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "data-table",
@@ -2027,7 +2731,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "date-picker",
@@ -2060,7 +2767,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-date-picker value=\"2026-05-29\" placeholder=\"Pick a date\"></pura-date-picker>",
-  "usage": "<pura-date-picker value=\"2026-05-29\" placeholder=\"Pick a date\"></pura-date-picker>"
+  "usage": "<pura-date-picker value=\"2026-05-29\" placeholder=\"Pick a date\"></pura-date-picker>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "date-range-picker",
@@ -2099,7 +2809,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "datetime-picker",
@@ -2138,7 +2851,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "dialog",
@@ -2169,7 +2885,40 @@ export const components = [
     "footer"
   ],
   "demoHTML": "<button id=\"abrir-dialog\">Open dialog</button>\n\n<pura-dialog id=\"meu-dialog\" title=\"Confirm deletion\">\n  <p>Are you sure you want to delete this item? This action cannot be undone.</p>\n  <div slot=\"footer\">\n    <button id=\"cancelar-dialog\">Cancel</button>\n    <button id=\"confirmar-dialog\">Delete</button>\n  </div>\n</pura-dialog>\n\n<script type=\"module\">\n  const dlg = document.getElementById(\"meu-dialog\");\n  document.getElementById(\"abrir-dialog\").addEventListener(\"click\", () => dlg.open());\n  document.getElementById(\"cancelar-dialog\").addEventListener(\"click\", () => dlg.close());\n  document.getElementById(\"confirmar-dialog\").addEventListener(\"click\", () => dlg.close());\n</script>",
-  "usage": "<button id=\"abrir-dialog\">Open dialog</button>\n\n<pura-dialog id=\"meu-dialog\" title=\"Confirm deletion\">\n  <p>Are you sure you want to delete this item? This action cannot be undone.</p>\n  <div slot=\"footer\">\n    <button id=\"cancelar-dialog\">Cancel</button>\n    <button id=\"confirmar-dialog\">Delete</button>\n  </div>\n</pura-dialog>\n\n<script type=\"module\">\n  const dlg = document.getElementById(\"meu-dialog\");\n  document.getElementById(\"abrir-dialog\").addEventListener(\"click\", () => dlg.open());\n  document.getElementById(\"cancelar-dialog\").addEventListener(\"click\", () => dlg.close());\n  document.getElementById(\"confirmar-dialog\").addEventListener(\"click\", () => dlg.close());\n</script>"
+  "usage": "<button id=\"abrir-dialog\">Open dialog</button>\n\n<pura-dialog id=\"meu-dialog\" title=\"Confirm deletion\">\n  <p>Are you sure you want to delete this item? This action cannot be undone.</p>\n  <div slot=\"footer\">\n    <button id=\"cancelar-dialog\">Cancel</button>\n    <button id=\"confirmar-dialog\">Delete</button>\n  </div>\n</pura-dialog>\n\n<script type=\"module\">\n  const dlg = document.getElementById(\"meu-dialog\");\n  document.getElementById(\"abrir-dialog\").addEventListener(\"click\", () => dlg.open());\n  document.getElementById(\"cancelar-dialog\").addEventListener(\"click\", () => dlg.close());\n  document.getElementById(\"confirmar-dialog\").addEventListener(\"click\", () => dlg.close());\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "calendar",
+      "title": "Calendar"
+    },
+    {
+      "slug": "toast",
+      "title": "Toast"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    }
+  ]
 },
 {
   "slug": "diff",
@@ -2217,7 +2966,10 @@ export const components = [
     "after"
   ],
   "demoHTML": "<pura-diff\n  block\n  before=\"The brown dog jumped over the low wall.\"\n  after=\"The black cat jumped over the high wall.\"\n  label=\"Difference between the two sentences\"\n></pura-diff>",
-  "usage": "<pura-diff\n  block\n  before=\"The brown dog jumped over the low wall.\"\n  after=\"The black cat jumped over the high wall.\"\n  label=\"Difference between the two sentences\"\n></pura-diff>\n\n<!-- Character mode, using slots as the text source -->\n<pura-diff mode=\"chars\" block>\n  <span slot=\"before\">commit 1a2b3c</span>\n  <span slot=\"after\">commit 1a2b3d</span>\n</pura-diff>"
+  "usage": "<pura-diff\n  block\n  before=\"The brown dog jumped over the low wall.\"\n  after=\"The black cat jumped over the high wall.\"\n  label=\"Difference between the two sentences\"\n></pura-diff>\n\n<!-- Character mode, using slots as the text source -->\n<pura-diff mode=\"chars\" block>\n  <span slot=\"before\">commit 1a2b3c</span>\n  <span slot=\"after\">commit 1a2b3d</span>\n</pura-diff>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "dock",
@@ -2258,7 +3010,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-dock label=\"Shortcuts\" magnify=\"1.7\" reach=\"120\" id=\"meu-dock\">\n  <pura-dock-item label=\"Home\" active>🏠</pura-dock-item>\n  <pura-dock-item label=\"Messages\">💬</pura-dock-item>\n  <pura-dock-item label=\"Calendar\">📅</pura-dock-item>\n  <pura-dock-item label=\"Settings\">⚙️</pura-dock-item>\n  <pura-dock-item label=\"Trash\" disabled>🗑️</pura-dock-item>\n</pura-dock>\n<p id=\"dock-status\" style=\"margin-top:1rem;font:14px system-ui;color:#666\">Hover to magnify and click an item.</p>\n<script type=\"module\">\n  import \"/pura/lib/dock.js\";\n  const status = document.getElementById(\"dock-status\");\n  document.getElementById(\"meu-dock\").addEventListener(\"dock-item-activate\", (e) => {\n    status.textContent = `Opening: ${e.detail.label}`;\n  });\n</script>",
-  "usage": "<pura-dock label=\"Shortcuts\" magnify=\"1.7\" reach=\"120\" id=\"meu-dock\">\n  <pura-dock-item label=\"Home\" active>🏠</pura-dock-item>\n  <pura-dock-item label=\"Messages\">💬</pura-dock-item>\n  <pura-dock-item label=\"Calendar\">📅</pura-dock-item>\n  <pura-dock-item label=\"Settings\">⚙️</pura-dock-item>\n  <pura-dock-item label=\"Trash\" disabled>🗑️</pura-dock-item>\n</pura-dock>\n<script type=\"module\">\n  import \"/pura/lib/dock.js\";\n  document.getElementById(\"meu-dock\").addEventListener(\"dock-item-activate\", (e) => {\n    console.log(\"Item activated:\", e.detail.label);\n  });\n</script>"
+  "usage": "<pura-dock label=\"Shortcuts\" magnify=\"1.7\" reach=\"120\" id=\"meu-dock\">\n  <pura-dock-item label=\"Home\" active>🏠</pura-dock-item>\n  <pura-dock-item label=\"Messages\">💬</pura-dock-item>\n  <pura-dock-item label=\"Calendar\">📅</pura-dock-item>\n  <pura-dock-item label=\"Settings\">⚙️</pura-dock-item>\n  <pura-dock-item label=\"Trash\" disabled>🗑️</pura-dock-item>\n</pura-dock>\n<script type=\"module\">\n  import \"/pura/lib/dock.js\";\n  document.getElementById(\"meu-dock\").addEventListener(\"dock-item-activate\", (e) => {\n    console.log(\"Item activated:\", e.detail.label);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "drawer",
@@ -2289,7 +3044,10 @@ export const components = [
     "footer"
   ],
   "demoHTML": "<pura-button id=\"abrir-drawer\">Open drawer</pura-button>\n\n<pura-drawer id=\"drawer-exemplo\" title=\"Filters\">\n  <p>Refine the results using the options below.</p>\n  <pura-checkbox>In stock</pura-checkbox>\n  <pura-checkbox>Free shipping</pura-checkbox>\n  <div slot=\"footer\">\n    <pura-button variant=\"ghost\" id=\"cancelar-drawer\">Cancel</pura-button>\n    <pura-button id=\"aplicar-drawer\">Apply</pura-button>\n  </div>\n</pura-drawer>\n\n<script type=\"module\">\n  const drawer = document.getElementById(\"drawer-exemplo\");\n  document.getElementById(\"abrir-drawer\").addEventListener(\"click\", () => drawer.open());\n  document.getElementById(\"cancelar-drawer\").addEventListener(\"click\", () => drawer.close());\n  document.getElementById(\"aplicar-drawer\").addEventListener(\"click\", () => drawer.close());\n</script>",
-  "usage": "<pura-button id=\"abrir-drawer\">Open drawer</pura-button>\n\n<pura-drawer id=\"drawer-exemplo\" title=\"Filters\">\n  <p>Refine the results using the options below.</p>\n  <pura-checkbox>In stock</pura-checkbox>\n  <pura-checkbox>Free shipping</pura-checkbox>\n  <div slot=\"footer\">\n    <pura-button variant=\"ghost\" id=\"cancelar-drawer\">Cancel</pura-button>\n    <pura-button id=\"aplicar-drawer\">Apply</pura-button>\n  </div>\n</pura-drawer>\n\n<script type=\"module\">\n  const drawer = document.getElementById(\"drawer-exemplo\");\n  document.getElementById(\"abrir-drawer\").addEventListener(\"click\", () => drawer.open());\n  document.getElementById(\"cancelar-drawer\").addEventListener(\"click\", () => drawer.close());\n  document.getElementById(\"aplicar-drawer\").addEventListener(\"click\", () => drawer.close());\n</script>"
+  "usage": "<pura-button id=\"abrir-drawer\">Open drawer</pura-button>\n\n<pura-drawer id=\"drawer-exemplo\" title=\"Filters\">\n  <p>Refine the results using the options below.</p>\n  <pura-checkbox>In stock</pura-checkbox>\n  <pura-checkbox>Free shipping</pura-checkbox>\n  <div slot=\"footer\">\n    <pura-button variant=\"ghost\" id=\"cancelar-drawer\">Cancel</pura-button>\n    <pura-button id=\"aplicar-drawer\">Apply</pura-button>\n  </div>\n</pura-drawer>\n\n<script type=\"module\">\n  const drawer = document.getElementById(\"drawer-exemplo\");\n  document.getElementById(\"abrir-drawer\").addEventListener(\"click\", () => drawer.open());\n  document.getElementById(\"cancelar-drawer\").addEventListener(\"click\", () => drawer.close());\n  document.getElementById(\"aplicar-drawer\").addEventListener(\"click\", () => drawer.close());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "dropdown-menu",
@@ -2323,7 +3081,48 @@ export const components = [
     "shortcut"
   ],
   "demoHTML": "<pura-dropdown-menu>\n  <button slot=\"trigger\">Options</button>\n\n  <pura-menu-label>Account</pura-menu-label>\n  <pura-menu-item>\n    Profile\n    <span slot=\"shortcut\">Ctrl P</span>\n  </pura-menu-item>\n  <pura-menu-item>\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-menu-item>\n\n  <pura-menu-separator></pura-menu-separator>\n\n  <pura-menu-item disabled>Billing</pura-menu-item>\n  <pura-menu-item>Sign out</pura-menu-item>\n</pura-dropdown-menu>",
-  "usage": "<pura-dropdown-menu>\n  <button slot=\"trigger\">Options</button>\n\n  <pura-menu-label>Account</pura-menu-label>\n  <pura-menu-item>\n    Profile\n    <span slot=\"shortcut\">Ctrl P</span>\n  </pura-menu-item>\n  <pura-menu-item>\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-menu-item>\n\n  <pura-menu-separator></pura-menu-separator>\n\n  <pura-menu-item disabled>Billing</pura-menu-item>\n  <pura-menu-item>Sign out</pura-menu-item>\n</pura-dropdown-menu>"
+  "usage": "<pura-dropdown-menu>\n  <button slot=\"trigger\">Options</button>\n\n  <pura-menu-label>Account</pura-menu-label>\n  <pura-menu-item>\n    Profile\n    <span slot=\"shortcut\">Ctrl P</span>\n  </pura-menu-item>\n  <pura-menu-item>\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-menu-item>\n\n  <pura-menu-separator></pura-menu-separator>\n\n  <pura-menu-item disabled>Billing</pura-menu-item>\n  <pura-menu-item>Sign out</pura-menu-item>\n</pura-dropdown-menu>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    },
+    {
+      "slug": "table",
+      "title": "Table"
+    },
+    {
+      "slug": "button-group",
+      "title": "Button Group"
+    },
+    {
+      "slug": "pagination",
+      "title": "Pagination"
+    },
+    {
+      "slug": "sparkline",
+      "title": "Sparkline"
+    },
+    {
+      "slug": "toggle",
+      "title": "Toggle"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    }
+  ]
 },
 {
   "slug": "emphasis",
@@ -2352,7 +3151,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font: 15px system-ui;\">\n  <pura-emphasis animation=\"bounce\" trigger=\"loop\"><span style=\"font-size: 1.6rem;\">🔔</span></pura-emphasis>\n  <pura-emphasis animation=\"heartbeat\" trigger=\"loop\"><span style=\"font-size: 1.6rem;\">❤️</span></pura-emphasis>\n  <pura-emphasis animation=\"wiggle\" trigger=\"hover\"><span style=\"padding: 0.4rem 0.8rem; border: 1px solid var(--pura-border, #ddd); border-radius: 8px;\">Hover me</span></pura-emphasis>\n  <pura-emphasis animation=\"tada\" trigger=\"hover\"><span style=\"padding: 0.4rem 0.8rem; border: 1px solid var(--pura-border, #ddd); border-radius: 8px;\">And me</span></pura-emphasis>\n</div>",
-  "usage": "<!-- Loop forever -->\n<pura-emphasis animation=\"bounce\" trigger=\"loop\">🔔</pura-emphasis>\n\n<!-- Play on hover -->\n<pura-emphasis animation=\"wiggle\" trigger=\"hover\">\n  <button>Hover me</button>\n</pura-emphasis>\n\n<!-- Play manually -->\n<pura-emphasis animation=\"tada\" id=\"win\">🎉</pura-emphasis>\n<script>document.querySelector('#win').play();</script>"
+  "usage": "<!-- Loop forever -->\n<pura-emphasis animation=\"bounce\" trigger=\"loop\">🔔</pura-emphasis>\n\n<!-- Play on hover -->\n<pura-emphasis animation=\"wiggle\" trigger=\"hover\">\n  <button>Hover me</button>\n</pura-emphasis>\n\n<!-- Play manually -->\n<pura-emphasis animation=\"tada\" id=\"win\">🎉</pura-emphasis>\n<script>document.querySelector('#win').play();</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "empty",
@@ -2376,7 +3178,52 @@ export const components = [
     "action"
   ],
   "demoHTML": "<pura-empty title=\"No results found\">\n  <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n    <line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line>\n  </svg>\n  Try adjusting the filters or searching for another term.\n  <pura-button slot=\"action\" variant=\"primary\">Clear filters</pura-button>\n</pura-empty>",
-  "usage": "<pura-empty title=\"No results found\">\n  <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n    <line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line>\n  </svg>\n  Try adjusting the filters or searching for another term.\n  <pura-button slot=\"action\" variant=\"primary\">Clear filters</pura-button>\n</pura-empty>"
+  "usage": "<pura-empty title=\"No results found\">\n  <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n    <circle cx=\"11\" cy=\"11\" r=\"8\"></circle>\n    <line x1=\"21\" y1=\"21\" x2=\"16.65\" y2=\"16.65\"></line>\n  </svg>\n  Try adjusting the filters or searching for another term.\n  <pura-button slot=\"action\" variant=\"primary\">Clear filters</pura-button>\n</pura-empty>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "notification-item",
+      "title": "Notification Item"
+    },
+    {
+      "slug": "toggle",
+      "title": "Toggle"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    },
+    {
+      "slug": "stepper",
+      "title": "Stepper"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "error-404",
+      "title": "404"
+    },
+    {
+      "slug": "notifications",
+      "title": "Notifications"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    }
+  ]
 },
 {
   "slug": "explain",
@@ -2419,7 +3266,10 @@ export const components = [
     "explanation"
   ],
   "demoHTML": "<p style=\"max-width:32rem;line-height:1.7\">\n  Your invoice goes into\n  <pura-explain text=\"The period during which a payment is past its due date and still hasn't been settled.\" placement=\"bottom\">delinquency</pura-explain>\n  30 days after the due date, at which point we begin charging\n  <pura-explain placement=\"top\">\n    interest\n    <span slot=\"explanation\">A surcharge of <strong>2%</strong> on the original amount plus 0.033% per day.</span>\n  </pura-explain>\n  on the outstanding balance.\n</p>",
-  "usage": "<p style=\"max-width:32rem;line-height:1.7\">\n  Your invoice goes into\n  <pura-explain text=\"The period during which a payment is past its due date and still hasn't been settled.\" placement=\"bottom\">delinquency</pura-explain>\n  30 days after the due date, at which point we begin charging\n  <pura-explain placement=\"top\">\n    interest\n    <span slot=\"explanation\">A surcharge of <strong>2%</strong> on the original amount plus 0.033% per day.</span>\n  </pura-explain>\n  on the outstanding balance.\n</p>"
+  "usage": "<p style=\"max-width:32rem;line-height:1.7\">\n  Your invoice goes into\n  <pura-explain text=\"The period during which a payment is past its due date and still hasn't been settled.\" placement=\"bottom\">delinquency</pura-explain>\n  30 days after the due date, at which point we begin charging\n  <pura-explain placement=\"top\">\n    interest\n    <span slot=\"explanation\">A surcharge of <strong>2%</strong> on the original amount plus 0.033% per day.</span>\n  </pura-explain>\n  on the outstanding balance.\n</p>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "fab",
@@ -2467,7 +3317,10 @@ export const components = [
     "icon"
   ],
   "demoHTML": "<pura-fab id=\"fab\" extended position=\"bottom-right\" label=\"New item\">\n  <span slot=\"icon\">\n    <svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>\n  </span>\n  New\n</pura-fab>\n<script type=\"module\">\n  import \"/pura/lib/fab.js\";\n  document.getElementById(\"fab\").addEventListener(\"pura-fab-click\", (e) => {\n    alert(\"FAB triggered: \" + e.detail.id);\n  });\n</script>",
-  "usage": "<pura-fab id=\"fab\" extended position=\"bottom-right\" label=\"New item\">\n  <span slot=\"icon\">\n    <svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>\n  </span>\n  New\n</pura-fab>\n<script type=\"module\">\n  import \"/pura/lib/fab.js\";\n  document.getElementById(\"fab\").addEventListener(\"pura-fab-click\", (e) => {\n    alert(\"FAB triggered: \" + e.detail.id);\n  });\n</script>"
+  "usage": "<pura-fab id=\"fab\" extended position=\"bottom-right\" label=\"New item\">\n  <span slot=\"icon\">\n    <svg viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>\n  </span>\n  New\n</pura-fab>\n<script type=\"module\">\n  import \"/pura/lib/fab.js\";\n  document.getElementById(\"fab\").addEventListener(\"pura-fab-click\", (e) => {\n    alert(\"FAB triggered: \" + e.detail.id);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "faq",
@@ -2504,7 +3357,44 @@ export const components = [
     "question"
   ],
   "demoHTML": "<pura-faq label=\"Frequently asked questions\">\n  <pura-faq-item open>\n    <span slot=\"question\">Does pura have dependencies?</span>\n    No. pura is a library of native Web Components, with zero dependencies. Just import the component and use the tag in your HTML.\n  </pura-faq-item>\n  <pura-faq-item>\n    <span slot=\"question\">Does it work with any framework?</span>\n    Yes. Because they are standard Web Components, the elements work in React, Vue, Svelte, or plain HTML, with no adapters.\n  </pura-faq-item>\n  <pura-faq-item>\n    <span slot=\"question\">How do I allow several items open at once?</span>\n    Add the <code>multi</code> attribute to the <code><pura-faq></code> element.\n  </pura-faq-item>\n</pura-faq>",
-  "usage": "<pura-faq label=\"Frequently asked questions\">\n  <pura-faq-item open>\n    <span slot=\"question\">Does pura have dependencies?</span>\n    No. pura is a library of native Web Components, with zero dependencies. Just import the component and use the tag in your HTML.\n  </pura-faq-item>\n  <pura-faq-item>\n    <span slot=\"question\">Does it work with any framework?</span>\n    Yes. Because they are standard Web Components, the elements work in React, Vue, Svelte, or plain HTML, with no adapters.\n  </pura-faq-item>\n  <pura-faq-item>\n    <span slot=\"question\">How do I allow several items open at once?</span>\n    Add the <code>multi</code> attribute to the <code><pura-faq></code> element.\n  </pura-faq-item>\n</pura-faq>"
+  "usage": "<pura-faq label=\"Frequently asked questions\">\n  <pura-faq-item open>\n    <span slot=\"question\">Does pura have dependencies?</span>\n    No. pura is a library of native Web Components, with zero dependencies. Just import the component and use the tag in your HTML.\n  </pura-faq-item>\n  <pura-faq-item>\n    <span slot=\"question\">Does it work with any framework?</span>\n    Yes. Because they are standard Web Components, the elements work in React, Vue, Svelte, or plain HTML, with no adapters.\n  </pura-faq-item>\n  <pura-faq-item>\n    <span slot=\"question\">How do I allow several items open at once?</span>\n    Add the <code>multi</code> attribute to the <code><pura-faq></code> element.\n  </pura-faq-item>\n</pura-faq>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "pricing-table",
+      "title": "Pricing Table"
+    },
+    {
+      "slug": "banner",
+      "title": "Banner"
+    },
+    {
+      "slug": "testimonial",
+      "title": "Testimonial"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "pricing",
+      "title": "Pricing"
+    }
+  ]
 },
 {
   "slug": "field",
@@ -2537,7 +3427,52 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-field label=\"Email\" description=\"We'll use it to send the confirmation.\">\n  <pura-input type=\"email\" placeholder=\"you@example.com\"></pura-input>\n</pura-field>\n\n<pura-field label=\"Password\" error=\"The password must be at least 8 characters.\">\n  <pura-input type=\"password\" placeholder=\"********\"></pura-input>\n</pura-field>",
-  "usage": "<pura-field label=\"Email\" description=\"We'll use it to send the confirmation.\">\n  <pura-input type=\"email\" placeholder=\"you@example.com\"></pura-input>\n</pura-field>\n\n<pura-field label=\"Password\" error=\"The password must be at least 8 characters.\">\n  <pura-input type=\"password\" placeholder=\"********\"></pura-input>\n</pura-field>"
+  "usage": "<pura-field label=\"Email\" description=\"We'll use it to send the confirmation.\">\n  <pura-input type=\"email\" placeholder=\"you@example.com\"></pura-input>\n</pura-field>\n\n<pura-field label=\"Password\" error=\"The password must be at least 8 characters.\">\n  <pura-input type=\"password\" placeholder=\"********\"></pura-input>\n</pura-field>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "checkbox",
+      "title": "Checkbox"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    },
+    {
+      "slug": "meter",
+      "title": "Meter"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    },
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "file-dropzone",
@@ -2576,7 +3511,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-file-dropzone\n  id=\"dz\"\n  label=\"Drop files here or click to browse\"\n  accept=\"image/*,.pdf\"\n  multiple>\n</pura-file-dropzone>\n<p id=\"dz-status\" style=\"font: 0.85rem sans-serif; color: #666; margin-top: 0.75rem;\">\n  No files selected.\n</p>\n<script type=\"module\">\n  const dz = document.getElementById(\"dz\");\n  const status = document.getElementById(\"dz-status\");\n  dz.addEventListener(\"change\", (e) => {\n    const files = e.detail.files;\n    status.textContent = files.length\n      ? `${files.length} file(s): ` + files.map((f) => f.name).join(\", \")\n      : \"No files selected.\";\n  });\n</script>",
-  "usage": "<pura-file-dropzone\n  id=\"dz\"\n  label=\"Drop files here or click to browse\"\n  accept=\"image/*,.pdf\"\n  multiple>\n</pura-file-dropzone>\n<p id=\"dz-status\">No files selected.</p>\n<script type=\"module\">\n  import \"/pura/lib/file-dropzone.js\";\n  const dz = document.getElementById(\"dz\");\n  const status = document.getElementById(\"dz-status\");\n  dz.addEventListener(\"change\", (e) => {\n    const files = e.detail.files;\n    status.textContent = files.length\n      ? `${files.length} file(s): ` + files.map((f) => f.name).join(\", \")\n      : \"No files selected.\";\n  });\n  // Public API: dz.files (snapshot) and dz.clear()\n</script>"
+  "usage": "<pura-file-dropzone\n  id=\"dz\"\n  label=\"Drop files here or click to browse\"\n  accept=\"image/*,.pdf\"\n  multiple>\n</pura-file-dropzone>\n<p id=\"dz-status\">No files selected.</p>\n<script type=\"module\">\n  import \"/pura/lib/file-dropzone.js\";\n  const dz = document.getElementById(\"dz\");\n  const status = document.getElementById(\"dz-status\");\n  dz.addEventListener(\"change\", (e) => {\n    const files = e.detail.files;\n    status.textContent = files.length\n      ? `${files.length} file(s): ` + files.map((f) => f.name).join(\", \")\n      : \"No files selected.\";\n  });\n  // Public API: dz.files (snapshot) and dz.clear()\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "flex",
@@ -2627,7 +3565,10 @@ export const components = [
     "default — flex children"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/flex.js\"></script>\n\n<!-- Row with centered items and a gap -->\n<pura-flex align=\"center\" gap=\"3\">\n  <button>Save</button>\n  <button>Cancel</button>\n  <span>Last edited 2 minutes ago</span>\n</pura-flex>\n\n<!-- Column layout -->\n<pura-flex direction=\"col\" gap=\"2\">\n  <h3>Account</h3>\n  <p>Manage your profile and preferences.</p>\n  <a href=\"/settings\">Open settings</a>\n</pura-flex>\n\n<!-- Space the items apart across the row -->\n<pura-flex justify=\"between\" align=\"center\" gap=\"2rem\">\n  <strong>Dashboard</strong>\n  <button>New report</button>\n</pura-flex>\n\n<!-- Wrapping tag list -->\n<pura-flex wrap gap=\"2\">\n  <span>Design</span>\n  <span>Engineering</span>\n  <span>Marketing</span>\n  <span>Operations</span>\n</pura-flex>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/flex.js\"></script>\n\n<!-- Row with centered items and a gap -->\n<pura-flex align=\"center\" gap=\"3\">\n  <button>Save</button>\n  <button>Cancel</button>\n  <span>Last edited 2 minutes ago</span>\n</pura-flex>\n\n<!-- Column layout -->\n<pura-flex direction=\"col\" gap=\"2\">\n  <h3>Account</h3>\n  <p>Manage your profile and preferences.</p>\n  <a href=\"/settings\">Open settings</a>\n</pura-flex>\n\n<!-- Space the items apart across the row -->\n<pura-flex justify=\"between\" align=\"center\" gap=\"2rem\">\n  <strong>Dashboard</strong>\n  <button>New report</button>\n</pura-flex>\n\n<!-- Wrapping tag list -->\n<pura-flex wrap gap=\"2\">\n  <span>Design</span>\n  <span>Engineering</span>\n  <span>Marketing</span>\n  <span>Operations</span>\n</pura-flex>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/flex.js\"></script>\n\n<!-- Row with centered items and a gap -->\n<pura-flex align=\"center\" gap=\"3\">\n  <button>Save</button>\n  <button>Cancel</button>\n  <span>Last edited 2 minutes ago</span>\n</pura-flex>\n\n<!-- Column layout -->\n<pura-flex direction=\"col\" gap=\"2\">\n  <h3>Account</h3>\n  <p>Manage your profile and preferences.</p>\n  <a href=\"/settings\">Open settings</a>\n</pura-flex>\n\n<!-- Space the items apart across the row -->\n<pura-flex justify=\"between\" align=\"center\" gap=\"2rem\">\n  <strong>Dashboard</strong>\n  <button>New report</button>\n</pura-flex>\n\n<!-- Wrapping tag list -->\n<pura-flex wrap gap=\"2\">\n  <span>Design</span>\n  <span>Engineering</span>\n  <span>Marketing</span>\n  <span>Operations</span>\n</pura-flex>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "floating-window",
@@ -2688,7 +3629,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "flow",
@@ -2729,7 +3673,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "form",
@@ -2745,7 +3692,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "gauge",
@@ -2782,7 +3732,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-end\">\n  <pura-gauge id=\"cpu\" value=\"72\" min=\"0\" max=\"100\" label=\"CPU usage\" style=\"width:12rem\"></pura-gauge>\n  <pura-gauge value=\"8.4\" min=\"0\" max=\"10\" label=\"NPS\" style=\"width:12rem\"></pura-gauge>\n  <pura-gauge value=\"430\" min=\"0\" max=\"500\" label=\"Points\" style=\"width:12rem\"></pura-gauge>\n</div>\n<button id=\"randomizar\" style=\"margin-top:1rem\">Update CPU</button>\n<script type=\"module\">\n  import \"/pura/lib/gauge.js\";\n  document.getElementById(\"randomizar\").addEventListener(\"click\", () => {\n    document.getElementById(\"cpu\").value = Math.round(Math.random() * 100);\n  });\n</script>",
-  "usage": "<pura-gauge value=\"72\" min=\"0\" max=\"100\" label=\"CPU usage\" style=\"width:12rem\"></pura-gauge>\n\n<!-- Update via property or attribute -->\n<script type=\"module\">\n  import \"/pura/lib/gauge.js\";\n  const g = document.querySelector(\"pura-gauge\");\n  g.value = 85; // also accepts setAttribute(\"value\", \"85\")\n</script>"
+  "usage": "<pura-gauge value=\"72\" min=\"0\" max=\"100\" label=\"CPU usage\" style=\"width:12rem\"></pura-gauge>\n\n<!-- Update via property or attribute -->\n<script type=\"module\">\n  import \"/pura/lib/gauge.js\";\n  const g = document.querySelector(\"pura-gauge\");\n  g.value = 85; // also accepts setAttribute(\"value\", \"85\")\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "grid",
@@ -2839,7 +3792,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex; flex-direction:column; gap:1.5rem\">\n  <pura-grid cols=\"3\" gap=\"3\">\n    <div style=\"background:#eef;padding:1rem;border-radius:8px\">One</div>\n    <div style=\"background:#eef;padding:1rem;border-radius:8px\">Two</div>\n    <div style=\"background:#eef;padding:1rem;border-radius:8px\">Three</div>\n  </pura-grid>\n\n  <pura-grid cols=\"1fr 2fr\" gap=\"4\">\n    <div style=\"background:#efe;padding:1rem;border-radius:8px\">Sidebar</div>\n    <div style=\"background:#efe;padding:1rem;border-radius:8px\">Main content area</div>\n  </pura-grid>\n\n  <pura-grid min=\"12rem\" gap=\"2\">\n    <div style=\"background:#fee;padding:1rem;border-radius:8px\">Auto-fit A</div>\n    <div style=\"background:#fee;padding:1rem;border-radius:8px\">Auto-fit B</div>\n    <div style=\"background:#fee;padding:1rem;border-radius:8px\">Auto-fit C</div>\n    <div style=\"background:#fee;padding:1rem;border-radius:8px\">Auto-fit D</div>\n  </pura-grid>\n</div>\n<script type=\"module\" src=\"/pura/lib/grid.js\"></script>",
-  "usage": "<pura-grid cols=\"3\" gap=\"3\">\n  <div>One</div>\n  <div>Two</div>\n  <div>Three</div>\n</pura-grid>\n\n<pura-grid cols=\"1fr 2fr\" gap=\"4\" align=\"center\">\n  <div>Sidebar</div>\n  <div>Main content area</div>\n</pura-grid>\n\n<pura-grid min=\"12rem\" gap=\"2\">\n  <div>Auto-fit A</div>\n  <div>Auto-fit B</div>\n  <div>Auto-fit C</div>\n  <div>Auto-fit D</div>\n</pura-grid>\n<script type=\"module\" src=\"/pura/lib/grid.js\"></script>"
+  "usage": "<pura-grid cols=\"3\" gap=\"3\">\n  <div>One</div>\n  <div>Two</div>\n  <div>Three</div>\n</pura-grid>\n\n<pura-grid cols=\"1fr 2fr\" gap=\"4\" align=\"center\">\n  <div>Sidebar</div>\n  <div>Main content area</div>\n</pura-grid>\n\n<pura-grid min=\"12rem\" gap=\"2\">\n  <div>Auto-fit A</div>\n  <div>Auto-fit B</div>\n  <div>Auto-fit C</div>\n  <div>Auto-fit D</div>\n</pura-grid>\n<script type=\"module\" src=\"/pura/lib/grid.js\"></script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "heading",
@@ -2890,7 +3846,10 @@ export const components = [
     "default — the heading text content"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/heading.js\"></script>\n\n<pura-heading level=\"1\">Welcome to Pura</pura-heading>\n<pura-heading level=\"2\" color=\"muted\">A small, token-driven component kit</pura-heading>\n\n<pura-heading level=\"2\" size=\"3xl\" color=\"primary\">Big and bold</pura-heading>\n<pura-heading level=\"3\" weight=\"500\" tracking=\"wide\">Lighter, wider tracking</pura-heading>\n<pura-heading level=\"2\" align=\"center\" color=\"accent\">Centered accent heading</pura-heading>\n<pura-heading level=\"4\" size=\"sm\" color=\"danger\">Compact danger label</pura-heading>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/heading.js\"></script>\n\n<!-- Semantic level drives both the tag and the default size -->\n<pura-heading level=\"1\">Page title</pura-heading>\n\n<!-- Keep the semantic level but override the visual size -->\n<pura-heading level=\"2\" size=\"lg\">Section title that looks smaller</pura-heading>\n\n<!-- Tune weight, color, alignment, and tracking -->\n<pura-heading level=\"3\" weight=\"600\" color=\"primary\" align=\"center\" tracking=\"normal\">\n  Styled subheading\n</pura-heading>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/heading.js\"></script>\n\n<!-- Semantic level drives both the tag and the default size -->\n<pura-heading level=\"1\">Page title</pura-heading>\n\n<!-- Keep the semantic level but override the visual size -->\n<pura-heading level=\"2\" size=\"lg\">Section title that looks smaller</pura-heading>\n\n<!-- Tune weight, color, alignment, and tracking -->\n<pura-heading level=\"3\" weight=\"600\" color=\"primary\" align=\"center\" tracking=\"normal\">\n  Styled subheading\n</pura-heading>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "heatmap",
@@ -2929,7 +3888,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "highlight",
@@ -2966,7 +3928,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "hotkey",
@@ -3017,7 +3982,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"font-family:system-ui;display:flex;flex-direction:column;gap:12px;max-width:420px\">\n  <p>Press <kbd>mod+k</kbd> (⌘K on Mac, Ctrl+K elsewhere) or click the button to open search.</p>\n  <button id=\"abrir-busca\">Open search</button>\n  <dialog id=\"busca\" style=\"border:1px solid #ccc;border-radius:8px;padding:16px\">\n    <p>Search opened by the shortcut.</p>\n    <form method=\"dialog\"><button>Close</button></form>\n  </dialog>\n\n  <pura-hotkey keys=\"mod+k\" target=\"#abrir-busca\"></pura-hotkey>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/hotkey.js\";\n  const btn = document.getElementById(\"abrir-busca\");\n  const dlg = document.getElementById(\"busca\");\n  btn.addEventListener(\"click\", () => dlg.showModal());\n</script>",
-  "usage": "<button id=\"abrir-busca\">Open search</button>\n<dialog id=\"busca\">\n  <p>Search opened by the shortcut.</p>\n  <form method=\"dialog\"><button>Close</button></form>\n</dialog>\n\n<!-- mod+k activates the button (focus + click); the button opens the dialog -->\n<pura-hotkey keys=\"mod+k\" target=\"#abrir-busca\"></pura-hotkey>\n\n<script type=\"module\">\n  import \"/pura/lib/hotkey.js\";\n  const btn = document.getElementById(\"abrir-busca\");\n  const dlg = document.getElementById(\"busca\");\n  btn.addEventListener(\"click\", () => dlg.showModal());\n</script>"
+  "usage": "<button id=\"abrir-busca\">Open search</button>\n<dialog id=\"busca\">\n  <p>Search opened by the shortcut.</p>\n  <form method=\"dialog\"><button>Close</button></form>\n</dialog>\n\n<!-- mod+k activates the button (focus + click); the button opens the dialog -->\n<pura-hotkey keys=\"mod+k\" target=\"#abrir-busca\"></pura-hotkey>\n\n<script type=\"module\">\n  import \"/pura/lib/hotkey.js\";\n  const btn = document.getElementById(\"abrir-busca\");\n  const dlg = document.getElementById(\"busca\");\n  btn.addEventListener(\"click\", () => dlg.showModal());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "hover-card",
@@ -3060,7 +4028,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-hover-card placement=\"bottom\">\n  <a slot=\"trigger\" href=\"#\" style=\"color: var(--pura-accent, #4f46e5); text-decoration: underline;\">@andre</a>\n\n  <div style=\"display: flex; gap: 12px; align-items: flex-start;\">\n    <img src=\"https://i.pravatar.cc/48?img=12\" alt=\"André\" width=\"48\" height=\"48\" style=\"border-radius: 50%;\" />\n    <div>\n      <strong>André Ahlert</strong>\n      <p style=\"margin: 4px 0 8px;\">Founder of AEX Partners. Building tools for the native web.</p>\n      <small style=\"color: var(--pura-muted, #6b7280);\">Joined March 2021</small>\n    </div>\n  </div>\n</pura-hover-card>",
-  "usage": "<pura-hover-card placement=\"bottom\">\n  <a slot=\"trigger\" href=\"#\" style=\"color: var(--pura-accent, #4f46e5); text-decoration: underline;\">@andre</a>\n\n  <div style=\"display: flex; gap: 12px; align-items: flex-start;\">\n    <img src=\"https://i.pravatar.cc/48?img=12\" alt=\"André\" width=\"48\" height=\"48\" style=\"border-radius: 50%;\" />\n    <div>\n      <strong>André Ahlert</strong>\n      <p style=\"margin: 4px 0 8px;\">Founder of AEX Partners. Building tools for the native web.</p>\n      <small style=\"color: var(--pura-muted, #6b7280);\">Joined March 2021</small>\n    </div>\n  </div>\n</pura-hover-card>\n\n<!-- Attributes: open, placement (bottom|top|left|right), open-delay, close-delay -->\n<!-- Events: open, close — Methods: show(), hide() -->"
+  "usage": "<pura-hover-card placement=\"bottom\">\n  <a slot=\"trigger\" href=\"#\" style=\"color: var(--pura-accent, #4f46e5); text-decoration: underline;\">@andre</a>\n\n  <div style=\"display: flex; gap: 12px; align-items: flex-start;\">\n    <img src=\"https://i.pravatar.cc/48?img=12\" alt=\"André\" width=\"48\" height=\"48\" style=\"border-radius: 50%;\" />\n    <div>\n      <strong>André Ahlert</strong>\n      <p style=\"margin: 4px 0 8px;\">Founder of AEX Partners. Building tools for the native web.</p>\n      <small style=\"color: var(--pura-muted, #6b7280);\">Joined March 2021</small>\n    </div>\n  </div>\n</pura-hover-card>\n\n<!-- Attributes: open, placement (bottom|top|left|right), open-delay, close-delay -->\n<!-- Events: open, close — Methods: show(), hide() -->",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "icon",
@@ -3105,7 +4076,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "idle",
@@ -3148,7 +4122,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<div style=\"font-family: system-ui; max-width: 420px;\">\n  <pura-idle id=\"detector\" timeout=\"3000\">\n    <div id=\"painel\" style=\"padding: 16px; border: 1px solid #ddd; border-radius: 8px;\">\n      <p>State: <strong id=\"estado\">active</strong></p>\n      <p style=\"color:#666; font-size:13px;\">Stop moving the mouse and keyboard for 3 seconds to see the state turn \"idle\".</p>\n      <button id=\"ping\" type=\"button\">I'm here (reset)</button>\n    </div>\n  </pura-idle>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/idle.js\";\n  const det = document.getElementById(\"detector\");\n  const estado = document.getElementById(\"estado\");\n  const painel = document.getElementById(\"painel\");\n  det.addEventListener(\"pura-idle:change\", (e) => {\n    const ocioso = e.detail.idle;\n    estado.textContent = ocioso ? \"idle\" : \"active\";\n    painel.style.opacity = ocioso ? \"0.5\" : \"1\";\n  });\n  document.getElementById(\"ping\").addEventListener(\"click\", () => det.reset());\n</script>",
-  "usage": "<pura-idle id=\"detector\" timeout=\"3000\">\n  <div id=\"painel\" style=\"padding: 16px; border: 1px solid #ddd; border-radius: 8px;\">\n    <p>State: <strong id=\"estado\">active</strong></p>\n    <p style=\"color:#666; font-size:13px;\">Stop moving the mouse and keyboard for 3 seconds to see the state turn \"idle\".</p>\n    <button id=\"ping\" type=\"button\">I'm here (reset)</button>\n  </div>\n</pura-idle>\n<script type=\"module\">\n  import \"/pura/lib/idle.js\";\n  const det = document.getElementById(\"detector\");\n  const estado = document.getElementById(\"estado\");\n  const painel = document.getElementById(\"painel\");\n  det.addEventListener(\"pura-idle:change\", (e) => {\n    const ocioso = e.detail.idle;\n    estado.textContent = ocioso ? \"idle\" : \"active\";\n    painel.style.opacity = ocioso ? \"0.5\" : \"1\";\n  });\n  document.getElementById(\"ping\").addEventListener(\"click\", () => det.reset());\n</script>"
+  "usage": "<pura-idle id=\"detector\" timeout=\"3000\">\n  <div id=\"painel\" style=\"padding: 16px; border: 1px solid #ddd; border-radius: 8px;\">\n    <p>State: <strong id=\"estado\">active</strong></p>\n    <p style=\"color:#666; font-size:13px;\">Stop moving the mouse and keyboard for 3 seconds to see the state turn \"idle\".</p>\n    <button id=\"ping\" type=\"button\">I'm here (reset)</button>\n  </div>\n</pura-idle>\n<script type=\"module\">\n  import \"/pura/lib/idle.js\";\n  const det = document.getElementById(\"detector\");\n  const estado = document.getElementById(\"estado\");\n  const painel = document.getElementById(\"painel\");\n  det.addEventListener(\"pura-idle:change\", (e) => {\n    const ocioso = e.detail.idle;\n    estado.textContent = ocioso ? \"idle\" : \"active\";\n    painel.style.opacity = ocioso ? \"0.5\" : \"1\";\n  });\n  document.getElementById(\"ping\").addEventListener(\"click\", () => det.reset());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "image-compare",
@@ -3179,7 +4156,10 @@ export const components = [
     "after"
   ],
   "demoHTML": "<div style=\"max-width:520px\">\n  <pura-image-compare value=\"50\" label=\"Before and after renovation comparison\" style=\"border:1px solid var(--pura-border)\">\n    <img slot=\"before\" src=\"https://picsum.photos/id/1018/800/500\" alt=\"Before the renovation\">\n    <img slot=\"after\" src=\"https://picsum.photos/id/1015/800/500\" alt=\"After the renovation\">\n  </pura-image-compare>\n</div>",
-  "usage": "<pura-image-compare value=\"50\" label=\"Before and after renovation comparison\">\n  <img slot=\"before\" src=\"/img/antes.jpg\" alt=\"Before the renovation\">\n  <img slot=\"after\" src=\"/img/depois.jpg\" alt=\"After the renovation\">\n</pura-image-compare>"
+  "usage": "<pura-image-compare value=\"50\" label=\"Before and after renovation comparison\">\n  <img slot=\"before\" src=\"/img/antes.jpg\" alt=\"Before the renovation\">\n  <img slot=\"after\" src=\"/img/depois.jpg\" alt=\"After the renovation\">\n</pura-image-compare>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "image",
@@ -3234,7 +4214,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/image.js\"></script>\n\n<!-- Basic image with a 16/9 ratio -->\n<pura-image\n  src=\"https://images.unsplash.com/photo-1506744038136-46273834b3fb\"\n  alt=\"A misty lake surrounded by mountains\"\n  ratio=\"16/9\"\n  w=\"320\"\n></pura-image>\n\n<!-- Square avatar with full rounding -->\n<pura-image\n  src=\"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde\"\n  alt=\"Profile photo\"\n  ratio=\"1/1\"\n  radius=\"full\"\n  w=\"96\"\n></pura-image>\n\n<!-- Contain fit with rounded corners -->\n<pura-image\n  src=\"https://images.unsplash.com/photo-1465101046530-73398c7f28ca\"\n  alt=\"Logo on a light background\"\n  ratio=\"4/3\"\n  fit=\"contain\"\n  radius=\"lg\"\n  w=\"240\"\n></pura-image>\n\n<!-- Empty placeholder (no src) -->\n<pura-image ratio=\"1/1\" w=\"120\" radius=\"md\"></pura-image>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/image.js\"></script>\n\n<!-- Responsive cover image -->\n<pura-image\n  src=\"/assets/hero.jpg\"\n  alt=\"Team working together\"\n  ratio=\"16/9\"\n  fit=\"cover\"\n  radius=\"md\"\n></pura-image>\n\n<!-- Fixed-size rounded avatar -->\n<pura-image\n  src=\"/assets/avatar.png\"\n  alt=\"Jane Doe\"\n  ratio=\"1/1\"\n  radius=\"full\"\n  w=\"48\"\n  h=\"48\"\n></pura-image>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/image.js\"></script>\n\n<!-- Responsive cover image -->\n<pura-image\n  src=\"/assets/hero.jpg\"\n  alt=\"Team working together\"\n  ratio=\"16/9\"\n  fit=\"cover\"\n  radius=\"md\"\n></pura-image>\n\n<!-- Fixed-size rounded avatar -->\n<pura-image\n  src=\"/assets/avatar.png\"\n  alt=\"Jane Doe\"\n  ratio=\"1/1\"\n  radius=\"full\"\n  w=\"48\"\n  h=\"48\"\n></pura-image>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "infinite-scroll",
@@ -3287,7 +4270,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "inline-edit",
@@ -3339,7 +4325,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "input-group",
@@ -3368,7 +4357,40 @@ export const components = [
     "suffix"
   ],
   "demoHTML": "<pura-input-group>\n  <span slot=\"prefix\">$</span>\n  <input type=\"text\" inputmode=\"decimal\" placeholder=\"0.00\" aria-label=\"Amount\" />\n  <span slot=\"suffix\">USD</span>\n</pura-input-group>\n\n<pura-input-group style=\"margin-top: 12px;\">\n  <span slot=\"prefix\">https://</span>\n  <input type=\"text\" placeholder=\"my-site\" aria-label=\"Website address\" />\n  <span slot=\"suffix\">.com</span>\n</pura-input-group>\n\n<pura-input-group invalid style=\"margin-top: 12px;\">\n  <input type=\"email\" placeholder=\"you@email.com\" aria-label=\"Email\" value=\"invalid-email\" />\n  <span slot=\"suffix\">!</span>\n</pura-input-group>",
-  "usage": "<pura-input-group>\n  <span slot=\"prefix\">$</span>\n  <input type=\"text\" inputmode=\"decimal\" placeholder=\"0.00\" aria-label=\"Amount\" />\n  <span slot=\"suffix\">USD</span>\n</pura-input-group>\n\n<pura-input-group>\n  <span slot=\"prefix\">https://</span>\n  <input type=\"text\" placeholder=\"my-site\" aria-label=\"Website address\" />\n  <span slot=\"suffix\">.com</span>\n</pura-input-group>\n\n<pura-input-group invalid>\n  <input type=\"email\" placeholder=\"you@email.com\" aria-label=\"Email\" value=\"invalid-email\" />\n  <span slot=\"suffix\">!</span>\n</pura-input-group>"
+  "usage": "<pura-input-group>\n  <span slot=\"prefix\">$</span>\n  <input type=\"text\" inputmode=\"decimal\" placeholder=\"0.00\" aria-label=\"Amount\" />\n  <span slot=\"suffix\">USD</span>\n</pura-input-group>\n\n<pura-input-group>\n  <span slot=\"prefix\">https://</span>\n  <input type=\"text\" placeholder=\"my-site\" aria-label=\"Website address\" />\n  <span slot=\"suffix\">.com</span>\n</pura-input-group>\n\n<pura-input-group invalid>\n  <input type=\"email\" placeholder=\"you@email.com\" aria-label=\"Email\" value=\"invalid-email\" />\n  <span slot=\"suffix\">!</span>\n</pura-input-group>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "number-input",
+      "title": "Number Input"
+    },
+    {
+      "slug": "stepper",
+      "title": "Stepper"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    }
+  ]
 },
 {
   "slug": "input-otp",
@@ -3420,7 +4442,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:.75rem;align-items:flex-start\">\n  <label style=\"font-size:.875rem;font-weight:550\">Enter the verification code</label>\n  <pura-input-otp id=\"otp\" length=\"6\" mono></pura-input-otp>\n  <small id=\"otp-status\" style=\"color:var(--pura-muted-fg)\">6 digits sent to your email.</small>\n</div>\n<script type=\"module\">\n  const otp = document.getElementById(\"otp\");\n  const status = document.getElementById(\"otp-status\");\n  otp.addEventListener(\"complete\", (e) => {\n    status.textContent = \"Code complete: \" + e.detail.value;\n  });\n</script>",
-  "usage": "<div style=\"display:flex;flex-direction:column;gap:.75rem;align-items:flex-start\">\n  <label style=\"font-size:.875rem;font-weight:550\">Enter the verification code</label>\n  <pura-input-otp id=\"otp\" length=\"6\" mono></pura-input-otp>\n  <small id=\"otp-status\" style=\"color:var(--pura-muted-fg)\">6 digits sent to your email.</small>\n</div>\n<script type=\"module\">\n  const otp = document.getElementById(\"otp\");\n  const status = document.getElementById(\"otp-status\");\n  otp.addEventListener(\"complete\", (e) => {\n    status.textContent = \"Code complete: \" + e.detail.value;\n  });\n</script>"
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:.75rem;align-items:flex-start\">\n  <label style=\"font-size:.875rem;font-weight:550\">Enter the verification code</label>\n  <pura-input-otp id=\"otp\" length=\"6\" mono></pura-input-otp>\n  <small id=\"otp-status\" style=\"color:var(--pura-muted-fg)\">6 digits sent to your email.</small>\n</div>\n<script type=\"module\">\n  const otp = document.getElementById(\"otp\");\n  const status = document.getElementById(\"otp-status\");\n  otp.addEventListener(\"complete\", (e) => {\n    status.textContent = \"Code complete: \" + e.detail.value;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "input",
@@ -3477,7 +4502,64 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-input\n  label=\"Email\"\n  type=\"email\"\n  placeholder=\"you@example.com\"\n  hint=\"We never share your email.\"\n></pura-input>",
-  "usage": "<pura-input\n  label=\"Email\"\n  type=\"email\"\n  placeholder=\"you@example.com\"\n  hint=\"We never share your email.\"\n></pura-input>"
+  "usage": "<pura-input\n  label=\"Email\"\n  type=\"email\"\n  placeholder=\"you@example.com\"\n  hint=\"We never share your email.\"\n></pura-input>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "checkbox",
+      "title": "Checkbox"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "empty",
+      "title": "Empty"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    },
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    },
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "inspector",
@@ -3502,7 +4584,104 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "empty",
+      "title": "Empty"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    },
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "chat",
+      "title": "Chat"
+    },
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    },
+    {
+      "slug": "error-404",
+      "title": "404"
+    },
+    {
+      "slug": "kanban",
+      "title": "Kanban"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "notifications",
+      "title": "Notifications"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "pricing",
+      "title": "Pricing"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    },
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "intent",
@@ -3529,7 +4708,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"font-family:system-ui;max-width:420px\">\n  <pura-intent id=\"regiao-checkout\" goal=\"Complete the cart checkout\" actions='[{\"name\":\"submit\",\"label\":\"Confirm order\"},{\"name\":\"cancel\",\"label\":\"Cancel\"}]'>\n    <section style=\"border:1px solid #ddd;border-radius:12px;padding:16px\">\n      <h3 style=\"margin:0 0 8px\">Order summary</h3>\n      <p style=\"margin:0 0 12px;color:#555\">Total: $149.90</p>\n      <button style=\"padding:8px 16px;border-radius:8px;border:0;background:#111;color:#fff\">Confirm order</button>\n    </section>\n  </pura-intent>\n\n  <button id=\"inspecionar\" style=\"margin-top:12px;padding:8px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;cursor:pointer\">Inspect intents (as an agent would)</button>\n  <pre id=\"saida\" style=\"margin-top:10px;background:#0d1117;color:#9ece6a;padding:12px;border-radius:8px;font-size:12px;white-space:pre-wrap\"></pre>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/intent.js\";\n  const out = document.getElementById(\"saida\");\n  document.getElementById(\"inspecionar\").addEventListener(\"click\", () => {\n    const regioes = document.querySelectorAll('[data-intent]');\n    const dados = [...regioes].map((el) => ({\n      goal: el.getAttribute(\"data-intent\"),\n      role: el.getAttribute(\"role\"),\n      acoes: Number(el.getAttribute(\"data-intent-actions\") || 0),\n    }));\n    out.textContent = JSON.stringify(dados, null, 2);\n  });\n</script>",
-  "usage": "<pura-intent goal=\"Complete the cart checkout\" actions='[{\"name\":\"submit\",\"label\":\"Confirm order\"},{\"name\":\"cancel\",\"label\":\"Cancel\"}]'>\n  <section>\n    <h3>Order summary</h3>\n    <p>Total: $149.90</p>\n    <button>Confirm order</button>\n  </section>\n</pura-intent>\n\n<script type=\"module\">\n  import \"/pura/lib/intent.js\";\n  // Agents enumerate annotated regions via the DOM or the global registry:\n  const regioes = document.querySelectorAll('[data-intent]');\n  const snapshot = window.__puraIntents; // [{ id, goal, element, actions }]\n</script>"
+  "usage": "<pura-intent goal=\"Complete the cart checkout\" actions='[{\"name\":\"submit\",\"label\":\"Confirm order\"},{\"name\":\"cancel\",\"label\":\"Cancel\"}]'>\n  <section>\n    <h3>Order summary</h3>\n    <p>Total: $149.90</p>\n    <button>Confirm order</button>\n  </section>\n</pura-intent>\n\n<script type=\"module\">\n  import \"/pura/lib/intent.js\";\n  // Agents enumerate annotated regions via the DOM or the global registry:\n  const regioes = document.querySelectorAll('[data-intent]');\n  const snapshot = window.__puraIntents; // [{ id, goal, element, actions }]\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "item",
@@ -3571,7 +4753,52 @@ export const components = [
     "actions"
   ],
   "demoHTML": "<pura-item bordered>\n  <span slot=\"media\">📁</span>\n  <span slot=\"title\">Documents</span>\n  Files and folders shared with the team\n  <button slot=\"actions\">Open</button>\n</pura-item>\n\n<pura-item hover clickable title=\"Notifications\">\n  <span slot=\"media\">🔔</span>\n  Receive alerts by email and push\n  <span slot=\"actions\">3</span>\n</pura-item>",
-  "usage": "<pura-item bordered>\n  <span slot=\"media\">📁</span>\n  <span slot=\"title\">Documents</span>\n  Files and folders shared with the team\n  <button slot=\"actions\">Open</button>\n</pura-item>\n\n<pura-item hover clickable title=\"Notifications\">\n  <span slot=\"media\">🔔</span>\n  Receive alerts by email and push\n  <span slot=\"actions\">3</span>\n</pura-item>"
+  "usage": "<pura-item bordered>\n  <span slot=\"media\">📁</span>\n  <span slot=\"title\">Documents</span>\n  Files and folders shared with the team\n  <button slot=\"actions\">Open</button>\n</pura-item>\n\n<pura-item hover clickable title=\"Notifications\">\n  <span slot=\"media\">🔔</span>\n  Receive alerts by email and push\n  <span slot=\"actions\">3</span>\n</pura-item>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "calendar",
+      "title": "Calendar"
+    },
+    {
+      "slug": "chat-bubble",
+      "title": "Chat Bubble"
+    },
+    {
+      "slug": "chat-input",
+      "title": "Chat Input"
+    },
+    {
+      "slug": "dialog",
+      "title": "Dialog"
+    },
+    {
+      "slug": "input-group",
+      "title": "Input Group"
+    },
+    {
+      "slug": "number-input",
+      "title": "Number Input"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "chat",
+      "title": "Chat"
+    },
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    }
+  ]
 },
 {
   "slug": "json-input",
@@ -3629,7 +4856,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "kanban",
@@ -3653,7 +4883,10 @@ export const components = [
     "footer (column) — add-card area"
   ],
   "demoHTML": "<pura-kanban>\n  <pura-kanban-column label=\"To Do\">\n    <pura-kanban-card><b>Design landing page</b><div style=\"color:var(--pura-muted);font-size:.8rem;margin-top:4px\">Hero + pricing</div></pura-kanban-card>\n    <pura-kanban-card>Write release notes</pura-kanban-card>\n    <pura-kanban-card>Fix login bug</pura-kanban-card>\n  </pura-kanban-column>\n  <pura-kanban-column label=\"In Progress\">\n    <pura-kanban-card><b>API rate limiting</b></pura-kanban-card>\n    <pura-kanban-card>Onboarding flow</pura-kanban-card>\n  </pura-kanban-column>\n  <pura-kanban-column label=\"Done\">\n    <pura-kanban-card>Set up CI</pura-kanban-card>\n  </pura-kanban-column>\n</pura-kanban>",
-  "usage": "<pura-kanban>\n  <pura-kanban-column label=\"To Do\">\n    <pura-kanban-card><b>Design landing page</b><div style=\"color:var(--pura-muted);font-size:.8rem;margin-top:4px\">Hero + pricing</div></pura-kanban-card>\n    <pura-kanban-card>Write release notes</pura-kanban-card>\n    <pura-kanban-card>Fix login bug</pura-kanban-card>\n  </pura-kanban-column>\n  <pura-kanban-column label=\"In Progress\">\n    <pura-kanban-card><b>API rate limiting</b></pura-kanban-card>\n    <pura-kanban-card>Onboarding flow</pura-kanban-card>\n  </pura-kanban-column>\n  <pura-kanban-column label=\"Done\">\n    <pura-kanban-card>Set up CI</pura-kanban-card>\n  </pura-kanban-column>\n</pura-kanban>"
+  "usage": "<pura-kanban>\n  <pura-kanban-column label=\"To Do\">\n    <pura-kanban-card><b>Design landing page</b><div style=\"color:var(--pura-muted);font-size:.8rem;margin-top:4px\">Hero + pricing</div></pura-kanban-card>\n    <pura-kanban-card>Write release notes</pura-kanban-card>\n    <pura-kanban-card>Fix login bug</pura-kanban-card>\n  </pura-kanban-column>\n  <pura-kanban-column label=\"In Progress\">\n    <pura-kanban-card><b>API rate limiting</b></pura-kanban-card>\n    <pura-kanban-card>Onboarding flow</pura-kanban-card>\n  </pura-kanban-column>\n  <pura-kanban-column label=\"Done\">\n    <pura-kanban-card>Set up CI</pura-kanban-card>\n  </pura-kanban-column>\n</pura-kanban>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "kbd-shortcuts",
@@ -3691,7 +4924,10 @@ export const components = [
     "footer"
   ],
   "demoHTML": "<button id=\"abrir-atalhos\" class=\"pura-trigger\">View keyboard shortcuts (or press ?)</button>\n\n<pura-kbd-shortcuts id=\"ajuda\" title=\"Keyboard shortcuts\" key=\"?\">\n  <pura-shortcut keys=\"⌘ K\" label=\"Open search\" section=\"General\"></pura-shortcut>\n  <pura-shortcut keys=\"⌘ /\" label=\"Show shortcuts\" section=\"General\"></pura-shortcut>\n  <pura-shortcut keys=\"G I\" label=\"Go to inbox\" section=\"Navigation\"></pura-shortcut>\n  <pura-shortcut keys=\"G C\" label=\"Go to calendar\" section=\"Navigation\"></pura-shortcut>\n  <pura-shortcut keys=\"⌘ Enter\" label=\"Send\" section=\"Editing\"></pura-shortcut>\n  <pura-shortcut keys=\"Esc\" label=\"Cancel\" section=\"Editing\"></pura-shortcut>\n  <span slot=\"footer\">Press ? anytime to reopen this help.</span>\n</pura-kbd-shortcuts>\n\n<script type=\"module\">\n  import \"/pura/lib/kbd-shortcuts.js\";\n  const ajuda = document.getElementById(\"ajuda\");\n  document.getElementById(\"abrir-atalhos\").addEventListener(\"click\", () => ajuda.open());\n</script>",
-  "usage": "<button id=\"abrir-atalhos\">View keyboard shortcuts (or press ?)</button>\n\n<pura-kbd-shortcuts id=\"ajuda\" title=\"Keyboard shortcuts\" key=\"?\">\n  <pura-shortcut keys=\"⌘ K\" label=\"Open search\" section=\"General\"></pura-shortcut>\n  <pura-shortcut keys=\"⌘ /\" label=\"Show shortcuts\" section=\"General\"></pura-shortcut>\n  <pura-shortcut keys=\"G I\" label=\"Go to inbox\" section=\"Navigation\"></pura-shortcut>\n  <pura-shortcut keys=\"G C\" label=\"Go to calendar\" section=\"Navigation\"></pura-shortcut>\n  <pura-shortcut keys=\"⌘ Enter\" label=\"Send\" section=\"Editing\"></pura-shortcut>\n  <pura-shortcut keys=\"Esc\" label=\"Cancel\" section=\"Editing\"></pura-shortcut>\n  <span slot=\"footer\">Press ? anytime to reopen this help.</span>\n</pura-kbd-shortcuts>\n\n<script type=\"module\">\n  import \"/pura/lib/kbd-shortcuts.js\";\n  const ajuda = document.getElementById(\"ajuda\");\n  document.getElementById(\"abrir-atalhos\").addEventListener(\"click\", () => ajuda.open());\n</script>"
+  "usage": "<button id=\"abrir-atalhos\">View keyboard shortcuts (or press ?)</button>\n\n<pura-kbd-shortcuts id=\"ajuda\" title=\"Keyboard shortcuts\" key=\"?\">\n  <pura-shortcut keys=\"⌘ K\" label=\"Open search\" section=\"General\"></pura-shortcut>\n  <pura-shortcut keys=\"⌘ /\" label=\"Show shortcuts\" section=\"General\"></pura-shortcut>\n  <pura-shortcut keys=\"G I\" label=\"Go to inbox\" section=\"Navigation\"></pura-shortcut>\n  <pura-shortcut keys=\"G C\" label=\"Go to calendar\" section=\"Navigation\"></pura-shortcut>\n  <pura-shortcut keys=\"⌘ Enter\" label=\"Send\" section=\"Editing\"></pura-shortcut>\n  <pura-shortcut keys=\"Esc\" label=\"Cancel\" section=\"Editing\"></pura-shortcut>\n  <span slot=\"footer\">Press ? anytime to reopen this help.</span>\n</pura-kbd-shortcuts>\n\n<script type=\"module\">\n  import \"/pura/lib/kbd-shortcuts.js\";\n  const ajuda = document.getElementById(\"ajuda\");\n  document.getElementById(\"abrir-atalhos\").addEventListener(\"click\", () => ajuda.open());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "kbd",
@@ -3705,7 +4941,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Press <pura-kbd>⌘</pura-kbd> <pura-kbd>K</pura-kbd> to search\n</p>\n<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Save with <pura-kbd>Ctrl</pura-kbd> <pura-kbd>S</pura-kbd>\n</p>",
-  "usage": "<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Press <pura-kbd>⌘</pura-kbd> <pura-kbd>K</pura-kbd> to search\n</p>\n<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Save with <pura-kbd>Ctrl</pura-kbd> <pura-kbd>S</pura-kbd>\n</p>"
+  "usage": "<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Press <pura-kbd>⌘</pura-kbd> <pura-kbd>K</pura-kbd> to search\n</p>\n<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Save with <pura-kbd>Ctrl</pura-kbd> <pura-kbd>S</pura-kbd>\n</p>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "knob",
@@ -3775,7 +5014,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "label",
@@ -3796,7 +5038,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:8px;max-width:320px\">\n  <pura-label for=\"email\">Email</pura-label>\n  <input id=\"email\" type=\"email\" placeholder=\"you@example.com\" />\n\n  <div style=\"display:flex;align-items:center;gap:8px;margin-top:8px\">\n    <input id=\"termos\" type=\"checkbox\" />\n    <pura-label for=\"termos\">I accept the terms of use</pura-label>\n  </div>\n</div>",
-  "usage": "<div style=\"display:flex;flex-direction:column;gap:8px;max-width:320px\">\n  <pura-label for=\"email\">Email</pura-label>\n  <input id=\"email\" type=\"email\" placeholder=\"you@example.com\" />\n\n  <div style=\"display:flex;align-items:center;gap:8px;margin-top:8px\">\n    <input id=\"termos\" type=\"checkbox\" />\n    <pura-label for=\"termos\">I accept the terms of use</pura-label>\n  </div>\n</div>"
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:8px;max-width:320px\">\n  <pura-label for=\"email\">Email</pura-label>\n  <input id=\"email\" type=\"email\" placeholder=\"you@example.com\" />\n\n  <div style=\"display:flex;align-items:center;gap:8px;margin-top:8px\">\n    <input id=\"termos\" type=\"checkbox\" />\n    <pura-label for=\"termos\">I accept the terms of use</pura-label>\n  </div>\n</div>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "lightbox",
@@ -3839,7 +5084,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<pura-lightbox label=\"Trip photos\" loop>\n  <img src=\"https://picsum.photos/id/1018/200/140\" alt=\"Mountains at dawn\" data-full=\"https://picsum.photos/id/1018/1200/800\" />\n  <img src=\"https://picsum.photos/id/1015/200/140\" alt=\"River between the rocks\" data-full=\"https://picsum.photos/id/1015/1200/800\" />\n  <img src=\"https://picsum.photos/id/1016/200/140\" alt=\"Valley with fog\" data-full=\"https://picsum.photos/id/1016/1200/800\" />\n</pura-lightbox>",
-  "usage": "<pura-lightbox label=\"Trip photos\" loop>\n  <img src=\"https://picsum.photos/id/1018/200/140\" alt=\"Mountains at dawn\" data-full=\"https://picsum.photos/id/1018/1200/800\" />\n  <img src=\"https://picsum.photos/id/1015/200/140\" alt=\"River between the rocks\" data-full=\"https://picsum.photos/id/1015/1200/800\" />\n  <img src=\"https://picsum.photos/id/1016/200/140\" alt=\"Valley with fog\" data-full=\"https://picsum.photos/id/1016/1200/800\" />\n</pura-lightbox>"
+  "usage": "<pura-lightbox label=\"Trip photos\" loop>\n  <img src=\"https://picsum.photos/id/1018/200/140\" alt=\"Mountains at dawn\" data-full=\"https://picsum.photos/id/1018/1200/800\" />\n  <img src=\"https://picsum.photos/id/1015/200/140\" alt=\"River between the rocks\" data-full=\"https://picsum.photos/id/1015/1200/800\" />\n  <img src=\"https://picsum.photos/id/1016/200/140\" alt=\"Valley with fog\" data-full=\"https://picsum.photos/id/1016/1200/800\" />\n</pura-lightbox>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "link",
@@ -3884,7 +5132,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/link.js\"></script>\n\n<p>Read our <pura-link href=\"/docs\">documentation</pura-link> to get started.</p>\n\n<p>\n  <pura-link href=\"/pricing\" variant=\"underline\">Always underlined</pura-link> ·\n  <pura-link href=\"/about\" variant=\"subtle\" color=\"muted\">Subtle muted link</pura-link> ·\n  <pura-link href=\"/changelog\" color=\"accent\">Accent colored</pura-link>\n</p>\n\n<p>\n  <pura-link href=\"https://example.com\" external>Visit our partner site</pura-link>\n</p>\n\n<p>\n  <pura-link href=\"/signup\" variant=\"button\">Create an account</pura-link>\n</p>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/link.js\"></script>\n\n<!-- Default: underline appears on hover -->\n<pura-link href=\"/docs\">Documentation</pura-link>\n\n<!-- Always underlined, accent color -->\n<pura-link href=\"/blog\" variant=\"underline\" color=\"accent\">Read the blog</pura-link>\n\n<!-- Subtle link with no underline -->\n<pura-link href=\"/help\" variant=\"subtle\" color=\"muted\">Need help?</pura-link>\n\n<!-- External link: adds rel, target _blank, and a trailing arrow -->\n<pura-link href=\"https://example.com\" external>Open external resource</pura-link>\n\n<!-- Button-style link -->\n<pura-link href=\"/signup\" variant=\"button\">Get started</pura-link>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/link.js\"></script>\n\n<!-- Default: underline appears on hover -->\n<pura-link href=\"/docs\">Documentation</pura-link>\n\n<!-- Always underlined, accent color -->\n<pura-link href=\"/blog\" variant=\"underline\" color=\"accent\">Read the blog</pura-link>\n\n<!-- Subtle link with no underline -->\n<pura-link href=\"/help\" variant=\"subtle\" color=\"muted\">Need help?</pura-link>\n\n<!-- External link: adds rel, target _blank, and a trailing arrow -->\n<pura-link href=\"https://example.com\" external>Open external resource</pura-link>\n\n<!-- Button-style link -->\n<pura-link href=\"/signup\" variant=\"button\">Get started</pura-link>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "list",
@@ -3923,7 +5174,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "live-region",
@@ -3958,7 +5212,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:12px;align-items:flex-start\">\n  <button id=\"btn-salvar\">Save changes</button>\n  <pura-live-region id=\"status\" live=\"polite\" visible label=\"Form status\">Ready to save.</pura-live-region>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/live-region.js\";\n  const regiao = document.getElementById(\"status\");\n  let n = 0;\n  document.getElementById(\"btn-salvar\").addEventListener(\"click\", () => {\n    n++;\n    regiao.announce(`Changes saved successfully (${n}).`);\n  });\n</script>",
-  "usage": "<div style=\"display:flex;flex-direction:column;gap:12px;align-items:flex-start\">\n  <button id=\"btn-salvar\">Save changes</button>\n  <pura-live-region id=\"status\" live=\"polite\" visible label=\"Form status\">Ready to save.</pura-live-region>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/live-region.js\";\n  const regiao = document.getElementById(\"status\");\n  let n = 0;\n  document.getElementById(\"btn-salvar\").addEventListener(\"click\", () => {\n    n++;\n    regiao.announce(`Changes saved successfully (${n}).`);\n  });\n</script>"
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:12px;align-items:flex-start\">\n  <button id=\"btn-salvar\">Save changes</button>\n  <pura-live-region id=\"status\" live=\"polite\" visible label=\"Form status\">Ready to save.</pura-live-region>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/live-region.js\";\n  const regiao = document.getElementById(\"status\");\n  let n = 0;\n  document.getElementById(\"btn-salvar\").addEventListener(\"click\", () => {\n    n++;\n    regiao.announce(`Changes saved successfully (${n}).`);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "map",
@@ -4013,7 +5270,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "markdown-editor",
@@ -4046,7 +5306,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "marquee",
@@ -4091,7 +5354,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>",
-  "usage": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>"
+  "usage": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "mask-input",
@@ -4130,7 +5396,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "masonry",
@@ -4171,7 +5440,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<pura-masonry min=\"12rem\" gap=\"1rem\" label=\"Photo gallery\">\n  <div style=\"background:#fde68a;border-radius:8px;padding:1rem;height:120px\">Sunset</div>\n  <div style=\"background:#bfdbfe;border-radius:8px;padding:1rem;height:200px\">Snowy mountain</div>\n  <div style=\"background:#bbf7d0;border-radius:8px;padding:1rem;height:90px\">Forest</div>\n  <div style=\"background:#fbcfe8;border-radius:8px;padding:1rem;height:160px\">Beach at dawn</div>\n  <div style=\"background:#ddd6fe;border-radius:8px;padding:1rem;height:140px\">City at night</div>\n  <div style=\"background:#fed7aa;border-radius:8px;padding:1rem;height:110px\">Desert</div>\n</pura-masonry>",
-  "usage": "<pura-masonry min=\"12rem\" gap=\"1rem\" label=\"Photo gallery\">\n  <div style=\"background:#fde68a;border-radius:8px;padding:1rem;height:120px\">Sunset</div>\n  <div style=\"background:#bfdbfe;border-radius:8px;padding:1rem;height:200px\">Snowy mountain</div>\n  <div style=\"background:#bbf7d0;border-radius:8px;padding:1rem;height:90px\">Forest</div>\n  <div style=\"background:#fbcfe8;border-radius:8px;padding:1rem;height:160px\">Beach at dawn</div>\n  <div style=\"background:#ddd6fe;border-radius:8px;padding:1rem;height:140px\">City at night</div>\n  <div style=\"background:#fed7aa;border-radius:8px;padding:1rem;height:110px\">Desert</div>\n</pura-masonry>"
+  "usage": "<pura-masonry min=\"12rem\" gap=\"1rem\" label=\"Photo gallery\">\n  <div style=\"background:#fde68a;border-radius:8px;padding:1rem;height:120px\">Sunset</div>\n  <div style=\"background:#bfdbfe;border-radius:8px;padding:1rem;height:200px\">Snowy mountain</div>\n  <div style=\"background:#bbf7d0;border-radius:8px;padding:1rem;height:90px\">Forest</div>\n  <div style=\"background:#fbcfe8;border-radius:8px;padding:1rem;height:160px\">Beach at dawn</div>\n  <div style=\"background:#ddd6fe;border-radius:8px;padding:1rem;height:140px\">City at night</div>\n  <div style=\"background:#fed7aa;border-radius:8px;padding:1rem;height:110px\">Desert</div>\n</pura-masonry>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "mediaquery",
@@ -4195,7 +5467,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;font-family:system-ui\">\n  <p style=\"margin:0 0 8px;color:#666\">Resize the window to see the content swap:</p>\n  <pura-mediaquery query=\"(max-width: 640px)\">\n    <strong slot=\"match\" style=\"color:#e11\">Mobile layout (screen &le; 640px)</strong>\n    <strong slot=\"default\" style=\"color:#16a34a\">Desktop layout (screen > 640px)</strong>\n  </pura-mediaquery>\n  <p id=\"estado\" style=\"margin:12px 0 0;color:#999;font-size:13px\"></p>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/mediaquery.js\";\n  const mq = document.querySelector(\"pura-mediaquery\");\n  const estado = document.getElementById(\"estado\");\n  mq.addEventListener(\"pura-mediaquery:change\", (e) => {\n    estado.textContent = `query: ${e.detail.query} | matches: ${e.detail.matches}`;\n  });\n</script>",
-  "usage": "<div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;font-family:system-ui\">\n  <p style=\"margin:0 0 8px;color:#666\">Resize the window to see the content swap:</p>\n  <pura-mediaquery query=\"(max-width: 640px)\">\n    <strong slot=\"match\" style=\"color:#e11\">Mobile layout (screen &le; 640px)</strong>\n    <strong slot=\"default\" style=\"color:#16a34a\">Desktop layout (screen > 640px)</strong>\n  </pura-mediaquery>\n  <p id=\"estado\" style=\"margin:12px 0 0;color:#999;font-size:13px\"></p>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/mediaquery.js\";\n  const mq = document.querySelector(\"pura-mediaquery\");\n  const estado = document.getElementById(\"estado\");\n  mq.addEventListener(\"pura-mediaquery:change\", (e) => {\n    estado.textContent = `query: ${e.detail.query} | matches: ${e.detail.matches}`;\n  });\n</script>"
+  "usage": "<div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;font-family:system-ui\">\n  <p style=\"margin:0 0 8px;color:#666\">Resize the window to see the content swap:</p>\n  <pura-mediaquery query=\"(max-width: 640px)\">\n    <strong slot=\"match\" style=\"color:#e11\">Mobile layout (screen &le; 640px)</strong>\n    <strong slot=\"default\" style=\"color:#16a34a\">Desktop layout (screen > 640px)</strong>\n  </pura-mediaquery>\n  <p id=\"estado\" style=\"margin:12px 0 0;color:#999;font-size:13px\"></p>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/mediaquery.js\";\n  const mq = document.querySelector(\"pura-mediaquery\");\n  const estado = document.getElementById(\"estado\");\n  mq.addEventListener(\"pura-mediaquery:change\", (e) => {\n    estado.textContent = `query: ${e.detail.query} | matches: ${e.detail.matches}`;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "mention",
@@ -4235,7 +5510,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "menubar",
@@ -4280,7 +5558,10 @@ export const components = [
     "shortcut"
   ],
   "demoHTML": "<pura-menubar id=\"barra\">\n  <pura-menubar-menu label=\"File\">\n    <pura-menu-item>New file<span slot=\"shortcut\">Ctrl+N</span></pura-menu-item>\n    <pura-menu-item>Open<span slot=\"shortcut\">Ctrl+O</span></pura-menu-item>\n    <pura-menu-item>Save<span slot=\"shortcut\">Ctrl+S</span></pura-menu-item>\n    <pura-menu-item disabled>Save as...</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Edit\">\n    <pura-menu-item>Undo<span slot=\"shortcut\">Ctrl+Z</span></pura-menu-item>\n    <pura-menu-item>Redo<span slot=\"shortcut\">Ctrl+Y</span></pura-menu-item>\n    <pura-menu-item inset>Copy</pura-menu-item>\n    <pura-menu-item inset>Paste</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"View\">\n    <pura-menu-item>Full screen<span slot=\"shortcut\">F11</span></pura-menu-item>\n    <pura-menu-item>Zoom +</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Help\" disabled></pura-menubar-menu>\n</pura-menubar>\n\n<script type=\"module\">\n  const barra = document.getElementById(\"barra\");\n  barra.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>",
-  "usage": "<pura-menubar id=\"barra\">\n  <pura-menubar-menu label=\"File\">\n    <pura-menu-item>New file<span slot=\"shortcut\">Ctrl+N</span></pura-menu-item>\n    <pura-menu-item>Open<span slot=\"shortcut\">Ctrl+O</span></pura-menu-item>\n    <pura-menu-item>Save<span slot=\"shortcut\">Ctrl+S</span></pura-menu-item>\n    <pura-menu-item disabled>Save as...</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Edit\">\n    <pura-menu-item>Undo<span slot=\"shortcut\">Ctrl+Z</span></pura-menu-item>\n    <pura-menu-item>Redo<span slot=\"shortcut\">Ctrl+Y</span></pura-menu-item>\n    <pura-menu-item inset>Copy</pura-menu-item>\n    <pura-menu-item inset>Paste</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"View\">\n    <pura-menu-item>Full screen<span slot=\"shortcut\">F11</span></pura-menu-item>\n    <pura-menu-item>Zoom +</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Help\" disabled></pura-menubar-menu>\n</pura-menubar>\n\n<script type=\"module\">\n  const barra = document.getElementById(\"barra\");\n  barra.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>"
+  "usage": "<pura-menubar id=\"barra\">\n  <pura-menubar-menu label=\"File\">\n    <pura-menu-item>New file<span slot=\"shortcut\">Ctrl+N</span></pura-menu-item>\n    <pura-menu-item>Open<span slot=\"shortcut\">Ctrl+O</span></pura-menu-item>\n    <pura-menu-item>Save<span slot=\"shortcut\">Ctrl+S</span></pura-menu-item>\n    <pura-menu-item disabled>Save as...</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Edit\">\n    <pura-menu-item>Undo<span slot=\"shortcut\">Ctrl+Z</span></pura-menu-item>\n    <pura-menu-item>Redo<span slot=\"shortcut\">Ctrl+Y</span></pura-menu-item>\n    <pura-menu-item inset>Copy</pura-menu-item>\n    <pura-menu-item inset>Paste</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"View\">\n    <pura-menu-item>Full screen<span slot=\"shortcut\">F11</span></pura-menu-item>\n    <pura-menu-item>Zoom +</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Help\" disabled></pura-menubar-menu>\n</pura-menubar>\n\n<script type=\"module\">\n  const barra = document.getElementById(\"barra\");\n  barra.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "meter",
@@ -4347,7 +5628,40 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1.25rem;max-width:24rem\">\n  <pura-meter label=\"Disk usage\" value=\"42\" min=\"0\" max=\"64\" value-text=\"42 GB\" low=\"48\" high=\"58\" optimum=\"0\"></pura-meter>\n  <pura-meter label=\"Battery\" value=\"88\" min=\"0\" max=\"100\" value-text=\"88%\" low=\"20\" high=\"80\" optimum=\"100\"></pura-meter>\n  <pura-meter label=\"CPU temperature\" value=\"76\" min=\"30\" max=\"95\" value-text=\"76 degrees C\" low=\"60\" high=\"80\" optimum=\"40\"></pura-meter>\n</div>",
-  "usage": "<div style=\"display:flex;flex-direction:column;gap:1.25rem;max-width:24rem\">\n  <pura-meter label=\"Disk usage\" value=\"42\" min=\"0\" max=\"64\" value-text=\"42 GB\" low=\"48\" high=\"58\" optimum=\"0\"></pura-meter>\n  <pura-meter label=\"Battery\" value=\"88\" min=\"0\" max=\"100\" value-text=\"88%\" low=\"20\" high=\"80\" optimum=\"100\"></pura-meter>\n  <pura-meter label=\"CPU temperature\" value=\"76\" min=\"30\" max=\"95\" value-text=\"76 degrees C\" low=\"60\" high=\"80\" optimum=\"40\"></pura-meter>\n</div>"
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:1.25rem;max-width:24rem\">\n  <pura-meter label=\"Disk usage\" value=\"42\" min=\"0\" max=\"64\" value-text=\"42 GB\" low=\"48\" high=\"58\" optimum=\"0\"></pura-meter>\n  <pura-meter label=\"Battery\" value=\"88\" min=\"0\" max=\"100\" value-text=\"88%\" low=\"20\" high=\"80\" optimum=\"100\"></pura-meter>\n  <pura-meter label=\"CPU temperature\" value=\"76\" min=\"30\" max=\"95\" value-text=\"76 degrees C\" low=\"60\" high=\"80\" optimum=\"40\"></pura-meter>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "checkbox",
+      "title": "Checkbox"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "button",
+      "title": "Button"
+    },
+    {
+      "slug": "inspector",
+      "title": "Inspector"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "signup",
+      "title": "Sign Up"
+    }
+  ]
 },
 {
   "slug": "motion",
@@ -4382,7 +5696,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-4, 1rem); justify-items: start;\">\n  <pura-button onclick=\"this.nextElementSibling.toggle()\">Toggle</pura-button>\n  <pura-motion show animation=\"slide-up\">\n    <article style=\"padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n      <h3 style=\"margin-top: 0;\">Animated panel</h3>\n      <p>This block slides up and fades as it enters, and reverses on exit.</p>\n    </article>\n  </pura-motion>\n</div>",
-  "usage": "<pura-button onclick=\"document.querySelector('#panel').toggle()\">Toggle</pura-button>\n\n<pura-motion id=\"panel\" show animation=\"slide-up\">\n  <article>\n    <h3>Animated panel</h3>\n    <p>This block slides up and fades as it enters, and reverses on exit.</p>\n  </article>\n</pura-motion>\n\n<!-- Imperative API -->\n<script>\n  const m = document.querySelector('#panel');\n  m.enter();   // show\n  m.exit();    // hide\n  m.toggle();  // flip\n</script>"
+  "usage": "<pura-button onclick=\"document.querySelector('#panel').toggle()\">Toggle</pura-button>\n\n<pura-motion id=\"panel\" show animation=\"slide-up\">\n  <article>\n    <h3>Animated panel</h3>\n    <p>This block slides up and fades as it enters, and reverses on exit.</p>\n  </article>\n</pura-motion>\n\n<!-- Imperative API -->\n<script>\n  const m = document.querySelector('#panel');\n  m.enter();   // show\n  m.exit();    // hide\n  m.toggle();  // flip\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "navigation-menu",
@@ -4425,7 +5742,10 @@ export const components = [
     "label"
   ],
   "demoHTML": "<pura-navigation-menu aria-label=\"Main\">\n  <pura-navigation-menu-item label=\"Products\">\n    <div style=\"display:grid;gap:.5rem;min-width:16rem\">\n      <a href=\"#editor\">Editor</a>\n      <a href=\"#analytics\">Analytics</a>\n      <a href=\"#automacoes\">Automations</a>\n    </div>\n  </pura-navigation-menu-item>\n  <pura-navigation-menu-item label=\"Resources\">\n    <div style=\"display:grid;gap:.5rem;min-width:16rem\">\n      <a href=\"#docs\">Documentation</a>\n      <a href=\"#guias\">Guides</a>\n      <a href=\"#blog\">Blog</a>\n    </div>\n  </pura-navigation-menu-item>\n  <pura-navigation-menu-item label=\"Pricing\" href=\"#precos\"></pura-navigation-menu-item>\n</pura-navigation-menu>",
-  "usage": "<pura-navigation-menu aria-label=\"Main\">\n  <pura-navigation-menu-item label=\"Products\">\n    <div style=\"display:grid;gap:.5rem;min-width:16rem\">\n      <a href=\"#editor\">Editor</a>\n      <a href=\"#analytics\">Analytics</a>\n      <a href=\"#automacoes\">Automations</a>\n    </div>\n  </pura-navigation-menu-item>\n  <pura-navigation-menu-item label=\"Resources\">\n    <div style=\"display:grid;gap:.5rem;min-width:16rem\">\n      <a href=\"#docs\">Documentation</a>\n      <a href=\"#guias\">Guides</a>\n      <a href=\"#blog\">Blog</a>\n    </div>\n  </pura-navigation-menu-item>\n  <pura-navigation-menu-item label=\"Pricing\" href=\"#precos\"></pura-navigation-menu-item>\n</pura-navigation-menu>"
+  "usage": "<pura-navigation-menu aria-label=\"Main\">\n  <pura-navigation-menu-item label=\"Products\">\n    <div style=\"display:grid;gap:.5rem;min-width:16rem\">\n      <a href=\"#editor\">Editor</a>\n      <a href=\"#analytics\">Analytics</a>\n      <a href=\"#automacoes\">Automations</a>\n    </div>\n  </pura-navigation-menu-item>\n  <pura-navigation-menu-item label=\"Resources\">\n    <div style=\"display:grid;gap:.5rem;min-width:16rem\">\n      <a href=\"#docs\">Documentation</a>\n      <a href=\"#guias\">Guides</a>\n      <a href=\"#blog\">Blog</a>\n    </div>\n  </pura-navigation-menu-item>\n  <pura-navigation-menu-item label=\"Pricing\" href=\"#precos\"></pura-navigation-menu-item>\n</pura-navigation-menu>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "notification-item",
@@ -4474,7 +5794,36 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<div role=\"list\" style=\"max-width:420px;border:1px solid var(--pura-border,#e5e5e5);border-radius:8px;overflow:hidden\">\n  <pura-notification-item id=\"notif1\" title=\"New comment\" time=\"2 min ago\" unread dismissible>\n    <span slot=\"icon\">💬</span>\n    Ana replied on your task \"Review proposal\".\n  </pura-notification-item>\n  <pura-notification-item title=\"Payment confirmed\" time=\"1 h ago\" dismissible>\n    <span slot=\"icon\">✅</span>\n    We received the payment for the May invoice.\n  </pura-notification-item>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/notification-item.js\";\n  const n = document.getElementById(\"notif1\");\n  n.addEventListener(\"click\", () => n.markRead());\n  n.addEventListener(\"read\", (e) => console.log(\"read:\", e.detail.id));\n  n.addEventListener(\"dismiss\", (e) => console.log(\"dismissed:\", e.detail.id));\n</script>",
-  "usage": "<div role=\"list\" style=\"max-width:420px;border:1px solid var(--pura-border,#e5e5e5);border-radius:8px;overflow:hidden\">\n  <pura-notification-item id=\"notif1\" title=\"New comment\" time=\"2 min ago\" unread dismissible>\n    <span slot=\"icon\">💬</span>\n    Ana replied on your task \"Review proposal\".\n  </pura-notification-item>\n  <pura-notification-item title=\"Payment confirmed\" time=\"1 h ago\" dismissible>\n    <span slot=\"icon\">✅</span>\n    We received the payment for the May invoice.\n  </pura-notification-item>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/notification-item.js\";\n  const n = document.getElementById(\"notif1\");\n  n.addEventListener(\"click\", () => n.markRead());\n  n.addEventListener(\"read\", (e) => console.log(\"read:\", e.detail.id));\n  n.addEventListener(\"dismiss\", (e) => console.log(\"dismissed:\", e.detail.id));\n</script>"
+  "usage": "<div role=\"list\" style=\"max-width:420px;border:1px solid var(--pura-border,#e5e5e5);border-radius:8px;overflow:hidden\">\n  <pura-notification-item id=\"notif1\" title=\"New comment\" time=\"2 min ago\" unread dismissible>\n    <span slot=\"icon\">💬</span>\n    Ana replied on your task \"Review proposal\".\n  </pura-notification-item>\n  <pura-notification-item title=\"Payment confirmed\" time=\"1 h ago\" dismissible>\n    <span slot=\"icon\">✅</span>\n    We received the payment for the May invoice.\n  </pura-notification-item>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/notification-item.js\";\n  const n = document.getElementById(\"notif1\");\n  n.addEventListener(\"click\", () => n.markRead());\n  n.addEventListener(\"read\", (e) => console.log(\"read:\", e.detail.id));\n  n.addEventListener(\"dismiss\", (e) => console.log(\"dismissed:\", e.detail.id));\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "empty",
+      "title": "Empty"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    },
+    {
+      "slug": "button",
+      "title": "Button"
+    },
+    {
+      "slug": "inspector",
+      "title": "Inspector"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "notifications",
+      "title": "Notifications"
+    }
+  ]
 },
 {
   "slug": "number-input",
@@ -4526,7 +5875,40 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<label for=\"qtd\" style=\"display:block;margin-bottom:.5rem;font:14px system-ui\">Number of products</label>\n<pura-number-input id=\"qtd\" aria-label=\"Quantity\" min=\"0\" max=\"20\" step=\"1\" value=\"3\"></pura-number-input>\n<p id=\"qtd-out\" style=\"margin-top:.75rem;font:14px system-ui;color:#555\">Selected: 3</p>\n<script type=\"module\">\n  import \"/pura/lib/number-input.js\";\n  const inp = document.getElementById(\"qtd\");\n  const out = document.getElementById(\"qtd-out\");\n  inp.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected: \" + e.detail.value;\n  });\n</script>",
-  "usage": "<label for=\"qtd\">Number of products</label>\n<pura-number-input id=\"qtd\" aria-label=\"Quantity\" min=\"0\" max=\"20\" step=\"1\" value=\"3\"></pura-number-input>\n<script type=\"module\">\n  import \"/pura/lib/number-input.js\";\n  const inp = document.getElementById(\"qtd\");\n  inp.addEventListener(\"change\", (e) => {\n    console.log(\"new value:\", e.detail.value);\n  });\n  // Programmatic read/write via the .value property (Number):\n  // inp.value = 5;  inp.disabled = true;\n</script>"
+  "usage": "<label for=\"qtd\">Number of products</label>\n<pura-number-input id=\"qtd\" aria-label=\"Quantity\" min=\"0\" max=\"20\" step=\"1\" value=\"3\"></pura-number-input>\n<script type=\"module\">\n  import \"/pura/lib/number-input.js\";\n  const inp = document.getElementById(\"qtd\");\n  inp.addEventListener(\"change\", (e) => {\n    console.log(\"new value:\", e.detail.value);\n  });\n  // Programmatic read/write via the .value property (Number):\n  // inp.value = 5;  inp.disabled = true;\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "input-group",
+      "title": "Input Group"
+    },
+    {
+      "slug": "stepper",
+      "title": "Stepper"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    }
+  ]
 },
 {
   "slug": "optimistic",
@@ -4577,7 +5959,10 @@ export const components = [
     "optimistic"
   ],
   "demoHTML": "<pura-optimistic id=\"curtir\" label=\"Like\" auto>\n  <span slot=\"optimistic\">❤️ Liked!</span>\n  <span>🤍 Like this photo</span>\n</pura-optimistic>",
-  "usage": "<!-- Demo mode: confirms on its own (auto) -->\n<pura-optimistic id=\"curtir\" label=\"Like\" auto>\n  <span slot=\"optimistic\">❤️ Liked!</span>\n  <span>🤍 Like this photo</span>\n</pura-optimistic>\n\n<!-- Real mode: the caller decides the outcome -->\n<pura-optimistic id=\"salvar\" label=\"Save\" rollback-message=\"Couldn't save.\">\n  <span slot=\"optimistic\">Saving…</span>\n  <span>Unsaved draft</span>\n</pura-optimistic>\n\n<script type=\"module\">\n  import \"/pura/lib/optimistic.js\";\n  const el = document.getElementById(\"salvar\");\n  el.addEventListener(\"commit\", async (e) => {\n    try {\n      await fetch(\"/api/salvar\", { method: \"POST\" });\n      el.confirm();            // settle as committed\n    } catch (err) {\n      el.rollback(\"Network failure.\"); // revert + announce\n    }\n  });\n</script>"
+  "usage": "<!-- Demo mode: confirms on its own (auto) -->\n<pura-optimistic id=\"curtir\" label=\"Like\" auto>\n  <span slot=\"optimistic\">❤️ Liked!</span>\n  <span>🤍 Like this photo</span>\n</pura-optimistic>\n\n<!-- Real mode: the caller decides the outcome -->\n<pura-optimistic id=\"salvar\" label=\"Save\" rollback-message=\"Couldn't save.\">\n  <span slot=\"optimistic\">Saving…</span>\n  <span>Unsaved draft</span>\n</pura-optimistic>\n\n<script type=\"module\">\n  import \"/pura/lib/optimistic.js\";\n  const el = document.getElementById(\"salvar\");\n  el.addEventListener(\"commit\", async (e) => {\n    try {\n      await fetch(\"/api/salvar\", { method: \"POST\" });\n      el.confirm();            // settle as committed\n    } catch (err) {\n      el.rollback(\"Network failure.\"); // revert + announce\n    }\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "organization-chart",
@@ -4604,7 +5989,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "overflow-list",
@@ -4633,7 +6021,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "overlay",
@@ -4686,7 +6077,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "pagination",
@@ -4713,7 +6107,40 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-pagination id=\"paginacao\" total=\"10\" page=\"3\"></pura-pagination>\n\n<script type=\"module\">\n  const paginacao = document.getElementById(\"paginacao\");\n  paginacao.addEventListener(\"change\", (e) => {\n    console.log(\"Selected page:\", e.detail.page);\n  });\n</script>",
-  "usage": "<pura-pagination id=\"paginacao\" total=\"10\" page=\"3\"></pura-pagination>\n\n<script type=\"module\">\n  const paginacao = document.getElementById(\"paginacao\");\n  paginacao.addEventListener(\"change\", (e) => {\n    console.log(\"Selected page:\", e.detail.page);\n  });\n</script>"
+  "usage": "<pura-pagination id=\"paginacao\" total=\"10\" page=\"3\"></pura-pagination>\n\n<script type=\"module\">\n  const paginacao = document.getElementById(\"paginacao\");\n  paginacao.addEventListener(\"change\", (e) => {\n    console.log(\"Selected page:\", e.detail.page);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "button-group",
+      "title": "Button Group"
+    },
+    {
+      "slug": "table",
+      "title": "Table"
+    },
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    }
+  ]
 },
 {
   "slug": "parallax",
@@ -4746,7 +6173,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "password-input",
@@ -4791,7 +6221,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "pdf-viewer",
@@ -4828,7 +6261,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "popconfirm",
@@ -4882,7 +6318,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "popover",
@@ -4913,7 +6352,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-popover placement=\"bottom\">\n  <button slot=\"trigger\">More information</button>\n  <strong>Pro plan</strong>\n  <p>Includes unlimited projects, priority support, and advanced reports.</p>\n</pura-popover>",
-  "usage": "<pura-popover placement=\"bottom\">\n  <button slot=\"trigger\">More information</button>\n  <strong>Pro plan</strong>\n  <p>Includes unlimited projects, priority support, and advanced reports.</p>\n</pura-popover>"
+  "usage": "<pura-popover placement=\"bottom\">\n  <button slot=\"trigger\">More information</button>\n  <strong>Pro plan</strong>\n  <p>Includes unlimited projects, priority support, and advanced reports.</p>\n</pura-popover>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "portal",
@@ -4943,7 +6385,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"position:relative;overflow:hidden;height:120px;border:1px solid #d4d4d8;border-radius:8px;padding:16px;background:#fafafa\">\n  <p style=\"margin:0 0 8px\">Container with <code>overflow:hidden</code> (clips the content).</p>\n  <pura-portal id=\"demo-portal\" to=\"body\">\n    <div style=\"position:fixed;bottom:24px;right:24px;padding:12px 16px;background:#18181b;color:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.25)\">\n      Teleported to the <strong><body></strong>, escaping the clip.\n    </div>\n  </pura-portal>\n</div>\n<button id=\"demo-toggle\" type=\"button\" style=\"margin-top:12px;padding:8px 14px;border:1px solid #d4d4d8;border-radius:6px;cursor:pointer\">Toggle teleport</button>\n<script type=\"module\">\n  const portal = document.getElementById(\"demo-portal\");\n  document.getElementById(\"demo-toggle\").addEventListener(\"click\", () => {\n    portal.toggleAttribute(\"disabled\");\n  });\n  portal.addEventListener(\"pura-portal:mount\", (e) => console.log(\"mount\", e.detail));\n  portal.addEventListener(\"pura-portal:unmount\", (e) => console.log(\"unmount\", e.detail));\n</script>",
-  "usage": "<div style=\"position:relative;overflow:hidden;height:120px;border:1px solid #d4d4d8;border-radius:8px;padding:16px;background:#fafafa\">\n  <p style=\"margin:0 0 8px\">Container with <code>overflow:hidden</code> (clips the content).</p>\n  <pura-portal id=\"demo-portal\" to=\"body\">\n    <div style=\"position:fixed;bottom:24px;right:24px;padding:12px 16px;background:#18181b;color:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.25)\">\n      Teleported to the <strong><body></strong>, escaping the clip.\n    </div>\n  </pura-portal>\n</div>\n<button id=\"demo-toggle\" type=\"button\" style=\"margin-top:12px;padding:8px 14px;border:1px solid #d4d4d8;border-radius:6px;cursor:pointer\">Toggle teleport</button>\n<script type=\"module\">\n  const portal = document.getElementById(\"demo-portal\");\n  document.getElementById(\"demo-toggle\").addEventListener(\"click\", () => {\n    portal.toggleAttribute(\"disabled\");\n  });\n  portal.addEventListener(\"pura-portal:mount\", (e) => console.log(\"mount\", e.detail));\n  portal.addEventListener(\"pura-portal:unmount\", (e) => console.log(\"unmount\", e.detail));\n</script>"
+  "usage": "<div style=\"position:relative;overflow:hidden;height:120px;border:1px solid #d4d4d8;border-radius:8px;padding:16px;background:#fafafa\">\n  <p style=\"margin:0 0 8px\">Container with <code>overflow:hidden</code> (clips the content).</p>\n  <pura-portal id=\"demo-portal\" to=\"body\">\n    <div style=\"position:fixed;bottom:24px;right:24px;padding:12px 16px;background:#18181b;color:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.25)\">\n      Teleported to the <strong><body></strong>, escaping the clip.\n    </div>\n  </pura-portal>\n</div>\n<button id=\"demo-toggle\" type=\"button\" style=\"margin-top:12px;padding:8px 14px;border:1px solid #d4d4d8;border-radius:6px;cursor:pointer\">Toggle teleport</button>\n<script type=\"module\">\n  const portal = document.getElementById(\"demo-portal\");\n  document.getElementById(\"demo-toggle\").addEventListener(\"click\", () => {\n    portal.toggleAttribute(\"disabled\");\n  });\n  portal.addEventListener(\"pura-portal:mount\", (e) => console.log(\"mount\", e.detail));\n  portal.addEventListener(\"pura-portal:unmount\", (e) => console.log(\"unmount\", e.detail));\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "presence",
@@ -4978,7 +6423,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-presence max=\"4\" size=\"md\" label=\"People in the document\">\n  <pura-avatar initials=\"AS\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"BL\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"CR\" status=\"busy\"></pura-avatar>\n  <pura-avatar initials=\"DM\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"EF\" status=\"offline\"></pura-avatar>\n  <pura-avatar initials=\"GP\" status=\"online\"></pura-avatar>\n</pura-presence>",
-  "usage": "<pura-presence max=\"4\" size=\"md\" label=\"People in the document\">\n  <pura-avatar initials=\"AS\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"BL\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"CR\" status=\"busy\"></pura-avatar>\n  <pura-avatar initials=\"DM\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"EF\" status=\"offline\"></pura-avatar>\n  <pura-avatar initials=\"GP\" status=\"online\"></pura-avatar>\n</pura-presence>"
+  "usage": "<pura-presence max=\"4\" size=\"md\" label=\"People in the document\">\n  <pura-avatar initials=\"AS\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"BL\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"CR\" status=\"busy\"></pura-avatar>\n  <pura-avatar initials=\"DM\" status=\"online\"></pura-avatar>\n  <pura-avatar initials=\"EF\" status=\"offline\"></pura-avatar>\n  <pura-avatar initials=\"GP\" status=\"online\"></pura-avatar>\n</pura-presence>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "chat-bubble",
+      "title": "Chat Bubble"
+    },
+    {
+      "slug": "chat-input",
+      "title": "Chat Input"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    },
+    {
+      "slug": "inspector",
+      "title": "Inspector"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "chat",
+      "title": "Chat"
+    }
+  ]
 },
 {
   "slug": "pricing-table",
@@ -5037,7 +6515,44 @@ export const components = [
     "description (texto pequeno abaixo do preco)"
   ],
   "demoHTML": "<pura-pricing-table label=\"Pura plans\" min=\"16rem\">\n  <pura-pricing-tier name=\"Starter\" price=\"$0\" period=\"/mo\">\n    <span slot=\"description\">For starting personal projects.</span>\n    <ul>\n      <li>1 project</li>\n      <li>Essential components</li>\n      <li>Community support</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"outline\">Start for free</pura-button>\n  </pura-pricing-tier>\n\n  <pura-pricing-tier name=\"Pro\" price=\"$29\" period=\"/mo\" featured badge=\"Most popular\">\n    <span slot=\"description\">For teams that need more.</span>\n    <ul>\n      <li>Unlimited projects</li>\n      <li>All components</li>\n      <li>Priority support</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"primary\">Subscribe to Pro</pura-button>\n  </pura-pricing-tier>\n\n  <pura-pricing-tier name=\"Enterprise\" price=\"Custom\">\n    <span slot=\"description\">For large organizations.</span>\n    <ul>\n      <li>Dedicated SLA</li>\n      <li>SSO and auditing</li>\n      <li>Account manager</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"outline\">Talk to sales</pura-button>\n  </pura-pricing-tier>\n</pura-pricing-table>",
-  "usage": "<pura-pricing-table label=\"Pura plans\" min=\"16rem\">\n  <pura-pricing-tier name=\"Starter\" price=\"$0\" period=\"/mo\">\n    <span slot=\"description\">For starting personal projects.</span>\n    <ul>\n      <li>1 project</li>\n      <li>Essential components</li>\n      <li>Community support</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"outline\">Start for free</pura-button>\n  </pura-pricing-tier>\n\n  <pura-pricing-tier name=\"Pro\" price=\"$29\" period=\"/mo\" featured badge=\"Most popular\">\n    <span slot=\"description\">For teams that need more.</span>\n    <ul>\n      <li>Unlimited projects</li>\n      <li>All components</li>\n      <li>Priority support</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"primary\">Subscribe to Pro</pura-button>\n  </pura-pricing-tier>\n\n  <pura-pricing-tier name=\"Enterprise\" price=\"Custom\">\n    <span slot=\"description\">For large organizations.</span>\n    <ul>\n      <li>Dedicated SLA</li>\n      <li>SSO and auditing</li>\n      <li>Account manager</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"outline\">Talk to sales</pura-button>\n  </pura-pricing-tier>\n</pura-pricing-table>"
+  "usage": "<pura-pricing-table label=\"Pura plans\" min=\"16rem\">\n  <pura-pricing-tier name=\"Starter\" price=\"$0\" period=\"/mo\">\n    <span slot=\"description\">For starting personal projects.</span>\n    <ul>\n      <li>1 project</li>\n      <li>Essential components</li>\n      <li>Community support</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"outline\">Start for free</pura-button>\n  </pura-pricing-tier>\n\n  <pura-pricing-tier name=\"Pro\" price=\"$29\" period=\"/mo\" featured badge=\"Most popular\">\n    <span slot=\"description\">For teams that need more.</span>\n    <ul>\n      <li>Unlimited projects</li>\n      <li>All components</li>\n      <li>Priority support</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"primary\">Subscribe to Pro</pura-button>\n  </pura-pricing-tier>\n\n  <pura-pricing-tier name=\"Enterprise\" price=\"Custom\">\n    <span slot=\"description\">For large organizations.</span>\n    <ul>\n      <li>Dedicated SLA</li>\n      <li>SSO and auditing</li>\n      <li>Account manager</li>\n    </ul>\n    <pura-button slot=\"action\" variant=\"outline\">Talk to sales</pura-button>\n  </pura-pricing-tier>\n</pura-pricing-table>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "faq",
+      "title": "FAQ"
+    },
+    {
+      "slug": "banner",
+      "title": "Banner"
+    },
+    {
+      "slug": "testimonial",
+      "title": "Testimonial"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "pricing",
+      "title": "Pricing"
+    }
+  ]
 },
 {
   "slug": "progress-ring",
@@ -5080,7 +6595,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;gap:24px;align-items:center;flex-wrap:wrap\">\n  <pura-progress-ring id=\"upload\" value=\"35\" size=\"96\" thickness=\"8\" label=\"Upload progress\"></pura-progress-ring>\n  <pura-progress-ring indeterminate size=\"96\" thickness=\"8\" label=\"Loading\"></pura-progress-ring>\n  <button id=\"avancar\" type=\"button\">Advance 10%</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/progress-ring.js\";\n  const ring = document.getElementById(\"upload\");\n  document.getElementById(\"avancar\").addEventListener(\"click\", () => {\n    ring.value = Math.min(100, ring.value + 10);\n  });\n</script>",
-  "usage": "<div style=\"display:flex;gap:24px;align-items:center;flex-wrap:wrap\">\n  <pura-progress-ring id=\"upload\" value=\"35\" size=\"96\" thickness=\"8\" label=\"Upload progress\"></pura-progress-ring>\n  <pura-progress-ring indeterminate size=\"96\" thickness=\"8\" label=\"Loading\"></pura-progress-ring>\n  <button id=\"avancar\" type=\"button\">Advance 10%</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/progress-ring.js\";\n  const ring = document.getElementById(\"upload\");\n  document.getElementById(\"avancar\").addEventListener(\"click\", () => {\n    ring.value = Math.min(100, ring.value + 10);\n  });\n</script>"
+  "usage": "<div style=\"display:flex;gap:24px;align-items:center;flex-wrap:wrap\">\n  <pura-progress-ring id=\"upload\" value=\"35\" size=\"96\" thickness=\"8\" label=\"Upload progress\"></pura-progress-ring>\n  <pura-progress-ring indeterminate size=\"96\" thickness=\"8\" label=\"Loading\"></pura-progress-ring>\n  <button id=\"avancar\" type=\"button\">Advance 10%</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/progress-ring.js\";\n  const ring = document.getElementById(\"upload\");\n  document.getElementById(\"avancar\").addEventListener(\"click\", () => {\n    ring.value = Math.min(100, ring.value + 10);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "progress",
@@ -5105,7 +6623,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1rem;max-width:24rem\">\n  <div>\n    <p style=\"margin:0 0 .5rem\">Uploading file (65%)</p>\n    <pura-progress value=\"65\"></pura-progress>\n  </div>\n  <div>\n    <p style=\"margin:0 0 .5rem\">Processing...</p>\n    <pura-progress indeterminate></pura-progress>\n  </div>\n</div>",
-  "usage": "<div style=\"display:flex;flex-direction:column;gap:1rem;max-width:24rem\">\n  <div>\n    <p style=\"margin:0 0 .5rem\">Uploading file (65%)</p>\n    <pura-progress value=\"65\"></pura-progress>\n  </div>\n  <div>\n    <p style=\"margin:0 0 .5rem\">Processing...</p>\n    <pura-progress indeterminate></pura-progress>\n  </div>\n</div>"
+  "usage": "<div style=\"display:flex;flex-direction:column;gap:1rem;max-width:24rem\">\n  <div>\n    <p style=\"margin:0 0 .5rem\">Uploading file (65%)</p>\n    <pura-progress value=\"65\"></pura-progress>\n  </div>\n  <div>\n    <p style=\"margin:0 0 .5rem\">Processing...</p>\n    <pura-progress indeterminate></pura-progress>\n  </div>\n</div>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "prose",
@@ -5119,7 +6640,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-prose>\n  <h1>Introduction to pura</h1>\n  <p><strong>pura</strong> is a library of native <a href=\"#\">Web Components</a> with no dependencies. Use <code><pura-prose></code> for long-form text with consistent typography.</p>\n  <h2>Why use it</h2>\n  <ul>\n    <li>Zero dependencies and lightweight</li>\n    <li>Themeable via CSS tokens</li>\n    <li>Vertical rhythm and a comfortable reading measure</li>\n  </ul>\n  <blockquote>Write plain HTML and let the component handle the rhythm.</blockquote>\n</pura-prose>",
-  "usage": "<pura-prose>\n  <h1>Introduction to pura</h1>\n  <p><strong>pura</strong> is a library of native <a href=\"#\">Web Components</a> with no dependencies. Use <code><pura-prose></code> for long-form text with consistent typography.</p>\n  <h2>Why use it</h2>\n  <ul>\n    <li>Zero dependencies and lightweight</li>\n    <li>Themeable via CSS tokens</li>\n    <li>Vertical rhythm and a comfortable reading measure</li>\n  </ul>\n  <blockquote>Write plain HTML and let the component handle the rhythm.</blockquote>\n</pura-prose>"
+  "usage": "<pura-prose>\n  <h1>Introduction to pura</h1>\n  <p><strong>pura</strong> is a library of native <a href=\"#\">Web Components</a> with no dependencies. Use <code><pura-prose></code> for long-form text with consistent typography.</p>\n  <h2>Why use it</h2>\n  <ul>\n    <li>Zero dependencies and lightweight</li>\n    <li>Themeable via CSS tokens</li>\n    <li>Vertical rhythm and a comfortable reading measure</li>\n  </ul>\n  <blockquote>Write plain HTML and let the component handle the rhythm.</blockquote>\n</pura-prose>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "code-block",
+      "title": "Code Block"
+    },
+    {
+      "slug": "reactions",
+      "title": "Reactions"
+    },
+    {
+      "slug": "scroll-spy",
+      "title": "Scroll Spy"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    }
+  ]
 },
 {
   "slug": "pull-to-refresh",
@@ -5148,7 +6702,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "qr-code",
@@ -5179,7 +6736,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "radio-group",
@@ -5220,7 +6780,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-radio-group label=\"Subscription plan\" value=\"pro\">\n  <pura-radio name=\"plano\" value=\"free\">Free</pura-radio>\n  <pura-radio name=\"plano\" value=\"pro\">Professional</pura-radio>\n  <pura-radio name=\"plano\" value=\"team\">Team</pura-radio>\n  <pura-radio name=\"plano\" value=\"legacy\" disabled>Legacy (unavailable)</pura-radio>\n</pura-radio-group>",
-  "usage": "<pura-radio-group label=\"Subscription plan\" value=\"pro\">\n  <pura-radio name=\"plano\" value=\"free\">Free</pura-radio>\n  <pura-radio name=\"plano\" value=\"pro\">Professional</pura-radio>\n  <pura-radio name=\"plano\" value=\"team\">Team</pura-radio>\n  <pura-radio name=\"plano\" value=\"legacy\" disabled>Legacy (unavailable)</pura-radio>\n</pura-radio-group>\n\n<script type=\"module\">\n  document.querySelector('pura-radio-group')\n    .addEventListener('change', (e) => console.log('selected:', e.detail.value));\n</script>"
+  "usage": "<pura-radio-group label=\"Subscription plan\" value=\"pro\">\n  <pura-radio name=\"plano\" value=\"free\">Free</pura-radio>\n  <pura-radio name=\"plano\" value=\"pro\">Professional</pura-radio>\n  <pura-radio name=\"plano\" value=\"team\">Team</pura-radio>\n  <pura-radio name=\"plano\" value=\"legacy\" disabled>Legacy (unavailable)</pura-radio>\n</pura-radio-group>\n\n<script type=\"module\">\n  document.querySelector('pura-radio-group')\n    .addEventListener('change', (e) => console.log('selected:', e.detail.value));\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "radio",
+      "title": "Radio"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "tabs",
+      "title": "Tabs"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "radio",
@@ -5261,7 +6854,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "radio-group",
+      "title": "Radio Group"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "tabs",
+      "title": "Tabs"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "separator",
+      "title": "Separator"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "range-slider",
@@ -5319,7 +6945,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<label for=\"preco\" style=\"display:block;margin-bottom:.5rem;font:500 .875rem system-ui\">Price range</label>\n<pura-range-slider id=\"preco\" aria-label=\"Price range\"\n  min=\"0\" max=\"1000\" step=\"50\" value-min=\"200\" value-max=\"750\"></pura-range-slider>\n<p id=\"saida\" style=\"margin-top:.75rem;font:.875rem system-ui;color:#555\">$200 to $750</p>\n<script type=\"module\">\n  import \"/pura/lib/range-slider.js\";\n  const slider = document.getElementById(\"preco\");\n  const saida = document.getElementById(\"saida\");\n  slider.addEventListener(\"input\", (e) => {\n    saida.textContent = `$${e.detail.min} to $${e.detail.max}`;\n  });\n</script>",
-  "usage": "<label for=\"preco\">Price range</label>\n<pura-range-slider id=\"preco\" aria-label=\"Price range\"\n  min=\"0\" max=\"1000\" step=\"50\" value-min=\"200\" value-max=\"750\"></pura-range-slider>\n<script type=\"module\">\n  import \"/pura/lib/range-slider.js\";\n  const slider = document.getElementById(\"preco\");\n  slider.addEventListener(\"change\", (e) => {\n    console.log(\"final range:\", e.detail.min, e.detail.max);\n  });\n</script>"
+  "usage": "<label for=\"preco\">Price range</label>\n<pura-range-slider id=\"preco\" aria-label=\"Price range\"\n  min=\"0\" max=\"1000\" step=\"50\" value-min=\"200\" value-max=\"750\"></pura-range-slider>\n<script type=\"module\">\n  import \"/pura/lib/range-slider.js\";\n  const slider = document.getElementById(\"preco\");\n  slider.addEventListener(\"change\", (e) => {\n    console.log(\"final range:\", e.detail.min, e.detail.max);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "rating",
@@ -5365,7 +6994,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:12px;align-items:flex-start\">\n  <pura-rating id=\"nota\" value=\"3\" max=\"5\" allow-half label=\"Rate the product\"></pura-rating>\n  <p id=\"saida\" style=\"font:14px system-ui;margin:0\">Selected rating: 3</p>\n</div>\n<script type=\"module\">\n  const r = document.getElementById(\"nota\");\n  const out = document.getElementById(\"saida\");\n  r.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected rating: \" + e.detail.value;\n  });\n</script>",
-  "usage": "<pura-rating id=\"nota\" value=\"3\" max=\"5\" allow-half label=\"Rate the product\"></pura-rating>\n<p id=\"saida\">Selected rating: 3</p>\n<script type=\"module\">\n  const r = document.getElementById(\"nota\");\n  const out = document.getElementById(\"saida\");\n  r.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected rating: \" + e.detail.value;\n  });\n</script>"
+  "usage": "<pura-rating id=\"nota\" value=\"3\" max=\"5\" allow-half label=\"Rate the product\"></pura-rating>\n<p id=\"saida\">Selected rating: 3</p>\n<script type=\"module\">\n  const r = document.getElementById(\"nota\");\n  const out = document.getElementById(\"saida\");\n  r.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected rating: \" + e.detail.value;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "reactions",
@@ -5418,7 +7050,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-reactions label=\"Post reactions\" id=\"rx\">\n  <pura-reaction emoji=\"👍\" count=\"12\" label=\"Like\" active></pura-reaction>\n  <pura-reaction emoji=\"❤️\" count=\"8\" label=\"Love\"></pura-reaction>\n  <pura-reaction emoji=\"🎉\" count=\"3\" label=\"Celebrate\"></pura-reaction>\n  <pura-reaction emoji=\"🤔\" count=\"1\" label=\"Thinking\"></pura-reaction>\n</pura-reactions>\n\n<script type=\"module\">\n  document.getElementById(\"rx\").addEventListener(\"react\", (e) => {\n    const { emoji, active, count } = e.detail;\n    console.log(`${emoji} ${active ? \"activated\" : \"deactivated\"} (total: ${count})`);\n  });\n</script>",
-  "usage": "<pura-reactions label=\"Post reactions\" id=\"rx\">\n  <pura-reaction emoji=\"👍\" count=\"12\" label=\"Like\" active></pura-reaction>\n  <pura-reaction emoji=\"❤️\" count=\"8\" label=\"Love\"></pura-reaction>\n  <pura-reaction emoji=\"🎉\" count=\"3\" label=\"Celebrate\"></pura-reaction>\n  <pura-reaction emoji=\"🤔\" count=\"1\" label=\"Thinking\"></pura-reaction>\n</pura-reactions>\n\n<script type=\"module\">\n  document.getElementById(\"rx\").addEventListener(\"react\", (e) => {\n    const { emoji, active, count } = e.detail;\n    console.log(`${emoji} ${active ? \"activated\" : \"deactivated\"} (total: ${count})`);\n  });\n</script>"
+  "usage": "<pura-reactions label=\"Post reactions\" id=\"rx\">\n  <pura-reaction emoji=\"👍\" count=\"12\" label=\"Like\" active></pura-reaction>\n  <pura-reaction emoji=\"❤️\" count=\"8\" label=\"Love\"></pura-reaction>\n  <pura-reaction emoji=\"🎉\" count=\"3\" label=\"Celebrate\"></pura-reaction>\n  <pura-reaction emoji=\"🤔\" count=\"1\" label=\"Thinking\"></pura-reaction>\n</pura-reactions>\n\n<script type=\"module\">\n  document.getElementById(\"rx\").addEventListener(\"react\", (e) => {\n    const { emoji, active, count } = e.detail;\n    console.log(`${emoji} ${active ? \"activated\" : \"deactivated\"} (total: ${count})`);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "code-block",
+      "title": "Code Block"
+    },
+    {
+      "slug": "scroll-spy",
+      "title": "Scroll Spy"
+    },
+    {
+      "slug": "prose",
+      "title": "Typography"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    }
+  ]
 },
 {
   "slug": "redact",
@@ -5472,7 +7137,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<p style=\"font-family: system-ui; line-height: 2;\">\n  Your API key:\n  <pura-redact id=\"apikey\" reveal-on=\"click\" toggle blur=\"md\">sk-live-9f2c7b41ad8e4f00</pura-redact>\n  <br>\n  Salary (hover over it):\n  <pura-redact reveal-on=\"hover\" blur=\"lg\">$14,250.00</pura-redact>\n</p>\n<p id=\"status\" style=\"font-family: system-ui; color: #16a34a; font-size: 14px;\"></p>\n<script type=\"module\">\n  const status = document.getElementById(\"status\");\n  document.getElementById(\"apikey\").addEventListener(\"reveal\", (e) => {\n    status.textContent = \"Key revealed: \" + e.detail.value;\n  });\n  document.getElementById(\"apikey\").addEventListener(\"hide\", () => {\n    status.textContent = \"Key hidden again.\";\n  });\n</script>",
-  "usage": "<p style=\"font-family: system-ui; line-height: 2;\">\n  Your API key:\n  <pura-redact id=\"apikey\" reveal-on=\"click\" toggle blur=\"md\">sk-live-9f2c7b41ad8e4f00</pura-redact>\n  <br>\n  Salary (hover over it):\n  <pura-redact reveal-on=\"hover\" blur=\"lg\">$14,250.00</pura-redact>\n</p>\n<p id=\"status\" style=\"font-family: system-ui; color: #16a34a; font-size: 14px;\"></p>\n<script type=\"module\">\n  const status = document.getElementById(\"status\");\n  document.getElementById(\"apikey\").addEventListener(\"reveal\", (e) => {\n    status.textContent = \"Key revealed: \" + e.detail.value;\n  });\n  document.getElementById(\"apikey\").addEventListener(\"hide\", () => {\n    status.textContent = \"Key hidden again.\";\n  });\n</script>"
+  "usage": "<p style=\"font-family: system-ui; line-height: 2;\">\n  Your API key:\n  <pura-redact id=\"apikey\" reveal-on=\"click\" toggle blur=\"md\">sk-live-9f2c7b41ad8e4f00</pura-redact>\n  <br>\n  Salary (hover over it):\n  <pura-redact reveal-on=\"hover\" blur=\"lg\">$14,250.00</pura-redact>\n</p>\n<p id=\"status\" style=\"font-family: system-ui; color: #16a34a; font-size: 14px;\"></p>\n<script type=\"module\">\n  const status = document.getElementById(\"status\");\n  document.getElementById(\"apikey\").addEventListener(\"reveal\", (e) => {\n    status.textContent = \"Key revealed: \" + e.detail.value;\n  });\n  document.getElementById(\"apikey\").addEventListener(\"hide\", () => {\n    status.textContent = \"Key hidden again.\";\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "resizable",
@@ -5508,7 +7176,10 @@ export const components = [
     "end"
   ],
   "demoHTML": "<pura-resizable value=\"40\" min=\"15\" style=\"height: 240px; border: 1px solid var(--pura-border); border-radius: var(--pura-radius);\">\n  <div slot=\"start\" style=\"padding: 1rem;\">\n    <strong>Files</strong>\n    <ul style=\"margin: 0.5rem 0 0; padding-left: 1.25rem;\">\n      <li>index.html</li>\n      <li>style.css</li>\n      <li>app.js</li>\n    </ul>\n  </div>\n  <div slot=\"end\" style=\"padding: 1rem;\">\n    <strong>Editor</strong>\n    <p style=\"margin: 0.5rem 0 0; color: var(--pura-muted);\">\n      Drag the divider in the center to resize the panels.\n    </p>\n  </div>\n</pura-resizable>",
-  "usage": "<pura-resizable value=\"40\" min=\"15\" style=\"height: 240px; border: 1px solid var(--pura-border); border-radius: var(--pura-radius);\">\n  <div slot=\"start\" style=\"padding: 1rem;\">\n    <strong>Files</strong>\n    <ul style=\"margin: 0.5rem 0 0; padding-left: 1.25rem;\">\n      <li>index.html</li>\n      <li>style.css</li>\n      <li>app.js</li>\n    </ul>\n  </div>\n  <div slot=\"end\" style=\"padding: 1rem;\">\n    <strong>Editor</strong>\n    <p style=\"margin: 0.5rem 0 0; color: var(--pura-muted);\">\n      Drag the divider in the center to resize the panels.\n    </p>\n  </div>\n</pura-resizable>"
+  "usage": "<pura-resizable value=\"40\" min=\"15\" style=\"height: 240px; border: 1px solid var(--pura-border); border-radius: var(--pura-radius);\">\n  <div slot=\"start\" style=\"padding: 1rem;\">\n    <strong>Files</strong>\n    <ul style=\"margin: 0.5rem 0 0; padding-left: 1.25rem;\">\n      <li>index.html</li>\n      <li>style.css</li>\n      <li>app.js</li>\n    </ul>\n  </div>\n  <div slot=\"end\" style=\"padding: 1rem;\">\n    <strong>Editor</strong>\n    <p style=\"margin: 0.5rem 0 0; color: var(--pura-muted);\">\n      Drag the divider in the center to resize the panels.\n    </p>\n  </div>\n</pura-resizable>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "result",
@@ -5548,7 +7219,10 @@ export const components = [
     "actions"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "reveal",
@@ -5595,7 +7269,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"height: 120px; display: grid; place-items: center; color: var(--pura-muted, #888); font: 14px system-ui;\">\n  Scroll down to reveal the content\n</div>\n\n<pura-reveal animation=\"slide-up\" delay=\"100\" threshold=\"0.3\">\n  <article style=\"padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n    <h3 style=\"margin-top: 0;\">Revealed content</h3>\n    <p>This block slides up and fades in smoothly as soon as it enters the screen.</p>\n  </article>\n</pura-reveal>\n\n<pura-reveal animation=\"zoom\" once>\n  <article style=\"margin-top: var(--pura-space-4, 1rem); padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n    <h3 style=\"margin-top: 0;\">Reveals only once</h3>\n    <p>With <code>once</code>, it animates on the first entry and stops observing.</p>\n  </article>\n</pura-reveal>",
-  "usage": "<pura-reveal animation=\"slide-up\" delay=\"100\" threshold=\"0.3\">\n  <article>\n    <h3>Revealed content</h3>\n    <p>This block slides up and fades in smoothly as soon as it enters the screen.</p>\n  </article>\n</pura-reveal>\n\n<pura-reveal animation=\"zoom\" once>\n  <article>\n    <h3>Reveals only once</h3>\n    <p>With <code>once</code>, it animates on the first entry and stops observing.</p>\n  </article>\n</pura-reveal>"
+  "usage": "<pura-reveal animation=\"slide-up\" delay=\"100\" threshold=\"0.3\">\n  <article>\n    <h3>Revealed content</h3>\n    <p>This block slides up and fades in smoothly as soon as it enters the screen.</p>\n  </article>\n</pura-reveal>\n\n<pura-reveal animation=\"zoom\" once>\n  <article>\n    <h3>Reveals only once</h3>\n    <p>With <code>once</code>, it animates on the first entry and stops observing.</p>\n  </article>\n</pura-reveal>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "rich-text",
@@ -5629,7 +7306,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "ripple",
@@ -5658,7 +7338,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: flex; gap: var(--pura-space-4, 1rem); flex-wrap: wrap;\">\n  <pura-ripple style=\"border-radius: 10px;\">\n    <button style=\"padding: 0.6rem 1.2rem; border: 1px solid var(--pura-border, #ddd); border-radius: 10px; background: var(--pura-subtle, #f4f4f5); font: 15px system-ui; cursor: pointer;\">Press me</button>\n  </pura-ripple>\n  <pura-ripple centered style=\"border-radius: 999px; --pura-ripple-color: #2563eb;\">\n    <button style=\"width: 44px; height: 44px; border: 1px solid var(--pura-border, #ddd); border-radius: 999px; background: var(--pura-bg, #fff); font: 18px system-ui; cursor: pointer;\">★</button>\n  </pura-ripple>\n</div>",
-  "usage": "<pura-ripple>\n  <button>Press me</button>\n</pura-ripple>\n\n<!-- Icon button: ripple from center, custom color -->\n<pura-ripple centered style=\"--pura-ripple-color: #2563eb;\">\n  <button aria-label=\"Favorite\">★</button>\n</pura-ripple>"
+  "usage": "<pura-ripple>\n  <button>Press me</button>\n</pura-ripple>\n\n<!-- Icon button: ripple from center, custom color -->\n<pura-ripple centered style=\"--pura-ripple-color: #2563eb;\">\n  <button aria-label=\"Favorite\">★</button>\n</pura-ripple>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "scroll-area",
@@ -5685,7 +7368,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-scroll-area height=\"12rem\">\n  <h3 style=\"margin:0 0 .5rem\">Terms of use</h3>\n  <p>By using this service, you agree to the conditions described below.</p>\n  <p>The content provided is for informational purposes and may be updated at any time.</p>\n  <p>Personal data is handled in accordance with applicable data protection laws.</p>\n  <p>Cookies are used to improve the browsing experience on the platform.</p>\n  <p>If you have any questions, please contact our support team.</p>\n  <p>These terms may be revised periodically without prior notice.</p>\n</pura-scroll-area>",
-  "usage": "<pura-scroll-area height=\"12rem\">\n  <h3 style=\"margin:0 0 .5rem\">Terms of use</h3>\n  <p>By using this service, you agree to the conditions described below.</p>\n  <p>The content provided is for informational purposes and may be updated at any time.</p>\n  <p>Personal data is handled in accordance with applicable data protection laws.</p>\n  <p>Cookies are used to improve the browsing experience on the platform.</p>\n  <p>If you have any questions, please contact our support team.</p>\n  <p>These terms may be revised periodically without prior notice.</p>\n</pura-scroll-area>"
+  "usage": "<pura-scroll-area height=\"12rem\">\n  <h3 style=\"margin:0 0 .5rem\">Terms of use</h3>\n  <p>By using this service, you agree to the conditions described below.</p>\n  <p>The content provided is for informational purposes and may be updated at any time.</p>\n  <p>Personal data is handled in accordance with applicable data protection laws.</p>\n  <p>Cookies are used to improve the browsing experience on the platform.</p>\n  <p>If you have any questions, please contact our support team.</p>\n  <p>These terms may be revised periodically without prior notice.</p>\n</pura-scroll-area>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "scroll-progress",
@@ -5712,7 +7398,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727, brought from the neighboring region of French Guiana. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and, later, the western part of Sao Paulo, transforming the country's economy.</p>\n  <p>The coffee cycle funded railways, ports and European immigration, shaping entire cities around the bean route.</p>\n  <p>By the 20th century, Brazil was already the world's largest producer, a position it still holds today, with specialty coffees becoming increasingly valued.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>The aroma of artisanal roasteries became a symbol of regions such as Southern Minas, Cerrado Mineiro and Mogiana.</p>\n  <p>Today, domestic consumption grows alongside exports, and the coffee ritual remains part of everyday Brazilian life.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>",
-  "usage": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and the western part of Sao Paulo.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>"
+  "usage": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and the western part of Sao Paulo.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "scroll-spy",
@@ -5759,7 +7448,40 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<div style=\"display:grid;grid-template-columns:200px 1fr;gap:32px;max-width:860px\">\n  <pura-scroll-spy root=\"#conteudo\" offset=\"16\" auto-scroll label=\"On this page\" style=\"position:sticky;top:16px;align-self:start\">\n    <a href=\"#introducao\" style=\"display:block;padding:6px 10px\">Introduction</a>\n    <a href=\"#instalacao\" style=\"display:block;padding:6px 10px\">Installation</a>\n    <a href=\"#uso\" style=\"display:block;padding:6px 10px\">Usage</a>\n    <a href=\"#api\" style=\"display:block;padding:6px 10px\">API</a>\n  </pura-scroll-spy>\n  <div id=\"conteudo\" style=\"height:320px;overflow:auto;border:1px solid var(--pura-border, #ddd);border-radius:8px;padding:16px\">\n    <section id=\"introducao\"><h2>Introduction</h2><p style=\"height:260px\">Overview of the component and when to use it.</p></section>\n    <section id=\"instalacao\"><h2>Installation</h2><p style=\"height:260px\">Import the module and use the tag, with no dependencies.</p></section>\n    <section id=\"uso\"><h2>Usage</h2><p style=\"height:260px\">Place anchors with a hash href inside the slot.</p></section>\n    <section id=\"api\"><h2>API</h2><p style=\"height:260px\">Attributes, events and the activate() method.</p></section>\n  </div>\n</div>",
-  "usage": "<div style=\"display:grid;grid-template-columns:200px 1fr;gap:32px;max-width:860px\">\n  <pura-scroll-spy root=\"#conteudo\" offset=\"16\" auto-scroll label=\"On this page\" style=\"position:sticky;top:16px;align-self:start\">\n    <a href=\"#introducao\" style=\"display:block;padding:6px 10px\">Introduction</a>\n    <a href=\"#instalacao\" style=\"display:block;padding:6px 10px\">Installation</a>\n    <a href=\"#uso\" style=\"display:block;padding:6px 10px\">Usage</a>\n    <a href=\"#api\" style=\"display:block;padding:6px 10px\">API</a>\n  </pura-scroll-spy>\n  <div id=\"conteudo\" style=\"height:320px;overflow:auto;border:1px solid var(--pura-border, #ddd);border-radius:8px;padding:16px\">\n    <section id=\"introducao\"><h2>Introduction</h2><p style=\"height:260px\">Overview of the component and when to use it.</p></section>\n    <section id=\"instalacao\"><h2>Installation</h2><p style=\"height:260px\">Import the module and use the tag, with no dependencies.</p></section>\n    <section id=\"uso\"><h2>Usage</h2><p style=\"height:260px\">Place anchors with a hash href inside the slot.</p></section>\n    <section id=\"api\"><h2>API</h2><p style=\"height:260px\">Attributes, events and the activate() method.</p></section>\n  </div>\n</div>"
+  "usage": "<div style=\"display:grid;grid-template-columns:200px 1fr;gap:32px;max-width:860px\">\n  <pura-scroll-spy root=\"#conteudo\" offset=\"16\" auto-scroll label=\"On this page\" style=\"position:sticky;top:16px;align-self:start\">\n    <a href=\"#introducao\" style=\"display:block;padding:6px 10px\">Introduction</a>\n    <a href=\"#instalacao\" style=\"display:block;padding:6px 10px\">Installation</a>\n    <a href=\"#uso\" style=\"display:block;padding:6px 10px\">Usage</a>\n    <a href=\"#api\" style=\"display:block;padding:6px 10px\">API</a>\n  </pura-scroll-spy>\n  <div id=\"conteudo\" style=\"height:320px;overflow:auto;border:1px solid var(--pura-border, #ddd);border-radius:8px;padding:16px\">\n    <section id=\"introducao\"><h2>Introduction</h2><p style=\"height:260px\">Overview of the component and when to use it.</p></section>\n    <section id=\"instalacao\"><h2>Installation</h2><p style=\"height:260px\">Import the module and use the tag, with no dependencies.</p></section>\n    <section id=\"uso\"><h2>Usage</h2><p style=\"height:260px\">Place anchors with a hash href inside the slot.</p></section>\n    <section id=\"api\"><h2>API</h2><p style=\"height:260px\">Attributes, events and the activate() method.</p></section>\n  </div>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "code-block",
+      "title": "Code Block"
+    },
+    {
+      "slug": "reactions",
+      "title": "Reactions"
+    },
+    {
+      "slug": "prose",
+      "title": "Typography"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
+      "slug": "badge",
+      "title": "Badge"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "blog-post",
+      "title": "Blog Post"
+    }
+  ]
 },
 {
   "slug": "search-field",
@@ -5804,7 +7526,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "section",
@@ -5837,7 +7562,10 @@ export const components = [
     "default — section content"
   ],
   "demoHTML": "<pura-section container>\n  <h2>Welcome to Pura</h2>\n  <p>A primitive section with default vertical padding and a centered, readable width.</p>\n</pura-section>\n\n<pura-section bg=\"subtle\" py=\"4\" container>\n  <h2>Tinted background</h2>\n  <p>This section uses the \"subtle\" design token as its background and tighter padding.</p>\n</pura-section>\n\n<pura-section bg=\"#0f172a\" py=\"6\">\n  <p style=\"color: #fff;\">A full-bleed section with a custom color background and generous spacing.</p>\n</pura-section>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/section.js\"></script>\n\n<!-- Centered, readable content block -->\n<pura-section container>\n  <h2>Section heading</h2>\n  <p>Content sits within a comfortable max-width and is centered on the page.</p>\n</pura-section>\n\n<!-- Tinted, full-width band with tighter padding -->\n<pura-section bg=\"subtle\" py=\"4\">\n  <p>A background band that spans the full width of its parent.</p>\n</pura-section>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/section.js\"></script>\n\n<!-- Centered, readable content block -->\n<pura-section container>\n  <h2>Section heading</h2>\n  <p>Content sits within a comfortable max-width and is centered on the page.</p>\n</pura-section>\n\n<!-- Tinted, full-width band with tighter padding -->\n<pura-section bg=\"subtle\" py=\"4\">\n  <p>A background band that spans the full width of its parent.</p>\n</pura-section>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "segmented-control",
@@ -5882,7 +7610,48 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-segmented-control\n  id=\"periodo\"\n  label=\"Period\"\n  options=\"Day,Week,Month\"\n  value=\"Week\"\n></pura-segmented-control>\n<p id=\"periodo-saida\" style=\"margin-top:.75rem;font:14px system-ui;color:#555;\">Selected: Week</p>\n<script type=\"module\">\n  import \"/pura/lib/segmented-control.js\";\n  const sc = document.getElementById(\"periodo\");\n  const out = document.getElementById(\"periodo-saida\");\n  sc.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected: \" + e.detail.value;\n  });\n</script>",
-  "usage": "<pura-segmented-control\n  id=\"periodo\"\n  label=\"Period\"\n  options=\"Day,Week,Month\"\n  value=\"Week\"\n></pura-segmented-control>\n<p id=\"periodo-saida\">Selected: Week</p>\n<script type=\"module\">\n  import \"/pura/lib/segmented-control.js\";\n  const sc = document.getElementById(\"periodo\");\n  const out = document.getElementById(\"periodo-saida\");\n  sc.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected: \" + e.detail.value;\n  });\n</script>"
+  "usage": "<pura-segmented-control\n  id=\"periodo\"\n  label=\"Period\"\n  options=\"Day,Week,Month\"\n  value=\"Week\"\n></pura-segmented-control>\n<p id=\"periodo-saida\">Selected: Week</p>\n<script type=\"module\">\n  import \"/pura/lib/segmented-control.js\";\n  const sc = document.getElementById(\"periodo\");\n  const out = document.getElementById(\"periodo-saida\");\n  sc.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected: \" + e.detail.value;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "calendar",
+      "title": "Calendar"
+    },
+    {
+      "slug": "dialog",
+      "title": "Dialog"
+    },
+    {
+      "slug": "notification-item",
+      "title": "Notification Item"
+    },
+    {
+      "slug": "toast",
+      "title": "Toast"
+    },
+    {
+      "slug": "faq",
+      "title": "FAQ"
+    },
+    {
+      "slug": "pricing-table",
+      "title": "Pricing Table"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "notifications",
+      "title": "Notifications"
+    },
+    {
+      "slug": "pricing",
+      "title": "Pricing"
+    }
+  ]
 },
 {
   "slug": "select",
@@ -5929,7 +7698,52 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-select label=\"State\" hint=\"Select your state of residence\" value=\"sp\">\n  <option value=\"sp\">Sao Paulo</option>\n  <option value=\"rj\">Rio de Janeiro</option>\n  <option value=\"mg\">Minas Gerais</option>\n  <option value=\"rs\">Rio Grande do Sul</option>\n  <option value=\"ba\">Bahia</option>\n</pura-select>",
-  "usage": "<pura-select label=\"State\" hint=\"Select your state of residence\" value=\"sp\">\n  <option value=\"sp\">Sao Paulo</option>\n  <option value=\"rj\">Rio de Janeiro</option>\n  <option value=\"mg\">Minas Gerais</option>\n  <option value=\"rs\">Rio Grande do Sul</option>\n  <option value=\"ba\">Bahia</option>\n</pura-select>"
+  "usage": "<pura-select label=\"State\" hint=\"Select your state of residence\" value=\"sp\">\n  <option value=\"sp\">Sao Paulo</option>\n  <option value=\"rj\">Rio de Janeiro</option>\n  <option value=\"mg\">Minas Gerais</option>\n  <option value=\"rs\">Rio Grande do Sul</option>\n  <option value=\"ba\">Bahia</option>\n</pura-select>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "button-group",
+      "title": "Button Group"
+    },
+    {
+      "slug": "calendar",
+      "title": "Calendar"
+    },
+    {
+      "slug": "dialog",
+      "title": "Dialog"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "separator",
@@ -5954,7 +7768,52 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"max-width: 360px;\">\n  <p>Your account was created successfully.</p>\n  <pura-separator></pura-separator>\n  <p>Review your settings below.</p>\n  <pura-separator label=\"or continue with\"></pura-separator>\n  <div style=\"display: flex; align-items: center; gap: 12px;\">\n    <span>Profile</span>\n    <pura-separator orientation=\"vertical\"></pura-separator>\n    <span>Security</span>\n    <pura-separator orientation=\"vertical\"></pura-separator>\n    <span>Notifications</span>\n  </div>\n</div>",
-  "usage": "<div style=\"max-width: 360px;\">\n  <p>Your account was created successfully.</p>\n  <pura-separator></pura-separator>\n  <p>Review your settings below.</p>\n  <pura-separator label=\"or continue with\"></pura-separator>\n  <div style=\"display: flex; align-items: center; gap: 12px;\">\n    <span>Profile</span>\n    <pura-separator orientation=\"vertical\"></pura-separator>\n    <span>Security</span>\n    <pura-separator orientation=\"vertical\"></pura-separator>\n    <span>Notifications</span>\n  </div>\n</div>"
+  "usage": "<div style=\"max-width: 360px;\">\n  <p>Your account was created successfully.</p>\n  <pura-separator></pura-separator>\n  <p>Review your settings below.</p>\n  <pura-separator label=\"or continue with\"></pura-separator>\n  <div style=\"display: flex; align-items: center; gap: 12px;\">\n    <span>Profile</span>\n    <pura-separator orientation=\"vertical\"></pura-separator>\n    <span>Security</span>\n    <pura-separator orientation=\"vertical\"></pura-separator>\n    <span>Notifications</span>\n  </div>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "tabs",
+      "title": "Tabs"
+    },
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "input-group",
+      "title": "Input Group"
+    },
+    {
+      "slug": "number-input",
+      "title": "Number Input"
+    },
+    {
+      "slug": "radio",
+      "title": "Radio"
+    },
+    {
+      "slug": "radio-group",
+      "title": "Radio Group"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "login",
+      "title": "Login"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "sheet",
@@ -5991,7 +7850,10 @@ export const components = [
     "footer"
   ],
   "demoHTML": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>",
-  "usage": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>"
+  "usage": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "sidebar",
@@ -6036,7 +7898,44 @@ export const components = [
     "icon"
   ],
   "demoHTML": "<div style=\"height: 380px; display: flex; border: 1px solid var(--pura-border); border-radius: var(--pura-radius); overflow: hidden;\">\n  <pura-sidebar collapsible>\n    <div slot=\"header\" style=\"font-weight:600;\">Acme Inc.</div>\n\n    <pura-sidebar-item href=\"#\" active>\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9.5 12 3l9 6.5\"/><path d=\"M5 10v10h14V10\"/></svg>\n      Home\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/></svg>\n      Dashboard\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21v-1a6 6 0 0 1 12 0v1\"/></svg>\n      Team\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.3 1a7 7 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.5 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.3-1a7 7 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.5-2-1.5a7 7 0 0 0 .1-1Z\"/></svg>\n      Settings\n    </pura-sidebar-item>\n\n    <pura-sidebar-item slot=\"footer\" href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><path d=\"m16 17 5-5-5-5\"/><path d=\"M21 12H9\"/></svg>\n      Sign out\n    </pura-sidebar-item>\n  </pura-sidebar>\n\n  <main style=\"flex:1; padding: var(--pura-space-4);\">\n    <h3 style=\"margin:0;\">Content</h3>\n    <p style=\"color: var(--pura-muted-fg);\">On mobile the sidebar turns into a drawer. Call .toggle() to collapse it on desktop.</p>\n  </main>\n</div>",
-  "usage": "<div style=\"height: 380px; display: flex; border: 1px solid var(--pura-border); border-radius: var(--pura-radius); overflow: hidden;\">\n  <pura-sidebar collapsible>\n    <div slot=\"header\">Acme Inc.</div>\n\n    <pura-sidebar-item href=\"#\" active>\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9.5 12 3l9 6.5\"/><path d=\"M5 10v10h14V10\"/></svg>\n      Home\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/></svg>\n      Dashboard\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21v-1a6 6 0 0 1 12 0v1\"/></svg>\n      Team\n    </pura-sidebar-item>\n\n    <pura-sidebar-item slot=\"footer\" href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><path d=\"m16 17 5-5-5-5\"/><path d=\"M21 12H9\"/></svg>\n      Sign out\n    </pura-sidebar-item>\n  </pura-sidebar>\n\n  <main style=\"flex:1; padding: var(--pura-space-4);\">\n    <h3>Content</h3>\n    <p>On mobile the sidebar turns into a drawer.</p>\n  </main>\n</div>\n\n<!--\n  Collapse on desktop: document.querySelector('pura-sidebar').toggle()\n  Open/close on mobile: .openMobile() / .closeMobile()\n  Events: 'open' and 'close' (fired in mobile mode)\n-->"
+  "usage": "<div style=\"height: 380px; display: flex; border: 1px solid var(--pura-border); border-radius: var(--pura-radius); overflow: hidden;\">\n  <pura-sidebar collapsible>\n    <div slot=\"header\">Acme Inc.</div>\n\n    <pura-sidebar-item href=\"#\" active>\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9.5 12 3l9 6.5\"/><path d=\"M5 10v10h14V10\"/></svg>\n      Home\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/></svg>\n      Dashboard\n    </pura-sidebar-item>\n    <pura-sidebar-item href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21v-1a6 6 0 0 1 12 0v1\"/></svg>\n      Team\n    </pura-sidebar-item>\n\n    <pura-sidebar-item slot=\"footer\" href=\"#\">\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><path d=\"m16 17 5-5-5-5\"/><path d=\"M21 12H9\"/></svg>\n      Sign out\n    </pura-sidebar-item>\n  </pura-sidebar>\n\n  <main style=\"flex:1; padding: var(--pura-space-4);\">\n    <h3>Content</h3>\n    <p>On mobile the sidebar turns into a drawer.</p>\n  </main>\n</div>\n\n<!--\n  Collapse on desktop: document.querySelector('pura-sidebar').toggle()\n  Open/close on mobile: .openMobile() / .closeMobile()\n  Events: 'open' and 'close' (fired in mobile mode)\n-->",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "sparkline",
+      "title": "Sparkline"
+    },
+    {
+      "slug": "toggle",
+      "title": "Toggle"
+    },
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "table",
+      "title": "Table"
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    },
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    }
+  ]
 },
 {
   "slug": "signature",
@@ -6081,7 +7980,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "skeleton-text",
@@ -6112,7 +8014,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"max-width: 360px; display: flex; flex-direction: column; gap: 24px;\">\n  <pura-skeleton-text lines=\"3\"></pura-skeleton-text>\n  <pura-skeleton-text lines=\"5\" gap=\"12px\" last=\"40%\"></pura-skeleton-text>\n</div>",
-  "usage": "<pura-skeleton-text lines=\"3\"></pura-skeleton-text>\n\n<pura-skeleton-text lines=\"5\" gap=\"12px\" last=\"40%\"></pura-skeleton-text>"
+  "usage": "<pura-skeleton-text lines=\"3\"></pura-skeleton-text>\n\n<pura-skeleton-text lines=\"5\" gap=\"12px\" last=\"40%\"></pura-skeleton-text>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "skeleton",
@@ -6143,7 +8048,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;align-items:center;gap:16px;margin-bottom:16px\">\n  <pura-skeleton circle width=\"48px\"></pura-skeleton>\n  <div style=\"flex:1;display:flex;flex-direction:column;gap:8px\">\n    <pura-skeleton width=\"40%\"></pura-skeleton>\n    <pura-skeleton width=\"70%\"></pura-skeleton>\n  </div>\n</div>\n<pura-skeleton height=\"160px\"></pura-skeleton>",
-  "usage": "<div style=\"display:flex;align-items:center;gap:16px;margin-bottom:16px\">\n  <pura-skeleton circle width=\"48px\"></pura-skeleton>\n  <div style=\"flex:1;display:flex;flex-direction:column;gap:8px\">\n    <pura-skeleton width=\"40%\"></pura-skeleton>\n    <pura-skeleton width=\"70%\"></pura-skeleton>\n  </div>\n</div>\n<pura-skeleton height=\"160px\"></pura-skeleton>"
+  "usage": "<div style=\"display:flex;align-items:center;gap:16px;margin-bottom:16px\">\n  <pura-skeleton circle width=\"48px\"></pura-skeleton>\n  <div style=\"flex:1;display:flex;flex-direction:column;gap:8px\">\n    <pura-skeleton width=\"40%\"></pura-skeleton>\n    <pura-skeleton width=\"70%\"></pura-skeleton>\n  </div>\n</div>\n<pura-skeleton height=\"160px\"></pura-skeleton>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "skip-nav",
@@ -6168,7 +8076,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "slider",
@@ -6220,7 +8131,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<label for=\"volume\" style=\"display:block;margin-bottom:.5rem;font-size:.875rem\">Volume</label>\n<pura-slider id=\"volume\" min=\"0\" max=\"100\" step=\"1\" value=\"60\" show-value aria-label=\"Volume\"></pura-slider>",
-  "usage": "<label for=\"volume\" style=\"display:block;margin-bottom:.5rem;font-size:.875rem\">Volume</label>\n<pura-slider id=\"volume\" min=\"0\" max=\"100\" step=\"1\" value=\"60\" show-value aria-label=\"Volume\"></pura-slider>\n\n<script type=\"module\">\n  const slider = document.getElementById(\"volume\");\n  slider.addEventListener(\"change\", (e) => {\n    console.log(\"New value:\", e.detail.value);\n  });\n</script>"
+  "usage": "<label for=\"volume\" style=\"display:block;margin-bottom:.5rem;font-size:.875rem\">Volume</label>\n<pura-slider id=\"volume\" min=\"0\" max=\"100\" step=\"1\" value=\"60\" show-value aria-label=\"Volume\"></pura-slider>\n\n<script type=\"module\">\n  const slider = document.getElementById(\"volume\");\n  slider.addEventListener(\"change\", (e) => {\n    console.log(\"New value:\", e.detail.value);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "spacer",
@@ -6239,7 +8153,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/spacer.js\"></script>\n\n<!-- Fixed vertical gaps in normal block flow -->\n<p>First paragraph above the gap.</p>\n<pura-spacer size=\"4\"></pura-spacer>\n<p>Second paragraph, pushed down by a scale-step gap.</p>\n<pura-spacer size=\"2rem\"></pura-spacer>\n<p>Third paragraph, pushed down by a custom 2rem gap.</p>\n\n<!-- Flexible spacer pushing siblings to opposite ends of a row -->\n<div style=\"display: flex; align-items: center; padding: 12px; border: 1px solid #ccc;\">\n  <strong>Brand</strong>\n  <pura-spacer></pura-spacer>\n  <button>Sign in</button>\n</div>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/spacer.js\"></script>\n\n<!-- Fixed gap between two cards using a spacing-scale step -->\n<div style=\"display: flex;\">\n  <div>Card A</div>\n  <pura-spacer size=\"3\"></pura-spacer>\n  <div>Card B</div>\n</div>\n\n<!-- Flexible spacer to right-align an action in a toolbar -->\n<div style=\"display: flex; align-items: center;\">\n  <span>Page title</span>\n  <pura-spacer></pura-spacer>\n  <button>New item</button>\n</div>\n\n<!-- Custom CSS length gap in block flow -->\n<section>Intro text</section>\n<pura-spacer size=\"48px\"></pura-spacer>\n<section>Following section after a 48px gap.</section>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/spacer.js\"></script>\n\n<!-- Fixed gap between two cards using a spacing-scale step -->\n<div style=\"display: flex;\">\n  <div>Card A</div>\n  <pura-spacer size=\"3\"></pura-spacer>\n  <div>Card B</div>\n</div>\n\n<!-- Flexible spacer to right-align an action in a toolbar -->\n<div style=\"display: flex; align-items: center;\">\n  <span>Page title</span>\n  <pura-spacer></pura-spacer>\n  <button>New item</button>\n</div>\n\n<!-- Custom CSS length gap in block flow -->\n<section>Intro text</section>\n<pura-spacer size=\"48px\"></pura-spacer>\n<section>Following section after a 48px gap.</section>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "sparkline",
@@ -6288,7 +8205,40 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;align-items:center;gap:12px;font-family:system-ui\">\n  <span>Revenue (7 days)</span>\n  <pura-sparkline values=\"4,7,5,9,6,11,13\" width=\"120\" height=\"32\" color=\"#16a34a\" fill dot></pura-sparkline>\n  <strong>$13k</strong>\n</div>",
-  "usage": "<div style=\"display:flex;align-items:center;gap:12px;font-family:system-ui\">\n  <span>Revenue (7 days)</span>\n  <pura-sparkline values=\"4,7,5,9,6,11,13\" width=\"120\" height=\"32\" color=\"#16a34a\" fill dot></pura-sparkline>\n  <strong>$13k</strong>\n</div>"
+  "usage": "<div style=\"display:flex;align-items:center;gap:12px;font-family:system-ui\">\n  <span>Revenue (7 days)</span>\n  <pura-sparkline values=\"4,7,5,9,6,11,13\" width=\"120\" height=\"32\" color=\"#16a34a\" fill dot></pura-sparkline>\n  <strong>$13k</strong>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    },
+    {
+      "slug": "table",
+      "title": "Table"
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline"
+    },
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    }
+  ]
 },
 {
   "slug": "speed-dial",
@@ -6338,7 +8288,10 @@ export const components = [
     "icon"
   ],
   "demoHTML": "<div style=\"position:relative;height:320px;border:1px solid var(--pura-border);border-radius:var(--pura-radius);overflow:hidden;background:var(--pura-subtle)\">\n  <p style=\"padding:var(--pura-space-4);color:var(--pura-muted-fg)\">Click the button in the bottom-right corner.</p>\n  <pura-speed-dial label=\"Quick actions\" style=\"position:absolute\">\n    <pura-speed-dial-action id=\"acao-novo\">\n      New document\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>\n    </pura-speed-dial-action>\n    <pura-speed-dial-action id=\"acao-compartilhar\">\n      Share\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M4 12v8h16v-8M12 3v13M7 8l5-5 5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n    </pura-speed-dial-action>\n    <pura-speed-dial-action id=\"acao-editar\">\n      Edit\n      <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M4 20h4L18 10l-4-4L4 16v4zM14 6l4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n    </pura-speed-dial-action>\n  </pura-speed-dial>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/speed-dial.js\";\n  document.querySelector(\"pura-speed-dial\").addEventListener(\"action\", (e) => {\n    console.log(\"Action triggered:\", e.detail.id, e.detail.label);\n  });\n</script>",
-  "usage": "<pura-speed-dial label=\"Quick actions\" position=\"bottom-end\">\n  <pura-speed-dial-action id=\"acao-novo\">\n    New document\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>\n  </pura-speed-dial-action>\n  <pura-speed-dial-action id=\"acao-compartilhar\">\n    Share\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M4 12v8h16v-8M12 3v13M7 8l5-5 5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n  </pura-speed-dial-action>\n  <pura-speed-dial-action id=\"acao-editar\">\n    Edit\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M4 20h4L18 10l-4-4L4 16v4zM14 6l4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n  </pura-speed-dial-action>\n</pura-speed-dial>\n<script type=\"module\">\n  import \"/pura/lib/speed-dial.js\";\n  document.querySelector(\"pura-speed-dial\").addEventListener(\"action\", (e) => {\n    console.log(\"Action triggered:\", e.detail.id, e.detail.label);\n  });\n</script>"
+  "usage": "<pura-speed-dial label=\"Quick actions\" position=\"bottom-end\">\n  <pura-speed-dial-action id=\"acao-novo\">\n    New document\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M12 5v14M5 12h14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>\n  </pura-speed-dial-action>\n  <pura-speed-dial-action id=\"acao-compartilhar\">\n    Share\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M4 12v8h16v-8M12 3v13M7 8l5-5 5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n  </pura-speed-dial-action>\n  <pura-speed-dial-action id=\"acao-editar\">\n    Edit\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\"><path d=\"M4 20h4L18 10l-4-4L4 16v4zM14 6l4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n  </pura-speed-dial-action>\n</pura-speed-dial>\n<script type=\"module\">\n  import \"/pura/lib/speed-dial.js\";\n  document.querySelector(\"pura-speed-dial\").addEventListener(\"action\", (e) => {\n    console.log(\"Action triggered:\", e.detail.id, e.detail.label);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "spinner",
@@ -6363,7 +8316,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display:flex;align-items:center;gap:1.5rem;\">\n  <pura-spinner size=\"sm\"></pura-spinner>\n  <pura-spinner></pura-spinner>\n  <pura-spinner size=\"lg\" label=\"Loading data\"></pura-spinner>\n</div>",
-  "usage": "<div style=\"display:flex;align-items:center;gap:1.5rem;\">\n  <pura-spinner size=\"sm\"></pura-spinner>\n  <pura-spinner></pura-spinner>\n  <pura-spinner size=\"lg\" label=\"Loading data\"></pura-spinner>\n</div>"
+  "usage": "<div style=\"display:flex;align-items:center;gap:1.5rem;\">\n  <pura-spinner size=\"sm\"></pura-spinner>\n  <pura-spinner></pura-spinner>\n  <pura-spinner size=\"lg\" label=\"Loading data\"></pura-spinner>\n</div>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "split-button",
@@ -6433,7 +8389,10 @@ export const components = [
     "menu"
   ],
   "demoHTML": "<pura-split-button id=\"salvar\" variant=\"primary\">\n  Save\n  <pura-menu-item slot=\"menu\" data-action=\"rascunho\">Save as draft</pura-menu-item>\n  <pura-menu-item slot=\"menu\" data-action=\"fechar\">Save and close</pura-menu-item>\n  <pura-menu-separator slot=\"menu\"></pura-menu-separator>\n  <pura-menu-item slot=\"menu\" data-action=\"modelo\">Save as template</pura-menu-item>\n</pura-split-button>\n\n<p id=\"status-salvar\" style=\"margin-top:1rem;font:inherit;color:var(--pura-muted,#666)\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/split-button.js\";\n  const btn = document.getElementById(\"salvar\");\n  const status = document.getElementById(\"status-salvar\");\n  btn.addEventListener(\"click\", () => { status.textContent = \"Document saved.\"; });\n  btn.addEventListener(\"select\", (e) => {\n    status.textContent = \"Action: \" + e.target.getAttribute(\"data-action\");\n  });\n</script>",
-  "usage": "<pura-split-button id=\"salvar\" variant=\"primary\">\n  Save\n  <pura-menu-item slot=\"menu\" data-action=\"rascunho\">Save as draft</pura-menu-item>\n  <pura-menu-item slot=\"menu\" data-action=\"fechar\">Save and close</pura-menu-item>\n  <pura-menu-separator slot=\"menu\"></pura-menu-separator>\n  <pura-menu-item slot=\"menu\" data-action=\"modelo\">Save as template</pura-menu-item>\n</pura-split-button>\n\n<p id=\"status-salvar\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/split-button.js\";\n  const btn = document.getElementById(\"salvar\");\n  const status = document.getElementById(\"status-salvar\");\n  btn.addEventListener(\"click\", () => { status.textContent = \"Document saved.\"; });\n  btn.addEventListener(\"select\", (e) => {\n    status.textContent = \"Action: \" + e.target.getAttribute(\"data-action\");\n  });\n</script>"
+  "usage": "<pura-split-button id=\"salvar\" variant=\"primary\">\n  Save\n  <pura-menu-item slot=\"menu\" data-action=\"rascunho\">Save as draft</pura-menu-item>\n  <pura-menu-item slot=\"menu\" data-action=\"fechar\">Save and close</pura-menu-item>\n  <pura-menu-separator slot=\"menu\"></pura-menu-separator>\n  <pura-menu-item slot=\"menu\" data-action=\"modelo\">Save as template</pura-menu-item>\n</pura-split-button>\n\n<p id=\"status-salvar\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/split-button.js\";\n  const btn = document.getElementById(\"salvar\");\n  const status = document.getElementById(\"status-salvar\");\n  btn.addEventListener(\"click\", () => { status.textContent = \"Document saved.\"; });\n  btn.addEventListener(\"select\", (e) => {\n    status.textContent = \"Action: \" + e.target.getAttribute(\"data-action\");\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "spotlight",
@@ -6479,7 +8438,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"padding:24px;display:flex;flex-direction:column;gap:16px;align-items:flex-start\">\n  <p>Click to highlight the button below:</p>\n  <button id=\"alvo\" style=\"padding:8px 16px\">New feature</button>\n  <button id=\"guiar\">Show highlight</button>\n</div>\n\n<pura-spotlight id=\"sp\" target=\"#alvo\" label=\"Meet the new feature\"></pura-spotlight>\n\n<script type=\"module\">\n  import \"/pura/lib/spotlight.js\";\n  const sp = document.getElementById(\"sp\");\n  document.getElementById(\"guiar\").addEventListener(\"click\", () => sp.show());\n</script>",
-  "usage": "<div style=\"padding:24px;display:flex;flex-direction:column;gap:16px;align-items:flex-start\">\n  <p>Click to highlight the button below:</p>\n  <button id=\"alvo\" style=\"padding:8px 16px\">New feature</button>\n  <button id=\"guiar\">Show highlight</button>\n</div>\n\n<pura-spotlight id=\"sp\" target=\"#alvo\" label=\"Meet the new feature\"></pura-spotlight>\n\n<script type=\"module\">\n  import \"/pura/lib/spotlight.js\";\n  const sp = document.getElementById(\"sp\");\n  document.getElementById(\"guiar\").addEventListener(\"click\", () => sp.show());\n</script>"
+  "usage": "<div style=\"padding:24px;display:flex;flex-direction:column;gap:16px;align-items:flex-start\">\n  <p>Click to highlight the button below:</p>\n  <button id=\"alvo\" style=\"padding:8px 16px\">New feature</button>\n  <button id=\"guiar\">Show highlight</button>\n</div>\n\n<pura-spotlight id=\"sp\" target=\"#alvo\" label=\"Meet the new feature\"></pura-spotlight>\n\n<script type=\"module\">\n  import \"/pura/lib/spotlight.js\";\n  const sp = document.getElementById(\"sp\");\n  document.getElementById(\"guiar\").addEventListener(\"click\", () => sp.show());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "stack",
@@ -6518,7 +8480,10 @@ export const components = [
     "default — the stacked children"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/stack.js\"></script>\n\n<!-- Default stack: gap 4 -->\n<pura-stack>\n  <h3>Account settings</h3>\n  <p>Update your profile and notification preferences.</p>\n  <button>Save changes</button>\n</pura-stack>\n\n<!-- Tighter gap, centered children -->\n<pura-stack gap=\"2\" align=\"center\">\n  <strong>Plan: Pro</strong>\n  <span>Renews on June 1</span>\n  <button>Manage subscription</button>\n</pura-stack>\n\n<!-- Divided list of items -->\n<pura-stack gap=\"3\" divide>\n  <div>Inbox</div>\n  <div>Starred</div>\n  <div>Archived</div>\n</pura-stack>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/stack.js\"></script>\n\n<!-- A simple sign-in form laid out vertically -->\n<pura-stack gap=\"3\">\n  <label>Email\n    <input type=\"email\" placeholder=\"you@example.com\" />\n  </label>\n  <label>Password\n    <input type=\"password\" />\n  </label>\n  <button>Sign in</button>\n</pura-stack>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/stack.js\"></script>\n\n<!-- A simple sign-in form laid out vertically -->\n<pura-stack gap=\"3\">\n  <label>Email\n    <input type=\"email\" placeholder=\"you@example.com\" />\n  </label>\n  <label>Password\n    <input type=\"password\" />\n  </label>\n  <button>Sign in</button>\n</pura-stack>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "stat-grid",
@@ -6577,7 +8542,48 @@ export const components = [
     "help"
   ],
   "demoHTML": "<pura-stat-grid label=\"Monthly overview\" min=\"13rem\">\n  <pura-stat label=\"Revenue\" value=\"$128,430\" delta=\"+12.5%\" trend=\"up\">\n    <span slot=\"help\">vs. previous month</span>\n  </pura-stat>\n  <pura-stat label=\"New customers\" value=\"342\" delta=\"+8.1%\" trend=\"up\"></pura-stat>\n  <pura-stat label=\"Churn rate\" value=\"2.3%\" delta=\"-0.4 pp\" trend=\"down\"></pura-stat>\n  <pura-stat label=\"Average order value\" value=\"$375\" delta=\"0.0%\" trend=\"flat\"></pura-stat>\n</pura-stat-grid>",
-  "usage": "<pura-stat-grid label=\"Monthly overview\" min=\"13rem\">\n  <pura-stat label=\"Revenue\" value=\"$128,430\" delta=\"+12.5%\" trend=\"up\">\n    <span slot=\"help\">vs. previous month</span>\n  </pura-stat>\n  <pura-stat label=\"New customers\" value=\"342\" delta=\"+8.1%\" trend=\"up\"></pura-stat>\n  <pura-stat label=\"Churn rate\" value=\"2.3%\" delta=\"-0.4 pp\" trend=\"down\"></pura-stat>\n  <pura-stat label=\"Average order value\" value=\"$375\" delta=\"0.0%\" trend=\"flat\"></pura-stat>\n</pura-stat-grid>"
+  "usage": "<pura-stat-grid label=\"Monthly overview\" min=\"13rem\">\n  <pura-stat label=\"Revenue\" value=\"$128,430\" delta=\"+12.5%\" trend=\"up\">\n    <span slot=\"help\">vs. previous month</span>\n  </pura-stat>\n  <pura-stat label=\"New customers\" value=\"342\" delta=\"+8.1%\" trend=\"up\"></pura-stat>\n  <pura-stat label=\"Churn rate\" value=\"2.3%\" delta=\"-0.4 pp\" trend=\"down\"></pura-stat>\n  <pura-stat label=\"Average order value\" value=\"$375\" delta=\"0.0%\" trend=\"flat\"></pura-stat>\n</pura-stat-grid>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline"
+    },
+    {
+      "slug": "banner",
+      "title": "Banner"
+    },
+    {
+      "slug": "sparkline",
+      "title": "Sparkline"
+    },
+    {
+      "slug": "testimonial",
+      "title": "Testimonial"
+    },
+    {
+      "slug": "faq",
+      "title": "FAQ"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    }
+  ]
 },
 {
   "slug": "stat",
@@ -6616,7 +8622,48 @@ export const components = [
     "icon"
   ],
   "demoHTML": "<div style=\"display:flex;gap:1rem;flex-wrap:wrap\">\n  <pura-stat label=\"Revenue\" value=\"$48.2k\" delta=\"+12%\">\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg>\n  </pura-stat>\n  <pura-stat label=\"Cancellations\" value=\"3.4%\" delta=\"-1.2%\"></pura-stat>\n  <pura-stat label=\"Active customers\" value=\"1,204\" delta=\"0%\" trend=\"flat\"></pura-stat>\n</div>",
-  "usage": "<div style=\"display:flex;gap:1rem;flex-wrap:wrap\">\n  <pura-stat label=\"Revenue\" value=\"$48.2k\" delta=\"+12%\">\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg>\n  </pura-stat>\n  <pura-stat label=\"Cancellations\" value=\"3.4%\" delta=\"-1.2%\"></pura-stat>\n  <pura-stat label=\"Active customers\" value=\"1,204\" delta=\"0%\" trend=\"flat\"></pura-stat>\n</div>"
+  "usage": "<div style=\"display:flex;gap:1rem;flex-wrap:wrap\">\n  <pura-stat label=\"Revenue\" value=\"$48.2k\" delta=\"+12%\">\n    <svg slot=\"icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6\"/></svg>\n  </pura-stat>\n  <pura-stat label=\"Cancellations\" value=\"3.4%\" delta=\"-1.2%\"></pura-stat>\n  <pura-stat label=\"Active customers\" value=\"1,204\" delta=\"0%\" trend=\"flat\"></pura-stat>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline"
+    },
+    {
+      "slug": "banner",
+      "title": "Banner"
+    },
+    {
+      "slug": "sparkline",
+      "title": "Sparkline"
+    },
+    {
+      "slug": "testimonial",
+      "title": "Testimonial"
+    },
+    {
+      "slug": "faq",
+      "title": "FAQ"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "landing",
+      "title": "Landing"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    }
+  ]
 },
 {
   "slug": "stepper",
@@ -6647,7 +8694,44 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<pura-stepper id=\"checkout\" steps=\"Account, Shipping, Payment, Review\" active=\"1\"></pura-stepper>\n\n<div style=\"margin-top:1.5rem;display:flex;gap:.5rem\">\n  <button id=\"prev\">Back</button>\n  <button id=\"next\">Next</button>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/stepper.js\";\n  const stepper = document.getElementById(\"checkout\");\n  const total = stepper.getAttribute(\"steps\").split(\",\").length;\n  document.getElementById(\"next\").addEventListener(\"click\", () => {\n    const i = Math.min(stepper.active + 1, total - 1);\n    stepper.setAttribute(\"active\", String(i));\n  });\n  document.getElementById(\"prev\").addEventListener(\"click\", () => {\n    const i = Math.max(stepper.active - 1, 0);\n    stepper.setAttribute(\"active\", String(i));\n  });\n</script>",
-  "usage": "<pura-stepper id=\"checkout\" steps=\"Account, Shipping, Payment, Review\" active=\"1\"></pura-stepper>\n\n<div style=\"margin-top:1.5rem;display:flex;gap:.5rem\">\n  <button id=\"prev\">Back</button>\n  <button id=\"next\">Next</button>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/stepper.js\";\n  const stepper = document.getElementById(\"checkout\");\n  const total = stepper.getAttribute(\"steps\").split(\",\").length;\n  document.getElementById(\"next\").addEventListener(\"click\", () => {\n    const i = Math.min(stepper.active + 1, total - 1);\n    stepper.setAttribute(\"active\", String(i));\n  });\n  document.getElementById(\"prev\").addEventListener(\"click\", () => {\n    const i = Math.max(stepper.active - 1, 0);\n    stepper.setAttribute(\"active\", String(i));\n  });\n</script>"
+  "usage": "<pura-stepper id=\"checkout\" steps=\"Account, Shipping, Payment, Review\" active=\"1\"></pura-stepper>\n\n<div style=\"margin-top:1.5rem;display:flex;gap:.5rem\">\n  <button id=\"prev\">Back</button>\n  <button id=\"next\">Next</button>\n</div>\n\n<script type=\"module\">\n  import \"/pura/lib/stepper.js\";\n  const stepper = document.getElementById(\"checkout\");\n  const total = stepper.getAttribute(\"steps\").split(\",\").length;\n  document.getElementById(\"next\").addEventListener(\"click\", () => {\n    const i = Math.min(stepper.active + 1, total - 1);\n    stepper.setAttribute(\"active\", String(i));\n  });\n  document.getElementById(\"prev\").addEventListener(\"click\", () => {\n    const i = Math.max(stepper.active - 1, 0);\n    stepper.setAttribute(\"active\", String(i));\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "input-group",
+      "title": "Input Group"
+    },
+    {
+      "slug": "number-input",
+      "title": "Number Input"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    },
+    {
+      "slug": "checkbox",
+      "title": "Checkbox"
+    },
+    {
+      "slug": "empty",
+      "title": "Empty"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "checkout",
+      "title": "Checkout"
+    },
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    }
+  ]
 },
 {
   "slug": "swatch-picker",
@@ -6692,7 +8776,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "swipe",
@@ -6723,7 +8810,10 @@ export const components = [
     "right-action"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "switch",
@@ -6752,7 +8842,44 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: flex; flex-direction: column; gap: 1rem;\">\n  <pura-switch checked>Email notifications</pura-switch>\n  <pura-switch>Dark mode</pura-switch>\n  <pura-switch disabled>Feature unavailable</pura-switch>\n</div>",
-  "usage": "<div style=\"display: flex; flex-direction: column; gap: 1rem;\">\n  <pura-switch checked>Email notifications</pura-switch>\n  <pura-switch>Dark mode</pura-switch>\n  <pura-switch disabled>Feature unavailable</pura-switch>\n</div>"
+  "usage": "<div style=\"display: flex; flex-direction: column; gap: 1rem;\">\n  <pura-switch checked>Email notifications</pura-switch>\n  <pura-switch>Dark mode</pura-switch>\n  <pura-switch disabled>Feature unavailable</pura-switch>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "field",
+      "title": "Field"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "radio",
+      "title": "Radio"
+    },
+    {
+      "slug": "radio-group",
+      "title": "Radio Group"
+    },
+    {
+      "slug": "stepper",
+      "title": "Stepper"
+    },
+    {
+      "slug": "tabs",
+      "title": "Tabs"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "onboarding",
+      "title": "Onboarding"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "table",
@@ -6773,7 +8900,44 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-table striped>\n  <table>\n    <caption>Recent orders</caption>\n    <thead>\n      <tr>\n        <th>Customer</th>\n        <th>Product</th>\n        <th>Status</th>\n        <th>Amount</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Ana Souza</td>\n        <td>Annual Plan</td>\n        <td>Paid</td>\n        <td>$1,200.00</td>\n      </tr>\n      <tr>\n        <td>Bruno Lima</td>\n        <td>Monthly Plan</td>\n        <td>Pending</td>\n        <td>$120.00</td>\n      </tr>\n      <tr>\n        <td>Carla Dias</td>\n        <td>Annual Plan</td>\n        <td>Canceled</td>\n        <td>$1,200.00</td>\n      </tr>\n    </tbody>\n  </table>\n</pura-table>",
-  "usage": "<pura-table striped>\n  <table>\n    <caption>Recent orders</caption>\n    <thead>\n      <tr>\n        <th>Customer</th>\n        <th>Product</th>\n        <th>Status</th>\n        <th>Amount</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Ana Souza</td>\n        <td>Annual Plan</td>\n        <td>Paid</td>\n        <td>$1,200.00</td>\n      </tr>\n      <tr>\n        <td>Bruno Lima</td>\n        <td>Monthly Plan</td>\n        <td>Pending</td>\n        <td>$120.00</td>\n      </tr>\n      <tr>\n        <td>Carla Dias</td>\n        <td>Annual Plan</td>\n        <td>Canceled</td>\n        <td>$1,200.00</td>\n      </tr>\n    </tbody>\n  </table>\n</pura-table>"
+  "usage": "<pura-table striped>\n  <table>\n    <caption>Recent orders</caption>\n    <thead>\n      <tr>\n        <th>Customer</th>\n        <th>Product</th>\n        <th>Status</th>\n        <th>Amount</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Ana Souza</td>\n        <td>Annual Plan</td>\n        <td>Paid</td>\n        <td>$1,200.00</td>\n      </tr>\n      <tr>\n        <td>Bruno Lima</td>\n        <td>Monthly Plan</td>\n        <td>Pending</td>\n        <td>$120.00</td>\n      </tr>\n      <tr>\n        <td>Carla Dias</td>\n        <td>Annual Plan</td>\n        <td>Canceled</td>\n        <td>$1,200.00</td>\n      </tr>\n    </tbody>\n  </table>\n</pura-table>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "button-group",
+      "title": "Button Group"
+    },
+    {
+      "slug": "pagination",
+      "title": "Pagination"
+    },
+    {
+      "slug": "sparkline",
+      "title": "Sparkline"
+    },
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "data-table",
+      "title": "Data Table"
+    }
+  ]
 },
 {
   "slug": "tabs",
@@ -6802,7 +8966,44 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-tabs active=\"0\">\n  <pura-tab label=\"Account\">\n    Manage your name, email and profile photo here.\n  </pura-tab>\n  <pura-tab label=\"Password\">\n    Update your password and enable two-step verification.\n  </pura-tab>\n  <pura-tab label=\"Notifications\">\n    Choose which alerts you want to receive by email.\n  </pura-tab>\n</pura-tabs>",
-  "usage": "<pura-tabs active=\"0\">\n  <pura-tab label=\"Account\">\n    Manage your name, email and profile photo here.\n  </pura-tab>\n  <pura-tab label=\"Password\">\n    Update your password and enable two-step verification.\n  </pura-tab>\n  <pura-tab label=\"Notifications\">\n    Choose which alerts you want to receive by email.\n  </pura-tab>\n</pura-tabs>"
+  "usage": "<pura-tabs active=\"0\">\n  <pura-tab label=\"Account\">\n    Manage your name, email and profile photo here.\n  </pura-tab>\n  <pura-tab label=\"Password\">\n    Update your password and enable two-step verification.\n  </pura-tab>\n  <pura-tab label=\"Notifications\">\n    Choose which alerts you want to receive by email.\n  </pura-tab>\n</pura-tabs>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "separator",
+      "title": "Separator"
+    },
+    {
+      "slug": "radio",
+      "title": "Radio"
+    },
+    {
+      "slug": "radio-group",
+      "title": "Radio Group"
+    },
+    {
+      "slug": "switch",
+      "title": "Switch"
+    },
+    {
+      "slug": "timeline",
+      "title": "Timeline"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "profile",
+      "title": "Profile"
+    },
+    {
+      "slug": "settings",
+      "title": "Settings"
+    }
+  ]
 },
 {
   "slug": "tag-input",
@@ -6841,7 +9042,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-tag-input\n  id=\"tags-demo\"\n  value=\"javascript,css,web components\"\n  placeholder=\"Add a technology\"\n  max=\"6\"></pura-tag-input>\n<p id=\"tags-saida\" style=\"margin-top:.75rem;font:14px system-ui;color:#555\">3 tag(s): javascript, css, web components</p>\n<script type=\"module\">\n  const input = document.getElementById(\"tags-demo\");\n  const saida = document.getElementById(\"tags-saida\");\n  input.addEventListener(\"change\", (e) => {\n    const tags = e.detail.tags;\n    saida.textContent = `${tags.length} tag(s): ${tags.join(\", \") || \"none\"}`;\n  });\n</script>",
-  "usage": "<pura-tag-input\n  id=\"tags-demo\"\n  value=\"javascript,css,web components\"\n  placeholder=\"Add a technology\"\n  max=\"6\"></pura-tag-input>\n<p id=\"tags-saida\">3 tag(s): javascript, css, web components</p>\n<script type=\"module\">\n  const input = document.getElementById(\"tags-demo\");\n  const saida = document.getElementById(\"tags-saida\");\n  input.addEventListener(\"change\", (e) => {\n    const tags = e.detail.tags;\n    saida.textContent = `${tags.length} tag(s): ${tags.join(\", \") || \"none\"}`;\n  });\n</script>"
+  "usage": "<pura-tag-input\n  id=\"tags-demo\"\n  value=\"javascript,css,web components\"\n  placeholder=\"Add a technology\"\n  max=\"6\"></pura-tag-input>\n<p id=\"tags-saida\">3 tag(s): javascript, css, web components</p>\n<script type=\"module\">\n  const input = document.getElementById(\"tags-demo\");\n  const saida = document.getElementById(\"tags-saida\");\n  input.addEventListener(\"change\", (e) => {\n    const tags = e.detail.tags;\n    saida.textContent = `${tags.length} tag(s): ${tags.join(\", \") || \"none\"}`;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "tag",
@@ -6888,7 +9092,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex;gap:.5rem;flex-wrap:wrap;align-items:center\">\n  <pura-tag>Default</pura-tag>\n  <pura-tag variant=\"primary\">Featured</pura-tag>\n  <pura-tag variant=\"success\" dot>Active</pura-tag>\n  <pura-tag variant=\"warning\" dot>Pending</pura-tag>\n  <pura-tag variant=\"danger\">Overdue</pura-tag>\n  <pura-tag variant=\"info\">Beta</pura-tag>\n  <pura-tag variant=\"primary\" removable id=\"filtro-categoria\">Category: Design</pura-tag>\n  <pura-tag removable disabled>Locked</pura-tag>\n</div>\n<script type=\"module\">\n  const filtro = document.getElementById(\"filtro-categoria\");\n  filtro.addEventListener(\"remove\", (e) => {\n    console.log(\"Filtro removido:\", e.detail.label);\n  });\n</script>",
-  "usage": "<div style=\"display:flex;gap:.5rem;flex-wrap:wrap;align-items:center\">\n  <pura-tag>Default</pura-tag>\n  <pura-tag variant=\"primary\">Featured</pura-tag>\n  <pura-tag variant=\"success\" dot>Active</pura-tag>\n  <pura-tag variant=\"warning\" dot>Pending</pura-tag>\n  <pura-tag variant=\"danger\">Overdue</pura-tag>\n  <pura-tag variant=\"info\">Beta</pura-tag>\n  <pura-tag variant=\"primary\" removable id=\"filtro-categoria\">Category: Design</pura-tag>\n  <pura-tag removable disabled>Locked</pura-tag>\n</div>\n<script type=\"module\">\n  const filtro = document.getElementById(\"filtro-categoria\");\n  filtro.addEventListener(\"remove\", (e) => {\n    console.log(\"Filtro removido:\", e.detail.label);\n  });\n</script>"
+  "usage": "<div style=\"display:flex;gap:.5rem;flex-wrap:wrap;align-items:center\">\n  <pura-tag>Default</pura-tag>\n  <pura-tag variant=\"primary\">Featured</pura-tag>\n  <pura-tag variant=\"success\" dot>Active</pura-tag>\n  <pura-tag variant=\"warning\" dot>Pending</pura-tag>\n  <pura-tag variant=\"danger\">Overdue</pura-tag>\n  <pura-tag variant=\"info\">Beta</pura-tag>\n  <pura-tag variant=\"primary\" removable id=\"filtro-categoria\">Category: Design</pura-tag>\n  <pura-tag removable disabled>Locked</pura-tag>\n</div>\n<script type=\"module\">\n  const filtro = document.getElementById(\"filtro-categoria\");\n  filtro.addEventListener(\"remove\", (e) => {\n    console.log(\"Filtro removido:\", e.detail.label);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "terminal",
@@ -6915,7 +9122,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "testimonial",
@@ -6960,7 +9170,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"max-width: 420px;\">\n  <pura-testimonial\n    author=\"Mariana Lopes\"\n    role=\"CEO, Aurora Tech\"\n    avatar=\"https://i.pravatar.cc/120?img=47\"\n    rating=\"4.5\"\n    max=\"5\">\n    Moving to pura was the best decision our team made. Zero dependencies, native components, and everything worked on the first try in our stack.\n  </pura-testimonial>\n</div>",
-  "usage": "<pura-testimonial\n  author=\"Mariana Lopes\"\n  role=\"CEO, Aurora Tech\"\n  avatar=\"https://i.pravatar.cc/120?img=47\"\n  rating=\"4.5\"\n  max=\"5\">\n  Moving to pura was the best decision our team made. Zero dependencies, native components, and everything worked on the first try in our stack.\n</pura-testimonial>"
+  "usage": "<pura-testimonial\n  author=\"Mariana Lopes\"\n  role=\"CEO, Aurora Tech\"\n  avatar=\"https://i.pravatar.cc/120?img=47\"\n  rating=\"4.5\"\n  max=\"5\">\n  Moving to pura was the best decision our team made. Zero dependencies, native components, and everything worked on the first try in our stack.\n</pura-testimonial>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "banner",
+      "title": "Banner"
+    },
+    {
+      "slug": "faq",
+      "title": "FAQ"
+    },
+    {
+      "slug": "pricing-table",
+      "title": "Pricing Table"
+    },
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    },
+    {
+      "slug": "card",
+      "title": "Card"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "landing",
+      "title": "Landing"
+    }
+  ]
 },
 {
   "slug": "text",
@@ -7023,7 +9266,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/text.js\"></script>\n\n<pura-text size=\"xl\" weight=\"bold\">Welcome to Pura</pura-text>\n<pura-text color=\"muted\">A small set of primitive components for building interfaces.</pura-text>\n<pura-text size=\"lg\" weight=\"semibold\" color=\"primary\" align=\"center\">Centered, emphasized heading</pura-text>\n<pura-text leading=\"relaxed\">\n  This paragraph uses relaxed leading so longer passages of body copy stay\n  comfortable to read across multiple lines.\n</pura-text>\n<pura-text color=\"danger\" weight=\"medium\">Something went wrong. Please try again.</pura-text>\n<pura-text>\n  Status:\n  <pura-text inline color=\"success\" weight=\"semibold\">Online</pura-text>\n</pura-text>\n<pura-text truncate style=\"max-width: 240px\">\n  This is a very long line of text that will be truncated with an ellipsis when it overflows.\n</pura-text>",
-  "usage": "<script type=\"module\" src=\"/pura/lib/text.js\"></script>\n\n<!-- Default: renders a block <p> -->\n<pura-text>Plain body text.</pura-text>\n\n<!-- Size, weight, and color scales -->\n<pura-text size=\"xl\" weight=\"bold\" color=\"primary\">Page title</pura-text>\n<pura-text size=\"sm\" color=\"muted\">Helper caption</pura-text>\n\n<!-- Inline usage inside other text -->\n<pura-text>\n  Saved as\n  <pura-text inline weight=\"semibold\" color=\"accent\">draft</pura-text>.\n</pura-text>\n\n<!-- Explicit tag override -->\n<pura-text as=\"div\" align=\"center\" leading=\"relaxed\">Centered block of text.</pura-text>\n\n<!-- Single-line truncation -->\n<pura-text truncate style=\"max-width: 200px\">A long string that gets clipped.</pura-text>"
+  "usage": "<script type=\"module\" src=\"/pura/lib/text.js\"></script>\n\n<!-- Default: renders a block <p> -->\n<pura-text>Plain body text.</pura-text>\n\n<!-- Size, weight, and color scales -->\n<pura-text size=\"xl\" weight=\"bold\" color=\"primary\">Page title</pura-text>\n<pura-text size=\"sm\" color=\"muted\">Helper caption</pura-text>\n\n<!-- Inline usage inside other text -->\n<pura-text>\n  Saved as\n  <pura-text inline weight=\"semibold\" color=\"accent\">draft</pura-text>.\n</pura-text>\n\n<!-- Explicit tag override -->\n<pura-text as=\"div\" align=\"center\" leading=\"relaxed\">Centered block of text.</pura-text>\n\n<!-- Single-line truncation -->\n<pura-text truncate style=\"max-width: 200px\">A long string that gets clipped.</pura-text>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "textarea",
@@ -7080,7 +9326,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<pura-textarea\n  label=\"Comment\"\n  placeholder=\"Write your comment...\"\n  hint=\"Maximum of 500 characters.\"\n  rows=\"5\"\n></pura-textarea>",
-  "usage": "<pura-textarea\n  label=\"Comment\"\n  placeholder=\"Write your comment...\"\n  hint=\"Maximum of 500 characters.\"\n  rows=\"5\"\n></pura-textarea>"
+  "usage": "<pura-textarea\n  label=\"Comment\"\n  placeholder=\"Write your comment...\"\n  hint=\"Maximum of 500 characters.\"\n  rows=\"5\"\n></pura-textarea>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "theme-designer",
@@ -7113,7 +9362,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "ticker",
@@ -7171,7 +9423,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  // Animate from zero on load.\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>",
-  "usage": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>"
+  "usage": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "time-picker",
@@ -7234,7 +9489,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "timeline",
@@ -7263,7 +9521,44 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-timeline label=\"Order history\">\n  <pura-timeline-item variant=\"success\">\n    <span slot=\"time\">May 29, 2026, 9:12 AM</span>\n    <span slot=\"title\">Order confirmed</span>\n    Payment approved and invoice issued.\n  </pura-timeline-item>\n  <pura-timeline-item variant=\"primary\">\n    <span slot=\"time\">May 29, 2026, 2:40 PM</span>\n    <span slot=\"title\">Being picked</span>\n    Items reserved in the distribution center's inventory.\n  </pura-timeline-item>\n  <pura-timeline-item variant=\"info\">\n    <span slot=\"time\">May 30, 2026, 8:05 AM</span>\n    <span slot=\"title\">On the way</span>\n    Package handed off to the carrier.\n  </pura-timeline-item>\n  <pura-timeline-item>\n    <span slot=\"time\">Estimated: Jun 2, 2026</span>\n    <span slot=\"title\">Delivery</span>\n    Awaiting receipt at the registered address.\n  </pura-timeline-item>\n</pura-timeline>",
-  "usage": "<pura-timeline label=\"Order history\">\n  <pura-timeline-item variant=\"success\">\n    <span slot=\"time\">May 29, 2026, 9:12 AM</span>\n    <span slot=\"title\">Order confirmed</span>\n    Payment approved and invoice issued.\n  </pura-timeline-item>\n  <pura-timeline-item variant=\"primary\">\n    <span slot=\"time\">May 29, 2026, 2:40 PM</span>\n    <span slot=\"title\">Being picked</span>\n    Items reserved in the distribution center's inventory.\n  </pura-timeline-item>\n  <pura-timeline-item variant=\"info\">\n    <span slot=\"time\">May 30, 2026, 8:05 AM</span>\n    <span slot=\"title\">On the way</span>\n    Package handed off to the carrier.\n  </pura-timeline-item>\n  <pura-timeline-item>\n    <span slot=\"time\">Estimated: Jun 2, 2026</span>\n    <span slot=\"title\">Delivery</span>\n    Awaiting receipt at the registered address.\n  </pura-timeline-item>\n</pura-timeline>"
+  "usage": "<pura-timeline label=\"Order history\">\n  <pura-timeline-item variant=\"success\">\n    <span slot=\"time\">May 29, 2026, 9:12 AM</span>\n    <span slot=\"title\">Order confirmed</span>\n    Payment approved and invoice issued.\n  </pura-timeline-item>\n  <pura-timeline-item variant=\"primary\">\n    <span slot=\"time\">May 29, 2026, 2:40 PM</span>\n    <span slot=\"title\">Being picked</span>\n    Items reserved in the distribution center's inventory.\n  </pura-timeline-item>\n  <pura-timeline-item variant=\"info\">\n    <span slot=\"time\">May 30, 2026, 8:05 AM</span>\n    <span slot=\"title\">On the way</span>\n    Package handed off to the carrier.\n  </pura-timeline-item>\n  <pura-timeline-item>\n    <span slot=\"time\">Estimated: Jun 2, 2026</span>\n    <span slot=\"title\">Delivery</span>\n    Awaiting receipt at the registered address.\n  </pura-timeline-item>\n</pura-timeline>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "stat",
+      "title": "Stat"
+    },
+    {
+      "slug": "stat-grid",
+      "title": "Stat Grid"
+    },
+    {
+      "slug": "sparkline",
+      "title": "Sparkline"
+    },
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    },
+    {
+      "slug": "table",
+      "title": "Table"
+    },
+    {
+      "slug": "tabs",
+      "title": "Tabs"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "dashboard",
+      "title": "Dashboard"
+    },
+    {
+      "slug": "profile",
+      "title": "Profile"
+    }
+  ]
 },
 {
   "slug": "toast",
@@ -7304,7 +9599,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-toaster position=\"bottom-right\"></pura-toaster>\n\n<div style=\"display:flex; gap:.5rem; flex-wrap:wrap;\">\n  <button id=\"t-info\" type=\"button\">Show info</button>\n  <button id=\"t-ok\" type=\"button\">Success</button>\n  <button id=\"t-err\" type=\"button\">Error with action</button>\n</div>\n\n<script type=\"module\">\n  import { toast } from \"/pura/lib/toast.js\";\n\n  document.getElementById(\"t-info\").addEventListener(\"click\", () => {\n    toast(\"Your changes were saved as a draft.\", { title: \"Draft saved\" });\n  });\n  document.getElementById(\"t-ok\").addEventListener(\"click\", () => {\n    toast.success(\"Payment confirmed successfully!\", { title: \"All set\" });\n  });\n  document.getElementById(\"t-err\").addEventListener(\"click\", () => {\n    toast.error(\"We couldn't upload the file.\", {\n      title: \"Upload failed\",\n      duration: 8000,\n      action: { label: \"Try again\", onClick: () => toast.info(\"Resending...\") },\n    });\n  });\n</script>",
-  "usage": "<pura-toaster position=\"bottom-right\"></pura-toaster>\n\n<div style=\"display:flex; gap:.5rem; flex-wrap:wrap;\">\n  <button id=\"t-info\" type=\"button\">Show info</button>\n  <button id=\"t-ok\" type=\"button\">Success</button>\n  <button id=\"t-err\" type=\"button\">Error with action</button>\n</div>\n\n<script type=\"module\">\n  import { toast } from \"/pura/lib/toast.js\";\n\n  document.getElementById(\"t-info\").addEventListener(\"click\", () => {\n    toast(\"Your changes were saved as a draft.\", { title: \"Draft saved\" });\n  });\n  document.getElementById(\"t-ok\").addEventListener(\"click\", () => {\n    toast.success(\"Payment confirmed successfully!\", { title: \"All set\" });\n  });\n  document.getElementById(\"t-err\").addEventListener(\"click\", () => {\n    toast.error(\"We couldn't upload the file.\", {\n      title: \"Upload failed\",\n      duration: 8000,\n      action: { label: \"Try again\", onClick: () => toast.info(\"Resending...\") },\n    });\n  });\n</script>"
+  "usage": "<pura-toaster position=\"bottom-right\"></pura-toaster>\n\n<div style=\"display:flex; gap:.5rem; flex-wrap:wrap;\">\n  <button id=\"t-info\" type=\"button\">Show info</button>\n  <button id=\"t-ok\" type=\"button\">Success</button>\n  <button id=\"t-err\" type=\"button\">Error with action</button>\n</div>\n\n<script type=\"module\">\n  import { toast } from \"/pura/lib/toast.js\";\n\n  document.getElementById(\"t-info\").addEventListener(\"click\", () => {\n    toast(\"Your changes were saved as a draft.\", { title: \"Draft saved\" });\n  });\n  document.getElementById(\"t-ok\").addEventListener(\"click\", () => {\n    toast.success(\"Payment confirmed successfully!\", { title: \"All set\" });\n  });\n  document.getElementById(\"t-err\").addEventListener(\"click\", () => {\n    toast.error(\"We couldn't upload the file.\", {\n      title: \"Upload failed\",\n      duration: 8000,\n      action: { label: \"Try again\", onClick: () => toast.info(\"Resending...\") },\n    });\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "calendar",
+      "title": "Calendar"
+    },
+    {
+      "slug": "dialog",
+      "title": "Dialog"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
+    },
+    {
+      "slug": "item",
+      "title": "Item"
+    },
+    {
+      "slug": "select",
+      "title": "Select"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "calendar-app",
+      "title": "Calendar"
+    }
+  ]
 },
 {
   "slug": "toggle-group",
@@ -7357,7 +9685,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start\">\n  <pura-toggle-group type=\"single\" value=\"medio\">\n    <pura-toggle value=\"baixo\">Low</pura-toggle>\n    <pura-toggle value=\"medio\">Medium</pura-toggle>\n    <pura-toggle value=\"alto\">High</pura-toggle>\n  </pura-toggle-group>\n\n  <pura-toggle-group type=\"multiple\">\n    <pura-toggle value=\"negrito\" pressed>Bold</pura-toggle>\n    <pura-toggle value=\"italico\">Italic</pura-toggle>\n    <pura-toggle value=\"sublinhado\">Underline</pura-toggle>\n  </pura-toggle-group>\n\n  <pura-toggle-group type=\"single\" orientation=\"vertical\" value=\"lista\">\n    <pura-toggle value=\"lista\">List</pura-toggle>\n    <pura-toggle value=\"grade\">Grid</pura-toggle>\n    <pura-toggle value=\"tabela\">Table</pura-toggle>\n  </pura-toggle-group>\n</div>",
-  "usage": "<!-- Single selection (radio style) -->\n<pura-toggle-group type=\"single\" value=\"medio\">\n  <pura-toggle value=\"baixo\">Low</pura-toggle>\n  <pura-toggle value=\"medio\">Medium</pura-toggle>\n  <pura-toggle value=\"alto\">High</pura-toggle>\n</pura-toggle-group>\n\n<!-- Multiple selection -->\n<pura-toggle-group type=\"multiple\">\n  <pura-toggle value=\"negrito\" pressed>Bold</pura-toggle>\n  <pura-toggle value=\"italico\">Italic</pura-toggle>\n  <pura-toggle value=\"sublinhado\">Underline</pura-toggle>\n</pura-toggle-group>\n\n<!-- Vertical orientation -->\n<pura-toggle-group type=\"single\" orientation=\"vertical\" value=\"lista\">\n  <pura-toggle value=\"lista\">List</pura-toggle>\n  <pura-toggle value=\"grade\">Grid</pura-toggle>\n  <pura-toggle value=\"tabela\">Table</pura-toggle>\n</pura-toggle-group>\n\n<script type=\"module\">\n  const group = document.querySelector('pura-toggle-group[type=\"multiple\"]');\n  group.addEventListener('change', (e) => {\n    // single: string | null  |  multiple: array of values\n    console.log(e.detail.value, e.detail.type);\n  });\n</script>"
+  "usage": "<!-- Single selection (radio style) -->\n<pura-toggle-group type=\"single\" value=\"medio\">\n  <pura-toggle value=\"baixo\">Low</pura-toggle>\n  <pura-toggle value=\"medio\">Medium</pura-toggle>\n  <pura-toggle value=\"alto\">High</pura-toggle>\n</pura-toggle-group>\n\n<!-- Multiple selection -->\n<pura-toggle-group type=\"multiple\">\n  <pura-toggle value=\"negrito\" pressed>Bold</pura-toggle>\n  <pura-toggle value=\"italico\">Italic</pura-toggle>\n  <pura-toggle value=\"sublinhado\">Underline</pura-toggle>\n</pura-toggle-group>\n\n<!-- Vertical orientation -->\n<pura-toggle-group type=\"single\" orientation=\"vertical\" value=\"lista\">\n  <pura-toggle value=\"lista\">List</pura-toggle>\n  <pura-toggle value=\"grade\">Grid</pura-toggle>\n  <pura-toggle value=\"tabela\">Table</pura-toggle>\n</pura-toggle-group>\n\n<script type=\"module\">\n  const group = document.querySelector('pura-toggle-group[type=\"multiple\"]');\n  group.addEventListener('change', (e) => {\n    // single: string | null  |  multiple: array of values\n    console.log(e.detail.value, e.detail.type);\n  });\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "toggle",
@@ -7404,7 +9735,40 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:flex; gap:0.5rem; align-items:center;\">\n  <pura-toggle pressed aria-label=\"Bold\">B</pura-toggle>\n  <pura-toggle variant=\"outline\" aria-label=\"Italic\"><em>I</em></pura-toggle>\n  <pura-toggle size=\"lg\">Notifications</pura-toggle>\n  <pura-toggle disabled>Unavailable</pura-toggle>\n</div>",
-  "usage": "<div style=\"display:flex; gap:0.5rem; align-items:center;\">\n  <pura-toggle pressed aria-label=\"Bold\">B</pura-toggle>\n  <pura-toggle variant=\"outline\" aria-label=\"Italic\"><em>I</em></pura-toggle>\n  <pura-toggle size=\"lg\">Notifications</pura-toggle>\n  <pura-toggle disabled>Unavailable</pura-toggle>\n</div>"
+  "usage": "<div style=\"display:flex; gap:0.5rem; align-items:center;\">\n  <pura-toggle pressed aria-label=\"Bold\">B</pura-toggle>\n  <pura-toggle variant=\"outline\" aria-label=\"Italic\"><em>I</em></pura-toggle>\n  <pura-toggle size=\"lg\">Notifications</pura-toggle>\n  <pura-toggle disabled>Unavailable</pura-toggle>\n</div>",
+  "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "breadcrumb",
+      "title": "Breadcrumb"
+    },
+    {
+      "slug": "sidebar",
+      "title": "Sidebar"
+    },
+    {
+      "slug": "dropdown-menu",
+      "title": "Dropdown Menu"
+    },
+    {
+      "slug": "empty",
+      "title": "Empty"
+    },
+    {
+      "slug": "input",
+      "title": "Input"
+    },
+    {
+      "slug": "avatar",
+      "title": "Avatar"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "app-shell",
+      "title": "App Shell"
+    }
+  ]
 },
 {
   "slug": "toolbar",
@@ -7425,7 +9789,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-toolbar orientation=\"horizontal\" aria-label=\"Formatting\">\n  <pura-button>Bold</pura-button>\n  <pura-button>Italic</pura-button>\n  <pura-button>Underline</pura-button>\n  <pura-separator></pura-separator>\n  <pura-button>Align left</pura-button>\n  <pura-button>Center</pura-button>\n  <pura-button>Align right</pura-button>\n</pura-toolbar>",
-  "usage": "<pura-toolbar orientation=\"horizontal\" aria-label=\"Formatting\">\n  <pura-button>Bold</pura-button>\n  <pura-button>Italic</pura-button>\n  <pura-button>Underline</pura-button>\n  <pura-separator></pura-separator>\n  <pura-button>Align left</pura-button>\n  <pura-button>Center</pura-button>\n  <pura-button>Align right</pura-button>\n</pura-toolbar>"
+  "usage": "<pura-toolbar orientation=\"horizontal\" aria-label=\"Formatting\">\n  <pura-button>Bold</pura-button>\n  <pura-button>Italic</pura-button>\n  <pura-button>Underline</pura-button>\n  <pura-separator></pura-separator>\n  <pura-button>Align left</pura-button>\n  <pura-button>Center</pura-button>\n  <pura-button>Align right</pura-button>\n</pura-toolbar>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "tooltip",
@@ -7452,7 +9819,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-tooltip text=\"Save changes\">\n  <pura-button>Save</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"Delete item\" placement=\"bottom\">\n  <pura-button variant=\"ghost\">Delete</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"More information\" placement=\"right\">\n  <span aria-label=\"help\" style=\"cursor:help;\">?</span>\n</pura-tooltip>",
-  "usage": "<pura-tooltip text=\"Save changes\">\n  <pura-button>Save</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"Delete item\" placement=\"bottom\">\n  <pura-button variant=\"ghost\">Delete</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"More information\" placement=\"right\">\n  <span aria-label=\"help\" style=\"cursor:help;\">?</span>\n</pura-tooltip>"
+  "usage": "<pura-tooltip text=\"Save changes\">\n  <pura-button>Save</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"Delete item\" placement=\"bottom\">\n  <pura-button variant=\"ghost\">Delete</pura-button>\n</pura-tooltip>\n\n<pura-tooltip text=\"More information\" placement=\"right\">\n  <span aria-label=\"help\" style=\"cursor:help;\">?</span>\n</pura-tooltip>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "tour",
@@ -7483,7 +9853,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display:grid;gap:1rem;max-width:420px\">\n  <h2 id=\"passo-titulo\">Account dashboard</h2>\n  <button id=\"passo-salvar\" type=\"button\">Save changes</button>\n  <a id=\"passo-ajuda\" href=\"#\">Help center</a>\n  <button id=\"iniciar-tour\" type=\"button\">Start tour</button>\n</div>\n\n<pura-tour id=\"tour-onboarding\">\n  <pura-tour-step target=\"#passo-titulo\" title=\"Welcome\" placement=\"bottom\">This is your main dashboard, where you manage your account.</pura-tour-step>\n  <pura-tour-step target=\"#passo-salvar\" title=\"Save your changes\" placement=\"bottom\">Click here whenever you adjust something so you don't lose your progress.</pura-tour-step>\n  <pura-tour-step target=\"#passo-ajuda\" title=\"Need help?\" placement=\"top\">Reach the help center anytime through this link.</pura-tour-step>\n</pura-tour>\n\n<script type=\"module\">\n  import \"/pura/lib/tour.js\";\n  const tour = document.getElementById(\"tour-onboarding\");\n  document.getElementById(\"iniciar-tour\").addEventListener(\"click\", () => tour.start());\n</script>",
-  "usage": "<div style=\"display:grid;gap:1rem;max-width:420px\">\n  <h2 id=\"passo-titulo\">Account dashboard</h2>\n  <button id=\"passo-salvar\" type=\"button\">Save changes</button>\n  <a id=\"passo-ajuda\" href=\"#\">Help center</a>\n  <button id=\"iniciar-tour\" type=\"button\">Start tour</button>\n</div>\n\n<pura-tour id=\"tour-onboarding\">\n  <pura-tour-step target=\"#passo-titulo\" title=\"Welcome\" placement=\"bottom\">This is your main dashboard, where you manage your account.</pura-tour-step>\n  <pura-tour-step target=\"#passo-salvar\" title=\"Save your changes\" placement=\"bottom\">Click here whenever you adjust something so you don't lose your progress.</pura-tour-step>\n  <pura-tour-step target=\"#passo-ajuda\" title=\"Need help?\" placement=\"top\">Reach the help center anytime through this link.</pura-tour-step>\n</pura-tour>\n\n<script type=\"module\">\n  import \"/pura/lib/tour.js\";\n  const tour = document.getElementById(\"tour-onboarding\");\n  document.getElementById(\"iniciar-tour\").addEventListener(\"click\", () => tour.start());\n</script>"
+  "usage": "<div style=\"display:grid;gap:1rem;max-width:420px\">\n  <h2 id=\"passo-titulo\">Account dashboard</h2>\n  <button id=\"passo-salvar\" type=\"button\">Save changes</button>\n  <a id=\"passo-ajuda\" href=\"#\">Help center</a>\n  <button id=\"iniciar-tour\" type=\"button\">Start tour</button>\n</div>\n\n<pura-tour id=\"tour-onboarding\">\n  <pura-tour-step target=\"#passo-titulo\" title=\"Welcome\" placement=\"bottom\">This is your main dashboard, where you manage your account.</pura-tour-step>\n  <pura-tour-step target=\"#passo-salvar\" title=\"Save your changes\" placement=\"bottom\">Click here whenever you adjust something so you don't lose your progress.</pura-tour-step>\n  <pura-tour-step target=\"#passo-ajuda\" title=\"Need help?\" placement=\"top\">Reach the help center anytime through this link.</pura-tour-step>\n</pura-tour>\n\n<script type=\"module\">\n  import \"/pura/lib/tour.js\";\n  const tour = document.getElementById(\"tour-onboarding\");\n  document.getElementById(\"iniciar-tour\").addEventListener(\"click\", () => tour.start());\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "transfer",
@@ -7516,7 +9889,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "tree-select",
@@ -7561,7 +9937,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "tree-view",
@@ -7618,7 +9997,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-tree-view id=\"arvore\" label=\"Documents\">\n  <pura-tree-item expanded>\n    <span slot=\"label\">Projects</span>\n    <pura-tree-item selectable value=\"site\">\n      <span slot=\"label\">marketing-site</span>\n    </pura-tree-item>\n    <pura-tree-item selectable value=\"api\">\n      <span slot=\"label\">payments-api</span>\n    </pura-tree-item>\n  </pura-tree-item>\n  <pura-tree-item>\n    <span slot=\"label\">Archived</span>\n    <pura-tree-item selectable value=\"legado\" disabled>\n      <span slot=\"label\">legacy-system</span>\n    </pura-tree-item>\n  </pura-tree-item>\n</pura-tree-view>\n\n<p id=\"saida\" style=\"font-family: var(--pura-font); font-size: 0.875rem; color: var(--pura-muted); margin-top: 0.75rem;\">Select an item from the tree.</p>\n\n<script type=\"module\">\n  import \"/pura/lib/tree-view.js\";\n  const arvore = document.getElementById(\"arvore\");\n  const saida = document.getElementById(\"saida\");\n  arvore.addEventListener(\"select\", (e) => {\n    saida.textContent = `Selected: ${e.detail.value}`;\n  });\n</script>",
-  "usage": "<pura-tree-view id=\"arvore\" label=\"Documents\">\n  <pura-tree-item expanded>\n    <span slot=\"label\">Projects</span>\n    <pura-tree-item selectable value=\"site\">\n      <span slot=\"label\">marketing-site</span>\n    </pura-tree-item>\n    <pura-tree-item selectable value=\"api\">\n      <span slot=\"label\">payments-api</span>\n    </pura-tree-item>\n  </pura-tree-item>\n  <pura-tree-item>\n    <span slot=\"label\">Archived</span>\n    <pura-tree-item selectable value=\"legado\" disabled>\n      <span slot=\"label\">legacy-system</span>\n    </pura-tree-item>\n  </pura-tree-item>\n</pura-tree-view>\n\n<script type=\"module\">\n  import \"/pura/lib/tree-view.js\";\n  const arvore = document.getElementById(\"arvore\");\n  arvore.addEventListener(\"select\", (e) => {\n    console.log(\"Selected:\", e.detail.value);\n  });\n  // Agent-native: serializable snapshot of the structure\n  // window.__puraTrees.snapshot(\"arvore\");\n</script>"
+  "usage": "<pura-tree-view id=\"arvore\" label=\"Documents\">\n  <pura-tree-item expanded>\n    <span slot=\"label\">Projects</span>\n    <pura-tree-item selectable value=\"site\">\n      <span slot=\"label\">marketing-site</span>\n    </pura-tree-item>\n    <pura-tree-item selectable value=\"api\">\n      <span slot=\"label\">payments-api</span>\n    </pura-tree-item>\n  </pura-tree-item>\n  <pura-tree-item>\n    <span slot=\"label\">Archived</span>\n    <pura-tree-item selectable value=\"legado\" disabled>\n      <span slot=\"label\">legacy-system</span>\n    </pura-tree-item>\n  </pura-tree-item>\n</pura-tree-view>\n\n<script type=\"module\">\n  import \"/pura/lib/tree-view.js\";\n  const arvore = document.getElementById(\"arvore\");\n  arvore.addEventListener(\"select\", (e) => {\n    console.log(\"Selected:\", e.detail.value);\n  });\n  // Agent-native: serializable snapshot of the structure\n  // window.__puraTrees.snapshot(\"arvore\");\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "truncate",
@@ -7659,7 +10041,10 @@ export const components = [
     "(default)"
   ],
   "demoHTML": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>",
-  "usage": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>"
+  "usage": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "typewriter",
@@ -7722,7 +10107,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "<div style=\"font: 600 1.4rem system-ui;\">\n  <pura-typewriter phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\" caret loop speed=\"60\"></pura-typewriter>\n</div>",
-  "usage": "<!-- Single phrase -->\n<pura-typewriter text=\"Welcome to pura\" caret></pura-typewriter>\n\n<!-- Cycle phrases forever -->\n<pura-typewriter\n  phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\"\n  caret loop speed=\"60\"></pura-typewriter>"
+  "usage": "<!-- Single phrase -->\n<pura-typewriter text=\"Welcome to pura\" caret></pura-typewriter>\n\n<!-- Cycle phrases forever -->\n<pura-typewriter\n  phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\"\n  caret loop speed=\"60\"></pura-typewriter>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "typing",
@@ -7741,7 +10129,10 @@ export const components = [
   "events": [],
   "slots": [],
   "demoHTML": "<div style=\"display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 14px;\">\n  <pura-typing></pura-typing>\n</div>",
-  "usage": "<pura-typing></pura-typing>\n\n<!-- Custom color + larger dots -->\n<pura-typing style=\"--pura-typing-color: #2563eb; --pura-typing-size: 0.6rem;\"></pura-typing>"
+  "usage": "<pura-typing></pura-typing>\n\n<!-- Custom color + larger dots -->\n<pura-typing style=\"--pura-typing-color: #2563eb; --pura-typing-size: 0.6rem;\"></pura-typing>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "undo",
@@ -7779,7 +10170,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<pura-undo id=\"demo-undo\" timeout=\"5000\" undo-label=\"Undo\">\n  Conversation archived.\n  <button slot=\"trigger\" type=\"button\">Archive conversation</button>\n</pura-undo>\n\n<script type=\"module\">\n  const u = document.getElementById(\"demo-undo\");\n  u.addEventListener(\"action\", () => console.log(\"action started\"));\n  u.addEventListener(\"undo\", () => console.log(\"undone in time\"));\n  u.addEventListener(\"commit\", () => console.log(\"committed, effect applied\"));\n</script>",
-  "usage": "<pura-undo id=\"demo-undo\" timeout=\"5000\" undo-label=\"Undo\">\n  Conversation archived.\n  <button slot=\"trigger\" type=\"button\">Archive conversation</button>\n</pura-undo>\n\n<script type=\"module\">\n  const u = document.getElementById(\"demo-undo\");\n  u.addEventListener(\"action\", () => console.log(\"action started\"));\n  u.addEventListener(\"undo\", () => console.log(\"undone in time\"));\n  u.addEventListener(\"commit\", () => console.log(\"committed, effect applied\"));\n</script>"
+  "usage": "<pura-undo id=\"demo-undo\" timeout=\"5000\" undo-label=\"Undo\">\n  Conversation archived.\n  <button slot=\"trigger\" type=\"button\">Archive conversation</button>\n</pura-undo>\n\n<script type=\"module\">\n  const u = document.getElementById(\"demo-undo\");\n  u.addEventListener(\"action\", () => console.log(\"action started\"));\n  u.addEventListener(\"undo\", () => console.log(\"undone in time\"));\n  u.addEventListener(\"commit\", () => console.log(\"committed, effect applied\"));\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "upload",
@@ -7826,7 +10220,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "video",
@@ -7877,7 +10274,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "view-transition",
@@ -7900,7 +10300,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-3, 0.75rem); justify-items: start;\">\n  <pura-button id=\"vt-shuffle\" size=\"sm\">Shuffle</pura-button>\n  <pura-view-transition id=\"vt-demo\" style=\"display: flex; gap: 0.5rem; flex-wrap: wrap;\">\n    <span style=\"view-transition-name: vt-a; padding: 0.5rem 0.8rem; background: #2563eb; color: #fff; border-radius: 8px; font: 14px system-ui;\">A</span>\n    <span style=\"view-transition-name: vt-b; padding: 0.5rem 0.8rem; background: #16a34a; color: #fff; border-radius: 8px; font: 14px system-ui;\">B</span>\n    <span style=\"view-transition-name: vt-c; padding: 0.5rem 0.8rem; background: #d97706; color: #fff; border-radius: 8px; font: 14px system-ui;\">C</span>\n  </pura-view-transition>\n</div>\n<script>\n  (() => {\n    const vt = document.querySelector('#vt-demo');\n    document.querySelector('#vt-shuffle').addEventListener('click', () => {\n      vt.transition(() => {\n        const kids = [...vt.children];\n        vt.append(kids[Math.floor(Math.random() * kids.length)]);\n      });\n    });\n  })();\n</script>",
-  "usage": "<pura-view-transition id=\"region\">\n  <span style=\"view-transition-name: card-a\">A</span>\n  <span style=\"view-transition-name: card-b\">B</span>\n</pura-view-transition>\n\n<script>\n  const region = document.querySelector('#region');\n  // The reorder morphs: each named child slides to its new position.\n  region.transition(() => region.append(region.firstElementChild));\n</script>"
+  "usage": "<pura-view-transition id=\"region\">\n  <span style=\"view-transition-name: card-a\">A</span>\n  <span style=\"view-transition-name: card-b\">B</span>\n</pura-view-transition>\n\n<script>\n  const region = document.querySelector('#region');\n  // The reorder morphs: each named child slides to its new position.\n  region.transition(() => region.append(region.firstElementChild));\n</script>",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "virtual-list",
@@ -7927,7 +10330,10 @@ export const components = [
   ],
   "slots": [],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "visually-hidden",
@@ -7948,7 +10354,10 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "watermark",
@@ -7999,6 +10408,9 @@ export const components = [
     "default"
   ],
   "demoHTML": "",
-  "usage": ""
+  "usage": "",
+  "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
 }
 ];
