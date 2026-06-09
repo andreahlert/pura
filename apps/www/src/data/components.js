@@ -439,6 +439,23 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "aurora",
+  "title": "Aurora",
+  "category": "Display",
+  "blurb": "A slowly drifting aurora-light gradient backdrop behind its content. Pure CSS @keyframes, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-aurora>` lays a slowly drifting aurora-light gradient behind its slotted content, in the style of Magic UI's Aurora background. The motion is a single pure CSS `@keyframes` pan and rotate over four blurred color blobs, so it works server-rendered with no client JS and no animation runtime. Theme the four blobs with `--pura-aurora-1` through `--pura-aurora-4`, and tune `--pura-aurora-opacity`, `--pura-aurora-blur`, and `--pura-aurora-duration`. Under reduced motion the field rests as a static gradient via the base reset. It registers in `window.__puraAuroras` by `data-pura-id` for agent enumeration.",
+  "attributes": [],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-aurora style=\"border-radius: 12px; background: var(--pura-bg, #fff);\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; font: 700 22px system-ui; letter-spacing: -.02em;\">\n    Aurora\n    <div style=\"font-weight: 400; font-size: 13px; color: var(--pura-muted-fg, #52525b); margin-top: .4rem;\">Drifting northern-lights backdrop, pure CSS.</div>\n  </div>\n</pura-aurora>",
+  "usage": "<pura-aurora>\n  <section class=\"hero\">Headline over an aurora glow</section>\n</pura-aurora>\n\n<!-- Custom palette -->\n<pura-aurora style=\"--pura-aurora-1: #f97316; --pura-aurora-2: #ec4899; --pura-aurora-3: #8b5cf6;\">\n  <section class=\"hero\">Warm aurora</section>\n</pura-aurora>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "auto-animate",
   "title": "Auto Animate",
   "category": "Utility",
@@ -948,6 +965,42 @@ export const components = [
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<pura-blockquote cite=\"Ada Lovelace\">\n  The Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves.\n</pura-blockquote>\n\n<pura-blockquote variant=\"primary\" cite=\"Grace Hopper\">\n  The most dangerous phrase in the language is: we've always done it this way.\n</pura-blockquote>\n\n<pura-blockquote variant=\"success\">\n  Simplicity is the ultimate sophistication.\n  <span slot=\"author\">Leonardo da Vinci, <em>Notebooks</em></span>\n</pura-blockquote>",
   "usage": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<!-- Default accent with a plain citation -->\n<pura-blockquote cite=\"Marie Curie\">\n  Nothing in life is to be feared, it is only to be understood.\n</pura-blockquote>\n\n<!-- Colored accent variant -->\n<pura-blockquote variant=\"warning\" cite=\"Carl Sagan\">\n  Somewhere, something incredible is waiting to be known.\n</pura-blockquote>\n\n<!-- Rich citation via the author slot -->\n<pura-blockquote variant=\"info\">\n  We are all in the gutter, but some of us are looking at the stars.\n  <span slot=\"author\">Oscar Wilde, <em>Lady Windermere's Fan</em></span>\n</pura-blockquote>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "border-beam",
+  "title": "Border Beam",
+  "category": "Display",
+  "blurb": "A comet of light travels the rounded border of any container. Pure CSS via offset-path: border-box, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-border-beam>` sends a comet of light traveling around the rounded border of any container, in the style of Magic UI's Border Beam. The motion is pure CSS: the beam is a `::after` pseudo-element following `offset-path: border-box`, so there is no animation runtime and the effect works server-rendered with no client JS. Tune it with the `size`, `duration`, and `delay` attributes, or theme the gradient with `--pura-border-beam-from` and `--pura-border-beam-to` (default primary→accent). Under reduced motion the beam rests statically via the base reset. It registers in `window.__puraBorderBeams` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "size",
+      "type": "number",
+      "default": "64",
+      "desc": "Beam length in pixels."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "5",
+      "desc": "Seconds for the beam to complete one lap of the border."
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "default": "0",
+      "desc": "Seconds before the beam starts traveling."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-border-beam size=\"60\" duration=\"4\" style=\"max-width: 320px;\">\n  <div style=\"padding: 1.5rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; background: var(--pura-bg, #fff); font: 15px system-ui;\">\n    <b style=\"display:block; margin-bottom:.3rem;\">Border Beam</b>\n    <span style=\"color: var(--pura-muted-fg, #71717a);\">A light traces the perimeter, pure CSS, server-renderable.</span>\n  </div>\n</pura-border-beam>",
+  "usage": "<pura-border-beam size=\"60\" duration=\"4\">\n  <div class=\"card\">Framed content</div>\n</pura-border-beam>\n\n<!-- Custom beam colors -->\n<pura-border-beam style=\"--pura-border-beam-from: #06b6d4; --pura-border-beam-to: #3b82f6;\">\n  <div class=\"card\">Cyan beam</div>\n</pura-border-beam>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -5564,6 +5617,30 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "meteors",
+  "title": "Meteors",
+  "category": "Display",
+  "blurb": "A field of diagonal shooting-star streaks behind its content. Deterministic scatter (SSR-stable), pure CSS @keyframes, reduced-motion aware.",
+  "description": "`<pura-meteors>` paints a field of diagonal shooting-star streaks behind its slotted content, in the style of Magic UI's Meteors. The meteors are scattered deterministically in the pure template (no `Math.random`), so the server and client render the same field and the effect needs no client JS. Each streak is a CSS `@keyframes` fall with a gradient tail, so there is no animation runtime. Set `count` for density and theme the streaks with `--pura-meteor-color` and `--pura-meteor-glow`. Under reduced motion the meteors hold still via the base reset. It registers in `window.__puraMeteors` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "14",
+      "desc": "Number of meteors to render (capped at 80)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-meteors count=\"18\" style=\"border-radius: 12px; background: var(--pura-fg, #0b1020); --pura-meteor-color: #e0e7ff;\">\n  <div style=\"padding: 2.5rem 1.5rem; text-align: center; color: #e0e7ff; font: 600 18px system-ui; position: relative;\">\n    Meteors\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .3rem;\">Diagonal streaks, pure CSS, server-renderable.</div>\n  </div>\n</pura-meteors>",
+  "usage": "<pura-meteors count=\"20\" style=\"background: #0b1020; --pura-meteor-color: #e0e7ff;\">\n  <div class=\"hero\">Content above the meteor field</div>\n</pura-meteors>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "meter",
   "title": "Meter",
   "category": "Display",
@@ -7221,6 +7298,23 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "retro-grid",
+  "title": "Retro Grid",
+  "category": "Display",
+  "blurb": "A tilted perspective grid floor whose lines scroll toward the viewer. Pure CSS @keyframes, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-retro-grid>` lays a tilted, perspective grid floor whose lines scroll toward the viewer, in the style of Magic UI's Retro Grid. The motion is one pure CSS `@keyframes` background-position scroll on a `rotateX` plane, so it works server-rendered with no client JS and no animation runtime. Theme the lines with `--pura-retro-grid-line`, and tune `--pura-retro-grid-cell`, `--pura-retro-grid-angle`, `--pura-retro-grid-perspective`, `--pura-retro-grid-opacity`, and `--pura-retro-grid-duration`. Under reduced motion the grid holds still via the base reset. It registers in `window.__puraRetroGrids` by `data-pura-id` for agent enumeration.",
+  "attributes": [],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-retro-grid style=\"border-radius: 12px; background: var(--pura-bg, #0b1020); --pura-retro-grid-line: #a855f7;\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; font: 700 22px system-ui; color: #fff; letter-spacing: -.02em;\">\n    Retro Grid\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .4rem;\">Synthwave floor, pure CSS, server-renderable.</div>\n  </div>\n</pura-retro-grid>",
+  "usage": "<pura-retro-grid style=\"--pura-retro-grid-line: #a855f7;\">\n  <section class=\"hero\">Content over the grid</section>\n</pura-retro-grid>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -9204,6 +9298,23 @@ export const components = [
       "title": "Landing"
     }
   ]
+},
+{
+  "slug": "text-shimmer",
+  "title": "Text Shimmer",
+  "category": "Display",
+  "blurb": "A bright band sweeps across text via a gradient clipped to the glyphs. Pure CSS @keyframes, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-text-shimmer>` sweeps a bright band across the slotted text, in the style of Magic UI's Animated Shiny Text. The band is a moving gradient clipped to the glyphs with `background-clip: text`, driven by a pure CSS `@keyframes`, so it works server-rendered with no client JS and no animation runtime. Theme the resting color with `--pura-text-shimmer-base`, the band with `--pura-text-shimmer-highlight`, and the speed with `--pura-text-shimmer-duration`. Under reduced motion the sweep freezes and the text shows in the base color via the base reset. Slot plain text or color-inheriting elements. It registers in `window.__puraTextShimmers` by `data-pura-id` for agent enumeration.",
+  "attributes": [],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-text-shimmer style=\"font: 700 28px system-ui; letter-spacing: -.02em;\">Shimmering headline</pura-text-shimmer>\n<br>\n<pura-text-shimmer style=\"font: 500 14px system-ui; --pura-text-shimmer-highlight: #6366f1;\">✨ Introducing pura animations</pura-text-shimmer>",
+  "usage": "<pura-text-shimmer>Shimmering headline</pura-text-shimmer>\n\n<!-- Custom band color and speed -->\n<pura-text-shimmer style=\"--pura-text-shimmer-highlight: #6366f1; --pura-text-shimmer-duration: 2s;\">\n  ✨ New\n</pura-text-shimmer>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "text",
