@@ -2,6 +2,7 @@ export default {
   "name": "parallax",
   "tag": "pura-parallax",
   "category": "Marketing",
+  "animation": true,
   "title": "Parallax",
   "role": "",
   "summary": "Scroll parallax container that moves slotted content at a configurable speed factor relative to the page scroll to create a sense of depth.",

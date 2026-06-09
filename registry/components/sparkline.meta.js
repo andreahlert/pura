@@ -2,6 +2,7 @@ export default {
   "name": "sparkline",
   "tag": "pura-sparkline",
   "category": "Display",
+  "animation": true,
   "title": "Sparkline",
   "role": "",
   "summary": "Inline mini line chart, with no axes, that fits inside a sentence or a table cell.",

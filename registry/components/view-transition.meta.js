@@ -2,6 +2,7 @@ export default {
   "name": "view-transition",
   "tag": "pura-view-transition",
   "category": "Utility",
+  "animation": true,
   "title": "View Transition",
   "role": "",
   "summary": "Morph between UI states with the native View Transitions API: wrap a region, call transition(updateFn) to cross-fade or magic-move, degrades gracefully.",

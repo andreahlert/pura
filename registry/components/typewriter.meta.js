@@ -2,6 +2,7 @@ export default {
   "name": "typewriter",
   "tag": "pura-typewriter",
   "category": "Display",
+  "animation": true,
   "title": "Typewriter",
   "role": "",
   "summary": "Types text out character by character, optionally cycling phrases, with a CSS caret; renders full text and is accessible under reduced motion.",

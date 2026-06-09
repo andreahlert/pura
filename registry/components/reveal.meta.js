@@ -2,6 +2,7 @@ export default {
   "name": "reveal",
   "tag": "pura-reveal",
   "category": "Utility",
+  "animation": true,
   "title": "Reveal",
   "role": "",
   "summary": "Animates content into view when it enters the viewport, respecting prefers-reduced-motion.",

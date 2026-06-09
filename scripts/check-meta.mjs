@@ -1,5 +1,5 @@
 import { readdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join, basename } from "node:path";
 import { isComponentFile } from "./build-registry.mjs";
 
@@ -23,6 +23,15 @@ async function main() {
   if (missingMeta.length || orphanMeta.length) {
     if (missingMeta.length) console.error(`meta: missing for ${missingMeta.join(", ")}`);
     if (orphanMeta.length) console.error(`meta: orphan for ${orphanMeta.join(", ")}`);
+    process.exit(1);
+  }
+  const bad = [];
+  for (const name of metas) {
+    const meta = (await import(pathToFileURL(join(COMPONENTS, `${name}.meta.js`)).href)).default;
+    if ("animation" in meta && typeof meta.animation !== "boolean") bad.push(name);
+  }
+  if (bad.length) {
+    console.error(`meta: animation must be boolean in ${bad.join(", ")}`);
     process.exit(1);
   }
   console.log(`meta: ${components.length} components all have meta`);

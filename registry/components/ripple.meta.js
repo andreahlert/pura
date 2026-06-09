@@ -2,6 +2,7 @@ export default {
   "name": "ripple",
   "tag": "pura-ripple",
   "category": "Utility",
+  "animation": true,
   "title": "Ripple",
   "role": "",
   "summary": "Material-style touch ripple wrapper: a ripple expands from the pointer on press, CSS-only motion, reduced-motion aware.",

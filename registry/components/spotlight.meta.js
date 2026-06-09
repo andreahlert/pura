@@ -2,6 +2,7 @@ export default {
   "name": "spotlight",
   "tag": "pura-spotlight",
   "category": "Overlay",
+  "animation": true,
   "title": "Spotlight",
   "role": "",
   "summary": "Dims the entire page, leaving only one element highlighted through a transparent cutout.",

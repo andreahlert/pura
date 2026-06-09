@@ -2,6 +2,7 @@ export default {
   "name": "ticker",
   "tag": "pura-ticker",
   "category": "Display",
+  "animation": true,
   "title": "Ticker",
   "role": "",
   "summary": "A number that animates scrolling from the previous value up to the new one, with locale-aware thousands separators.",

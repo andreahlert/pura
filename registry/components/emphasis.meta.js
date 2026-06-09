@@ -2,6 +2,7 @@ export default {
   "name": "emphasis",
   "tag": "pura-emphasis",
   "category": "Utility",
+  "animation": true,
   "title": "Emphasis",
   "role": "",
   "summary": "Attention-seeking animations (bounce, heartbeat, wiggle, tada, shake, pulse, flash) as a wrapper, CSS-only and reduced-motion aware.",

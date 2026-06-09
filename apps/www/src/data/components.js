@@ -464,7 +464,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-3, 0.75rem); justify-items: start;\">\n  <pura-button id=\"aa-add\" size=\"sm\">Add item</pura-button>\n  <pura-auto-animate style=\"display: grid; gap: 0.5rem; width: 100%;\" id=\"aa-list\">\n    <div style=\"padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 10px; font: 15px system-ui;\">First item</div>\n    <div style=\"padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 10px; font: 15px system-ui;\">Second item</div>\n  </pura-auto-animate>\n</div>\n<script>\n  (() => {\n    const list = document.querySelector('#aa-list');\n    let n = 3;\n    document.querySelector('#aa-add').addEventListener('click', () => {\n      const el = document.createElement('div');\n      el.style.cssText = 'padding:0.6rem 0.9rem;background:var(--pura-subtle,#f4f4f5);border-radius:10px;font:15px system-ui;cursor:pointer;';\n      el.textContent = 'Item ' + (n++);\n      el.addEventListener('click', () => el.remove());\n      list.prepend(el);\n    });\n  })();\n</script>",
   "usage": "<pura-auto-animate>\n  <div>First item</div>\n  <div>Second item</div>\n</pura-auto-animate>\n\n<script>\n  // Any add/remove/reorder of the children animates automatically.\n  const list = document.querySelector('pura-auto-animate');\n  list.prepend(makeItem());   // animates in\n  list.children[2].remove();  // animates out\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -1561,7 +1561,7 @@ export const components = [
   ],
   "demoHTML": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>",
   "usage": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -2606,7 +2606,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"display: flex; gap: 2.5rem; flex-wrap: wrap; font: 600 2rem system-ui;\">\n  <pura-count-up to=\"1284\" separator=\",\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"1500\"></pura-count-up>\n</div>",
   "usage": "<pura-count-up to=\"1284\" separator=\",\"></pura-count-up>\n<pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\"></pura-count-up>\n<pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"2000\"></pura-count-up>\n\n<!-- Trigger manually -->\n<pura-count-up to=\"500\" start=\"manual\" id=\"score\"></pura-count-up>\n<script>document.querySelector('#score').start();</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -2663,7 +2663,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1rem;align-items:flex-start\">\n  <p style=\"margin:0;font-weight:600\">Offer ends in:</p>\n  <pura-countdown seconds=\"90\" pad-days id=\"promo\">\n    <span slot=\"complete\">Offer ended!</span>\n  </pura-countdown>\n  <pura-countdown to=\"2026-12-31T23:59:59Z\" compact></pura-countdown>\n</div>",
   "usage": "<pura-countdown to=\"2026-12-31T23:59:59Z\" pad-days>\n  <span slot=\"complete\">Offer ended!</span>\n</pura-countdown>\n\n<!-- Compact variant from a duration -->\n<pura-countdown seconds=\"3600\" compact></pura-countdown>\n\n<!-- Programmatic control: start() / pause() / reset() -->\n<script type=\"module\">\n  import \"/pura/lib/countdown.js\";\n  const cd = document.querySelector(\"pura-countdown\");\n  cd.addEventListener(\"complete\", () => console.log(\"done\"));\n  cd.addEventListener(\"tick\", (e) => console.log(e.detail.total));\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -3152,7 +3152,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font: 15px system-ui;\">\n  <pura-emphasis animation=\"bounce\" trigger=\"loop\"><span style=\"font-size: 1.6rem;\">🔔</span></pura-emphasis>\n  <pura-emphasis animation=\"heartbeat\" trigger=\"loop\"><span style=\"font-size: 1.6rem;\">❤️</span></pura-emphasis>\n  <pura-emphasis animation=\"wiggle\" trigger=\"hover\"><span style=\"padding: 0.4rem 0.8rem; border: 1px solid var(--pura-border, #ddd); border-radius: 8px;\">Hover me</span></pura-emphasis>\n  <pura-emphasis animation=\"tada\" trigger=\"hover\"><span style=\"padding: 0.4rem 0.8rem; border: 1px solid var(--pura-border, #ddd); border-radius: 8px;\">And me</span></pura-emphasis>\n</div>",
   "usage": "<!-- Loop forever -->\n<pura-emphasis animation=\"bounce\" trigger=\"loop\">🔔</pura-emphasis>\n\n<!-- Play on hover -->\n<pura-emphasis animation=\"wiggle\" trigger=\"hover\">\n  <button>Hover me</button>\n</pura-emphasis>\n\n<!-- Play manually -->\n<pura-emphasis animation=\"tada\" id=\"win\">🎉</pura-emphasis>\n<script>document.querySelector('#win').play();</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -5355,7 +5355,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>",
   "usage": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -5697,7 +5697,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-4, 1rem); justify-items: start;\">\n  <pura-button onclick=\"this.nextElementSibling.toggle()\">Toggle</pura-button>\n  <pura-motion show animation=\"slide-up\">\n    <article style=\"padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n      <h3 style=\"margin-top: 0;\">Animated panel</h3>\n      <p>This block slides up and fades as it enters, and reverses on exit.</p>\n    </article>\n  </pura-motion>\n</div>",
   "usage": "<pura-button onclick=\"document.querySelector('#panel').toggle()\">Toggle</pura-button>\n\n<pura-motion id=\"panel\" show animation=\"slide-up\">\n  <article>\n    <h3>Animated panel</h3>\n    <p>This block slides up and fades as it enters, and reverses on exit.</p>\n  </article>\n</pura-motion>\n\n<!-- Imperative API -->\n<script>\n  const m = document.querySelector('#panel');\n  m.enter();   // show\n  m.exit();    // hide\n  m.toggle();  // flip\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -6174,7 +6174,7 @@ export const components = [
   ],
   "demoHTML": "",
   "usage": "",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -7270,7 +7270,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"height: 120px; display: grid; place-items: center; color: var(--pura-muted, #888); font: 14px system-ui;\">\n  Scroll down to reveal the content\n</div>\n\n<pura-reveal animation=\"slide-up\" delay=\"100\" threshold=\"0.3\">\n  <article style=\"padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n    <h3 style=\"margin-top: 0;\">Revealed content</h3>\n    <p>This block slides up and fades in smoothly as soon as it enters the screen.</p>\n  </article>\n</pura-reveal>\n\n<pura-reveal animation=\"zoom\" once>\n  <article style=\"margin-top: var(--pura-space-4, 1rem); padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n    <h3 style=\"margin-top: 0;\">Reveals only once</h3>\n    <p>With <code>once</code>, it animates on the first entry and stops observing.</p>\n  </article>\n</pura-reveal>",
   "usage": "<pura-reveal animation=\"slide-up\" delay=\"100\" threshold=\"0.3\">\n  <article>\n    <h3>Revealed content</h3>\n    <p>This block slides up and fades in smoothly as soon as it enters the screen.</p>\n  </article>\n</pura-reveal>\n\n<pura-reveal animation=\"zoom\" once>\n  <article>\n    <h3>Reveals only once</h3>\n    <p>With <code>once</code>, it animates on the first entry and stops observing.</p>\n  </article>\n</pura-reveal>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -7339,7 +7339,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"display: flex; gap: var(--pura-space-4, 1rem); flex-wrap: wrap;\">\n  <pura-ripple style=\"border-radius: 10px;\">\n    <button style=\"padding: 0.6rem 1.2rem; border: 1px solid var(--pura-border, #ddd); border-radius: 10px; background: var(--pura-subtle, #f4f4f5); font: 15px system-ui; cursor: pointer;\">Press me</button>\n  </pura-ripple>\n  <pura-ripple centered style=\"border-radius: 999px; --pura-ripple-color: #2563eb;\">\n    <button style=\"width: 44px; height: 44px; border: 1px solid var(--pura-border, #ddd); border-radius: 999px; background: var(--pura-bg, #fff); font: 18px system-ui; cursor: pointer;\">★</button>\n  </pura-ripple>\n</div>",
   "usage": "<pura-ripple>\n  <button>Press me</button>\n</pura-ripple>\n\n<!-- Icon button: ripple from center, custom color -->\n<pura-ripple centered style=\"--pura-ripple-color: #2563eb;\">\n  <button aria-label=\"Favorite\">★</button>\n</pura-ripple>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -7399,7 +7399,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727, brought from the neighboring region of French Guiana. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and, later, the western part of Sao Paulo, transforming the country's economy.</p>\n  <p>The coffee cycle funded railways, ports and European immigration, shaping entire cities around the bean route.</p>\n  <p>By the 20th century, Brazil was already the world's largest producer, a position it still holds today, with specialty coffees becoming increasingly valued.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>The aroma of artisanal roasteries became a symbol of regions such as Southern Minas, Cerrado Mineiro and Mogiana.</p>\n  <p>Today, domestic consumption grows alongside exports, and the coffee ritual remains part of everyday Brazilian life.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>",
   "usage": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and the western part of Sao Paulo.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -8206,7 +8206,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"display:flex;align-items:center;gap:12px;font-family:system-ui\">\n  <span>Revenue (7 days)</span>\n  <pura-sparkline values=\"4,7,5,9,6,11,13\" width=\"120\" height=\"32\" color=\"#16a34a\" fill dot></pura-sparkline>\n  <strong>$13k</strong>\n</div>",
   "usage": "<div style=\"display:flex;align-items:center;gap:12px;font-family:system-ui\">\n  <span>Revenue (7 days)</span>\n  <pura-sparkline values=\"4,7,5,9,6,11,13\" width=\"120\" height=\"32\" color=\"#16a34a\" fill dot></pura-sparkline>\n  <strong>$13k</strong>\n</div>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [
     {
       "slug": "sidebar",
@@ -8439,7 +8439,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"padding:24px;display:flex;flex-direction:column;gap:16px;align-items:flex-start\">\n  <p>Click to highlight the button below:</p>\n  <button id=\"alvo\" style=\"padding:8px 16px\">New feature</button>\n  <button id=\"guiar\">Show highlight</button>\n</div>\n\n<pura-spotlight id=\"sp\" target=\"#alvo\" label=\"Meet the new feature\"></pura-spotlight>\n\n<script type=\"module\">\n  import \"/pura/lib/spotlight.js\";\n  const sp = document.getElementById(\"sp\");\n  document.getElementById(\"guiar\").addEventListener(\"click\", () => sp.show());\n</script>",
   "usage": "<div style=\"padding:24px;display:flex;flex-direction:column;gap:16px;align-items:flex-start\">\n  <p>Click to highlight the button below:</p>\n  <button id=\"alvo\" style=\"padding:8px 16px\">New feature</button>\n  <button id=\"guiar\">Show highlight</button>\n</div>\n\n<pura-spotlight id=\"sp\" target=\"#alvo\" label=\"Meet the new feature\"></pura-spotlight>\n\n<script type=\"module\">\n  import \"/pura/lib/spotlight.js\";\n  const sp = document.getElementById(\"sp\");\n  document.getElementById(\"guiar\").addEventListener(\"click\", () => sp.show());\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -9424,7 +9424,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  // Animate from zero on load.\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>",
   "usage": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -10108,7 +10108,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"font: 600 1.4rem system-ui;\">\n  <pura-typewriter phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\" caret loop speed=\"60\"></pura-typewriter>\n</div>",
   "usage": "<!-- Single phrase -->\n<pura-typewriter text=\"Welcome to pura\" caret></pura-typewriter>\n\n<!-- Cycle phrases forever -->\n<pura-typewriter\n  phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\"\n  caret loop speed=\"60\"></pura-typewriter>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -10130,7 +10130,7 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 14px;\">\n  <pura-typing></pura-typing>\n</div>",
   "usage": "<pura-typing></pura-typing>\n\n<!-- Custom color + larger dots -->\n<pura-typing style=\"--pura-typing-color: #2563eb; --pura-typing-size: 0.6rem;\"></pura-typing>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -10301,7 +10301,7 @@ export const components = [
   ],
   "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-3, 0.75rem); justify-items: start;\">\n  <pura-button id=\"vt-shuffle\" size=\"sm\">Shuffle</pura-button>\n  <pura-view-transition id=\"vt-demo\" style=\"display: flex; gap: 0.5rem; flex-wrap: wrap;\">\n    <span style=\"view-transition-name: vt-a; padding: 0.5rem 0.8rem; background: #2563eb; color: #fff; border-radius: 8px; font: 14px system-ui;\">A</span>\n    <span style=\"view-transition-name: vt-b; padding: 0.5rem 0.8rem; background: #16a34a; color: #fff; border-radius: 8px; font: 14px system-ui;\">B</span>\n    <span style=\"view-transition-name: vt-c; padding: 0.5rem 0.8rem; background: #d97706; color: #fff; border-radius: 8px; font: 14px system-ui;\">C</span>\n  </pura-view-transition>\n</div>\n<script>\n  (() => {\n    const vt = document.querySelector('#vt-demo');\n    document.querySelector('#vt-shuffle').addEventListener('click', () => {\n      vt.transition(() => {\n        const kids = [...vt.children];\n        vt.append(kids[Math.floor(Math.random() * kids.length)]);\n      });\n    });\n  })();\n</script>",
   "usage": "<pura-view-transition id=\"region\">\n  <span style=\"view-transition-name: card-a\">A</span>\n  <span style=\"view-transition-name: card-b\">B</span>\n</pura-view-transition>\n\n<script>\n  const region = document.querySelector('#region');\n  // The reorder morphs: each named child slides to its new position.\n  region.transition(() => region.append(region.firstElementChild));\n</script>",
-  "animation": false,
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },

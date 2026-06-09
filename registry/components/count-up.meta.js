@@ -2,6 +2,7 @@ export default {
   "name": "count-up",
   "tag": "pura-count-up",
   "category": "Display",
+  "animation": true,
   "title": "Count Up",
   "role": "",
   "summary": "Animates a number from a start to a target with eased counting, starts on view, jumps to the final value under reduced motion.",

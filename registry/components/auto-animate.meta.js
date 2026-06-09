@@ -2,6 +2,7 @@ export default {
   "name": "auto-animate",
   "tag": "pura-auto-animate",
   "category": "Utility",
+  "animation": true,
   "title": "Auto Animate",
   "role": "",
   "summary": "Drop-in layout animation: direct children animate on add, remove, and reorder via FLIP, zero per-item wiring, reduced-motion aware.",

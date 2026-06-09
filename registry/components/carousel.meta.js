@@ -2,6 +2,7 @@ export default {
   "name": "carousel",
   "tag": "pura-carousel",
   "category": "Layout",
+  "animation": true,
   "title": "Carousel",
   "role": "",
   "summary": "Carousel with horizontal scroll-snap, navigation arrows, and dot indicators.",

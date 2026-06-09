@@ -2,6 +2,7 @@ export default {
   "name": "marquee",
   "tag": "pura-marquee",
   "category": "Display",
+  "animation": true,
   "title": "Marquee",
   "role": "",
   "summary": "Seamless, infinitely scrolling content strip with a pure-CSS animation.",

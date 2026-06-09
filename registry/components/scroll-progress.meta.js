@@ -2,6 +2,7 @@ export default {
   "name": "scroll-progress",
   "tag": "pura-scroll-progress",
   "category": "Navigation",
+  "animation": true,
   "title": "Scroll Progress",
   "role": "",
   "summary": "A thin bar fixed at the top of the viewport that fills from 0% to 100% as the page is scrolled.",

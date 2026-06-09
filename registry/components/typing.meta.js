@@ -2,6 +2,7 @@ export default {
   "name": "typing",
   "tag": "pura-typing",
   "category": "Feedback",
+  "animation": true,
   "title": "Typing Indicator",
   "role": "status",
   "summary": "Three-dot typing indicator for chat and agent UIs, CSS-only animation with an accessible status label.",

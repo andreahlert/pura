@@ -2,6 +2,7 @@ export default {
   "name": "motion",
   "tag": "pura-motion",
   "category": "Utility",
+  "animation": true,
   "title": "Motion",
   "role": "",
   "summary": "Generic enter/exit motion wrapper: toggle the show attribute to animate any content in and out, CSS-only and reduced-motion aware.",

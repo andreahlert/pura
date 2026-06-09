@@ -2,6 +2,7 @@ export default {
   "name": "countdown",
   "tag": "pura-countdown",
   "category": "Feedback",
+  "animation": true,
   "title": "Countdown",
   "role": "",
   "summary": "Countdown timer that counts down in days, hours, minutes, and seconds and fires an event when it reaches zero.",
