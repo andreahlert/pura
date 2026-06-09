@@ -200,3 +200,8 @@ import "./components/terminal.js";
 import "./components/parallax.js";
 import "./components/burger.js";
 import "./components/json-input.js";
+import "./components/border-beam.js";
+import "./components/meteors.js";
+import "./components/aurora.js";
+import "./components/text-shimmer.js";
+import "./components/retro-grid.js";

@@ -449,7 +449,7 @@ export const components = [
   "slots": [
     "default"
   ],
-  "demoHTML": "<pura-aurora style=\"border-radius: 12px; background: var(--pura-bg, #fff);\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; font: 700 22px system-ui; letter-spacing: -.02em;\">\n    Aurora\n    <div style=\"font-weight: 400; font-size: 13px; color: var(--pura-muted-fg, #52525b); margin-top: .4rem;\">Drifting northern-lights backdrop, pure CSS.</div>\n  </div>\n</pura-aurora>",
+  "demoHTML": "<pura-aurora style=\"border-radius: 12px; background: #07080f;\">\n  <div style=\"padding: 3.5rem 1.5rem; text-align: center; font: 700 24px system-ui; letter-spacing: -.02em; color: #fff;\">\n    Aurora\n    <div style=\"font-weight: 400; font-size: 13px; color: rgba(255,255,255,.72); margin-top: .4rem;\">Drifting northern-lights backdrop, pure CSS.</div>\n  </div>\n</pura-aurora>",
   "usage": "<pura-aurora>\n  <section class=\"hero\">Headline over an aurora glow</section>\n</pura-aurora>\n\n<!-- Custom palette -->\n<pura-aurora style=\"--pura-aurora-1: #f97316; --pura-aurora-2: #ec4899; --pura-aurora-3: #8b5cf6;\">\n  <section class=\"hero\">Warm aurora</section>\n</pura-aurora>",
   "animation": true,
   "relatedComponents": [],
@@ -7312,7 +7312,7 @@ export const components = [
   "slots": [
     "default"
   ],
-  "demoHTML": "<pura-retro-grid style=\"border-radius: 12px; background: var(--pura-bg, #0b1020); --pura-retro-grid-line: #a855f7;\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; font: 700 22px system-ui; color: #fff; letter-spacing: -.02em;\">\n    Retro Grid\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .4rem;\">Synthwave floor, pure CSS, server-renderable.</div>\n  </div>\n</pura-retro-grid>",
+  "demoHTML": "<pura-retro-grid style=\"border-radius: 12px; background: linear-gradient(180deg, #0b0618 0%, #1a0b2e 100%); --pura-retro-grid-line: #c026d3;\">\n  <div style=\"padding: 4rem 1.5rem 5rem; text-align: center; font: 700 24px system-ui; color: #fff; letter-spacing: -.02em;\">\n    Retro Grid\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .4rem;\">Synthwave floor, pure CSS, server-renderable.</div>\n  </div>\n</pura-retro-grid>",
   "usage": "<pura-retro-grid style=\"--pura-retro-grid-line: #a855f7;\">\n  <section class=\"hero\">Content over the grid</section>\n</pura-retro-grid>",
   "animation": true,
   "relatedComponents": [],
