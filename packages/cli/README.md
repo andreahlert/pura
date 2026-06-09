@@ -1,4 +1,4 @@
-# purajs
+# puracli
 
 shadcn-style CLI for [pura](https://andreahlert.github.io/pura/), a library of ~180 native web components (Custom Elements + Shadow DOM). Zero runtime dependencies, zero build step. The CLI copies component source straight into your project from the public registry.
 
@@ -7,14 +7,14 @@ shadcn-style CLI for [pura](https://andreahlert.github.io/pura/), a library of ~
 No install needed:
 
 ```bash
-npx purajs init          # scaffold pura.json config
-npx purajs add button    # copy a component (+ its deps) into your project
+npx puracli init          # scaffold pura.json config
+npx puracli add button    # copy a component (+ its deps) into your project
 ```
 
 Or install globally:
 
 ```bash
-npm i -g purajs
+npm i -g puracli
 pura add dialog
 ```
 

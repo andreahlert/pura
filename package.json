@@ -13,8 +13,8 @@
     "smoke": "node scripts/smoke.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
     "verify": "pnpm build && pnpm smoke",
-    "test": "node --test \"scripts/*.test.mjs\" \"apps/www/src/**/*.test.mjs\" && pnpm --filter purajs test",
-    "test:cli": "pnpm --filter purajs test"
+    "test": "node --test \"scripts/*.test.mjs\" \"apps/www/src/**/*.test.mjs\" && pnpm --filter puracli test",
+    "test:cli": "pnpm --filter puracli test"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
