@@ -143,9 +143,28 @@ test("seek to end emits scrub with snapped index and label, stamps past/current"
   assert.equal(detail.index, 4);
   assert.equal(detail.total, 5);
   assert.equal(detail.label, "Published");
+  // segment is the interpolation base, distinct from the snapped index at the end
+  assert.equal(detail.segment, 3);
+  assert.equal(detail.fraction, 1);
   assert.equal(el._children[0].getAttribute("data-pura-scrub-state"), "past");
   assert.equal(el._children[4].getAttribute("data-pura-scrub-state"), "current");
   assert.equal(el._rail.getAttribute("aria-valuenow"), "4");
+});
+
+test("scrub pairs index (snapped state) with segment+fraction (interpolation base)", () => {
+  const el = withSteps(5);
+  el.connectedCallback();
+
+  let detail = null;
+  el.addEventListener("scrub", (e) => { detail = e.detail; });
+  // p=0.7 → scaled 2.8 → segment 2, fraction 0.8, snapped 3
+  el.seek(0.7);
+
+  assert.equal(detail.index, 3, "index is the snapped discrete state");
+  assert.equal(detail.segment, 2, "segment is the floor, the interpolation base");
+  assert.ok(Math.abs(detail.fraction - 0.8) < 1e-9, "fraction is 0..1 into [segment, segment+1]");
+  // index never disagrees with the public getter / aria
+  assert.equal(detail.index, el.index);
 });
 
 test("step and toIndex navigate the snapped index (undo/redo by position)", () => {

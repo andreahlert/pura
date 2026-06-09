@@ -27,8 +27,10 @@
 //   var(--pura-motion) so a <pura-motion-budget> governor or reduced motion calms
 //   the scrub.
 //
-// Event: scrub { index, snapped, fraction, position, total, label } (bubbles,
-//   composed) on every playhead change.
+// Event: scrub { index, segment, fraction, position, total, label } (bubbles,
+//   composed) on every playhead change. index is the snapped discrete state;
+//   segment + fraction are the interpolation pair (fraction 0..1 into
+//   [segment, segment+1]).
 //
 // Agent-native layer: data-pura-scrub-index / -total mirror the live playhead and
 //   each instance registers in window.__puraTimeScrubs by data-pura-id with
@@ -237,7 +239,9 @@ class PuraTimeScrub extends PuraElement {
     this.dispatchEvent(new CustomEvent("scrub", {
       bubbles: true,
       composed: true,
-      detail: { index: m.snapped, snapped: m.snapped, fraction: m.fraction, position: m.position, total, label },
+      // index = discrete state (matches .index getter / aria); segment + fraction
+      // are the interpolation pair: fraction is 0..1 into [segment, segment+1].
+      detail: { index: m.snapped, segment: m.index, fraction: m.fraction, position: m.position, total, label },
     }));
   }
 

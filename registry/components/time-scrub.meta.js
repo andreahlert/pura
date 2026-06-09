@@ -10,8 +10,8 @@ export default {
   "events": [
     {
       "name": "scrub",
-      "detail": "{ index, snapped, fraction, position, total, label }",
-      "desc": "Fired on every playhead change (drag, keyboard, or seek())."
+      "detail": "{ index, segment, fraction, position, total, label }",
+      "desc": "Fired on every playhead change. index is the snapped discrete state; segment + fraction are the interpolation pair (fraction is 0..1 into [segment, segment+1])."
     }
   ],
   "slots": [
