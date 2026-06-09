@@ -25,6 +25,7 @@ const TYPES = {
 const ROUTES = ["/pura/", "/pura/docs/button", "/pura/theme", "/pura/templates"];
 const ASSETS = [
   "/pura/tokens.css", "/pura/pura.js", "/pura/base.js", "/pura/i18n.js",
+  "/pura/animate.js",
   "/pura/lib/button.js", "/pura/components/button.js", "/pura/favicon.svg",
   "/pura/r/button.json", "/pura/templates/login.html",
 ];

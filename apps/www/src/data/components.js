@@ -406,6 +406,33 @@ export const components = [
   "usage": ""
 },
 {
+  "slug": "auto-animate",
+  "title": "Auto Animate",
+  "category": "Utility",
+  "blurb": "Drop-in layout animation: direct children animate on add, remove, and reorder via FLIP, zero per-item wiring, reduced-motion aware.",
+  "description": "`<pura-auto-animate>` is a drop-in layout animator: wrap any list, grid, or container and its direct children animate automatically on add, remove, and reorder, with no per-item wiring and no keyframes to author. A `MutationObserver` watches the light-DOM children and pura's FLIP engine (`animate.js`, WAAPI under the hood) tweens the layout delta, scale-correcting size changes and fading removed nodes out from their last position. FLIP is one of only two JS-tweening primitives pura ships, fully opt-in: set `disabled` to pause it and `duration` to override the token-derived timing. It no-ops the animation under reduced motion (children still mutate) and registers in `window.__puraAutoAnimate` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Stops observing; children mutate with no animation."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "token --pura-duration-4",
+      "desc": "Animation duration in milliseconds. Overrides the token-derived default."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-3, 0.75rem); justify-items: start;\">\n  <pura-button id=\"aa-add\" size=\"sm\">Add item</pura-button>\n  <pura-auto-animate style=\"display: grid; gap: 0.5rem; width: 100%;\" id=\"aa-list\">\n    <div style=\"padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 10px; font: 15px system-ui;\">First item</div>\n    <div style=\"padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 10px; font: 15px system-ui;\">Second item</div>\n  </pura-auto-animate>\n</div>\n<script>\n  (() => {\n    const list = document.querySelector('#aa-list');\n    let n = 3;\n    document.querySelector('#aa-add').addEventListener('click', () => {\n      const el = document.createElement('div');\n      el.style.cssText = 'padding:0.6rem 0.9rem;background:var(--pura-subtle,#f4f4f5);border-radius:10px;font:15px system-ui;cursor:pointer;';\n      el.textContent = 'Item ' + (n++);\n      el.addEventListener('click', () => el.remove());\n      list.prepend(el);\n    });\n  })();\n</script>",
+  "usage": "<pura-auto-animate>\n  <div>First item</div>\n  <div>Second item</div>\n</pura-auto-animate>\n\n<script>\n  // Any add/remove/reorder of the children animates automatically.\n  const list = document.querySelector('pura-auto-animate');\n  list.prepend(makeItem());   // animates in\n  list.children[2].remove();  // animates out\n</script>"
+},
+{
   "slug": "avatar-group",
   "title": "Avatar Group",
   "category": "Display",

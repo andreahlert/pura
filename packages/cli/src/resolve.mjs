@@ -1,6 +1,6 @@
 // Walk a component's deps. "base"/"i18n" map to root runtime files; component
 // names recurse; tokens.css is always needed. Returns a flat install plan.
-const ROOT_LIBS = { base: "base.js", i18n: "i18n.js" };
+const ROOT_LIBS = { base: "base.js", i18n: "i18n.js", animate: "animate.js" };
 
 export async function resolveInstall({ fetcher, index, getItem, name }) {
   const known = new Set(index.components.map((c) => c.name));

@@ -21,6 +21,7 @@ import "./components/alert.js";
 import "./components/alert-dialog.js";
 import "./components/aspect-ratio.js";
 import "./components/async.js";
+import "./components/auto-animate.js";
 import "./components/avatar-group.js";
 import "./components/back-to-top.js";
 import "./components/badge.js";
