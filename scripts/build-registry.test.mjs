@@ -43,6 +43,25 @@ test("buildItem assembles a registry item", () => {
   assert.equal(item.hash, item.files[0].hash);
 });
 
+test("buildItem ships meta/template sidecars with their own hashes", () => {
+  const src = `import meta from "./button.meta.js";\nimport { buttonTemplate } from "./button.template.js";`;
+  const metaSrc = `export default { tag: "pura-button" };`;
+  const tmplSrc = `export function buttonTemplate() { return { html: "", css: "" }; }`;
+  const item = buildItem("button", src, [
+    ["button.meta.js", metaSrc],
+    ["button.template.js", tmplSrc],
+  ]);
+  assert.deepEqual(item.files.map((f) => f.target), [
+    "button.js", "button.meta.js", "button.template.js",
+  ]);
+  assert.equal(item.files[1].content, metaSrc);
+  assert.equal(item.files[2].content, tmplSrc);
+  assert.match(item.files[1].hash, /^sha256-/);
+  assert.notEqual(item.files[1].hash, item.files[2].hash);
+  // entry hash stays the source-of-truth integrity for the component
+  assert.equal(item.hash, item.files[0].hash);
+});
+
 test("isComponentFile accepts component sources, rejects meta/docs sidecars", () => {
   assert.equal(isComponentFile("button.js"), true);
   assert.equal(isComponentFile("dropdown-menu.js"), true);

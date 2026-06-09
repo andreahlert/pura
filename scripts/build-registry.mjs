@@ -87,15 +87,22 @@ export function isComponentFile(f) {
   return f.endsWith(".js") && !/\.(meta|docs|template)\.js$/.test(f);
 }
 
-export function buildItem(name, source) {
+// `sidecars` are colocated files the entry imports at runtime and must ship
+// alongside it: `<name>.meta.js` and `<name>.template.js`. Each is [target,
+// content]. `<name>.docs.js` is intentionally excluded (docs-site only).
+export function buildItem(name, source, sidecars = []) {
   const h = hash(source);
+  const files = [{ target: `${name}.js`, content: source, hash: h }];
+  for (const [target, content] of sidecars) {
+    files.push({ target, content, hash: hash(content) });
+  }
   return {
     name,
     version: VERSION,
     hash: h,
     deps: parseDeps(source),
     tokens: parseTokens(source),
-    files: [{ target: `${name}.js`, content: source, hash: h }],
+    files,
   };
 }
 
@@ -112,7 +119,13 @@ async function main() {
   for (const file of files) {
     const name = basename(file, ".js");
     const source = await readFile(join(COMPONENTS, file), "utf8");
-    const item = buildItem(name, source);
+    const sidecars = [];
+    for (const kind of ["meta", "template"]) {
+      const sidecar = `${name}.${kind}.js`;
+      const content = await readFile(join(COMPONENTS, sidecar), "utf8").catch(() => null);
+      if (content !== null) sidecars.push([sidecar, content]);
+    }
+    const item = buildItem(name, source, sidecars);
     const meta = (await import(pathToFileURL(join(COMPONENTS, `${name}.meta.js`)).href)).default;
     item.meta = meta;
     metas.push(meta);
