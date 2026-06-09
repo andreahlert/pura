@@ -216,3 +216,4 @@ import "./components/agent-cursor.js";
 import "./components/scroll-reveal.js";
 import "./components/motion-budget.js";
 import "./components/narrated-transition.js";
+import "./components/diff-motion.js";

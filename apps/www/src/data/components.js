@@ -3083,6 +3083,42 @@ export const components = [
   ]
 },
 {
+  "slug": "diff-motion",
+  "title": "Diff Motion",
+  "category": "Utility",
+  "blurb": "Watches its children and on every mutation computes a keyed semantic diff, emitting { added, removed, moved, changed } and colour-coding each: added glow green and scale in, moved FLIP-slide blue, changed flash amber.",
+  "description": "`<pura-diff-motion>` watches its light-DOM children and, on every mutation, computes a *keyed semantic diff* and both narrates and animates it. Where `<pura-auto-animate>` silently FLIP-tweens layout, this answers the agent-facing question \"what actually changed?\": it emits `diffmotion` `{ added, removed, moved, changed }` (lists of keys) and colour-codes each operation, added items glow green and scale in, moved items FLIP-slide with a blue tint, changed items flash amber. Identity comes from each child's `data-key` (falling back to `id`, then index), and \"changed\" is detected from a content signature (`data-sig`, falling back to `textContent`). The highlight durations multiply `var(--pura-motion)` so a `<pura-motion-budget>` governor (or reduced motion) can calm or stop the visuals, while the diff event still fires. Each instance registers in `window.__puraDiffMotion` by `data-pura-id` and mirrors the latest counts in `data-pura-diff-*`.",
+  "attributes": [
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Stops observing; children mutate with no diff or animation."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "(token)",
+      "desc": "Overrides the token-derived FLIP duration in milliseconds."
+    }
+  ],
+  "events": [
+    {
+      "name": "diffmotion",
+      "detail": "{ added, removed, moved, changed }",
+      "desc": "Fired after every observed mutation; each field is an array of child keys."
+    }
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-diff-motion id=\"pura-dm-demo\" style=\"display: flex; flex-wrap: wrap; gap: .5rem;\">\n  <span data-key=\"a\" style=\"padding: .5rem .9rem; border-radius: 8px; background: var(--pura-muted, #f4f4f5); font: 500 13px system-ui;\">Apple</span>\n  <span data-key=\"b\" style=\"padding: .5rem .9rem; border-radius: 8px; background: var(--pura-muted, #f4f4f5); font: 500 13px system-ui;\">Banana</span>\n  <span data-key=\"c\" style=\"padding: .5rem .9rem; border-radius: 8px; background: var(--pura-muted, #f4f4f5); font: 500 13px system-ui;\">Cherry</span>\n</pura-diff-motion>\n<div style=\"margin-top: .75rem; display: flex; gap: .5rem;\">\n  <button style=\"font: 500 13px system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer;\" onclick=\"(function(){ var c=document.getElementById('pura-dm-demo'); var s=document.createElement('span'); var k=String.fromCharCode(100+c.children.length); s.setAttribute('data-key', k); s.style.cssText='padding:.5rem .9rem;border-radius:8px;background:var(--pura-muted,#f4f4f5);font:500 13px system-ui'; s.textContent='Item '+k.toUpperCase(); c.appendChild(s); })()\">Add</button>\n  <button style=\"font: 500 13px system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer;\" onclick=\"(function(){ var c=document.getElementById('pura-dm-demo'); if(c.children.length>1){ c.insertBefore(c.lastElementChild, c.firstElementChild); } })()\">Shuffle</button>\n  <button style=\"font: 500 13px system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer;\" onclick=\"(function(){ var c=document.getElementById('pura-dm-demo'); if(c.firstElementChild) c.firstElementChild.textContent='Edited ' + Date.now()%100; })()\">Edit first</button>\n</div>\n<p id=\"pura-dm-log\" style=\"margin-top: .6rem; font: 13px ui-monospace, monospace; color: var(--pura-muted-fg, #52525b);\">diffmotion events appear here</p>\n<script>\n  document.getElementById('pura-dm-demo').addEventListener('diffmotion', function(e){\n    var d = e.detail;\n    document.getElementById('pura-dm-log').textContent =\n      'added[' + d.added.join(',') + '] moved[' + d.moved.join(',') + '] changed[' + d.changed.join(',') + '] removed[' + d.removed.join(',') + ']';\n  });\n</script>",
+  "usage": "<pura-diff-motion id=\"list\">\n  <li data-key=\"1\" data-sig=\"Buy milk\">Buy milk</li>\n  <li data-key=\"2\" data-sig=\"Walk dog\">Walk dog</li>\n</pura-diff-motion>\n\n<script type=\"module\">\n  const dm = document.getElementById('list');\n  dm.addEventListener('diffmotion', (e) => console.log(e.detail));\n  // mutate the children however you like (framework render, manual DOM, etc.)\n  // -> { added:['3'], removed:[], moved:['2'], changed:[] }\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "diff",
   "title": "Diff",
   "category": "Utility",
