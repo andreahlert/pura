@@ -5928,6 +5928,46 @@ export const components = [
   ]
 },
 {
+  "slug": "motion-budget",
+  "title": "Motion Budget",
+  "category": "Utility",
+  "blurb": "An invisible page-level governor that drives the global --pura-motion token to calm or stop all token-driven motion library-wide, with system reduced-motion awareness. No render, no shadow paint.",
+  "description": "`<pura-motion-budget>` is an invisible, page-level governor for how much motion the whole library may spend. It renders nothing: its only job is to drive the existing global `--pura-motion` token on `<html>` (which pura components already multiply their durations by) plus a machine-readable `data-pura-motion` mirror. Because custom properties inherit across shadow boundaries, one element calms or stops motion inside every component's shadow root at once, without touching any of them. Three semantic modes: `normal` (full motion, steps aside so the system `prefers-reduced-motion` rule still wins), `calm` (half speed, `--pura-motion: 0.5`, to dial down looping vestibular motion without freezing one-shot transitions), and `off` (a hard stop, `--pura-motion: 0`). Set an explicit `scale` (0..1) to override the mode default, or add `respect-system` so a system reduced-motion preference forces `off`. Drive it with `.setMode('calm')`; listen for `motionchange` `{ mode, motion }`. Each instance registers in `window.__puraMotionBudgets` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "mode",
+      "type": "\"normal\" | \"calm\" | \"off\"",
+      "default": "normal",
+      "desc": "Motion budget: full motion, half-speed calm, or a hard stop."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "default": "(per mode)",
+      "desc": "Explicit 0..1 override for --pura-motion. Wins over the mode default, except off which always pins 0."
+    },
+    {
+      "name": "respect-system",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, a system prefers-reduced-motion: reduce forces off regardless of mode."
+    }
+  ],
+  "events": [
+    {
+      "name": "motionchange",
+      "detail": "{ mode, motion }",
+      "desc": "Fired whenever the resolved budget changes."
+    }
+  ],
+  "slots": [],
+  "demoHTML": "<style>\n  @keyframes pura-mb-spin { to { transform: rotate(360deg); } }\n  .pura-mb-demo {\n    width: 56px; height: 56px; border-radius: 12px;\n    background: conic-gradient(from 0deg, var(--pura-primary, #6366f1), transparent 70%);\n    animation: pura-mb-spin calc(1.1s / max(var(--pura-motion, 1), 0.001)) linear infinite;\n  }\n  .pura-mb-btns { display: flex; gap: .5rem; margin-bottom: 1rem; }\n  .pura-mb-btns button { font: 500 13px system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer; }\n</style>\n\n<pura-motion-budget id=\"pura-mb-demo\" mode=\"normal\"></pura-motion-budget>\n<div class=\"pura-mb-btns\">\n  <button onclick=\"document.getElementById('pura-mb-demo').setMode('normal')\">Normal</button>\n  <button onclick=\"document.getElementById('pura-mb-demo').setMode('calm')\">Calm</button>\n  <button onclick=\"document.getElementById('pura-mb-demo').setMode('off')\">Off</button>\n</div>\n<div class=\"pura-mb-demo\"></div>",
+  "usage": "<!-- Drop one governor near the top of the page -->\n<pura-motion-budget mode=\"normal\" respect-system></pura-motion-budget>\n\n<script type=\"module\">\n  const mb = document.querySelector('pura-motion-budget');\n  // Calm the whole page while a heavy animation runs\n  mb.setMode('calm');\n  mb.addEventListener('motionchange', (e) => console.log(e.detail)); // { mode, motion }\n</script>\n\n<!-- Any component duration that multiplies var(--pura-motion) now responds -->",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "motion",
   "title": "Motion",
   "category": "Utility",

@@ -214,3 +214,4 @@ import "./components/confidence-meter.js";
 import "./components/disclosure.js";
 import "./components/agent-cursor.js";
 import "./components/scroll-reveal.js";
+import "./components/motion-budget.js";
