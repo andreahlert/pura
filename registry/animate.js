@@ -148,6 +148,83 @@ export function autoAnimate(container, options = {}) {
   return { enable, disable };
 }
 
+// viewTransition(update, options) — run a DOM update inside the native View
+// Transitions API so the before/after states cross-fade, or morph for elements
+// that share a view-transition-name ("magic move"). Falls back to running
+// update() synchronously when the API is missing or reduced motion is on.
+// Returns the transition's finished promise (resolved immediately in fallback).
+export function viewTransition(update, options = {}) {
+  const skip =
+    reducedMotion() ||
+    typeof document === "undefined" ||
+    typeof document.startViewTransition !== "function" ||
+    options.skip === true;
+  if (skip) {
+    return Promise.resolve(update());
+  }
+  const transition = document.startViewTransition(() => update());
+  return transition.finished;
+}
+
+// spring(options) — physics value driver. onUpdate(value) runs each frame until
+// the spring settles, then onRest(). This is the one per-frame JS loop pura
+// ships (FLIP uses WAAPI instead); fully opt-in. Jumps straight to `to` under
+// reduced motion. Returns { stop }.
+export function spring(options = {}) {
+  const {
+    from = 0,
+    to = 1,
+    stiffness = 170,
+    damping = 26,
+    mass = 1,
+    restDelta = 0.01,
+    onUpdate,
+    onRest,
+  } = options;
+
+  if (reducedMotion() || typeof requestAnimationFrame === "undefined") {
+    onUpdate?.(to);
+    onRest?.();
+    return { stop() {} };
+  }
+
+  let value = from;
+  let velocity = 0;
+  let prev = null;
+  let raf = 0;
+  let stopped = false;
+
+  const step = (now) => {
+    if (stopped) return;
+    if (prev === null) prev = now;
+    const dt = Math.min((now - prev) / 1000, 0.064); // clamp to survive tab blur
+    prev = now;
+
+    const springForce = -stiffness * (value - to);
+    const dampingForce = -damping * velocity;
+    const accel = (springForce + dampingForce) / mass;
+    velocity += accel * dt;
+    value += velocity * dt;
+
+    if (Math.abs(velocity) < restDelta && Math.abs(value - to) < restDelta) {
+      value = to;
+      onUpdate?.(value);
+      onRest?.();
+      return;
+    }
+    onUpdate?.(value);
+    raf = requestAnimationFrame(step);
+  };
+  raf = requestAnimationFrame(step);
+
+  return {
+    stop() {
+      stopped = true;
+      if (typeof cancelAnimationFrame !== "undefined") cancelAnimationFrame(raf);
+    },
+  };
+}
+
 // Re-attach a removed node, pinned over its old position, and fade it out.
 function exit(container, node, rect, frames, duration, easing) {
   const cbox = container.getBoundingClientRect();

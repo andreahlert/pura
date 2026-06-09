@@ -156,6 +156,7 @@ import "./components/date-range-picker.js";
 import "./components/rich-text.js";
 import "./components/markdown-editor.js";
 import "./components/video.js";
+import "./components/view-transition.js";
 import "./components/audio.js";
 import "./components/mention.js";
 import "./components/transfer.js";
