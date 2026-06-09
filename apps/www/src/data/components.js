@@ -7973,6 +7973,47 @@ export const components = [
   ]
 },
 {
+  "slug": "scroll-timeline",
+  "title": "Scroll Timeline",
+  "category": "Utility",
+  "blurb": "A section-scoped scroll progress that pauses on intent. Tracks how far this element has travelled through the viewport and freezes its advance the moment the reader hovers or focuses inside it, exposing the engaged state so an agent can tell a section is being attended to.",
+  "description": "`<pura-scroll-timeline>` is a section-scoped scroll progress that pauses on intent. Where `<pura-scroll-progress>` is a single global reading bar fixed to the top of the viewport (always live, no interaction), this wraps one section and tracks how far *that element* has travelled through the viewport, then freezes its advance the moment the reader shows intent to engage: hovering or keyboard-focusing inside the section. Freezing while engaged stops the motion from competing for attention exactly when someone is reading or operating the content, and the held state is exposed (`data-pura-intent=\"engaged\"`, an `intent` event) so an agent can tell a section is being attended to. The bar is a real `role=\"progressbar\"` with a live `aria-valuenow`; progress is carried by the static fill width, never motion alone. It publishes `--pura-timeline-progress` (0..1, held while engaged) and `--pura-timeline-paused`, which inherit across the shadow boundary so consumer CSS can scrub or pause anything against the section. The pure model (`computeViewProgress`, `timelineState`) is DOM-free and unit-tested. Durations multiply `var(--pura-motion)`, so a `<pura-motion-budget>` governor or reduced motion calms the fill. Set `intent` to `hover`, `focus`, `both` (default) or `none`. Each instance registers in `window.__puraScrollTimelines` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "intent",
+      "type": "\"both\" | \"hover\" | \"focus\" | \"none\"",
+      "default": "both",
+      "desc": "Which gestures freeze the timeline. none disables pausing."
+    },
+    {
+      "name": "height",
+      "type": "length",
+      "default": "3px",
+      "desc": "Thickness of the progress fill."
+    }
+  ],
+  "events": [
+    {
+      "name": "timeline",
+      "detail": "{ progress, paused }",
+      "desc": "Fired on each scroll progress change (0..100)."
+    },
+    {
+      "name": "intent",
+      "detail": "{ engaged, progress }",
+      "desc": "Fired when intent (hover/focus) starts or ends."
+    }
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-scroll-timeline id=\"pura-stl-demo\" intent=\"both\" style=\"display: block; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; padding: 1rem;\">\n  <p style=\"margin: 0 0 .5rem; font: 600 14px system-ui;\">Hover or focus this card to freeze its progress bar</p>\n  <p style=\"margin: 0; font: 400 13px system-ui; color: var(--pura-muted-fg, #71717a);\">Scroll the page and the bar above advances with this section. Move your pointer in (or tab to the button) and it holds, signalling you are engaged. Leave and it resumes.</p>\n  <button style=\"margin-top: .75rem; font: 500 13px system-ui; padding: .4rem .9rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer;\">Focusable target</button>\n  <p id=\"pura-stl-out\" style=\"margin-top: .6rem; font: 500 12px system-ui; color: var(--pura-muted-fg, #71717a);\">idle</p>\n</pura-scroll-timeline>\n<script>\n  (function(){ var el=document.getElementById('pura-stl-demo'); var out=document.getElementById('pura-stl-out');\n    el.addEventListener('intent', function(e){ out.textContent = (e.detail.engaged ? 'engaged, frozen at ' : 'resumed at ') + e.detail.progress + '%'; }); })();\n</script>",
+  "usage": "<pura-scroll-timeline intent=\"both\">\n  <article>... a long section ...</article>\n</pura-scroll-timeline>\n\n<script type=\"module\">\n  const tl = document.querySelector('pura-scroll-timeline');\n  tl.addEventListener('intent', (e) => {\n    // e.detail.engaged is true while the reader hovers/focuses the section\n    if (e.detail.engaged) console.log('reader attending at', e.detail.progress + '%');\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "search-field",
   "title": "Search Field",
   "category": "Form",
