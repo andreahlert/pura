@@ -1,6 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join, basename } from "node:path";
+import { isComponentFile } from "./build-registry.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const COMPONENTS = join(ROOT, "registry", "components");
@@ -16,7 +17,7 @@ export function findMetaGaps(componentNames, metaNames) {
 
 async function main() {
   const all = await readdir(COMPONENTS);
-  const components = all.filter((f) => f.endsWith(".js") && !f.endsWith(".meta.js") && !f.endsWith(".docs.js")).map((f) => basename(f, ".js"));
+  const components = all.filter(isComponentFile).map((f) => basename(f, ".js"));
   const metas = all.filter((f) => f.endsWith(".meta.js")).map((f) => basename(f, ".meta.js"));
   const { missingMeta, orphanMeta } = findMetaGaps(components, metas);
   if (missingMeta.length || orphanMeta.length) {
