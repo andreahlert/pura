@@ -218,3 +218,4 @@ import "./components/motion-budget.js";
 import "./components/narrated-transition.js";
 import "./components/diff-motion.js";
 import "./components/stream-cascade.js";
+import "./components/time-scrub.js";
