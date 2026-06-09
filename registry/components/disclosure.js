@@ -87,6 +87,10 @@ class PuraDisclosure extends PuraElement {
     this._trigger.disabled = this.hasAttribute("disabled");
     this._trigger.setAttribute("aria-label", t("disclosure.toggle"));
     this._content.setAttribute("aria-hidden", open ? "false" : "true");
+    // inert (not just aria-hidden) so focusable children in a collapsed panel
+    // leave the tab order and the a11y tree, avoiding the aria-hidden-focus trap.
+    if (open) this._content.removeAttribute("inert");
+    else this._content.setAttribute("inert", "");
     this.setAttribute("data-pura-open", open ? "true" : "false");
   }
 

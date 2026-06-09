@@ -92,6 +92,22 @@ test("open / close / toggle drive [open] + aria-expanded + data mirror", () => {
   assert.equal(el.hasAttribute("open"), true);
 });
 
+test("collapsed content is inert; open content is not", () => {
+  const el = new PuraDisclosure();
+  el._tag = "pura-disclosure";
+  el.connectedCallback();
+  const content = el.shadowRoot.querySelector(".content");
+
+  // collapsed by default: focusable children leave the tab order
+  assert.equal(content.hasAttribute("inert"), true);
+  assert.equal(content.getAttribute("aria-hidden"), "true");
+
+  el.open();
+  el._sync();
+  assert.equal(content.hasAttribute("inert"), false);
+  assert.equal(content.getAttribute("aria-hidden"), "false");
+});
+
 test("disabled blocks toggle", () => {
   const el = new PuraDisclosure();
   el._tag = "pura-disclosure";
