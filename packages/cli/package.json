@@ -1,9 +1,30 @@
 {
   "name": "purajs",
   "version": "0.1.0",
+  "description": "shadcn-style CLI for pura: copy native web components into your project, no runtime deps, no build step.",
   "type": "module",
   "bin": { "pura": "bin/pura.mjs" },
   "engines": { "node": ">=20" },
+  "files": ["bin", "src", "README.md", "LICENSE"],
+  "keywords": [
+    "pura",
+    "web-components",
+    "custom-elements",
+    "shadow-dom",
+    "cli",
+    "component-registry",
+    "shadcn"
+  ],
+  "license": "MIT",
+  "author": "André Ahlert <andre@aex.partners>",
+  "homepage": "https://andreahlert.github.io/pura/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreahlert/pura.git",
+    "directory": "packages/cli"
+  },
+  "bugs": { "url": "https://github.com/andreahlert/pura/issues" },
+  "publishConfig": { "access": "public" },
   "dependencies": { "diff": "^5.2.0" },
   "scripts": { "test": "node --test \"test/*.test.mjs\"" }
 }
