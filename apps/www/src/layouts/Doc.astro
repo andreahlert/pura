@@ -19,12 +19,18 @@ const activeComp = activeSlug ? components.find((c) => c.slug === activeSlug) : 
 const activePillar = Astro.props.pillarKey || (activeComp ? pillarOf(activeComp.category)?.key : null);
 
 // Sidebar shows only the active pillar's categories (all pillars if none active).
-const sideCats = activePillar
-  ? (PILLARS.find((p) => p.key === activePillar)?.categories || [])
-  : PILLARS.flatMap((p) => p.categories);
-const groups = sideCats
-  .map((cat) => ({ cat, items: components.filter((c) => c.category === cat).sort((a, b) => a.title.localeCompare(b.title)) }))
-  .filter((g) => g.items.length);
+// The Animations facet has no categories: list its tagged members directly.
+let groups;
+if (activePillar === ANIMATIONS.key) {
+  groups = [{ cat: ANIMATIONS.label, items: components.filter((c) => c.animation).sort((a, b) => a.title.localeCompare(b.title)) }];
+} else {
+  const sideCats = activePillar
+    ? (PILLARS.find((p) => p.key === activePillar)?.categories || [])
+    : PILLARS.flatMap((p) => p.categories);
+  groups = sideCats
+    .map((cat) => ({ cat, items: components.filter((c) => c.category === cat).sort((a, b) => a.title.localeCompare(b.title)) }))
+    .filter((g) => g.items.length);
+}
 
 const nav = [
   { href: "/", label: "Home", key: "nav.home" },
@@ -188,6 +194,8 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
           "side.start": { en: "Getting Started", "pt-BR": "Começando", fr: "Démarrage", de: "Erste Schritte", it: "Per iniziare" },
           "side.intro": { en: "Introduction", "pt-BR": "Introdução", fr: "Introduction", de: "Einführung", it: "Introduzione" },
           "toc.title": { en: "On This Page", "pt-BR": "Nesta página", fr: "Sur cette page", de: "Auf dieser Seite", it: "In questa pagina" },
+          "related.components": { en: "Related components", "pt-BR": "Componentes relacionados", fr: "Composants liés", de: "Verwandte Komponenten", it: "Componenti correlati" },
+          "related.blocks": { en: "Related blocks", "pt-BR": "Blocos relacionados", fr: "Blocs liés", de: "Verwandte Blöcke", it: "Blocchi correlati" },
         };
         // pages contribute their own strings via window.__i18nExtra
         const dict = () => Object.assign({}, T, window.__i18nExtra || {});

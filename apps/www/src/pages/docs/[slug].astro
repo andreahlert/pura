@@ -122,7 +122,7 @@ const demos = {
     <section class="related">
       {c.relatedComponents && c.relatedComponents.length > 0 && (
         <div>
-          <h3>Related components</h3>
+          <h3 data-i18n="related.components">Related components</h3>
           <div class="relchips">
             {c.relatedComponents.map((r) => (
               <a href={withBase(`/docs/${r.slug}`)}>{r.title}</a>
@@ -132,7 +132,7 @@ const demos = {
       )}
       {c.relatedBlocks && c.relatedBlocks.length > 0 && (
         <div>
-          <h3>Related blocks</h3>
+          <h3 data-i18n="related.blocks">Related blocks</h3>
           <div class="relchips">
             {c.relatedBlocks.map((b) => (
               <a href={withBase(`/templates/${b.slug}.html`)}>{b.title}</a>
