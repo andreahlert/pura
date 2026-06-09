@@ -210,3 +210,5 @@ import "./components/magic-card.js";
 import "./components/orbiting-circles.js";
 import "./components/particles.js";
 import "./components/grid-pattern.js";
+import "./components/confidence-meter.js";
+import "./components/disclosure.js";

@@ -2325,6 +2325,52 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "confidence-meter",
+  "title": "Confidence Meter",
+  "category": "Display",
+  "blurb": "A meter whose motion encodes an agent's confidence: the fill is the value, the shimmer cadence and a low-end jitter read as certainty. role=meter, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-confidence-meter>` is a `role=\"meter\"` whose *motion* carries an agent's confidence, not just its width. The fill shows the value; a specular shimmer sweeps slowly when confidence is high and flickers fast (with a faint jitter) when it is low, so a glance reads certainty before any number does. Drive it from `0..1` (a bare `75` is read as `0.75`), add an optional `state` phase label, and listen for `confidencechange` `{ value, level, state }`. Each instance registers in `window.__puraConfidenceMeters` by `data-pura-id`, and mirrors `data-pura-confidence-{value,level,state}` for agent inspection. Under reduced motion the bar rests while value, color, and ARIA still convey confidence.",
+  "attributes": [
+    {
+      "name": "value",
+      "type": "number",
+      "default": "0",
+      "desc": "Confidence in 0..1. A bare percentage like \"75\" is read as 0.75. Clamped."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "Optional free-form phase label (e.g. \"thinking\", \"verifying\", \"done\"); echoed in the event and aria-label."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "Optional caption shown above the bar."
+    },
+    {
+      "name": "hide-value",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Hide the numeric percent readout, leaving the bar and label."
+    }
+  ],
+  "events": [
+    {
+      "name": "confidencechange",
+      "detail": "{ value, level, state }",
+      "desc": "Fired on any value or state change. value is 0..1, level is low|medium|high."
+    }
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"display: grid; gap: 1.25rem; padding: 1rem; max-width: 320px;\">\n  <pura-confidence-meter value=\"0.92\" state=\"verified\" label=\"High\"></pura-confidence-meter>\n  <pura-confidence-meter value=\"0.55\" state=\"checking\" label=\"Moderate\"></pura-confidence-meter>\n  <pura-confidence-meter value=\"0.18\" state=\"guessing\" label=\"Low\"></pura-confidence-meter>\n</div>",
+  "usage": "<pura-confidence-meter value=\"0.92\" label=\"Answer confidence\"></pura-confidence-meter>\n\n<script type=\"module\">\n  const m = document.querySelector('pura-confidence-meter');\n  m.addEventListener('confidencechange', (e) => console.log(e.detail)); // { value, level, state }\n  m.setValue(0.4);            // or: m.setAttribute('value', '40')\n  window.__puraConfidenceMeters;  // Map<data-pura-id, element>\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "container",
   "title": "Container",
   "category": "Layout",
@@ -3021,6 +3067,43 @@ export const components = [
   "demoHTML": "<pura-diff\n  block\n  before=\"The brown dog jumped over the low wall.\"\n  after=\"The black cat jumped over the high wall.\"\n  label=\"Difference between the two sentences\"\n></pura-diff>",
   "usage": "<pura-diff\n  block\n  before=\"The brown dog jumped over the low wall.\"\n  after=\"The black cat jumped over the high wall.\"\n  label=\"Difference between the two sentences\"\n></pura-diff>\n\n<!-- Character mode, using slots as the text source -->\n<pura-diff mode=\"chars\" block>\n  <span slot=\"before\">commit 1a2b3c</span>\n  <span slot=\"after\">commit 1a2b3d</span>\n</pura-diff>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "disclosure",
+  "title": "Disclosure",
+  "category": "Layout",
+  "blurb": "Show/hide region that animates height between 0 and auto using native interpolate-size, no grid hack or JS measuring. SSR-safe, reduced-motion aware.",
+  "description": "`<pura-disclosure>` is a show/hide region that animates its height between `0` and the content's natural `auto` using the modern CSS recipe `interpolate-size: allow-keywords` + `transition: height`, no grid-row hack and no JS measuring. Padding, borders, and nested disclosures all tween cleanly. Browsers without `interpolate-size` still open and close, they just snap. Put the summary in `slot=\"trigger\"` and the body in the default slot; drive it with `open`, `.toggle()`, or listen for `disclosuretoggle` `{ open }`. Each instance registers in `window.__puraDisclosures` by `data-pura-id` and mirrors `data-pura-open`. Theme the timing with `--pura-disclosure-duration`.",
+  "attributes": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Expanded when present."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Trigger is inert and toggling is blocked."
+    }
+  ],
+  "events": [
+    {
+      "name": "disclosuretoggle",
+      "detail": "{ open }",
+      "desc": "Fired whenever the open state changes."
+    }
+  ],
+  "slots": [
+    "trigger",
+    "default"
+  ],
+  "demoHTML": "<pura-disclosure style=\"max-width: 420px; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 10px; padding: 0.75rem 1rem;\">\n  <span slot=\"trigger\">What is animate-to-auto?</span>\n  <p style=\"margin: 0; color: var(--pura-muted-fg, #52525b); line-height: 1.6;\">It tweens height from 0 to the content's real size with one CSS transition, using <code>interpolate-size: allow-keywords</code>. No JavaScript measures anything.</p>\n</pura-disclosure>",
+  "usage": "<pura-disclosure>\n  <span slot=\"trigger\">Show more</span>\n  <div>Disclosed content, height animates to auto.</div>\n</pura-disclosure>\n\n<script type=\"module\">\n  const d = document.querySelector('pura-disclosure');\n  d.addEventListener('disclosuretoggle', (e) => console.log(e.detail.open));\n  d.toggle();\n</script>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
