@@ -5513,6 +5513,35 @@ export const components = [
   "usage": ""
 },
 {
+  "slug": "ripple",
+  "title": "Ripple",
+  "category": "Utility",
+  "blurb": "Material-style touch ripple wrapper: a ripple expands from the pointer on press, CSS-only motion, reduced-motion aware.",
+  "description": "`<pura-ripple>` wraps any clickable surface and expands a Material-style ripple from the pointer position on press, fading it out. The motion is pure CSS `@keyframes`: JS only spawns the ripple span at the right coordinates and removes it on `animationend`, so there is no animation runtime. Theme it with `--pura-ripple-color`, `--pura-ripple-opacity`, and `--pura-ripple-duration`; use `centered` for icon buttons and `disabled` to switch it off. Under reduced motion the ripple resolves instantly via the base reset. It registers in `window.__puraRipples` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Suppresses ripples entirely."
+    },
+    {
+      "name": "centered",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Ripples emanate from the host center rather than the pointer position (good for icon buttons)."
+    }
+  ],
+  "events": [
+    "pura-ripple"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: var(--pura-space-4, 1rem); flex-wrap: wrap;\">\n  <pura-ripple style=\"border-radius: 10px;\">\n    <button style=\"padding: 0.6rem 1.2rem; border: 1px solid var(--pura-border, #ddd); border-radius: 10px; background: var(--pura-subtle, #f4f4f5); font: 15px system-ui; cursor: pointer;\">Press me</button>\n  </pura-ripple>\n  <pura-ripple centered style=\"border-radius: 999px; --pura-ripple-color: #2563eb;\">\n    <button style=\"width: 44px; height: 44px; border: 1px solid var(--pura-border, #ddd); border-radius: 999px; background: var(--pura-bg, #fff); font: 18px system-ui; cursor: pointer;\">★</button>\n  </pura-ripple>\n</div>",
+  "usage": "<pura-ripple>\n  <button>Press me</button>\n</pura-ripple>\n\n<!-- Icon button: ripple from center, custom color -->\n<pura-ripple centered style=\"--pura-ripple-color: #2563eb;\">\n  <button aria-label=\"Favorite\">★</button>\n</pura-ripple>"
+},
+{
   "slug": "scroll-area",
   "title": "Scroll Area",
   "category": "Navigation",
@@ -7512,6 +7541,25 @@ export const components = [
   ],
   "demoHTML": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>",
   "usage": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>"
+},
+{
+  "slug": "typing",
+  "title": "Typing Indicator",
+  "category": "Feedback",
+  "blurb": "Three-dot typing indicator for chat and agent UIs, CSS-only animation with an accessible status label.",
+  "description": "`<pura-typing>` is a three-dot \"typing…\" indicator for chat and agent interfaces. The bounce is pure CSS `@keyframes` with a per-dot stagger, and `role=\"status\"` with a localized `aria-label` announces it to assistive tech. Theme it with `--pura-typing-color`, `--pura-typing-size`, and `--pura-typing-gap`. Under reduced motion the dots fall still while the status label still conveys the meaning.",
+  "attributes": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Typing…",
+      "desc": "Overrides the localized accessible label announced by assistive tech."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<div style=\"display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; background: var(--pura-subtle, #f4f4f5); border-radius: 14px;\">\n  <pura-typing></pura-typing>\n</div>",
+  "usage": "<pura-typing></pura-typing>\n\n<!-- Custom color + larger dots -->\n<pura-typing style=\"--pura-typing-color: #2563eb; --pura-typing-size: 0.6rem;\"></pura-typing>"
 },
 {
   "slug": "undo",
