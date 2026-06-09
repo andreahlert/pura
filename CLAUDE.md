@@ -10,7 +10,7 @@ This is a **pnpm workspace monorepo** (`node >= 20`, pnpm 10). Three members:
 
 - `registry/` — the single source of truth. All component source lives here.
 - `apps/www/` (`pura-site`) — Astro docs/showcase site. Deployed to GitHub Pages under base `/pura/`.
-- `packages/cli/` (`purajs`, bin `pura`) — shadcn-style CLI that copies components into a consumer's project.
+- `packages/cli/` (`puracli`, bin `pura`) — shadcn-style CLI that copies components into a consumer's project.
 
 ## Commands
 
@@ -64,7 +64,7 @@ When adding or changing a component, keep all four in sync. `scripts/check-meta.
 
 Deps are parsed from `import ... from "./x.js"` statements; tokens from `var(--pura-*)` usage. After editing a component, run `pnpm build:registry` so the site and registry JSON stay consistent.
 
-## CLI (`purajs`)
+## CLI (`puracli`)
 
 shadcn-style: `pura add <component>` resolves deps from the registry index, verifies each file's sha256 against `registry.json`, copies into the consumer's configured `paths.components`, and records a lock entry. Other commands in `packages/cli/src/commands/`: `init`, `list`, `diff`, `update`, `remove`, `eject`. `eject.mjs` rewrites a Shadow-DOM component to light DOM (`render`→`renderLight`, adds `class="pura-<name>__<part>"` beside each `part=`, rewrites `:host` → `.pura-<name>`) and warns on constructs it could not convert.
 
