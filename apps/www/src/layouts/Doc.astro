@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { components } from "../data/components.js";
+import { PILLARS, ANIMATIONS, pillarOf } from "../data/pillars.js";
 import { withBase, stripBase } from "../lib/base.js";
 
 const {
@@ -11,14 +12,22 @@ const {
 } = Astro.props;
 const path = stripBase(Astro.url.pathname);
 
-const ORDER = ["Primitives", "Form", "Display", "Date", "Navigation", "Overlay", "Disclosure", "Feedback", "Layout", "Marketing", "Agent", "Utility"];
-const groups = ORDER
+// Active pillar = explicit prop (pillar pages, doc pages) or derived from the open
+// component's category. Null on non-docs pages.
+const activeSlug = path.startsWith("/docs/") ? path.slice("/docs/".length) : null;
+const activeComp = activeSlug ? components.find((c) => c.slug === activeSlug) : null;
+const activePillar = Astro.props.pillarKey || (activeComp ? pillarOf(activeComp.category)?.key : null);
+
+// Sidebar shows only the active pillar's categories (all pillars if none active).
+const sideCats = activePillar
+  ? (PILLARS.find((p) => p.key === activePillar)?.categories || [])
+  : PILLARS.flatMap((p) => p.categories);
+const groups = sideCats
   .map((cat) => ({ cat, items: components.filter((c) => c.category === cat).sort((a, b) => a.title.localeCompare(b.title)) }))
   .filter((g) => g.items.length);
 
 const nav = [
   { href: "/", label: "Home", key: "nav.home" },
-  { href: "/docs/button", label: "Docs", match: "/docs", key: "nav.docs" },
   { href: "/templates", label: "Blocks", match: "/templates", key: "nav.blocks" },
   { href: "/theme", label: "Theme", match: "/theme", key: "nav.theme" },
 ];
@@ -53,6 +62,15 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
           <a href={withBase(n.href)} data-i18n={n.key} class={(n.match ? path.startsWith(n.match) : path === "/") ? "on" : ""}>{n.label}</a>
         ))}
         <div class="dropdown">
+          <button class:list={["ddtrigger", { on: path.startsWith("/docs") }]} type="button" aria-haspopup="true" data-i18n="nav.docs">Docs</button>
+          <div class="ddpanel" role="menu">
+            {PILLARS.map((p) => (
+              <a href={withBase(`/docs/pillar/${p.key}`)} role="menuitem"><b>{p.label}</b><span>{p.categories.join(", ")}</span></a>
+            ))}
+            <a href={withBase(`/docs/pillar/${ANIMATIONS.key}`)} role="menuitem"><b>{ANIMATIONS.label}</b><span>Motion components</span></a>
+          </div>
+        </div>
+        <div class="dropdown">
           <button class="ddtrigger" type="button" aria-haspopup="true" data-i18n="nav.features">Features</button>
           <div class="ddpanel" role="menu">
             {features.map((f) => (
@@ -83,6 +101,12 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
     <div class={`layout ${layout === "full" ? "full" : toc.length ? "" : "no-toc"}`}>
       {isDocs && (
         <aside class="side">
+          <div class="pillarbar">
+            {PILLARS.map((p) => (
+              <a href={withBase(`/docs/pillar/${p.key}`)} class={activePillar === p.key ? "on" : ""}>{p.label}</a>
+            ))}
+            <a href={withBase(`/docs/pillar/${ANIMATIONS.key}`)} class={activePillar === ANIMATIONS.key ? "on" : ""}>{ANIMATIONS.label}</a>
+          </div>
           <div class="group"><h4 data-i18n="side.start">Getting Started</h4>
             <a href={withBase("/")} aria-current={path === "/" ? "page" : undefined} data-i18n="side.intro">Introduction</a>
             <a href={withBase("/theme")} aria-current={path === "/theme" ? "page" : undefined} data-i18n="nav.theme">Theming</a>
@@ -206,5 +230,12 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
         }
       })();
     </script>
+
+    <style>
+      .pillarbar { display: flex; flex-wrap: wrap; gap: .25rem; margin-bottom: 1.25rem; }
+      .pillarbar a { font-size: .72rem; padding: .2rem .5rem; border: 1px solid var(--pura-border); border-radius: var(--pura-radius-sm); color: var(--pura-muted-fg); text-decoration: none; }
+      .pillarbar a:hover { background: var(--pura-subtle); }
+      .pillarbar a.on { background: var(--pura-fg); color: var(--pura-bg); border-color: var(--pura-fg); }
+    </style>
   </body>
 </html>
