@@ -12,7 +12,6 @@ Thumbs.db
 # agent artifacts
 .superpowers/
 .claude/
-CLAUDE.md
 **/settings.local.json
 **/scheduled_tasks.lock
 .apache-steward/
