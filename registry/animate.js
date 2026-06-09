@@ -82,11 +82,19 @@ export function autoAnimate(container, options = {}) {
   ];
 
   const rects = new WeakMap();
+  // Nodes currently playing their exit animation. They are re-appended to the
+  // container (pinned, fading out) and removed for real on finish, so they must
+  // be invisible to the snapshot, the FLIP pass, and the removed-handling, or
+  // exit() would re-fire on its own appendChild/remove and loop forever.
+  const exiting = new Set();
   const snapshot = () => {
     for (const child of container.children) {
+      if (exiting.has(child)) continue;
       rects.set(child, child.getBoundingClientRect());
     }
   };
+
+  let observer = null;
 
   const onMutate = (records) => {
     if (reducedMotion()) {
@@ -97,9 +105,11 @@ export function autoAnimate(container, options = {}) {
     const added = new Set();
     const removed = [];
     for (const r of records) {
-      r.addedNodes.forEach((n) => n.nodeType === 1 && added.add(n));
+      r.addedNodes.forEach((n) => {
+        if (n.nodeType === 1 && !exiting.has(n)) added.add(n);
+      });
       r.removedNodes.forEach((n) => {
-        if (n.nodeType !== 1) return;
+        if (n.nodeType !== 1 || exiting.has(n)) return;
         const rect = rects.get(n);
         if (rect) removed.push({ node: n, rect, next: r.nextSibling });
       });
@@ -107,7 +117,7 @@ export function autoAnimate(container, options = {}) {
 
     // FLIP the children that stayed (moved by the add/remove).
     for (const child of container.children) {
-      if (added.has(child)) continue;
+      if (added.has(child) || exiting.has(child)) continue;
       const prev = rects.get(child);
       if (!prev) continue;
       const now = child.getBoundingClientRect();
@@ -127,15 +137,25 @@ export function autoAnimate(container, options = {}) {
     }
 
     // Exit: re-insert the removed node absolutely at its old spot, animate out,
-    // then drop it for real. This is what gives removal a smooth fade.
+    // then drop it for real. The re-append and the final remove are our own DOM
+    // surgery, so silence the observer around them: disconnect, drain the queued
+    // records the surgery generated, then re-observe. The `exiting` guard above
+    // keeps those nodes out of every pass meanwhile.
     for (const { node, rect } of removed) {
-      exit(container, node, rect, exitFrames, duration, easing);
+      exiting.add(node);
+      exit(container, node, rect, exitFrames, duration, easing, () => {
+        observer?.disconnect();
+        node.remove();
+        exiting.delete(node);
+        observer?.takeRecords();
+        observer?.observe(container, { childList: true });
+      });
     }
 
     snapshot();
   };
 
-  const observer =
+  observer =
     typeof MutationObserver !== "undefined" ? new MutationObserver(onMutate) : null;
 
   const enable = () => {
@@ -226,7 +246,9 @@ export function spring(options = {}) {
 }
 
 // Re-attach a removed node, pinned over its old position, and fade it out.
-function exit(container, node, rect, frames, duration, easing) {
+// `done` performs the real removal (the caller silences the observer around it
+// so the re-append and remove don't re-trigger autoAnimate).
+function exit(container, node, rect, frames, duration, easing, done) {
   const cbox = container.getBoundingClientRect();
   const cs = getComputedStyle(container);
   if (cs.position === "static") container.style.position = "relative";
@@ -239,6 +261,6 @@ function exit(container, node, rect, frames, duration, easing) {
   node.style.height = `${rect.height}px`;
   container.appendChild(node);
   const anim = node.animate(frames, { duration, easing });
-  anim.onfinish = () => node.remove();
-  anim.oncancel = () => node.remove();
+  anim.onfinish = done;
+  anim.oncancel = done;
 }

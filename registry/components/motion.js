@@ -79,16 +79,24 @@ class PuraMotion extends PuraElement {
       this.setAttribute("data-pura-motion-state", this._state);
     });
 
+    // Arm the transition only after mount. The template gates its transition on
+    // [data-motion-ready], so a server-rendered `show` paints visible with no
+    // flash; the animation runs only on a later toggle.
+    //
     // appear: start hidden, then enter on the next frame so the transition runs
     // even though `show` was present at mount. _appearing guards the spurious
-    // exit event the removeAttribute would otherwise emit.
+    // exit event the removeAttribute would otherwise emit. data-motion-ready and
+    // the re-added `show` land in the same frame so the enter actually animates.
     if (this.hasAttribute("appear") && this.shown) {
       this._appearing = true;
       this.removeAttribute("show");
       requestAnimationFrame(() => {
         this._appearing = false;
+        this.setAttribute("data-motion-ready", "");
         if (this.isConnected) this.setAttribute("show", "");
       });
+    } else {
+      requestAnimationFrame(() => this.setAttribute("data-motion-ready", ""));
     }
 
     this._state = this.shown ? "entered" : "exited";
