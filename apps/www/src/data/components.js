@@ -6006,6 +6006,42 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "narrated-transition",
+  "title": "Narrated Transition",
+  "category": "Utility",
+  "blurb": "Runs a state change inside the native View Transitions API and narrates it: captures before/after named state, diffs it, and emits a structured { from, to, reason, changed } account plus a screen-reader announcement.",
+  "description": "`<pura-narrated-transition>` runs a UI state change inside the native View Transitions API like `<pura-view-transition>`, but it *narrates* the change: it captures the named state before and after, diffs them, and emits a structured `transitionnarrate` event `{ from, to, reason, changed }` plus a polite screen-reader announcement. Where a plain view transition only answers \"play a morph\", this also answers \"it went from `{status:'idle'}` to `{status:'done'}` because 'order placed', changing `status`\", so an agent reading the page learns the semantic delta, not just that pixels moved. You own the state: seed it with the `.state` property (or a JSON `state` attribute), then drive changes through `transition({ to, reason }, updateFn)` (morph + narrate) or `narrate(to, reason)` (narrate only). Under reduced motion or an unsupported engine the morph degrades to an instant update while the narration still fires identically. Each instance registers in `window.__puraNarratedTransitions` by `data-pura-id` and mirrors the latest narration in `data-pura-narration-reason` / `data-pura-narration-changed`.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "Applies view-transition-name to the host so it morphs as a shared element across page-level transitions."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "Optional initial state as a JSON object."
+    }
+  ],
+  "events": [
+    {
+      "name": "transitionnarrate",
+      "detail": "{ id, from, to, reason, changed, at }",
+      "desc": "Fired after a transition or narrate(): changed is an array of { key, from, to }."
+    }
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-narrated-transition id=\"pura-nt-demo\" state='{\"status\":\"idle\",\"count\":0}'>\n  <div id=\"pura-nt-panel\" style=\"padding: 1.25rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; font: 500 14px system-ui;\">\n    <strong>status:</strong> <span id=\"pura-nt-status\">idle</span> &nbsp; <strong>count:</strong> <span id=\"pura-nt-count\">0</span>\n  </div>\n</pura-narrated-transition>\n<p id=\"pura-nt-log\" style=\"margin-top: .75rem; font: 13px ui-monospace, monospace; color: var(--pura-muted-fg, #52525b);\">click to place an order, the change is narrated below</p>\n<button style=\"margin-top: .5rem; font: 500 13px system-ui; padding: .4rem .9rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer;\" onclick=\"(function(){ const nt = document.getElementById('pura-nt-demo'); const next = nt.state.status === 'idle' ? 'done' : 'idle'; nt.transition({ to: { status: next, count: nt.state.count + 1 }, reason: next === 'done' ? 'order placed' : 'order reset' }, function(){ document.getElementById('pura-nt-status').textContent = next; document.getElementById('pura-nt-count').textContent = String(nt.state.count + 1); }); })()\">Toggle order</button>\n<script>\n  document.getElementById('pura-nt-demo').addEventListener('transitionnarrate', function(e){\n    document.getElementById('pura-nt-log').textContent = e.detail.reason + ' \\u2192 changed ' + e.detail.changed.map(function(c){ return c.key + ': ' + c.from + '\\u2192' + c.to; }).join(', ');\n  });\n</script>",
+  "usage": "<pura-narrated-transition id=\"order\" state='{\"status\":\"idle\"}'>\n  <div id=\"panel\">idle</div>\n</pura-narrated-transition>\n\n<script type=\"module\">\n  const nt = document.getElementById('order');\n  nt.addEventListener('transitionnarrate', (e) => console.log(e.detail));\n  await nt.transition(\n    { to: { status: 'done' }, reason: 'order placed' },\n    () => { document.getElementById('panel').textContent = 'done'; },\n  );\n  // -> { from:{status:'idle'}, to:{status:'done'}, reason:'order placed',\n  //      changed:[{ key:'status', from:'idle', to:'done' }] }\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "navigation-menu",
   "title": "Navigation Menu",
   "category": "Navigation",
