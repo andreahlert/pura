@@ -4231,6 +4231,41 @@ export const components = [
   "usage": "<div style=\"display:flex;flex-direction:column;gap:1.25rem;max-width:24rem\">\n  <pura-meter label=\"Disk usage\" value=\"42\" min=\"0\" max=\"64\" value-text=\"42 GB\" low=\"48\" high=\"58\" optimum=\"0\"></pura-meter>\n  <pura-meter label=\"Battery\" value=\"88\" min=\"0\" max=\"100\" value-text=\"88%\" low=\"20\" high=\"80\" optimum=\"100\"></pura-meter>\n  <pura-meter label=\"CPU temperature\" value=\"76\" min=\"30\" max=\"95\" value-text=\"76 degrees C\" low=\"60\" high=\"80\" optimum=\"40\"></pura-meter>\n</div>"
 },
 {
+  "slug": "motion",
+  "title": "Motion",
+  "category": "Utility",
+  "blurb": "Generic enter/exit motion wrapper: toggle the show attribute to animate any content in and out, CSS-only and reduced-motion aware.",
+  "description": "`<pura-motion>` is pura's foundational presence wrapper: it animates any slotted content in and out as the `show` attribute is toggled, with seven presets (fade, slide-up/down/left/right, scale, fade-slide). The motion is pure CSS driven entirely by `show`, so there is no JS animation runtime: content rendered already-`show` on the server snaps in with no hydration flash, and the transition only runs when `show` is toggled at runtime. When hidden the content leaves layout (`display: none` via `allow-discrete`), and under reduced motion the whole transition is skipped for an instant display swap. It has an agent-native layer: each instance registers in `window.__puraMotions` by `data-pura-id` and mirrors config and live state in `data-pura-motion-*` attributes, letting an agent enumerate, read, and drive every transition without traversing the DOM.",
+  "attributes": [
+    {
+      "name": "show",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Present = content visible (entered); absent = content removed (exited). Toggling at runtime runs the transition; rendered already-show snaps in with no flash."
+    },
+    {
+      "name": "animation",
+      "type": "\"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"scale\" | \"fade-slide\"",
+      "default": "fade",
+      "desc": "Entrance/exit animation style. Invalid values fall back to fade."
+    },
+    {
+      "name": "appear",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present and show is set at mount, starts hidden and plays the enter animation on the first frame (opt-in mount animation)."
+    }
+  ],
+  "events": [
+    "pura-motion"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-4, 1rem); justify-items: start;\">\n  <pura-button onclick=\"this.nextElementSibling.toggle()\">Toggle</pura-button>\n  <pura-motion show animation=\"slide-up\">\n    <article style=\"padding: var(--pura-space-5, 1.5rem); border: 1px solid var(--pura-border, #ddd); border-radius: 12px; font: 16px/1.5 system-ui;\">\n      <h3 style=\"margin-top: 0;\">Animated panel</h3>\n      <p>This block slides up and fades as it enters, and reverses on exit.</p>\n    </article>\n  </pura-motion>\n</div>",
+  "usage": "<pura-button onclick=\"document.querySelector('#panel').toggle()\">Toggle</pura-button>\n\n<pura-motion id=\"panel\" show animation=\"slide-up\">\n  <article>\n    <h3>Animated panel</h3>\n    <p>This block slides up and fades as it enters, and reverses on exit.</p>\n  </article>\n</pura-motion>\n\n<!-- Imperative API -->\n<script>\n  const m = document.querySelector('#panel');\n  m.enter();   // show\n  m.exit();    // hide\n  m.toggle();  // flip\n</script>"
+},
+{
   "slug": "navigation-menu",
   "title": "Navigation Menu",
   "category": "Navigation",

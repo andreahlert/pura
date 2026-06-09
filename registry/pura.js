@@ -83,6 +83,7 @@ import "./components/marquee.js";
 import "./components/masonry.js";
 import "./components/mediaquery.js";
 import "./components/menubar.js";
+import "./components/motion.js";
 import "./components/meter.js";
 import "./components/navigation-menu.js";
 import "./components/notification-item.js";

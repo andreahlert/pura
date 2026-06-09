@@ -66,7 +66,27 @@
   --pura-shadow-lg: 0 10px 30px -10px rgb(0 0 0 / 0.25),
     0 4px 12px -6px rgb(0 0 0 / 0.12);
 
-  /* motion */
+  /* motion — duration scale (short micro -> long overlay) */
+  --pura-duration-1: 100ms;
+  --pura-duration-2: 150ms;
+  --pura-duration-3: 200ms;
+  --pura-duration-4: 300ms;
+  --pura-duration-5: 400ms;
+  --pura-duration-6: 600ms;
+
+  /* motion — named easings. Rule: decelerate in, accelerate out, linear reads
+     as broken. spring/emphasized are the expressive tier for hero moments. */
+  --pura-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --pura-ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --pura-ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --pura-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.2);
+  --pura-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* motion switch: 1 = motion on, 0 = off. Multiply any duration by it so a
+     single token disables motion library-wide. Flipped under reduced-motion. */
+  --pura-motion: 1;
+
+  /* back-compat aliases (pre-token-scale components reference these) */
   --pura-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --pura-dur: 160ms;
 
@@ -81,6 +101,15 @@
   --pura-chart-8: #65a30d;
 
   color-scheme: light;
+}
+
+/* reduced motion: flip the global switch so any duration multiplied by
+   var(--pura-motion) collapses to 0. base.js RESET already zeroes raw
+   transition/animation durations; this token covers JS-driven motion. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pura-motion: 0;
+  }
 }
 
 :root[data-theme="dark"] {
