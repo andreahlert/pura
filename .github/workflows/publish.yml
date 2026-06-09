@@ -1,0 +1,40 @@
+name: Publish puracli to npm
+
+# Trusted publishing (OIDC): no NPM_TOKEN. npm mints a short-lived token
+# from the GitHub OIDC identity, so the npm "Trusted Publisher" config must
+# match this workflow filename (publish.yml) and the environment (npm).
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # The "stage" gate: add required reviewers to this environment in repo
+    # settings to require manual approval before the publish step runs.
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write # required for OIDC trusted publishing + provenance
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1; node 22 ships an older npm.
+      - run: npm install -g npm@latest
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter puracli test
+
+      - run: npm publish --access public
+        working-directory: packages/cli
