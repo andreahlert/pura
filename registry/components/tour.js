@@ -2,8 +2,9 @@
 // spotlighting each one and showing a coachmark popover with Back / Next / Done
 // controls plus a step counter. The spotlight overlay is a native <dialog>
 // (showModal → top layer + ESC + focus trap); the coachmark card is a native
-// Popover anchored to the live target via CSS anchor positioning (unique
-// anchor-name per instance) with JS repositioning + a viewport fallback.
+// Popover positioned in JS relative to the target's bounding rect, with auto
+// placement (bottom/top/right/left), viewport clamping, and a centered fallback
+// when there is no target (CSS anchor positioning can't cross the shadow boundary).
 //
 // Steps are declared as <pura-tour-step> children:
 //   <pura-tour-step target="#sel" title="Heading">Body text…</pura-tour-step>
@@ -28,8 +29,7 @@ class PuraTour extends PuraElement {
   static observedAttributes = ["index"];
 
   connectedCallback() {
-    this._name = `--pura-tour-${uid++}`;
-    this._id = this.id || `pura-tour-${uid}`;
+    this._id = this.id || `pura-tour-${++uid}`;
     this._index = 0;
     this._running = false;
     this._target = null;
@@ -55,7 +55,7 @@ class PuraTour extends PuraElement {
            </footer>
          </section>
        </dialog>`,
-      CSS.replaceAll("ANCHOR", this._name)
+      CSS
     );
 
     this._dlg = this.$("dialog");
@@ -153,7 +153,6 @@ class PuraTour extends PuraElement {
     this._releaseTarget();
     this._target = sel ? document.querySelector(sel) : null;
     if (this._target) {
-      this._target.style.setProperty("anchor-name", this._name);
       this._target.scrollIntoView({ block: "center", inline: "center", behavior: "smooth" });
     }
 
@@ -170,7 +169,7 @@ class PuraTour extends PuraElement {
     // stable machine-readable state on the overlay
     this._dlg.dataset.step = String(i);
     this._dlg.dataset.total = String(steps.length);
-    this._card.dataset.placement = step.getAttribute("placement") || "auto";
+    this._wantPlacement = step.getAttribute("placement") || "auto";
 
     this._position();
     requestAnimationFrame(() => this._nextBtn.focus());
@@ -206,7 +205,6 @@ class PuraTour extends PuraElement {
 
   _releaseTarget() {
     if (this._target) {
-      this._target.style.removeProperty("anchor-name");
       this._target = null;
     }
   }
@@ -238,11 +236,61 @@ class PuraTour extends PuraElement {
       this._spot.style.width = `${w}px`;
       this._spot.style.height = `${h}px`;
       this._card.dataset.anchored = "true";
+      this._positionCard(r);
     } else {
-      // No target → center the card, no spotlight hole.
+      // No target → center the card, no spotlight hole. Drop the JS coords so
+      // the [data-anchored="false"] CSS rule can center it.
       this._spot.style.display = "none";
       this._card.dataset.anchored = "false";
+      this._card.style.removeProperty("top");
+      this._card.style.removeProperty("left");
+      this._card.style.removeProperty("translate");
     }
+  }
+
+  // Place the coachmark card relative to the target with JS. CSS anchor
+  // positioning can't cross the shadow boundary (anchor-name is declared on the
+  // light-DOM target, position-anchor lives in this shadow tree, so anchor()
+  // resolves to 0 → top-left). Inline top/left override the stylesheet's
+  // anchor() values; we measure the card and clamp it inside the viewport.
+  _positionCard(r) {
+    const gap = 8;   // distance from the target
+    const edge = 8;  // min margin from the viewport edge
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const c = this._card.getBoundingClientRect();
+    const cw = c.width;
+    const ch = c.height;
+
+    const fits = {
+      bottom: r.bottom + gap + ch <= vh - edge,
+      top: r.top - gap - ch >= edge,
+      right: r.right + gap + cw <= vw - edge,
+      left: r.left - gap - cw >= edge,
+    };
+    const order = ["bottom", "top", "right", "left"];
+    let place = this._wantPlacement || "auto";
+    if (place === "auto" || !fits[place]) {
+      place = order.find((p) => fits[p]) || "bottom";
+    }
+
+    let top;
+    let left;
+    if (place === "bottom" || place === "top") {
+      left = r.left + r.width / 2 - cw / 2;
+      top = place === "bottom" ? r.bottom + gap : r.top - gap - ch;
+    } else {
+      top = r.top + r.height / 2 - ch / 2;
+      left = place === "right" ? r.right + gap : r.left - gap - cw;
+    }
+
+    left = Math.min(Math.max(left, edge), Math.max(edge, vw - cw - edge));
+    top = Math.min(Math.max(top, edge), Math.max(edge, vh - ch - edge));
+
+    this._card.dataset.placement = place; // resolved side (for styling hooks / tests)
+    this._card.style.translate = "0";
+    this._card.style.top = `${top}px`;
+    this._card.style.left = `${left}px`;
   }
 }
 
@@ -271,12 +319,11 @@ const CSS = `
       height var(--pura-dur) var(--pura-ease);
   }
 
-  /* Coachmark card — native popover in the top layer, anchored to the target. */
+  /* Coachmark card — native popover in the top layer. JS owns top/left/translate
+     (CSS anchor positioning can't cross the shadow boundary, see _positionCard). */
   .card {
-    position: fixed; position-anchor: ANCHOR;
-    margin: 0; inset: auto; box-sizing: border-box; border: none;
-    top: anchor(bottom); left: anchor(center);
-    translate: -50% var(--pura-space-2);
+    position: fixed; inset: auto;
+    margin: 0; box-sizing: border-box;
     width: max-content; max-width: min(22rem, 92vw);
     display: flex; flex-direction: column; gap: var(--pura-space-3);
     background: var(--pura-bg); color: var(--pura-fg);
@@ -288,22 +335,10 @@ const CSS = `
       transform var(--pura-dur) var(--pura-ease);
   }
   .card:popover-open { opacity: 1; transform: none; }
-  .card[data-placement="top"] { top: auto; bottom: anchor(top); translate: -50% calc(var(--pura-space-2) * -1); }
-  .card[data-placement="right"] { top: anchor(center); left: anchor(right); translate: var(--pura-space-2) -50%; }
-  .card[data-placement="left"] { top: anchor(center); left: anchor(left); translate: calc(-100% - var(--pura-space-2)) -50%; }
 
-  /* Fallback: no anchor support OR no target → center on screen. */
+  /* No target → center on screen (JS clears inline top/left/translate). */
   .card[data-anchored="false"] {
-    position-anchor: none;
-    top: 50%; left: 50%; bottom: auto; right: auto;
-    translate: -50% -50%;
-  }
-  @supports not (anchor-name: --x) {
-    .card {
-      position-anchor: none;
-      top: auto; bottom: var(--pura-space-6); left: 50%; right: auto;
-      translate: -50% 0;
-    }
+    top: 50%; left: 50%; translate: -50% -50%;
   }
 
   .card-header { display: flex; align-items: flex-start; gap: var(--pura-space-3); }

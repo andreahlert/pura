@@ -190,6 +190,20 @@ const allItems = components.map((c) => ({ slug: c.slug, title: c.title, category
           const io = new IntersectionObserver((es) => { es.forEach((en) => { if (en.isIntersecting) { links.forEach((l) => l.classList.remove("active")); map.get(en.target.id)?.classList.add("active"); } }); }, { rootMargin: "-10% 0px -80% 0px" });
           links.forEach((a) => { const el = document.getElementById(a.dataset.toc); if (el) io.observe(el); });
         }
+
+        // ---- sidebar scroll persistence (full-page nav resets it otherwise) ----
+        const side = document.querySelector("aside.side");
+        if (side) {
+          const KEY = "pura-side-scroll";
+          const y = sessionStorage.getItem(KEY);
+          if (y !== null) side.scrollTop = +y;
+          let raf = 0;
+          side.addEventListener("scroll", () => {
+            if (raf) return;
+            raf = requestAnimationFrame(() => { raf = 0; sessionStorage.setItem(KEY, side.scrollTop); });
+          }, { passive: true });
+          addEventListener("pagehide", () => sessionStorage.setItem(KEY, side.scrollTop));
+        }
       })();
     </script>
   </body>
