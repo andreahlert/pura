@@ -109,6 +109,69 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "agent-cursor",
+  "title": "Agent Cursor",
+  "category": "Tools",
+  "blurb": "A replayable ghost cursor that drives over slotted content from a portable JSON trace: tweens between points, pulses on click, shows a per-step label. SSR-safe, reduced-motion aware, agent-enumerable.",
+  "description": "`<pura-agent-cursor>` replays a sequence of pointer actions over its slotted content from a portable JSON trace, so an agent can *show* what it did (or will do) instead of only describing it. The ghost cursor tweens between points by timestamp, pulses a ring on `click` steps, and surfaces a per-step `label` tooltip plus a screen-reader announcement. Feed it a trace via the `.trace` property, an inline `<script type=\"application/json\">` child, or a `trace` URL attribute. Control it with `play()`, `pause()`, `restart()`, `seek(ms)`, `autoplay`, `loop`, and `speed`; listen for `cursorstep` `{ index, action, target, label, value, t }`, `cursorplay`, `cursorpause`, `cursorend`. Each instance registers in `window.__puraAgentCursors` by `data-pura-id` and mirrors `data-pura-cursor-{playing,step}`. The trace format is `{ version: 1, steps: [{ x, y, t, action, target?, label?, value? }] }` with `x`/`y` in px relative to the element (or a `target` selector to center on), `t` in milliseconds, and `action` one of `move` (default), `click`, `type`, `hover`.",
+  "attributes": [
+    {
+      "name": "trace",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "URL to a JSON trace { version, steps:[{x,y,t,action,target,label,value}] }. An inline <script type=\"application/json\"> child or the .trace property take priority."
+    },
+    {
+      "name": "autoplay",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Start replaying as soon as a trace is applied."
+    },
+    {
+      "name": "loop",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Restart from the beginning when the replay ends."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "1",
+      "desc": "Playback rate multiplier (2 = twice as fast)."
+    }
+  ],
+  "events": [
+    {
+      "name": "cursorstep",
+      "detail": "{ index, action, target, label, value, t }",
+      "desc": "Fired when the replay enters a new step."
+    },
+    {
+      "name": "cursorplay",
+      "detail": "{}",
+      "desc": "Fired when playback starts."
+    },
+    {
+      "name": "cursorpause",
+      "detail": "{}",
+      "desc": "Fired when playback pauses."
+    },
+    {
+      "name": "cursorend",
+      "detail": "{}",
+      "desc": "Fired when a non-looping replay reaches the end."
+    }
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-agent-cursor autoplay loop style=\"display: block; position: relative; height: 160px; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; background: var(--pura-muted, #fafafa);\">\n  <script type=\"application/json\">{ \"version\": 1, \"steps\": [\n    { \"x\": 30, \"y\": 30, \"t\": 0, \"label\": \"Open menu\" },\n    { \"x\": 220, \"y\": 40, \"t\": 1200, \"action\": \"hover\", \"label\": \"Hover item\" },\n    { \"x\": 150, \"y\": 120, \"t\": 2400, \"action\": \"click\", \"label\": \"Confirm\" },\n    { \"x\": 30, \"y\": 30, \"t\": 3600, \"label\": \"Back\" }\n  ] }</script>\n  <div style=\"padding: 1rem; font: 500 13px system-ui; color: var(--pura-muted-fg, #52525b);\">A scripted cursor replays over this panel.</div>\n</pura-agent-cursor>",
+  "usage": "<pura-agent-cursor trace=\"/traces/checkout.json\" loop></pura-agent-cursor>\n\n<script type=\"module\">\n  const c = document.querySelector('pura-agent-cursor');\n  c.trace = { version: 1, steps: [\n    { x: 20, y: 20, t: 0, label: 'Start' },\n    { x: 180, y: 90, t: 1000, action: 'click', target: '#submit', label: 'Submit' },\n  ] };\n  c.addEventListener('cursorstep', (e) => console.log(e.detail));\n  c.play();\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "agent-hint",
   "title": "Agent Hint",
   "category": "Agent",
