@@ -1,0 +1,47 @@
+---
+import Doc from "../../../layouts/Doc.astro";
+import { components } from "../../../data/components.js";
+import { PILLARS, ANIMATIONS } from "../../../data/pillars.js";
+import { withBase } from "../../../lib/base.js";
+
+export function getStaticPaths() {
+  const paths = PILLARS.map((p) => ({ params: { pillar: p.key }, props: { pillar: p } }));
+  paths.push({ params: { pillar: ANIMATIONS.key }, props: { pillar: { ...ANIMATIONS, categories: null, facet: true } } });
+  return paths;
+}
+
+const { pillar } = Astro.props;
+const groups = pillar.facet
+  ? [{ cat: "Animations", items: components.filter((c) => c.animation).sort((a, b) => a.title.localeCompare(b.title)) }]
+  : pillar.categories
+      .map((cat) => ({ cat, items: components.filter((c) => c.category === cat).sort((a, b) => a.title.localeCompare(b.title)) }))
+      .filter((g) => g.items.length);
+const total = groups.reduce((n, g) => n + g.items.length, 0);
+---
+
+<Doc title={pillar.label} description={`pura ${pillar.label} components`} pillarKey={pillar.key}>
+  <h1>{pillar.label}</h1>
+  <p class="lede">{total} components{pillar.facet ? " with motion" : ""}.</p>
+  {groups.map((g) => (
+    <section>
+      <h2>{g.cat}</h2>
+      <div class="cardgrid">
+        {g.items.map((c) => (
+          <a class="ccard" href={withBase(`/docs/${c.slug}`)}>
+            <b>{c.title}</b><span>{c.blurb}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Doc>
+
+<style>
+  h1 { font-size: 2.1rem; letter-spacing: -.03em; margin: 0 0 .4rem; }
+  .lede { font-size: 1rem; color: var(--pura-muted-fg); margin: 0 0 2rem; }
+  h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--pura-muted); margin: 2rem 0 .75rem; }
+  .cardgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+  .ccard { display: flex; flex-direction: column; gap: .25rem; padding: .8rem 1rem; border: 1px solid var(--pura-border); border-radius: var(--pura-radius); }
+  .ccard:hover { border-color: var(--pura-border-strong); background: var(--pura-subtle); }
+  .ccard b { font-size: .9rem; } .ccard span { font-size: .78rem; color: var(--pura-muted); line-height: 1.4; }
+</style>
