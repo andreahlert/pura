@@ -1,0 +1,5 @@
+export default {
+  "description": "`<pura-typewriter>` types text out character by character and can cycle through several `|`-separated `phrases`, with an optional CSS-only blinking `caret`. It is accessible by design: the full text is rendered for no-JS and exposed via the host `aria-label`, while the animated span is `aria-hidden` so screen readers are not spammed per keystroke. Tune `speed`, `delete-speed`, and `pause`; start on view, load, or manually. Under reduced motion it renders the first phrase in full with no typing. It mirrors the visible text in `data-pura-typewriter-text` and registers in `window.__puraTypewriters` for agent enumeration.",
+  "demoHTML": "<div style=\"font: 600 1.4rem system-ui;\">\n  <pura-typewriter phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\" caret loop speed=\"60\"></pura-typewriter>\n</div>",
+  "usage": "<!-- Single phrase -->\n<pura-typewriter text=\"Welcome to pura\" caret></pura-typewriter>\n\n<!-- Cycle phrases forever -->\n<pura-typewriter\n  phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\"\n  caret loop speed=\"60\"></pura-typewriter>"
+};

@@ -1850,6 +1850,69 @@ export const components = [
   "usage": "<pura-copy-region value=\"npm install pura\" label=\"Copy command\" style=\"max-width:32rem\">\n  <pre style=\"margin:0;padding:1rem 1.25rem;background:#0f172a;color:#e2e8f0;border-radius:8px;font-family:ui-monospace,monospace;font-size:.9rem;overflow:auto\"><code>npm install pura</code></pre>\n</pura-copy-region>\n\n<p id=\"status-copy\" role=\"status\"></p>\n\n<script type=\"module\">\n  import \"/pura/lib/copy-region.js\";\n  const status = document.getElementById(\"status-copy\");\n  document.querySelector(\"pura-copy-region\").addEventListener(\"copy\", (e) => {\n    status.textContent = `Copied: ${e.detail.value}`;\n  });\n</script>"
 },
 {
+  "slug": "count-up",
+  "title": "Count Up",
+  "category": "Display",
+  "blurb": "Animates a number from a start to a target with eased counting, starts on view, jumps to the final value under reduced motion.",
+  "description": "`<pura-count-up>` animates a number from `from` to `to` with eased counting. It starts on first view by default (IntersectionObserver), supports `decimals`, a thousands `separator`, and `prefix`/`suffix` for currency or percentages, and exposes `start()` / `reset()`. The server renders the final value so the number is correct and accessible without JS, and under reduced motion the client skips the tween and shows the target immediately. It mirrors the live number in `data-pura-count-up-value` and registers in `window.__puraCountUps` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "to",
+      "type": "number",
+      "default": "0",
+      "desc": "Target number to count up (or down) to. Required."
+    },
+    {
+      "name": "from",
+      "type": "number",
+      "default": "0",
+      "desc": "Starting number."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "token --pura-duration-6",
+      "desc": "Tween length in milliseconds."
+    },
+    {
+      "name": "decimals",
+      "type": "number",
+      "default": "0",
+      "desc": "Fixed decimal places."
+    },
+    {
+      "name": "separator",
+      "type": "string",
+      "default": "",
+      "desc": "Thousands separator, e.g. \",\"."
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "default": "",
+      "desc": "String prepended to the number, e.g. \"$\"."
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "default": "",
+      "desc": "String appended to the number, e.g. \"%\"."
+    },
+    {
+      "name": "start",
+      "type": "\"view\" | \"load\" | \"manual\"",
+      "default": "view",
+      "desc": "When to begin: on first intersection, immediately on load, or only via start()."
+    }
+  ],
+  "events": [
+    "pura-count-up"
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"display: flex; gap: 2.5rem; flex-wrap: wrap; font: 600 2rem system-ui;\">\n  <pura-count-up to=\"1284\" separator=\",\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"1500\"></pura-count-up>\n</div>",
+  "usage": "<pura-count-up to=\"1284\" separator=\",\"></pura-count-up>\n<pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\"></pura-count-up>\n<pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"2000\"></pura-count-up>\n\n<!-- Trigger manually -->\n<pura-count-up to=\"500\" start=\"manual\" id=\"score\"></pura-count-up>\n<script>document.querySelector('#score').start();</script>"
+},
+{
   "slug": "countdown",
   "title": "Countdown",
   "category": "Feedback",
@@ -2261,6 +2324,35 @@ export const components = [
   ],
   "demoHTML": "<pura-dropdown-menu>\n  <button slot=\"trigger\">Options</button>\n\n  <pura-menu-label>Account</pura-menu-label>\n  <pura-menu-item>\n    Profile\n    <span slot=\"shortcut\">Ctrl P</span>\n  </pura-menu-item>\n  <pura-menu-item>\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-menu-item>\n\n  <pura-menu-separator></pura-menu-separator>\n\n  <pura-menu-item disabled>Billing</pura-menu-item>\n  <pura-menu-item>Sign out</pura-menu-item>\n</pura-dropdown-menu>",
   "usage": "<pura-dropdown-menu>\n  <button slot=\"trigger\">Options</button>\n\n  <pura-menu-label>Account</pura-menu-label>\n  <pura-menu-item>\n    Profile\n    <span slot=\"shortcut\">Ctrl P</span>\n  </pura-menu-item>\n  <pura-menu-item>\n    Settings\n    <span slot=\"shortcut\">Ctrl ,</span>\n  </pura-menu-item>\n\n  <pura-menu-separator></pura-menu-separator>\n\n  <pura-menu-item disabled>Billing</pura-menu-item>\n  <pura-menu-item>Sign out</pura-menu-item>\n</pura-dropdown-menu>"
+},
+{
+  "slug": "emphasis",
+  "title": "Emphasis",
+  "category": "Utility",
+  "blurb": "Attention-seeking animations (bounce, heartbeat, wiggle, tada, shake, pulse, flash) as a wrapper, CSS-only and reduced-motion aware.",
+  "description": "`<pura-emphasis>` wraps any content with an attention-seeking animation: `bounce`, `heartbeat`, `wiggle`, `tada`, `shake`, `pulse`, or `flash`. The motion is pure CSS `@keyframes` selected by the `animation` attribute; the `trigger` decides when it plays, `hover` and `loop` are CSS-only while `view` plays on first intersection and `manual` plays via `play()`. Theme the timing with `--pura-emphasis-duration`. The base reset neutralizes it under reduced motion. It registers in `window.__puraEmphasis` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "animation",
+      "type": "\"bounce\" | \"heartbeat\" | \"wiggle\" | \"tada\" | \"shake\" | \"pulse\" | \"flash\"",
+      "default": "pulse",
+      "desc": "The emphasis preset. Invalid values fall back to pulse."
+    },
+    {
+      "name": "trigger",
+      "type": "\"hover\" | \"view\" | \"loop\" | \"manual\"",
+      "default": "manual",
+      "desc": "What plays the animation: hover (CSS), view (first intersection), loop (infinite), or manual via play()."
+    }
+  ],
+  "events": [
+    "pura-emphasis"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; font: 15px system-ui;\">\n  <pura-emphasis animation=\"bounce\" trigger=\"loop\"><span style=\"font-size: 1.6rem;\">🔔</span></pura-emphasis>\n  <pura-emphasis animation=\"heartbeat\" trigger=\"loop\"><span style=\"font-size: 1.6rem;\">❤️</span></pura-emphasis>\n  <pura-emphasis animation=\"wiggle\" trigger=\"hover\"><span style=\"padding: 0.4rem 0.8rem; border: 1px solid var(--pura-border, #ddd); border-radius: 8px;\">Hover me</span></pura-emphasis>\n  <pura-emphasis animation=\"tada\" trigger=\"hover\"><span style=\"padding: 0.4rem 0.8rem; border: 1px solid var(--pura-border, #ddd); border-radius: 8px;\">And me</span></pura-emphasis>\n</div>",
+  "usage": "<!-- Loop forever -->\n<pura-emphasis animation=\"bounce\" trigger=\"loop\">🔔</pura-emphasis>\n\n<!-- Play on hover -->\n<pura-emphasis animation=\"wiggle\" trigger=\"hover\">\n  <button>Hover me</button>\n</pura-emphasis>\n\n<!-- Play manually -->\n<pura-emphasis animation=\"tada\" id=\"win\">🎉</pura-emphasis>\n<script>document.querySelector('#win').play();</script>"
 },
 {
   "slug": "empty",
@@ -7568,6 +7660,69 @@ export const components = [
   ],
   "demoHTML": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>",
   "usage": "<pura-truncate lines=\"2\" more-label=\"read more\" less-label=\"read less\" style=\"max-width: 380px; display: block;\">\n  The Blue Ridge Mountains are one of the most prominent ranges in the eastern United States, stretching across Virginia, North Carolina, and Georgia. Their trails, waterfalls, and mild climate draw visitors all year long, especially in the winter months, when temperatures drop close to freezing at the higher elevations.\n</pura-truncate>"
+},
+{
+  "slug": "typewriter",
+  "title": "Typewriter",
+  "category": "Display",
+  "blurb": "Types text out character by character, optionally cycling phrases, with a CSS caret; renders full text and is accessible under reduced motion.",
+  "description": "`<pura-typewriter>` types text out character by character and can cycle through several `|`-separated `phrases`, with an optional CSS-only blinking `caret`. It is accessible by design: the full text is rendered for no-JS and exposed via the host `aria-label`, while the animated span is `aria-hidden` so screen readers are not spammed per keystroke. Tune `speed`, `delete-speed`, and `pause`; start on view, load, or manually. Under reduced motion it renders the first phrase in full with no typing. It mirrors the visible text in `data-pura-typewriter-text` and registers in `window.__puraTypewriters` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "",
+      "desc": "The string to type (single phrase)."
+    },
+    {
+      "name": "phrases",
+      "type": "string",
+      "default": "",
+      "desc": "\"|\"-separated phrases to cycle through. Overrides text."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "55",
+      "desc": "Milliseconds per character while typing."
+    },
+    {
+      "name": "delete-speed",
+      "type": "number",
+      "default": "30",
+      "desc": "Milliseconds per character while deleting."
+    },
+    {
+      "name": "pause",
+      "type": "number",
+      "default": "1400",
+      "desc": "Milliseconds to hold a completed phrase before deleting."
+    },
+    {
+      "name": "caret",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Show a blinking caret."
+    },
+    {
+      "name": "loop",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Keep cycling phrases (delete and retype)."
+    },
+    {
+      "name": "start",
+      "type": "\"view\" | \"load\" | \"manual\"",
+      "default": "view",
+      "desc": "When to begin: on first intersection, immediately on load, or only via start()."
+    }
+  ],
+  "events": [
+    "pura-typewriter"
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"font: 600 1.4rem system-ui;\">\n  <pura-typewriter phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\" caret loop speed=\"60\"></pura-typewriter>\n</div>",
+  "usage": "<!-- Single phrase -->\n<pura-typewriter text=\"Welcome to pura\" caret></pura-typewriter>\n\n<!-- Cycle phrases forever -->\n<pura-typewriter\n  phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\"\n  caret loop speed=\"60\"></pura-typewriter>"
 },
 {
   "slug": "typing",
