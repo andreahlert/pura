@@ -1,6 +1,6 @@
 {
   "name": "puracli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "shadcn-style CLI for pura: copy native web components into your project, no runtime deps, no build step.",
   "type": "module",
   "bin": { "pura": "bin/pura.mjs" },
