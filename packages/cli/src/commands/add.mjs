@@ -11,19 +11,31 @@ async function writeFileMk(path, content) {
   await writeFile(path, content);
 }
 
-export async function runAdd({ cwd, name, now }) {
-  if (!name) throw new Error("usage: pura add <component>");
+export async function runAdd({ cwd, name, names, now }) {
+  const list = names ?? (name ? [name] : []);
+  if (list.length === 0) throw new Error("usage: pura add <component> [component...]");
   const config = await readConfig(cwd);
   const fetcher = makeFetcher(config.registry);
   const index = await getIndex(fetcher);
-  const plan = await resolveInstall({ fetcher, index, getItem, name });
+
+  // Resolve every requested component up front, merging the plans so shared
+  // deps and root files are fetched/written once.
+  const components = new Map();
+  const rootFiles = new Set();
+  let needsTokens = false;
+  for (const n of list) {
+    const plan = await resolveInstall({ fetcher, index, getItem, name: n });
+    for (const item of plan.components) components.set(item.name, item);
+    for (const f of plan.rootFiles) rootFiles.add(f);
+    needsTokens = needsTokens || plan.needsTokens;
+  }
 
   const compDir = join(cwd, config.paths.components);
   const lib = join(cwd, libDir(config));
 
   let lock = await readLock(cwd);
 
-  for (const item of plan.components) {
+  for (const item of components.values()) {
     verifyItem(item);
     for (const f of item.files) {
       await writeFileMk(join(compDir, f.target), f.content);
@@ -41,13 +53,13 @@ export async function runAdd({ cwd, name, now }) {
     });
   }
 
-  for (const file of plan.rootFiles) {
+  for (const file of rootFiles) {
     await writeFileMk(join(lib, file), await getRootFile(fetcher, file));
   }
-  if (plan.needsTokens) {
+  if (needsTokens) {
     await writeFileMk(join(cwd, config.paths.tokens), await getRootFile(fetcher, "tokens.css"));
   }
 
   await writeLock(cwd, lock);
-  console.log(`added ${plan.components.map((c) => c.name).join(", ")}`);
+  console.log(`added ${[...components.keys()].join(", ")}`);
 }

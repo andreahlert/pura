@@ -3,6 +3,20 @@
 All notable changes to `puracli` are documented here. This project follows
 [Semantic Versioning](https://semver.org/).
 
+## [0.0.4] - 2026-06-10
+
+### Changed
+- Config file renamed from `components.json` to `pura.json`, matching the
+  README and avoiding the collision with shadcn/ui's `components.json` that
+  made `pura init` fail in any project already using shadcn. A legacy
+  `components.json` carrying the pura fields (`registry` + `paths.components`)
+  is still read as a fallback, so existing merged setups keep working.
+
+### Fixed
+- `pura add` now accepts multiple components in one call
+  (`pura add table inline-edit`); extra arguments were silently ignored.
+  Plans are merged so shared deps and root files are written once.
+
 ## [0.0.3] - 2026-06-10
 
 ### Changed

@@ -13,7 +13,7 @@ const now = () => new Date().toISOString();
 
 try {
   if (cmd === "init") await runInit({ cwd });
-  else if (cmd === "add") await runAdd({ cwd, name: rest[0], now });
+  else if (cmd === "add") await runAdd({ cwd, names: rest, now });
   else if (cmd === "list") await runList({ cwd });
   else if (cmd === "update") await runUpdate({ cwd, name: rest[0], now });
   else if (cmd === "diff") await runDiff({ cwd, name: rest[0] });

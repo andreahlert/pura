@@ -7,8 +7,8 @@ shadcn-style CLI for [pura](https://andreahlert.github.io/pura/), a library of ~
 No install needed:
 
 ```bash
-npx puracli init          # scaffold pura.json config
-npx puracli add button    # copy a component (+ its deps) into your project
+npx puracli init                # scaffold pura.json config
+npx puracli add button dialog   # copy components (+ deps) into your project
 ```
 
 Or install globally:
@@ -22,8 +22,8 @@ pura add dialog
 
 | Command | What it does |
 |---------|--------------|
-| `pura init` | Create `pura.json` (component paths, registry URL). |
-| `pura add <name>` | Resolve deps from the registry, verify each file's sha256, copy in, record a lock entry. |
+| `pura init` | Create `pura.json` (component paths, registry URL). Coexists with shadcn's `components.json`. |
+| `pura add <name> [name...]` | Resolve deps from the registry, verify each file's sha256, copy in, record a lock entry. |
 | `pura list` | List installed components. |
 | `pura diff <name>` | Show local vs registry diff for a component. |
 | `pura update <name>` | Pull the latest version from the registry. |

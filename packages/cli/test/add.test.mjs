@@ -50,6 +50,34 @@ test("add writes component, base.js, tokens.css; records lock + cache", async ()
   assert.match(cached, /pura-button/);
 });
 
+test("add accepts multiple components in one call", async () => {
+  const reg = await localRegistry();
+  // second component in the same registry
+  const src2 = `import { PuraElement, define } from "../base.js";\ndefine("pura-badge", class extends PuraElement {});`;
+  const index = JSON.parse(await readFile(join(reg, "r", "registry.json"), "utf8"));
+  index.components.push({ name: "badge", hash: sha256(src2), deps: ["base"], tokens: true });
+  await writeFile(join(reg, "r", "registry.json"), JSON.stringify(index));
+  await writeFile(join(reg, "r", "badge.json"), JSON.stringify({
+    name: "badge", version: "0.0.0-dev", hash: sha256(src2), deps: ["base"], tokens: ["--pura-primary"],
+    files: [{ target: "badge.js", content: src2, hash: sha256(src2) }],
+  }));
+
+  const dir = await project(reg);
+  await runAdd({ cwd: dir, names: ["button", "badge"], now: () => "t" });
+
+  await readFile(join(dir, "src/pura/components/button.js"), "utf8");
+  await readFile(join(dir, "src/pura/components/badge.js"), "utf8");
+  const lock = JSON.parse(await readFile(join(dir, "pura.lock"), "utf8"));
+  assert.ok(lock.components.button);
+  assert.ok(lock.components.badge);
+});
+
+test("add without components shows usage", async () => {
+  const reg = await localRegistry();
+  const dir = await project(reg);
+  await assert.rejects(runAdd({ cwd: dir, names: [], now: () => "t" }), /usage: pura add/);
+});
+
 test("add fails closed on a tampered registry item", async () => {
   const reg = await localRegistry();
   const itemPath = join(reg, "r", "button.json");

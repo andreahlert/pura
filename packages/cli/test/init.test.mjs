@@ -5,15 +5,23 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { runInit } from "../src/commands/init.mjs";
 
-test("runInit writes a default components.json", async () => {
+test("runInit writes a default pura.json", async () => {
   const dir = await mkdtemp(join(tmpdir(), "pura-"));
   await runInit({ cwd: dir });
-  const c = JSON.parse(await readFile(join(dir, "components.json"), "utf8"));
+  const c = JSON.parse(await readFile(join(dir, "pura.json"), "utf8"));
   assert.equal(c.paths.components, "src/pura/components");
 });
 
 test("runInit refuses to overwrite an existing config", async () => {
   const dir = await mkdtemp(join(tmpdir(), "pura-"));
-  await writeFile(join(dir, "components.json"), "{}");
+  await writeFile(join(dir, "pura.json"), "{}");
   await assert.rejects(runInit({ cwd: dir }), /already exists/);
+});
+
+test("runInit coexists with a shadcn components.json", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "pura-"));
+  await writeFile(join(dir, "components.json"), JSON.stringify({ style: "new-york" }));
+  await runInit({ cwd: dir });
+  const c = JSON.parse(await readFile(join(dir, "pura.json"), "utf8"));
+  assert.equal(c.paths.components, "src/pura/components");
 });
