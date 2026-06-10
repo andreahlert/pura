@@ -1,4 +1,6 @@
 // <pura-spinner> — loading indicator. size: sm | md (default) | lg.
+// variant: ring (default) | dots | pulse | ripple — the motion.dev loading set
+// (spinning arc, jumping dots, pulsing dots, expanding ripple) in pure CSS.
 import { PuraElement, define } from "../base.js";
 import meta from "./spinner.meta.js";
 import { t, onLocaleChange, registerMessages } from "../i18n.js";

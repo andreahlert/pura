@@ -4,8 +4,14 @@ export default {
   "category": "Display",
   "title": "Spinner",
   "role": "",
-  "summary": "Animated loading indicator in three sizes.",
+  "summary": "Animated loading indicator in four variants and three sizes.",
   "attributes": [
+    {
+      "name": "variant",
+      "type": "\"ring\" | \"dots\" | \"pulse\" | \"ripple\"",
+      "default": "ring",
+      "desc": "Loading style: ring (spinning arc), dots (jumping dots), pulse (pulsing dots), or ripple (expanding rings)."
+    },
     {
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
