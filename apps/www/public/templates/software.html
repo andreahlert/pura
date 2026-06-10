@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vantage · Ship infrastructure at the speed of thought</title>
+  <meta name="description" content="SaaS product site template assembled entirely from pura components." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    :root {
+      --v-bg: #08090c;
+      --v-panel: #0e1015;
+      --v-line: #1d212b;
+      --v-fg: #f4f5f7;
+      --v-muted: #8b91a0;
+      --v-accent: #5eead4;
+      --v-accent-2: #818cf8;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--v-bg); color: var(--v-fg); }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+    ::selection { background: var(--v-accent); color: var(--v-bg); }
+    a { color: inherit; }
+
+    .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 2rem;
+      background: color-mix(in srgb, var(--v-bg) 75%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--v-line);
+    }
+    .nav .logo { font-weight: 800; letter-spacing: -0.03em; font-size: 1.05rem; }
+    .nav .logo i { color: var(--v-accent); font-style: normal; }
+    .nav .links { display: flex; gap: 1.75rem; font-size: 0.82rem; color: var(--v-muted); }
+    .nav .links a { text-decoration: none; }
+    .nav .links a:hover { color: var(--v-fg); }
+
+    section { position: relative; padding: clamp(4.5rem, 11vh, 8rem) clamp(1.25rem, 5vw, 4rem); }
+    .wrap { max-width: 1120px; margin-inline: auto; }
+    .kicker {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--v-accent); margin: 0 0 1.25rem;
+    }
+
+    /* hero */
+    .hero { min-height: 100svh; display: grid; place-content: center; text-align: center; gap: 1.4rem; padding-top: 7rem; }
+    .hero h1 {
+      margin: 0; font-size: clamp(2.6rem, 7.5vw, 6.2rem);
+      line-height: 1.02; letter-spacing: -0.045em; max-width: 16ch;
+    }
+    .hero .sub { color: var(--v-muted); font-size: clamp(0.95rem, 1.6vw, 1.15rem); max-width: 52ch; margin-inline: auto; line-height: 1.65; }
+    .hero .ctas { display: flex; gap: 0.9rem; justify-content: center; margin-top: 0.6rem; }
+    .cta {
+      display: inline-block; text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      border-radius: 999px; padding: 0.85rem 1.9rem;
+    }
+    .cta.primary { background: var(--v-fg); color: var(--v-bg); }
+    .cta.ghost { border: 1px solid var(--v-line); color: var(--v-fg); }
+
+    /* terminal window */
+    .term-window {
+      margin: 3.5rem auto 0; max-width: 760px; text-align: left;
+      border-radius: 1rem; border: 1px solid var(--v-line);
+      background: var(--v-panel); overflow: hidden; position: relative;
+    }
+    .term-head { display: flex; gap: 6px; padding: 0.8rem 1rem; border-bottom: 1px solid var(--v-line); }
+    .term-head i { width: 11px; height: 11px; border-radius: 50%; background: var(--v-line); }
+    .term-body { padding: 1.1rem 1.25rem; font: 0.85rem/1.7 ui-monospace, monospace; color: var(--v-muted); }
+    .term-body .ok { color: var(--v-accent); }
+
+    /* logo marquee */
+    .logos { padding-block: 2.5rem; border-block: 1px solid var(--v-line); }
+    .logos .logo-row { display: flex; gap: 4.5rem; align-items: center; padding-right: 4.5rem; }
+    .logos .logo-row span {
+      font-weight: 700; letter-spacing: -0.02em; font-size: 1.25rem;
+      color: var(--v-muted); white-space: nowrap; opacity: 0.7;
+    }
+
+    /* velocity strip */
+    .strip { padding: 5rem 0; overflow: clip; }
+    .strip .big {
+      font-size: clamp(2.6rem, 10vw, 8rem); font-weight: 850; letter-spacing: -0.04em;
+      line-height: 1; white-space: nowrap; padding-right: 3.5rem;
+      color: transparent; -webkit-text-stroke: 1px var(--v-muted);
+    }
+    .strip .big em { font-style: normal; color: var(--v-fg); -webkit-text-stroke: 0; }
+
+    /* stats */
+    .stats .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--v-line); border: 1px solid var(--v-line); border-radius: 1rem; overflow: hidden; }
+    .stats .cell { background: var(--v-panel); padding: 2rem; }
+    .stats .num { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; letter-spacing: -0.04em; }
+    .stats .num .unit { color: var(--v-accent); }
+    .stats .lbl { color: var(--v-muted); font-size: 0.82rem; margin-top: 0.4rem; }
+
+    /* feature deck */
+    .deckwrap { max-width: 820px; margin-inline: auto; }
+    .feat-card {
+      min-height: 54svh; border-radius: 1.4rem; border: 1px solid var(--v-line);
+      background: linear-gradient(165deg, var(--v-panel), var(--v-bg) 75%);
+      padding: clamp(1.6rem, 4.5vw, 3rem);
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 -24px 60px -32px rgb(0 0 0 / 0.9);
+    }
+    .feat-card .n { font: 0.78rem ui-monospace, monospace; color: var(--v-accent); letter-spacing: 0.18em; }
+    .feat-card h3 { font-size: clamp(1.7rem, 4vw, 2.9rem); letter-spacing: -0.03em; line-height: 1.06; margin: 0; }
+    .feat-card p { color: var(--v-muted); line-height: 1.7; max-width: 54ch; margin: 0.9rem 0 0; }
+    .feat-card .art { height: 120px; border-radius: 0.8rem; margin-top: 1.4rem; }
+    .a1 { background: linear-gradient(120deg, #134e4a, #042f2e); }
+    .a2 { background: linear-gradient(120deg, #312e81, #1e1b4b); }
+    .a3 { background: linear-gradient(120deg, #3b0764, #1e1b4b); }
+
+    /* code panel */
+    .code-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+    @media (max-width: 860px) { .code-grid { grid-template-columns: 1fr; } }
+    .code-grid h2 { font-size: clamp(1.9rem, 4.5vw, 3.4rem); letter-spacing: -0.035em; line-height: 1.05; margin: 0 0 1rem; }
+    .code-grid p { color: var(--v-muted); line-height: 1.7; }
+
+    /* gallery */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; }
+    .shot {
+      height: 300px; border-radius: 1rem; padding: 1.2rem;
+      display: grid; place-items: end start;
+      font: 0.75rem ui-monospace, monospace; letter-spacing: 0.14em; color: #fff;
+    }
+    .s1 { background: linear-gradient(140deg, #0d9488, #155e75); }
+    .s2 { background: linear-gradient(140deg, #6366f1, #4c1d95); }
+    .s3 { background: linear-gradient(140deg, #0ea5e9, #1e3a8a); }
+
+    /* testimonials */
+    .quotes pura-carousel { max-width: 720px; margin-inline: auto; }
+    .quotes .q-slide { padding: 0.5rem 3rem 2.2rem; }
+
+    /* pricing + faq shared width */
+    .narrow { max-width: 900px; margin-inline: auto; }
+
+    /* outro */
+    .outro { text-align: center; padding-block: 9rem; border-top: 1px solid var(--v-line); }
+    .outro h2 { font-size: clamp(2.2rem, 7vw, 5.2rem); letter-spacing: -0.045em; line-height: 1; margin: 0 0 2rem; }
+    .footer {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      padding: 2rem; border-top: 1px solid var(--v-line);
+      color: var(--v-muted); font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <pura-cursor hide-native blend></pura-cursor>
+  <pura-scroll-progress style="position: fixed; top: 0; left: 0; right: 0; z-index: 30;"></pura-scroll-progress>
+
+  <nav class="nav">
+    <span class="logo">vantage<i>.</i></span>
+    <div class="links">
+      <a href="#features" data-cursor>Features</a>
+      <a href="#pricing" data-cursor>Pricing</a>
+      <a href="#faq" data-cursor>FAQ</a>
+    </div>
+    <pura-magnetic strength="0.4" radius="110">
+      <a class="cta ghost" href="#" data-cursor style="padding: 0.55rem 1.3rem; font-size: 0.82rem;">Sign in</a>
+    </pura-magnetic>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="kicker">
+      <pura-badge variant="success" dot>v3.0 is live</pura-badge>
+    </p>
+    <h1>
+      <pura-type-morph timeline="scroll" range="0% 14%" from-wght="250" to-wght="850">
+        Ship infrastructure at the speed of thought.
+      </pura-type-morph>
+    </h1>
+    <p class="sub">Vantage provisions, scales and heals your stack from one declarative file. No YAML labyrinths, no 3 a.m. pages.</p>
+    <div class="ctas">
+      <pura-magnetic strength="0.5" radius="150">
+        <a class="cta primary" href="#pricing" data-cursor data-cursor-text="GO">Start free</a>
+      </pura-magnetic>
+      <a class="cta ghost" href="#features" data-cursor>See how it works</a>
+    </div>
+
+    <div class="term-window">
+      <pura-border-beam size="220" duration="9"></pura-border-beam>
+      <div class="term-head" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="term-body">
+        <div>$ vantage deploy --prod</div>
+        <div><pura-typewriter text="Resolving 14 services... building graph... provisioning edge..." speed="24"></pura-typewriter></div>
+        <div class="ok">✓ Deployed to 31 regions in <pura-ticker value="2.4" decimals="1" suffix="s" duration="1800"></pura-ticker></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS -->
+  <div class="logos">
+    <pura-marquee speed="32" pause-on-hover label="Trusted by teams at">
+      <div class="logo-row" aria-hidden="true">
+        <span>HALCYON</span><span>fennec</span><span>Polaris</span><span>KITE</span><span>ombra</span><span>Northwind</span><span>VOLT</span>
+      </div>
+    </pura-marquee>
+  </div>
+
+  <!-- VELOCITY STRIP -->
+  <pura-velocity max="6" factor="11">
+    <div class="strip">
+      <pura-marquee speed="26" label="Deploy preview scale heal repeat">
+        <span class="big">DEPLOY · PREVIEW · <em>SCALE</em> · HEAL · REPEAT ·&nbsp;</span>
+      </pura-marquee>
+    </div>
+  </pura-velocity>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="wrap">
+      <p class="kicker">By the numbers</p>
+      <div class="grid">
+        <div class="cell">
+          <div class="num"><pura-count-up to="99.99" decimals="2"></pura-count-up><span class="unit">%</span></div>
+          <div class="lbl">Uptime, trailing 12 months</div>
+        </div>
+        <div class="cell">
+          <div class="num"><pura-count-up to="31"></pura-count-up><span class="unit">+</span></div>
+          <div class="lbl">Edge regions worldwide</div>
+        </div>
+        <div class="cell">
+          <div class="num"><pura-count-up to="4200" separator=","></pura-count-up></div>
+          <div class="lbl">Teams shipping on Vantage</div>
+        </div>
+        <div class="cell">
+          <div class="num"><pura-count-up to="180" prefix="<"></pura-count-up><span class="unit">ms</span></div>
+          <div class="lbl">p99 cold start</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE DECK -->
+  <section id="features">
+    <div class="wrap"><p class="kicker">Why Vantage</p></div>
+    <div class="deckwrap">
+      <pura-deck top="84" peek="12" gap="44">
+        <div class="feat-card">
+          <span class="n">001 / PROVISION</span>
+          <div>
+            <h3>One file. Whole stack.</h3>
+            <p>Describe services, queues and databases in a single declarative manifest. Vantage diffs reality against intent and reconciles, every deploy, every region.</p>
+            <div class="art a1"></div>
+          </div>
+        </div>
+        <div class="feat-card">
+          <span class="n">002 / PREVIEW</span>
+          <div>
+            <h3>Every branch is an environment.</h3>
+            <p>Push a branch, get a production-grade copy of your entire stack with seeded data and isolated queues. Tear-down is automatic on merge.</p>
+            <div class="art a2"></div>
+          </div>
+        </div>
+        <div class="feat-card">
+          <span class="n">003 / HEAL</span>
+          <div>
+            <h3>Incidents resolve themselves.</h3>
+            <p>Anomaly detection rolls back bad deploys, reroutes traffic and opens a postmortem draft before your pager fires. You read the report at breakfast.</p>
+            <div class="art a3"></div>
+          </div>
+        </div>
+      </pura-deck>
+    </div>
+  </section>
+
+  <!-- CODE -->
+  <section>
+    <div class="wrap code-grid">
+      <div>
+        <p class="kicker">Developer first</p>
+        <h2>
+          <pura-type-morph timeline="view" range="cover 5% cover 55%" from-wght="300" to-wght="800">
+            Config that reads like intent.
+          </pura-type-morph>
+        </h2>
+        <p>Strong defaults, total overridability. The manifest below runs a real app with a queue, a cron and a Postgres, globally replicated.</p>
+        <p><pura-kbd>⌘</pura-kbd> <pura-kbd>K</pura-kbd> <span style="color: var(--v-muted); font-size: 0.85rem;">opens the command palette anywhere in the dashboard.</span></p>
+      </div>
+      <pura-clip-reveal direction="right" range="cover 0% cover 50%">
+        <pura-code-block language="yaml" code="app: checkout
+regions: [gru, iad, fra]
+
+services:
+  api:
+    run: bun server.ts
+    scale: { min: 2, max: 40 }
+  worker:
+    run: bun worker.ts
+    queue: payments
+
+data:
+  postgres: { replicas: 3 }
+  cron: '0 4 * * * cleanup'"></pura-code-block>
+      </pura-clip-reveal>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section>
+    <div class="wrap">
+      <p class="kicker">Inside the dashboard</p>
+      <div class="gallery">
+        <pura-clip-reveal direction="up" range="cover 0% cover 45%">
+          <pura-tilt max="9" scale="1.02" glare>
+            <div class="shot s1" data-cursor data-cursor-text="VIEW">DEPLOY GRAPH</div>
+          </pura-tilt>
+        </pura-clip-reveal>
+        <pura-clip-reveal direction="up" range="cover 8% cover 53%">
+          <pura-tilt max="9" scale="1.02" glare>
+            <div class="shot s2" data-cursor data-cursor-text="VIEW">LIVE TRACES</div>
+          </pura-tilt>
+        </pura-clip-reveal>
+        <pura-clip-reveal direction="up" range="cover 16% cover 61%">
+          <pura-tilt max="9" scale="1.02" glare>
+            <div class="shot s3" data-cursor data-cursor-text="VIEW">COST LENS</div>
+          </pura-tilt>
+        </pura-clip-reveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="quotes">
+    <div class="wrap">
+      <p class="kicker" style="text-align:center">What teams say</p>
+      <pura-carousel loop label="Customer testimonials">
+        <div class="q-slide">
+          <pura-testimonial author="Lena Vogel" role="CTO, Halcyon" rating="5">
+            We deleted 6,000 lines of Terraform the first week. Deploys went from 40 minutes to 90 seconds and nobody has touched a YAML file since.
+          </pura-testimonial>
+        </div>
+        <div class="q-slide">
+          <pura-testimonial author="Rafael Duarte" role="Staff Engineer, Polaris" rating="5">
+            The self-healing alone paid for itself. A bad migration rolled back at 2 a.m. and the postmortem draft was waiting in Slack when I woke up.
+          </pura-testimonial>
+        </div>
+        <div class="q-slide">
+          <pura-testimonial author="Imani Okafor" role="Platform Lead, Kite" rating="4.5">
+            Preview environments with seeded data changed how our designers work. They review real flows, not screenshots.
+          </pura-testimonial>
+        </div>
+      </pura-carousel>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="narrow">
+      <p class="kicker" style="text-align:center">Pricing</p>
+      <pura-pricing-table label="Vantage plans" min="15rem">
+        <pura-pricing-tier name="Hobby" price="$0" period="/mo">
+          <span slot="description">Side projects and experiments.</span>
+          <ul>
+            <li>1 app, 2 regions</li>
+            <li>Community support</li>
+            <li>Preview environments</li>
+          </ul>
+          <pura-button slot="action" variant="outline">Start free</pura-button>
+        </pura-pricing-tier>
+        <pura-pricing-tier name="Scale" price="$49" period="/mo" featured badge="Most popular">
+          <span slot="description">Production workloads, growing teams.</span>
+          <ul>
+            <li>Unlimited apps, 31 regions</li>
+            <li>Self-healing rollbacks</li>
+            <li>SSO and audit log</li>
+          </ul>
+          <pura-button slot="action">Start 14-day trial</pura-button>
+        </pura-pricing-tier>
+        <pura-pricing-tier name="Enterprise" price="Custom">
+          <span slot="description">Compliance, VPC peering, SLAs.</span>
+          <ul>
+            <li>Dedicated cells</li>
+            <li>99.99% SLA</li>
+            <li>Solutions engineering</li>
+          </ul>
+          <pura-button slot="action" variant="outline">Talk to us</pura-button>
+        </pura-pricing-tier>
+      </pura-pricing-table>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="narrow">
+      <p class="kicker">Questions</p>
+      <pura-faq label="Frequently asked questions">
+        <pura-faq-item open>
+          <span slot="question">Do I need to rewrite my app?</span>
+          No. Vantage runs your existing containers and processes. The manifest describes how to run what you already have.
+        </pura-faq-item>
+        <pura-faq-item>
+          <span slot="question">What happens when a deploy goes bad?</span>
+          Anomaly detection compares error rates and latency against the previous release and rolls back automatically within seconds, then drafts a postmortem.
+        </pura-faq-item>
+        <pura-faq-item>
+          <span slot="question">Can I bring my own cloud account?</span>
+          Yes. Scale and Enterprise plans can target your AWS or GCP organization, with Vantage acting as the control plane.
+        </pura-faq-item>
+        <pura-faq-item>
+          <span slot="question">Is there a free tier forever?</span>
+          The Hobby plan is free forever, with no credit card. You only pay when you outgrow it.
+        </pura-faq-item>
+      </pura-faq>
+    </div>
+  </section>
+
+  <!-- OUTRO -->
+  <section class="outro">
+    <h2><pura-scramble trigger="view" speed="26" text="STOP BABYSITTING SERVERS"></pura-scramble></h2>
+    <pura-magnetic strength="0.5" radius="160">
+      <a class="cta primary" href="#" data-cursor data-cursor-text="GO" style="font-size: 1rem; padding: 1.05rem 2.4rem;">Deploy your first app</a>
+    </pura-magnetic>
+  </section>
+
+  <footer class="footer">
+    <span>vantage. · a pura template</span>
+    <span>Assembled from 25+ pura components. Zero dependencies.</span>
+  </footer>
+</body>
+</html>

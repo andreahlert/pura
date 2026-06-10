@@ -1,0 +1,458 @@
+---
+// pura LP — awwwards-style motion showcase. Every move on this page is a pura
+// component; no bespoke animation code, only composition.
+---
+
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pura — motion, native</title>
+    <meta
+      name="description"
+      content="180+ native web components and a full motion toolkit. Zero dependencies, zero build, scroll-driven by the platform."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
+    />
+    <link rel="stylesheet" href="/pura/tokens.css" />
+    <script type="module" src="/pura/pura.js"></script>
+    <style>
+      :root {
+        --lp-bg: #09090b;
+        --lp-fg: #fafafa;
+        --lp-muted: #71717a;
+        --lp-line: #27272a;
+        --lp-accent: #a3e635;
+        --lp-font:
+          "Inter", system-ui, -apple-system, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--lp-bg);
+        color: var(--lp-fg);
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: var(--lp-font);
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: clip;
+      }
+      ::selection {
+        background: var(--lp-accent);
+        color: var(--lp-bg);
+      }
+
+      /* ---------- frame ---------- */
+      .nav {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 2rem;
+        mix-blend-mode: difference;
+        color: #fff;
+      }
+      .nav .mark {
+        font-weight: 900;
+        font-size: 1.15rem;
+        letter-spacing: -0.04em;
+      }
+      .nav a {
+        color: inherit;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+      }
+      section {
+        position: relative;
+        padding: clamp(5rem, 12vh, 9rem) clamp(1.25rem, 5vw, 4rem);
+      }
+      .kicker {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--lp-muted);
+        margin: 0 0 1.5rem;
+      }
+      .kicker::before {
+        content: "";
+        display: inline-block;
+        width: 2rem;
+        height: 1px;
+        background: var(--lp-accent);
+        vertical-align: middle;
+        margin-right: 0.75rem;
+      }
+
+      /* ---------- hero ---------- */
+      .hero {
+        min-height: 100svh;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      .hero .wordmark {
+        font-size: clamp(4.5rem, 22vw, 17rem);
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+        margin: 0;
+      }
+      .hero .sub {
+        font-family: ui-monospace, "SF Mono", monospace;
+        font-size: clamp(0.8rem, 1.6vw, 1rem);
+        letter-spacing: 0.18em;
+        color: var(--lp-muted);
+      }
+      .hero .hint {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        translate: -50% 0;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        color: var(--lp-muted);
+        text-transform: uppercase;
+      }
+
+      /* ---------- manifesto (type-morph scrub) ---------- */
+      .manifesto {
+        min-height: 160vh;
+      }
+      .manifesto .line {
+        position: sticky;
+        top: 35vh;
+        font-size: clamp(2.2rem, 7.5vw, 6.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+        max-width: 16ch;
+        margin: 0;
+      }
+
+      /* ---------- velocity strip ---------- */
+      .strip {
+        padding: 6rem 0;
+        border-block: 1px solid var(--lp-line);
+        overflow: clip;
+      }
+      .strip .big {
+        font-size: clamp(3rem, 12vw, 10rem);
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 1;
+        white-space: nowrap;
+        padding-right: 4rem;
+        -webkit-text-stroke: 1px var(--lp-fg);
+        color: transparent;
+      }
+      .strip .big em {
+        font-style: normal;
+        color: var(--lp-fg);
+        -webkit-text-stroke: 0;
+      }
+
+      /* ---------- morph lab ---------- */
+      .lab {
+        min-height: 220vh;
+      }
+      .lab .pin {
+        position: sticky;
+        top: 0;
+        min-height: 100svh;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(2rem, 6vw, 6rem);
+      }
+      .lab pura-morph {
+        width: min(100%, 440px);
+        justify-self: center;
+        filter: drop-shadow(0 0 60px rgb(163 230 53 / 0.18));
+      }
+      .lab h2 {
+        font-size: clamp(2rem, 5.5vw, 4.5rem);
+        line-height: 1.04;
+        letter-spacing: -0.04em;
+        margin: 0 0 1rem;
+      }
+      .lab p {
+        color: var(--lp-muted);
+        max-width: 44ch;
+        line-height: 1.7;
+        margin: 0;
+      }
+      @media (max-width: 760px) {
+        .lab .pin {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .lab p {
+          margin-inline: auto;
+        }
+      }
+
+      /* ---------- deck ---------- */
+      .deckwrap {
+        max-width: 760px;
+        margin-inline: auto;
+      }
+      .deck-card {
+        min-height: 56svh;
+        border-radius: 1.5rem;
+        border: 1px solid var(--lp-line);
+        background: linear-gradient(160deg, #18181b, #09090b 70%);
+        padding: clamp(1.75rem, 5vw, 3.5rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 -20px 60px -30px rgb(0 0 0 / 0.9);
+      }
+      .deck-card .n {
+        font-family: ui-monospace, monospace;
+        color: var(--lp-accent);
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+      }
+      .deck-card h3 {
+        font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin: 0;
+      }
+      .deck-card p {
+        color: var(--lp-muted);
+        line-height: 1.7;
+        max-width: 52ch;
+        margin: 1rem 0 0;
+      }
+
+      /* ---------- path ---------- */
+      .path-stage pura-motion-path {
+        width: min(100%, 720px);
+        height: 280px;
+        margin-inline: auto;
+        display: block;
+        color: var(--lp-line);
+      }
+      .path-stage .rider {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--lp-accent);
+        box-shadow: 0 0 24px var(--lp-accent);
+      }
+
+      /* ---------- gallery (clip-reveal + tilt) ---------- */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.25rem;
+        max-width: 1100px;
+        margin-inline: auto;
+      }
+      .gallery .shot {
+        height: 340px;
+        border-radius: 1rem;
+        display: grid;
+        place-items: end start;
+        padding: 1.25rem;
+        font-family: ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        color: #fff;
+      }
+      .g1 { background: linear-gradient(140deg, #4f46e5, #0ea5e9); }
+      .g2 { background: linear-gradient(140deg, #a3e635, #059669); color: #052e16; }
+      .g3 { background: linear-gradient(140deg, #f472b6, #7c3aed); }
+
+      /* ---------- outro ---------- */
+      .outro {
+        min-height: 90svh;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        gap: 2rem;
+        border-top: 1px solid var(--lp-line);
+      }
+      .outro .cta {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.06em;
+        color: var(--lp-bg);
+        background: var(--lp-fg);
+        border-radius: 999px;
+        padding: 1.1rem 2.6rem;
+        text-decoration: none;
+      }
+      .outro .fine {
+        font-size: 0.75rem;
+        color: var(--lp-muted);
+        font-family: ui-monospace, monospace;
+        letter-spacing: 0.1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <pura-cursor hide-native blend></pura-cursor>
+
+    <nav class="nav">
+      <span class="mark">pura</span>
+      <a href="/pura/" data-cursor>DOCS →</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1 class="wordmark">
+        <pura-type-morph timeline="scroll" range="0% 18%" from-wght="200" to-wght="900">pura</pura-type-morph>
+      </h1>
+      <div class="sub">
+        <pura-scramble trigger="load" speed="30" text="NATIVE MOTION · ZERO DEPENDENCIES · ZERO BUILD"></pura-scramble>
+      </div>
+      <span class="hint">scroll</span>
+    </section>
+
+    <!-- MANIFESTO: weight thickens as you scrub -->
+    <section class="manifesto">
+      <p class="kicker">01 / Typography is the interface</p>
+      <p class="line">
+        <pura-type-morph timeline="view" range="cover 0% cover 70%" from-wght="100" to-wght="900">
+          Motion the browser already knows.
+        </pura-type-morph>
+      </p>
+    </section>
+
+    <!-- VELOCITY STRIP -->
+    <pura-velocity max="7" factor="12">
+      <div class="strip">
+        <pura-marquee speed="28" label="The faster you scroll the harder it leans">
+          <span class="big">THE FASTER YOU SCROLL · <em>THE HARDER IT LEANS</em> ·&nbsp;</span>
+        </pura-marquee>
+      </div>
+    </pura-velocity>
+
+    <!-- MORPH LAB -->
+    <section class="lab">
+      <div class="pin">
+        <div>
+          <p class="kicker">02 / Geometry on a leash</p>
+          <h2>
+            <pura-type-morph timeline="view" range="cover 10% cover 60%" from-wght="300" to-wght="800">
+              Shapes scrub. Paths draw. No library.
+            </pura-type-morph>
+          </h2>
+          <p>
+            `d: path()` keyframes ride a scroll timeline. The square becomes the
+            star becomes the circle, one frame per pixel of scroll, all compositor-side.
+          </p>
+        </div>
+        <pura-morph
+          timeline="view"
+          range="cover 0% cover 80%"
+          viewbox="0 0 100 100"
+          fill="none"
+          stroke="#a3e635"
+          stroke-width="1.5"
+          from="M 50 4 L 77 12.8 L 93.8 35.8 L 93.8 64.2 L 77 87.2 L 50 96 L 23 87.2 L 6.2 64.2 L 6.2 35.8 L 23 12.8 Z"
+          to="M 50 4 L 62 38 L 96 38 L 68 58 L 80 94 L 50 72 L 20 94 L 32 58 L 4 38 L 38 38 Z">
+        </pura-morph>
+      </div>
+    </section>
+
+    <!-- MOTION PATH -->
+    <section class="path-stage">
+      <p class="kicker">03 / Riders on rails</p>
+      <pura-motion-path
+        show-path
+        range="cover 5% cover 70%"
+        path="M 20 240 C 120 40, 280 40, 360 140 S 600 260, 700 60">
+        <div class="rider"></div>
+      </pura-motion-path>
+    </section>
+
+    <!-- DECK -->
+    <section>
+      <p class="kicker" style="max-width: 760px; margin-inline: auto;">04 / The pitch, stacked</p>
+      <div class="deckwrap">
+        <pura-deck top="88" peek="12" gap="48">
+          <div class="deck-card">
+            <span class="n">001</span>
+            <div>
+              <h3>Zero dependencies.<br />Zero build.</h3>
+              <p>One script tag. 234 custom elements. The platform is the framework; your bundler has nothing to do here.</p>
+            </div>
+          </div>
+          <div class="deck-card">
+            <span class="n">002</span>
+            <div>
+              <h3>Server-rendered motion.</h3>
+              <p>Every component paints its first frame from a pure template, Declarative Shadow DOM included. JS arrives later and just takes the wheel.</p>
+            </div>
+          </div>
+          <div class="deck-card">
+            <span class="n">003</span>
+            <div>
+              <h3>Agents can read it.</h3>
+              <p>Stable data-* state, window registries, semantic HTML and ARIA throughout. Your AI can see exactly what is animating and why.</p>
+            </div>
+          </div>
+          <div class="deck-card">
+            <span class="n">004</span>
+            <div>
+              <h3>Reduced motion, respected.</h3>
+              <p>Every effect lands at its destination under prefers-reduced-motion. Accessibility is the default branch, not the fallback.</p>
+            </div>
+          </div>
+        </pura-deck>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section>
+      <p class="kicker" style="max-width: 1100px; margin-inline: auto;">05 / Wipe, tilt, glare</p>
+      <div class="gallery">
+        <pura-clip-reveal direction="up" range="cover 0% cover 45%">
+          <pura-tilt max="10" scale="1.03" glare>
+            <div class="shot g1" data-cursor data-cursor-text="TILT">CLIP · UP</div>
+          </pura-tilt>
+        </pura-clip-reveal>
+        <pura-clip-reveal direction="circle" range="cover 5% cover 50%">
+          <pura-tilt max="10" scale="1.03" glare>
+            <div class="shot g2" data-cursor data-cursor-text="TILT">CLIP · CIRCLE</div>
+          </pura-tilt>
+        </pura-clip-reveal>
+        <pura-clip-reveal direction="left" range="cover 10% cover 55%">
+          <pura-tilt max="10" scale="1.03" glare>
+            <div class="shot g3" data-cursor data-cursor-text="TILT">CLIP · LEFT</div>
+          </pura-tilt>
+        </pura-clip-reveal>
+      </div>
+    </section>
+
+    <!-- OUTRO -->
+    <section class="outro">
+      <h2 style="font-size: clamp(2.4rem, 8vw, 6rem); letter-spacing: -0.04em; line-height: 1; margin: 0;">
+        <pura-scramble trigger="view" speed="26" text="SHIP MOTION TODAY"></pura-scramble>
+      </h2>
+      <div>
+        <pura-magnetic strength="0.5" radius="160">
+          <a class="cta" href="/pura/docs/" data-cursor>Browse 234 components</a>
+        </pura-magnetic>
+      </div>
+      <span class="fine">pnpm dlx puracli add morph draw tilt, or just view source.</span>
+    </section>
+  </body>
+</html>

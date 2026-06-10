@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atelier Nine · Objects for slow living</title>
+  <meta name="description" content="Ecommerce storefront template assembled entirely from pura components." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" />
+  <link rel="stylesheet" href="/pura/tokens.css" />
+  <script type="module" src="/pura/pura.js"></script>
+  <style>
+    :root {
+      --a-bg: #faf8f4;
+      --a-panel: #ffffff;
+      --a-ink: #17150f;
+      --a-muted: #6f6a5e;
+      --a-line: #e6e1d6;
+      --a-accent: #c2410c;
+      --a-sage: #4d7c5f;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--a-bg); color: var(--a-ink); }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+    ::selection { background: var(--a-ink); color: var(--a-bg); }
+    a { color: inherit; }
+
+    /* ---- sale bar ---- */
+    .salebar {
+      display: flex; justify-content: center; align-items: center; gap: 1rem;
+      background: var(--a-ink); color: var(--a-bg);
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.55rem 1rem;
+    }
+    .salebar pura-countdown {
+      --pura-fg: var(--a-bg);
+      --pura-muted: color-mix(in srgb, var(--a-bg) 60%, transparent);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+
+    /* ---- nav ---- */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: color-mix(in srgb, var(--a-bg) 82%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--a-line);
+    }
+    .brand { font-weight: 800; letter-spacing: -0.03em; font-size: 1.1rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.6rem; font-size: 0.85rem; color: var(--a-muted); }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--a-ink); }
+    .cart-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--a-ink); border-radius: 999px;
+      background: transparent; color: var(--a-ink);
+      font: inherit; font-size: 0.85rem; font-weight: 600;
+      padding: 0.45rem 1rem; cursor: pointer;
+    }
+
+    /* ---- hero ---- */
+    .hero {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem;
+      align-items: center;
+      padding: 5rem 2rem 4rem; max-width: 1200px; margin: 0 auto;
+      min-height: 72vh;
+    }
+    .hero h1 {
+      margin: 0 0 1.2rem;
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
+      line-height: 0.98; letter-spacing: -0.04em;
+    }
+    .hero h1 pura-type-morph { display: block; }
+    .hero p { color: var(--a-muted); font-size: 1.05rem; max-width: 32rem; line-height: 1.6; margin: 0 0 2rem; }
+    .hero-cta { display: flex; gap: 1rem; align-items: center; }
+    .btn-primary {
+      display: inline-block; background: var(--a-ink); color: var(--a-bg);
+      text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      padding: 0.85rem 1.8rem; border-radius: 999px;
+    }
+    .btn-ghost { font-size: 0.92rem; color: var(--a-muted); text-decoration: underline; text-underline-offset: 4px; }
+    .hero-art { border-radius: 1.4rem; overflow: hidden; }
+    .hero-art pura-tilt { display: block; }
+    .art {
+      width: 100%; aspect-ratio: 4 / 5; display: block; border-radius: inherit;
+    }
+    .art-hero {
+      background:
+        radial-gradient(120% 90% at 80% 10%, #f3d6b8 0%, transparent 55%),
+        radial-gradient(90% 110% at 15% 90%, #b9c8b3 0%, transparent 60%),
+        linear-gradient(160deg, #e8dccb, #cdb89c 60%, #a98f6f);
+    }
+
+    /* ---- promo marquee ---- */
+    .promo { border-block: 1px solid var(--a-line); padding: 1rem 0; background: var(--a-panel); }
+    .promo .line {
+      display: inline-flex; gap: 2.4rem; padding-right: 2.4rem; align-items: center;
+      font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--a-muted);
+      white-space: nowrap;
+    }
+    .promo .dotsep { color: var(--a-accent); }
+
+    /* ---- sections ---- */
+    section { padding: 5rem 2rem; }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    .kicker {
+      font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--a-accent); font-weight: 700; margin: 0 0 0.8rem;
+    }
+    h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); letter-spacing: -0.03em; margin: 0 0 2.4rem; }
+
+    /* ---- product grid ---- */
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+    .product { display: block; }
+    .product pura-tilt { display: block; }
+    .p-card {
+      background: var(--a-panel); border: 1px solid var(--a-line);
+      border-radius: 1.1rem; overflow: hidden;
+    }
+    .p-art { aspect-ratio: 4 / 5; position: relative; }
+    .p-art .p-badge { position: absolute; top: 0.8rem; left: 0.8rem; }
+    .p-info { padding: 1rem 1.1rem 1.2rem; }
+    .p-name { font-weight: 600; font-size: 0.95rem; margin: 0 0 0.2rem; }
+    .p-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
+    .p-price { font-weight: 700; font-variant-numeric: tabular-nums; }
+    .p-price s { color: var(--a-muted); font-weight: 400; margin-right: 0.4rem; }
+    .p-rating { --pura-rating-size: 0.8rem; }
+    .art-1 { background: radial-gradient(80% 80% at 30% 25%, #f1e4cf 0%, transparent 60%), linear-gradient(150deg, #d9c6a8, #8f7250); }
+    .art-2 { background: radial-gradient(70% 70% at 70% 20%, #dde7d8 0%, transparent 55%), linear-gradient(165deg, #b7c9b1, #5d7a62); }
+    .art-3 { background: radial-gradient(85% 70% at 25% 75%, #f5dcc8 0%, transparent 60%), linear-gradient(140deg, #e3b793, #b06a3b); }
+    .art-4 { background: radial-gradient(75% 85% at 75% 70%, #e4e0ea 0%, transparent 55%), linear-gradient(155deg, #c2bccf, #6e6884); }
+
+    /* ---- product detail ---- */
+    .detail { background: var(--a-panel); border-block: 1px solid var(--a-line); }
+    .detail .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .detail-art { border-radius: 1.4rem; overflow: hidden; position: sticky; top: 6rem; }
+    .detail h2 { margin-bottom: 0.6rem; }
+    .detail .price-row { display: flex; align-items: baseline; gap: 0.8rem; margin: 0 0 1.6rem; }
+    .detail .price { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .detail .desc { color: var(--a-muted); line-height: 1.65; margin: 0 0 2rem; }
+    .opt { margin-bottom: 1.6rem; }
+    .opt label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .buy-row { display: flex; gap: 1rem; align-items: center; margin-top: 2rem; }
+    .buy-row .btn-primary { border: 0; cursor: pointer; font: inherit; font-weight: 600; }
+    .ship-note { display: flex; gap: 1.4rem; margin-top: 1.6rem; font-size: 0.82rem; color: var(--a-muted); }
+
+    /* ---- compare ---- */
+    .compare-art { aspect-ratio: 16 / 10; display: grid; place-items: center; color: #fff; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.8rem; }
+    .compare-a { background: linear-gradient(150deg, #c9b393, #7d6446); }
+    .compare-b { background: linear-gradient(150deg, #2e2a22, #594e3c); }
+    .compare-wrap { max-width: 880px; margin: 0 auto; border-radius: 1.2rem; overflow: hidden; }
+
+    /* ---- stats ---- */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; text-align: center; }
+    .stat-box { padding: 2.4rem 1rem; border: 1px solid var(--a-line); border-radius: 1.1rem; background: var(--a-panel); }
+    .stat-num { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .stat-label { color: var(--a-muted); font-size: 0.85rem; margin-top: 0.4rem; }
+
+    /* ---- lookbook ---- */
+    .look-tile { border-radius: 1rem; overflow: hidden; display: block; }
+    .look-tile .art { aspect-ratio: auto; }
+    .l1 { height: 340px; background: linear-gradient(160deg, #e8d3b5, #a8845c); }
+    .l2 { height: 240px; background: linear-gradient(160deg, #cfdac8, #6c8a70); }
+    .l3 { height: 290px; background: linear-gradient(160deg, #ead8cf, #b27a5e); }
+    .l4 { height: 250px; background: linear-gradient(160deg, #d6d2de, #7a7390); }
+    .l5 { height: 320px; background: linear-gradient(160deg, #f0e2c8, #c1a169); }
+    .l6 { height: 230px; background: linear-gradient(160deg, #d9cfc2, #8d7f6c); }
+
+    /* ---- reviews ---- */
+    .review-card {
+      background: var(--a-panel); border: 1px solid var(--a-line);
+      border-radius: 1.2rem; padding: 2rem;
+    }
+
+    /* ---- faq ---- */
+    .faq-wrap { max-width: 760px; margin: 0 auto; }
+
+    /* ---- outro ---- */
+    .outro {
+      background: var(--a-ink); color: var(--a-bg);
+      text-align: center; padding: 7rem 2rem;
+    }
+    .outro h2 {
+      font-size: clamp(2rem, 6vw, 4.4rem); letter-spacing: -0.03em; margin-bottom: 2rem;
+    }
+    .outro .btn-primary { background: var(--a-bg); color: var(--a-ink); }
+    .outro p { color: color-mix(in srgb, var(--a-bg) 60%, transparent); margin: 0 0 2.4rem; }
+
+    footer {
+      display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      padding: 2rem; font-size: 0.8rem; color: var(--a-muted);
+      border-top: 1px solid var(--a-line);
+    }
+
+    @media (max-width: 900px) {
+      .hero, .detail .wrap { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .detail-art { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <pura-cursor hide-native targets="a, button, pura-swatch-picker, pura-segmented-control, [data-cursor]"></pura-cursor>
+  <pura-scroll-progress style="position: fixed; top: 0; left: 0; right: 0; z-index: 40; --pura-scroll-progress-color: var(--a-accent);"></pura-scroll-progress>
+
+  <div class="salebar">
+    <span>Summer atelier sale · up to 40% off · ends in</span>
+    <pura-countdown seconds="86400" compact></pura-countdown>
+  </div>
+
+  <nav class="nav">
+    <a class="brand" href="#">atelier nine</a>
+    <div class="nav-links">
+      <a href="#shop">Shop</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <pura-magnetic strength="0.3">
+      <button class="cart-btn" data-cursor>Cart <pura-badge variant="default">3</pura-badge></button>
+    </pura-magnetic>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <p class="kicker">New collection · SS26</p>
+      <h1>
+        <pura-type-morph timeline="scroll" range="0% 12%" from-wght="850" to-wght="250">Objects</pura-type-morph>
+        <pura-type-morph timeline="scroll" range="0% 12%" from-wght="250" to-wght="850">for slow</pura-type-morph>
+        <pura-type-morph timeline="scroll" range="0% 12%" from-wght="850" to-wght="250">living.</pura-type-morph>
+      </h1>
+      <p>Hand-finished ceramics, woven textiles and small-batch furniture. Made by nine studios, shipped from one warehouse, built to outlive trends.</p>
+      <div class="hero-cta">
+        <pura-magnetic strength="0.35">
+          <a class="btn-primary" href="#shop" data-cursor-text="SHOP">Shop the drop</a>
+        </pura-magnetic>
+        <a class="btn-ghost" href="#lookbook">See the lookbook</a>
+      </div>
+    </div>
+    <pura-clip-reveal direction="left" trigger="load" class="hero-art">
+      <pura-tilt max="7" glare>
+        <div class="art art-hero" role="img" aria-label="Earth-toned ceramic still life"></div>
+      </pura-tilt>
+    </pura-clip-reveal>
+  </header>
+
+  <div class="promo">
+    <pura-marquee speed="30" pause-on-hover>
+      <span class="line">
+        <span>Free shipping over $120</span><span class="dotsep">·</span>
+        <span>30-day returns</span><span class="dotsep">·</span>
+        <span>Carbon-neutral delivery</span><span class="dotsep">·</span>
+        <span>Made in small batches</span><span class="dotsep">·</span>
+      </span>
+    </pura-marquee>
+  </div>
+
+  <section id="shop">
+    <div class="wrap">
+      <p class="kicker">Bestsellers</p>
+      <h2>The shelf staples.</h2>
+      <div class="grid">
+        <a class="product" href="#detail">
+          <pura-tilt max="9" glare>
+            <div class="p-card">
+              <div class="p-art art-1">
+                <pura-badge class="p-badge" variant="destructive">-30%</pura-badge>
+              </div>
+              <div class="p-info">
+                <p class="p-name">Vase No. 4</p>
+                <pura-rating class="p-rating" value="4.5" allow-half readonly label="4.5 of 5 stars"></pura-rating>
+                <div class="p-meta">
+                  <span class="p-price"><s>$120</s>$84</span>
+                </div>
+              </div>
+            </div>
+          </pura-tilt>
+        </a>
+        <a class="product" href="#detail">
+          <pura-tilt max="9" glare>
+            <div class="p-card">
+              <div class="p-art art-2">
+                <pura-badge class="p-badge" variant="success">New</pura-badge>
+              </div>
+              <div class="p-info">
+                <p class="p-name">Moss Throw</p>
+                <pura-rating class="p-rating" value="5" readonly label="5 of 5 stars"></pura-rating>
+                <div class="p-meta">
+                  <span class="p-price">$96</span>
+                </div>
+              </div>
+            </div>
+          </pura-tilt>
+        </a>
+        <a class="product" href="#detail">
+          <pura-tilt max="9" glare>
+            <div class="p-card">
+              <div class="p-art art-3"></div>
+              <div class="p-info">
+                <p class="p-name">Terra Bowl Set</p>
+                <pura-rating class="p-rating" value="4" readonly label="4 of 5 stars"></pura-rating>
+                <div class="p-meta">
+                  <span class="p-price">$148</span>
+                </div>
+              </div>
+            </div>
+          </pura-tilt>
+        </a>
+        <a class="product" href="#detail">
+          <pura-tilt max="9" glare>
+            <div class="p-card">
+              <div class="p-art art-4">
+                <pura-badge class="p-badge" variant="outline">Limited</pura-badge>
+              </div>
+              <div class="p-info">
+                <p class="p-name">Dusk Lamp</p>
+                <pura-rating class="p-rating" value="4.5" allow-half readonly label="4.5 of 5 stars"></pura-rating>
+                <div class="p-meta">
+                  <span class="p-price">$220</span>
+                </div>
+              </div>
+            </div>
+          </pura-tilt>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail" id="detail">
+    <div class="wrap">
+      <pura-clip-reveal direction="up" class="detail-art">
+        <div class="art art-1" role="img" aria-label="Vase No. 4 in clay tones"></div>
+      </pura-clip-reveal>
+      <div>
+        <p class="kicker">Featured</p>
+        <h2>Vase No. 4</h2>
+        <pura-rating value="4.5" allow-half readonly label="4.5 of 5 stars"></pura-rating>
+        <div class="price-row">
+          <span class="price">$84</span>
+          <s style="color: var(--a-muted);">$120</s>
+          <pura-badge variant="destructive">Sale</pura-badge>
+        </div>
+        <p class="desc">Wheel-thrown stoneware with a raw clay exterior and glazed interior. Each piece is fired twice and numbered by hand, so no two are identical. Holds stems, branches or nothing at all.</p>
+
+        <div class="opt">
+          <label>Glaze</label>
+          <pura-swatch-picker colors="#a98f6f,#5d7a62,#b06a3b,#6e6884,#17150f" value="#a98f6f" size="2rem"></pura-swatch-picker>
+        </div>
+
+        <div class="opt">
+          <label>Size</label>
+          <pura-segmented-control options="Small,Medium,Large" value="Medium" label="Vase size"></pura-segmented-control>
+        </div>
+
+        <div class="opt">
+          <label>Quantity</label>
+          <pura-number-input min="1" max="8" value="1" aria-label="Quantity"></pura-number-input>
+        </div>
+
+        <div class="buy-row">
+          <pura-magnetic strength="0.3">
+            <button class="btn-primary" data-cursor-text="ADD">Add to cart · $84</button>
+          </pura-magnetic>
+          <a class="btn-ghost" href="#faq">Shipping details</a>
+        </div>
+
+        <div class="ship-note">
+          <span>✓ In stock, ships in 48h</span>
+          <span>✓ Free returns</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap" style="text-align: center;">
+      <p class="kicker">Raw vs. finished</p>
+      <h2>Drag to see the glaze.</h2>
+      <pura-clip-reveal direction="circle" class="compare-wrap">
+        <pura-image-compare value="50" label="Unglazed versus glazed finish">
+          <div slot="before" class="compare-art compare-a">Raw clay</div>
+          <div slot="after" class="compare-art compare-b">Fired glaze</div>
+        </pura-image-compare>
+      </pura-clip-reveal>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <div class="wrap stats">
+      <div class="stat-box">
+        <div class="stat-num"><pura-count-up to="48000" separator=","></pura-count-up>+</div>
+        <div class="stat-label">Orders shipped</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num"><pura-count-up to="4.9" decimals="1"></pura-count-up>★</div>
+        <div class="stat-label">Average review score</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num"><pura-count-up to="9"></pura-count-up></div>
+        <div class="stat-label">Partner studios</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lookbook" style="background: var(--a-panel); border-block: 1px solid var(--a-line);">
+    <div class="wrap">
+      <p class="kicker">Lookbook</p>
+      <h2>Rooms we would live in.</h2>
+      <pura-masonry columns="3" gap="1.2rem" label="Lookbook gallery">
+        <pura-clip-reveal direction="up"><div class="look-tile"><div class="art l1" role="img" aria-label="Warm clay tones"></div></div></pura-clip-reveal>
+        <pura-clip-reveal direction="up"><div class="look-tile"><div class="art l2" role="img" aria-label="Sage greens"></div></div></pura-clip-reveal>
+        <pura-clip-reveal direction="up"><div class="look-tile"><div class="art l3" role="img" aria-label="Terracotta blush"></div></div></pura-clip-reveal>
+        <pura-clip-reveal direction="up"><div class="look-tile"><div class="art l4" role="img" aria-label="Dusk lavender"></div></div></pura-clip-reveal>
+        <pura-clip-reveal direction="up"><div class="look-tile"><div class="art l5" role="img" aria-label="Golden sand"></div></div></pura-clip-reveal>
+        <pura-clip-reveal direction="up"><div class="look-tile"><div class="art l6" role="img" aria-label="Stone neutral"></div></div></pura-clip-reveal>
+      </pura-masonry>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap" style="max-width: 760px;">
+      <p class="kicker">Reviews</p>
+      <h2>Word of mouth.</h2>
+      <pura-carousel loop label="Customer reviews">
+        <div class="review-card">
+          <pura-testimonial author="Marina K." role="Verified buyer" rating="5">
+            The vase is somehow better in person. The clay texture photographs flat but feels alive on the shelf.
+          </pura-testimonial>
+        </div>
+        <div class="review-card">
+          <pura-testimonial author="Jonas P." role="Verified buyer" rating="5">
+            Ordered Tuesday, arrived Thursday, zero plastic in the box. The throw is the heaviest knit I own.
+          </pura-testimonial>
+        </div>
+        <div class="review-card">
+          <pura-testimonial author="Aiko T." role="Verified buyer" rating="4">
+            Bowl set survived a one-meter drop onto tile. Slightly long restock waits, but worth it.
+          </pura-testimonial>
+        </div>
+      </pura-carousel>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top: 0;">
+    <div class="faq-wrap">
+      <p class="kicker" style="text-align: center;">FAQ</p>
+      <h2 style="text-align: center;">Before you ask.</h2>
+      <pura-faq label="Frequently asked questions">
+        <pura-faq-item open>
+          <span slot="question">How long does shipping take?</span>
+          In-stock pieces leave the warehouse within 48 hours. Domestic delivery runs 2 to 4 business days; international 5 to 10.
+        </pura-faq-item>
+        <pura-faq-item>
+          <span slot="question">What is the return policy?</span>
+          30 days, no questions, free return label. Ceramics must come back in the original molded packaging.
+        </pura-faq-item>
+        <pura-faq-item>
+          <span slot="question">Are the colors accurate?</span>
+          Every piece is photographed unedited in daylight. Because each item is hand-glazed, expect slight variation, that is the point.
+        </pura-faq-item>
+        <pura-faq-item>
+          <span slot="question">Do you restock sold-out items?</span>
+          Studios fire in small batches, roughly every six weeks. Join the waitlist on any product page to get notified first.
+        </pura-faq-item>
+      </pura-faq>
+    </div>
+  </section>
+
+  <section class="outro">
+    <h2><pura-scramble trigger="view" speed="26" text="MADE TO BE KEPT"></pura-scramble></h2>
+    <p>Join 48,000 homes that slowed down their shelves.</p>
+    <pura-magnetic strength="0.35">
+      <a class="btn-primary" href="#shop" data-cursor-text="SHOP">Shop the collection</a>
+    </pura-magnetic>
+  </section>
+
+  <footer>
+    <span>atelier nine · a pura template</span>
+    <span>Built with ~30 pura web components. No framework, no build step.</span>
+  </footer>
+
+</body>
+</html>

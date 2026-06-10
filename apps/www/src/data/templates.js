@@ -16,4 +16,7 @@ export const templates = [
   { slug: "notifications", title: "Notifications", blurb: "Notification center." },
   { slug: "data-table", title: "Data Table", blurb: "Table view with filters and pagination." },
   { slug: "error-404", title: "404", blurb: "Not-found error page." },
+  { slug: "software", title: "SaaS Product", blurb: "Dark awwwards-style SaaS site with scroll-driven motion." },
+  { slug: "ecommerce", title: "Ecommerce", blurb: "Light storefront with product cards, options and lookbook." },
+  { slug: "studio", title: "Photo Studio", blurb: "Awwwards-style photography studio: image trail, 3D ring gallery, scroll zoom." },
 ];
