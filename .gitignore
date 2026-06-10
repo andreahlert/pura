@@ -55,3 +55,15 @@ apps/www/.astro/
 
 # pnpm local store
 .pnpm-store/
+
+# agent temp artifacts
+_showcase.html
+_proof.html
+_intervar.woff2
+_tmscroll.html
+_dtest.html
+
+# local screenshots / reference material
+/*.png
+/*.jpeg
+/shots-logica/
