@@ -350,6 +350,62 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "animated-beam",
+  "title": "Animated Beam",
+  "category": "Animation",
+  "blurb": "A beam of light travels along an SVG path connecting two slotted anchor elements, the canonical integration-diagram visual. The client measures the anchors, draws a Bezier between them and sweeps a gradient pulse along the stroke; geometry recomputes on resize.",
+  "description": "`<pura-animated-beam>` draws a beam of light travelling along an SVG path that connects two slotted anchor elements, the canonical \"your app talks to these APIs\" integration-diagram visual. Mark the anchors with `data-from` and `data-to` (or point `from` / `to` at any CSS selector inside the component); the client measures their centers, generates a quadratic Bezier (`curvature` controls the bow) and sweeps a gradient pulse along the stroke every `duration` ms, recomputing on resize and slot changes. Colors come from `--pura-animated-beam-from` / `--pura-animated-beam-to`, the idle path from `--pura-animated-beam-track`, thickness from `--pura-animated-beam-width`. SSR and pre-JS paint only the container and the slotted nodes (the beam is progressive enhancement); reduced motion shows a static gradient stroke instead of a moving pulse. Each instance registers in `window.__puraAnimatedBeams` by `data-pura-id`, and `data-pura-beam-state` / `data-pura-beam-length` mirror the live state.",
+  "attributes": [
+    {
+      "name": "from",
+      "type": "string",
+      "default": "[data-from]",
+      "desc": "CSS selector for the start anchor, matched against the slotted light DOM."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "default": "[data-to]",
+      "desc": "CSS selector for the end anchor, matched against the slotted light DOM."
+    },
+    {
+      "name": "curvature",
+      "type": "number",
+      "default": "0",
+      "desc": "Vertical bow of the Bezier control point in px; positive bows up, negative bows down, 0 is a straight line."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "2000",
+      "desc": "Time for one beam sweep, in ms."
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "default": "0",
+      "desc": "Delay before the sweep starts, in ms."
+    },
+    {
+      "name": "reverse",
+      "type": "boolean",
+      "default": "false",
+      "desc": "The beam travels from the to anchor back to the from anchor."
+    }
+  ],
+  "events": [
+    "beam-draw"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-animated-beam curvature=\"56\" duration=\"2500\" style=\"height: 200px;\">\n  <div data-from style=\"position: absolute; left: 28px; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--pura-bg, #fff); border: 1px solid var(--pura-border, #e4e4e7); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); font-size: 0.7rem; font-weight: 600;\">App</div>\n  <div data-to style=\"position: absolute; right: 28px; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--pura-bg, #fff); border: 1px solid var(--pura-border, #e4e4e7); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); font-size: 0.7rem; font-weight: 600;\">API</div>\n</pura-animated-beam>",
+  "usage": "<!-- beam between two anchors marked with data-from / data-to -->\n<pura-animated-beam curvature=\"48\" style=\"height: 220px;\">\n  <div data-from class=\"node\" style=\"position: absolute; left: 24px; top: 50%;\">App</div>\n  <div data-to class=\"node\" style=\"position: absolute; right: 24px; top: 50%;\">Stripe</div>\n</pura-animated-beam>\n\n<!-- custom selectors, reversed flow and custom colors via tokens -->\n<pura-animated-beam from=\"#server\" to=\"#db\" reverse curvature=\"-40\" duration=\"3000\"\n  style=\"height: 240px; --pura-animated-beam-from: #22d3ee; --pura-animated-beam-to: #6366f1;\">\n  <div id=\"server\" class=\"node\" style=\"position: absolute; left: 32px; top: 32px;\">Server</div>\n  <div id=\"db\" class=\"node\" style=\"position: absolute; right: 32px; bottom: 32px;\">Database</div>\n</pura-animated-beam>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "app-shell",
   "title": "App Shell",
   "category": "Layout",
@@ -797,6 +853,10 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
+      "slug": "faq",
+      "title": "FAQ"
+    },
+    {
       "slug": "item",
       "title": "Item"
     },
@@ -805,20 +865,16 @@ export const components = [
       "title": "Segmented Control"
     },
     {
+      "slug": "pricing-table",
+      "title": "Pricing Table"
+    },
+    {
       "slug": "stat",
       "title": "Stat"
     },
     {
       "slug": "stat-grid",
       "title": "Stat Grid"
-    },
-    {
-      "slug": "card",
-      "title": "Card"
-    },
-    {
-      "slug": "select",
-      "title": "Select"
     }
   ],
   "relatedBlocks": [
@@ -847,6 +903,10 @@ export const components = [
       "title": "Data Table"
     },
     {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
       "slug": "kanban",
       "title": "Kanban"
     },
@@ -869,6 +929,10 @@ export const components = [
     {
       "slug": "profile",
       "title": "Profile"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
     }
   ]
 },
@@ -929,14 +993,6 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "testimonial",
-      "title": "Testimonial"
-    },
-    {
-      "slug": "faq",
-      "title": "FAQ"
-    },
-    {
       "slug": "pricing-table",
       "title": "Pricing Table"
     },
@@ -947,6 +1003,14 @@ export const components = [
     {
       "slug": "stat-grid",
       "title": "Stat Grid"
+    },
+    {
+      "slug": "testimonial",
+      "title": "Testimonial"
+    },
+    {
+      "slug": "faq",
+      "title": "FAQ"
     },
     {
       "slug": "card",
@@ -1001,6 +1065,144 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "beams",
+  "title": "Background Beams",
+  "category": "Animation",
+  "blurb": "Light beams traveling along curved SVG paths behind hero content: faint base traces plus a glowing gradient dash on a staggered infinite loop. Deterministic geometry (SSR-stable), pure CSS @keyframes, reduced-motion aware.",
+  "description": "`<pura-beams>` paints light beams traveling along curved SVG paths behind its slotted content, in the style of Aceternity UI's Background Beams. Each path renders twice: a faint base trace, plus a glowing gradient dash animated with `stroke-dasharray` and `stroke-dashoffset` in pure CSS `@keyframes` on a staggered infinite loop. Path geometry and per-beam timing are deterministic index math in the pure template (no `Math.random`), so the server and client paint byte-identical scenes and the effect needs no client JS. Set `count` for density and `duration` for the base loop speed; theme the gradient with `--pura-beams-color-a`, `--pura-beams-color-b` and `--pura-beams-color-c`, and the traces with `--pura-beams-trace-color`. Under reduced motion the dashes rest off-path and only the calm static traces remain. Each instance registers in `window.__puraBeamss` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "8",
+      "desc": "Number of beam paths to render (capped at 32)."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "7",
+      "desc": "Base loop duration in seconds; each beam varies 0.75x..1.25x of it with a deterministic phase shift."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-beams count=\"10\" style=\"border-radius: 12px; background: #0b1020;\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; color: #e0e7ff; font: 600 20px system-ui;\">\n    Background Beams\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .35rem;\">Gradient pulses traveling along curved paths, pure CSS, server-renderable.</div>\n  </div>\n</pura-beams>",
+  "usage": "<!-- hero section with beams sweeping behind the content -->\n<pura-beams count=\"12\" style=\"min-height: 60vh; background: #0b1020;\">\n  <div class=\"hero\">\n    <h1>Ship faster</h1>\n    <p>Content layers above the beam field.</p>\n  </div>\n</pura-beams>\n\n<!-- slower loop with a custom warm gradient -->\n<pura-beams count=\"6\" duration=\"12\"\n  style=\"--pura-beams-color-a: #fbbf24; --pura-beams-color-b: #f97316; --pura-beams-color-c: #ef4444; --pura-beams-width: 3; background: #1c1007;\">\n  <div class=\"hero\">Warm beams</div>\n</pura-beams>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "bento",
+  "title": "Bento Grid",
+  "category": "Animation",
+  "blurb": "Bento-style feature grid: child cells declare col-span/row-span attributes on a dense CSS grid, enter with a staggered fade/rise keyed off :nth-child, and lift with a shadow highlight on hover. Pure CSS, fully SSR-safe.",
+  "description": "`<pura-bento>` lays its children out as a bento grid: a dense CSS grid where each cell declares its own footprint with `col-span` and `row-span` attributes, so one or two hero cells can dominate while smaller ones fill the gaps (`grid-auto-flow: dense` closes holes automatically). Cells enter with a staggered fade and rise whose delay is a pure function of their `:nth-child` index, and lift with a border and shadow highlight on hover. Everything is plain CSS so the layout, spans and entrance work pre-JS and under SSR; reduced motion paints the final state immediately. Cells get a quiet default card chrome (background, border, radius, padding) themeable via `--pura-bento-*` tokens, and below 640px the grid collapses to a single column. Each instance registers in `window.__puraBentos` by `data-pura-id` with `{ cols, cells }`.",
+  "attributes": [
+    {
+      "name": "cols",
+      "type": "number",
+      "default": "3",
+      "desc": "Column count, 1 to 8."
+    },
+    {
+      "name": "gap",
+      "type": "string",
+      "default": "var(--pura-space-4)",
+      "desc": "Grid gap, any CSS length."
+    },
+    {
+      "name": "row",
+      "type": "string",
+      "default": "9rem",
+      "desc": "Minimum auto row height (grid-auto-rows lower bound)."
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": "80",
+      "desc": "Per-cell entrance delay in ms, 0 to 1000."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "600",
+      "desc": "Entrance animation duration in ms, 0 to 5000."
+    },
+    {
+      "name": "static",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Skip the entrance animation entirely."
+    },
+    {
+      "name": "no-hover",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Disable the hover lift and highlight."
+    },
+    {
+      "name": "col-span",
+      "type": "number",
+      "default": "1",
+      "desc": "Set on a child cell: columns the cell spans, up to cols."
+    },
+    {
+      "name": "row-span",
+      "type": "number",
+      "default": "1",
+      "desc": "Set on a child cell: rows the cell spans, 2 to 4."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-bento cols=\"3\" row=\"7.5rem\" style=\"--pura-bento-padding: 0;\">\n  <div col-span=\"2\" row-span=\"2\" style=\"position: relative; display: grid;\">\n    <img src=\"https://picsum.photos/seed/bento-hero/800/520\" alt=\"\" style=\"width: 100%; height: 100%; object-fit: cover;\" />\n    <div style=\"position: absolute; inset: auto 0 0 0; padding: 1rem; background: linear-gradient(transparent, rgba(0,0,0,.65)); color: #fff; font-weight: 600;\">Hero feature</div>\n  </div>\n  <div style=\"padding: 1rem;\"><strong>Fast</strong><p style=\"margin: .4rem 0 0; font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">Zero runtime deps.</p></div>\n  <div style=\"padding: 1rem;\"><strong>Themeable</strong><p style=\"margin: .4rem 0 0; font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">CSS tokens everywhere.</p></div>\n  <div col-span=\"2\" style=\"position: relative; display: grid;\">\n    <img src=\"https://picsum.photos/seed/bento-wide/800/260\" alt=\"\" style=\"width: 100%; height: 100%; object-fit: cover;\" />\n    <div style=\"position: absolute; inset: auto 0 0 0; padding: .8rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,.6)); color: #fff; font-weight: 600;\">Wide cell</div>\n  </div>\n  <div style=\"padding: 1rem;\"><strong>SSR-safe</strong><p style=\"margin: .4rem 0 0; font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">Pure CSS layout.</p></div>\n</pura-bento>",
+  "usage": "<!-- feature grid: hero cell spans 2x2, the rest auto-fill densely -->\n<pura-bento cols=\"3\">\n  <div col-span=\"2\" row-span=\"2\"><h3>Analytics</h3><p>Realtime dashboards.</p></div>\n  <div><h3>Alerts</h3></div>\n  <div><h3>Exports</h3></div>\n  <div col-span=\"2\"><h3>Integrations</h3></div>\n</pura-bento>\n\n<!-- 4 columns, slower stagger, no hover lift, custom look -->\n<pura-bento cols=\"4\" stagger=\"120\" duration=\"800\" no-hover\n  style=\"--pura-bento-gap: 0.75rem; --pura-bento-radius: 1.25rem; --pura-bento-row: 10rem;\">\n  <div col-span=\"2\">Wide</div>\n  <div row-span=\"2\">Tall</div>\n  <div>Small</div>\n  <div>Small</div>\n  <div col-span=\"3\">Footer band</div>\n</pura-bento>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "blobs",
+  "title": "Gooey Blobs",
+  "category": "Animation",
+  "blurb": "Organic blobs that drift slowly and fuse together when they approach (metaball / lava-lamp effect) behind the slotted content. Pure CSS keyframes through an SVG goo filter, deterministic scatter, zero per-frame JS.",
+  "description": "`<pura-blobs>` renders organic blobs that drift slowly and fuse together when they get close (the classic metaball / lava-lamp effect) behind the slotted content. The circles live in one container routed through an inline SVG goo filter (`feGaussianBlur` plus an `feColorMatrix` alpha threshold), and the drift is pure CSS `@keyframes`, so no per-frame JS runs. Every blob's position, size, color and timing is deterministic index math in the pure template, which means the server and client paint the same field and the effect works before any JS loads. `count` sets how many blobs, `speed` the base drift cycle in seconds, and `goo` the filter blur strength (how readily blobs fuse). Theme it with `--pura-blobs-color-1/2/3`, `--pura-blobs-size` and `--pura-blobs-opacity`. Reduced motion freezes the blobs in their scattered layout. Each instance registers in `window.__puraBlobss` by `data-pura-id` and mirrors `data-pura-blobs-*` attributes.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "5",
+      "desc": "Number of blobs, capped at 12."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "18",
+      "desc": "Base drift cycle in seconds; each blob varies deterministically around it."
+    },
+    {
+      "name": "goo",
+      "type": "number",
+      "default": "14",
+      "desc": "Goo filter blur strength in px (how readily blobs fuse), capped at 40."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-blobs count=\"6\" speed=\"14\" style=\"height: 280px; border-radius: 16px; background: #0f172a; color: #f8fafc;\">\n  <div style=\"display: grid; place-items: center; height: 100%; text-align: center; padding: 1.5rem;\">\n    <div>\n      <h3 style=\"margin: 0 0 .5rem; font-size: 1.5rem;\">Gooey Blobs</h3>\n      <p style=\"margin: 0; opacity: .8; font-size: .9rem;\">Organic metaballs drifting and fusing behind your hero content.</p>\n    </div>\n  </div>\n</pura-blobs>",
+  "usage": "<!-- lava-lamp hero backdrop with default palette -->\n<pura-blobs style=\"min-height: 60vh; background: #0f172a; color: #fff;\">\n  <header style=\"display: grid; place-items: center; min-height: 60vh;\">\n    <h1>Launch faster</h1>\n  </header>\n</pura-blobs>\n\n<!-- denser, faster field with a custom palette and bigger blobs -->\n<pura-blobs count=\"9\" speed=\"10\" goo=\"20\"\n  style=\"height: 320px; --pura-blobs-color-1: #f97316; --pura-blobs-color-2: #ef4444; --pura-blobs-color-3: #facc15; --pura-blobs-size: 13rem; --pura-blobs-opacity: 0.7;\">\n  <div style=\"position: relative; padding: 2rem;\">Warm lava palette</div>\n</pura-blobs>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "blockquote",
   "title": "Blockquote",
   "category": "Primitives",
@@ -1028,6 +1230,60 @@ export const components = [
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<pura-blockquote cite=\"Ada Lovelace\">\n  The Analytical Engine weaves algebraic patterns just as the Jacquard loom weaves flowers and leaves.\n</pura-blockquote>\n\n<pura-blockquote variant=\"primary\" cite=\"Grace Hopper\">\n  The most dangerous phrase in the language is: we've always done it this way.\n</pura-blockquote>\n\n<pura-blockquote variant=\"success\">\n  Simplicity is the ultimate sophistication.\n  <span slot=\"author\">Leonardo da Vinci, <em>Notebooks</em></span>\n</pura-blockquote>",
   "usage": "<script type=\"module\" src=\"/pura/lib/blockquote.js\"></script>\n\n<!-- Default accent with a plain citation -->\n<pura-blockquote cite=\"Marie Curie\">\n  Nothing in life is to be feared, it is only to be understood.\n</pura-blockquote>\n\n<!-- Colored accent variant -->\n<pura-blockquote variant=\"warning\" cite=\"Carl Sagan\">\n  Somewhere, something incredible is waiting to be known.\n</pura-blockquote>\n\n<!-- Rich citation via the author slot -->\n<pura-blockquote variant=\"info\">\n  We are all in the gutter, but some of us are looking at the stars.\n  <span slot=\"author\">Oscar Wilde, <em>Lady Windermere's Fan</em></span>\n</pura-blockquote>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "blur-text",
+  "title": "Blur Text",
+  "category": "Animation",
+  "blurb": "Text that enters word by word out of a blur: each unit starts blurred, transparent and slightly offset, then sharpens into place with a stagger. Pure CSS keyframes, zero per-frame JS; the original text stays as the accessible copy and SSR paints it sharp.",
+  "description": "`<pura-blur-text>` is the blur-in text entrance (React Bits Blur Text, Magic UI Blur Fade): the slotted text enters word by word (or character by character), each unit starting blurred, transparent and slightly offset, then sharpening into place with a stagger. The motion is one CSS keyframe animating `filter: blur` + `opacity` + `translateY`, staggered through a per-unit delay, so no per-frame JS runs. Where `<pura-split>` reveals through a clipping mask with a spring rise, this one resolves out of a progressive blur. `trigger=\"view\"` (default) reveals on scroll-in; `trigger=\"load\"` reveals on connect. `blur` sets the starting radius, `duration` the per-unit time, `direction` whether units settle upward or downward, and `--pura-blur-text-distance` the travel offset. Accessibility and SSR are preserved: the original text stays in the light DOM as the accessible copy (the animated spans are `aria-hidden`), the server paints the full text sharp, and reduced motion skips the entrance entirely. Each instance registers in `window.__puraBlurTexts` by `data-pura-id` with `{ by, units, replay }`.",
+  "attributes": [
+    {
+      "name": "by",
+      "type": "\"word\" | \"char\"",
+      "default": "word",
+      "desc": "Unit to split and stagger."
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": "60",
+      "desc": "Milliseconds between consecutive units (defaults to 35 for char)."
+    },
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"load\"",
+      "default": "view",
+      "desc": "view reveals when scrolled into view; load reveals on connect."
+    },
+    {
+      "name": "blur",
+      "type": "number",
+      "default": "8",
+      "desc": "Starting blur radius in px."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "600",
+      "desc": "Per-unit animation duration in ms."
+    },
+    {
+      "name": "direction",
+      "type": "\"up\" | \"down\"",
+      "default": "up",
+      "desc": "up settles units upward into place; down settles them downward."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-blur-text trigger=\"load\" style=\"font: 800 clamp(1.8rem, 6vw, 3.4rem)/1.1 system-ui, sans-serif; letter-spacing: -0.02em; color: var(--pura-fg, #09090b);\">Isn't this so cool?</pura-blur-text>\n<div style=\"height: .8rem;\"></div>\n<pura-blur-text by=\"char\" trigger=\"load\" stagger=\"30\" direction=\"down\" style=\"font: 700 clamp(1.2rem, 3.5vw, 2rem)/1.2 system-ui, sans-serif; color: var(--pura-accent, #6d28d9);\">Character by character.</pura-blur-text>\n<div style=\"height: .8rem;\"></div>\n<pura-blur-text trigger=\"load\" stagger=\"90\" blur=\"14\" duration=\"900\" style=\"font: 500 clamp(1rem, 2.4vw, 1.3rem)/1.45 system-ui, sans-serif; max-width: 34ch; color: var(--pura-muted-fg, #52525b);\">A heavier blur and a slower settle for body copy that drifts into focus.</pura-blur-text>",
+  "usage": "<!-- words sharpen out of a blur when scrolled into view -->\n<pura-blur-text>\n  Isn't this so cool?\n</pura-blur-text>\n\n<!-- per-character, heavier blur, settling downward, plays on load -->\n<pura-blur-text by=\"char\" trigger=\"load\" stagger=\"30\" blur=\"12\" direction=\"down\">\n  Character by character.\n</pura-blur-text>\n\n<script type=\"module\">\n  const b = document.querySelector('pura-blur-text');\n  b.replay(); // re-run the entrance\n</script>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -1064,8 +1320,38 @@ export const components = [
   "demoHTML": "<pura-border-beam size=\"60\" duration=\"4\" style=\"max-width: 320px;\">\n  <div style=\"padding: 1.5rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; background: var(--pura-bg, #fff); font: 15px system-ui;\">\n    <b style=\"display:block; margin-bottom:.3rem;\">Border Beam</b>\n    <span style=\"color: var(--pura-muted-fg, #71717a);\">A light traces the perimeter, pure CSS, server-renderable.</span>\n  </div>\n</pura-border-beam>",
   "usage": "<pura-border-beam size=\"60\" duration=\"4\">\n  <div class=\"card\">Framed content</div>\n</pura-border-beam>\n\n<!-- Custom beam colors -->\n<pura-border-beam style=\"--pura-border-beam-from: #06b6d4; --pura-border-beam-to: #3b82f6;\">\n  <div class=\"card\">Cyan beam</div>\n</pura-border-beam>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
+    },
+    {
+      "slug": "ticker",
+      "title": "Ticker"
+    },
+    {
+      "slug": "typewriter",
+      "title": "Typewriter"
+    },
+    {
+      "slug": "velocity",
+      "title": "Velocity"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "bottom-navigation",
@@ -1236,10 +1522,6 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "code-block",
-      "title": "Code Block"
-    },
-    {
       "slug": "reactions",
       "title": "Reactions"
     },
@@ -1256,6 +1538,10 @@ export const components = [
       "title": "Typography"
     },
     {
+      "slug": "code-block",
+      "title": "Code Block"
+    },
+    {
       "slug": "sidebar",
       "title": "Sidebar"
     }
@@ -1270,6 +1556,30 @@ export const components = [
       "title": "Blog Post"
     }
   ]
+},
+{
+  "slug": "bubbles",
+  "title": "Bubbles",
+  "category": "Animation",
+  "blurb": "Translucent bubbles rising with a lateral sway and a soft pop near the top. Deterministic scatter (SSR-stable), pure CSS @keyframes, reduced-motion aware.",
+  "description": "`<pura-bubbles>` paints translucent bubbles drifting up behind its slotted content with a lateral sway and a soft pop near the top, in the style of the tsParticles Bubbles preset. The bubbles are scattered deterministically in the pure template (no `Math.random`), so the server and client render the same field and the effect needs no client JS. Each bubble composes two CSS `@keyframes` (an outer rise and an inner sway) and carries a radial-gradient glare, so there is no animation runtime. Set `count` for density and theme with `--pura-bubbles-color`, `--pura-bubbles-highlight`, `--pura-bubbles-opacity` and `--pura-bubbles-travel` (set the travel to a small pixel value on short sections so the pop happens in view). Under reduced motion the bubbles hold a static scattered field. It registers in `window.__puraBubbless` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "16",
+      "desc": "Number of bubbles to render (capped at 80)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-bubbles count=\"22\" style=\"border-radius: 12px; background: linear-gradient(180deg, #0c4a6e, #082f49); --pura-bubbles-travel: -260px;\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; color: #e0f2fe; font: 600 18px system-ui; position: relative;\">\n    Bubbles\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .3rem;\">Rising, swaying, softly popping. Pure CSS, server-renderable.</div>\n  </div>\n</pura-bubbles>",
+  "usage": "<!-- aquatic hero: bubbles rise the full viewport behind the content -->\n<pura-bubbles count=\"24\" style=\"min-height: 100vh; background: linear-gradient(180deg, #0c4a6e, #082f49);\">\n  <h1 style=\"color: #e0f2fe;\">Under the surface</h1>\n</pura-bubbles>\n\n<!-- short playful card: shorter travel so the pop stays in view -->\n<pura-bubbles count=\"12\" style=\"height: 240px; background: #ecfeff; --pura-bubbles-color: rgba(14, 165, 233, .5); --pura-bubbles-travel: -260px;\">\n  <div style=\"padding: 2rem; position: relative;\">Kids zone</div>\n</pura-bubbles>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "burger",
@@ -1488,6 +1798,10 @@ export const components = [
     {
       "slug": "signup",
       "title": "Sign Up"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
     }
   ]
 },
@@ -1528,12 +1842,12 @@ export const components = [
       "title": "Toast"
     },
     {
-      "slug": "segmented-control",
-      "title": "Segmented Control"
-    },
-    {
       "slug": "item",
       "title": "Item"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
     },
     {
       "slug": "select",
@@ -1550,6 +1864,69 @@ export const components = [
       "title": "Calendar"
     }
   ]
+},
+{
+  "slug": "card-stack",
+  "title": "Card Stack",
+  "category": "Animation",
+  "blurb": "A pile of cards with decreasing offset and scale that trade places on an automatic cycle or by dragging the top card (Tinder style): past the threshold the card flies out with inertia and the next one rises; below it, it springs back.",
+  "description": "`<pura-card-stack>` lays its slotted children out as a pile: each depth steps down by `offset` px and loses `scale` per level, with the resting layout painted by static nth-child CSS so SSR shows the finished pile. The top card can be dragged (Pointer Events): past `threshold` px of projected travel it flies out with inertia and tucks behind the pile while the rest FLIP into their new depth with the chosen `spring` preset; below the threshold it springs back. `autoplay` cycles the stack every `interval` ms and pauses on hover and drag. The stack is focusable; ArrowLeft / ArrowRight swipe the top card. It fires `swipe` (detail `{ direction, index }`) when a swipe is committed and `change` (detail `{ index }`) when a new card reaches the top. Tokens: `--pura-card-stack-offset`, `--pura-card-stack-scale`, `--pura-card-stack-radius`. Reduced motion: no autoplay, no WAAPI; swipes and cycles reorder instantly. Each instance registers in `window.__puraCardStacks` by `data-pura-id` with `{ next, swipe, el }`; `data-pura-stack-top` / `-count` / `-dragging` / `-autoplay` mirror state.",
+  "attributes": [
+    {
+      "name": "visible",
+      "type": "number",
+      "default": "3",
+      "desc": "How many depths show behind the top card, 1..6."
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "default": "14",
+      "desc": "Pixels each depth steps down."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "default": "0.05",
+      "desc": "Scale lost per depth, 0..0.2."
+    },
+    {
+      "name": "autoplay",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Cycle the stack automatically."
+    },
+    {
+      "name": "interval",
+      "type": "number",
+      "default": "4000",
+      "desc": "Autoplay period in ms, min 800."
+    },
+    {
+      "name": "threshold",
+      "type": "number",
+      "default": "80",
+      "desc": "Horizontal travel in px, after inertia projection, that commits a swipe."
+    },
+    {
+      "name": "spring",
+      "type": "\"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\" | \"default\"",
+      "default": "snappy",
+      "desc": "Spring preset for the return and the FLIP re-rank."
+    }
+  ],
+  "events": [
+    "swipe",
+    "change"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-card-stack autoplay interval=\"3200\" style=\"max-width: 340px; margin: 0 auto;\">\n  <figure style=\"margin: 0; border-radius: 0.9rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.18); background: var(--pura-bg, #fff);\">\n    <img src=\"https://picsum.photos/seed/stack1/640/360\" alt=\"\" style=\"display: block; width: 100%; height: 180px; object-fit: cover;\" />\n    <figcaption style=\"padding: .7rem .9rem; font-size: .85rem;\">Drag me left or right</figcaption>\n  </figure>\n  <figure style=\"margin: 0; border-radius: 0.9rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.18); background: var(--pura-bg, #fff);\">\n    <img src=\"https://picsum.photos/seed/stack2/640/360\" alt=\"\" style=\"display: block; width: 100%; height: 180px; object-fit: cover;\" />\n    <figcaption style=\"padding: .7rem .9rem; font-size: .85rem;\">Or just wait, autoplay cycles the pile</figcaption>\n  </figure>\n  <figure style=\"margin: 0; border-radius: 0.9rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.18); background: var(--pura-bg, #fff);\">\n    <img src=\"https://picsum.photos/seed/stack3/640/360\" alt=\"\" style=\"display: block; width: 100%; height: 180px; object-fit: cover;\" />\n    <figcaption style=\"padding: .7rem .9rem; font-size: .85rem;\">Arrow keys work too when focused</figcaption>\n  </figure>\n  <figure style=\"margin: 0; border-radius: 0.9rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.18); background: var(--pura-bg, #fff);\">\n    <img src=\"https://picsum.photos/seed/stack4/640/360\" alt=\"\" style=\"display: block; width: 100%; height: 180px; object-fit: cover;\" />\n    <figcaption style=\"padding: .7rem .9rem; font-size: .85rem;\">Swiped cards tuck behind the pile</figcaption>\n  </figure>\n</pura-card-stack>",
+  "usage": "<!-- testimonial stack that cycles on its own -->\n<pura-card-stack autoplay interval=\"5000\">\n  <blockquote class=\"card\">\"Best tool we adopted this year.\" <cite>Ana</cite></blockquote>\n  <blockquote class=\"card\">\"Setup took five minutes.\" <cite>Bruno</cite></blockquote>\n  <blockquote class=\"card\">\"Support is outstanding.\" <cite>Carla</cite></blockquote>\n</pura-card-stack>\n\n<!-- deeper pile, tighter steps, wobblier return spring -->\n<pura-card-stack visible=\"5\" offset=\"10\" scale=\"0.03\" threshold=\"120\" spring=\"wobbly\">\n  <img src=\"/photos/one.jpg\" alt=\"One\" />\n  <img src=\"/photos/two.jpg\" alt=\"Two\" />\n  <img src=\"/photos/three.jpg\" alt=\"Three\" />\n  <img src=\"/photos/four.jpg\" alt=\"Four\" />\n  <img src=\"/photos/five.jpg\" alt=\"Five\" />\n</pura-card-stack>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "card",
@@ -1678,8 +2055,42 @@ export const components = [
   "demoHTML": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>",
   "usage": "<pura-carousel label=\"Highlights\" loop style=\"max-width: 420px\">\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Beach at sunrise\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    Mountain trail\n  </div>\n  <div style=\"display:grid;place-items:center;height:200px;background:var(--pura-subtle);border-radius:8px;font-size:1.25rem\">\n    City at night\n  </div>\n</pura-carousel>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    },
+    {
+      "slug": "scroll-progress",
+      "title": "Scroll Progress"
+    },
+    {
+      "slug": "type-morph",
+      "title": "Type Morph"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "cascader",
@@ -1998,16 +2409,16 @@ export const components = [
       "title": "Field"
     },
     {
-      "slug": "meter",
-      "title": "Meter"
-    },
-    {
       "slug": "card",
       "title": "Card"
     },
     {
       "slug": "input",
       "title": "Input"
+    },
+    {
+      "slug": "meter",
+      "title": "Meter"
     },
     {
       "slug": "stepper",
@@ -2030,6 +2441,265 @@ export const components = [
     {
       "slug": "signup",
       "title": "Sign Up"
+    }
+  ]
+},
+{
+  "slug": "cipher-hover",
+  "title": "Cipher Hover",
+  "category": "Animation",
+  "blurb": "Evervault-style encrypted card: a surface of pseudo-random characters revealed only under a radial spotlight that follows the cursor, rewriting every throttled frame. Unlike pura-scramble, the cipher never decodes; it is pure texture.",
+  "description": "`<pura-cipher-hover>` is the Evervault-style encrypted card: the surface is covered by pseudo-random characters that only appear under a radial spotlight following the cursor, and the characters rewrite on every throttled rAF frame while the pointer is over the card. It differs from `pura-scramble`, which decodes real text once; here the cipher never resolves, it is pure hover texture behind your real content. The field is seeded deterministically (`seed`), so SSR and client paint the same markup; `size` sets the spotlight diameter, `fps` the rewrite rate, and `static` keeps the field frozen while still revealing it. The character ink is a gradient (`--pura-cipher-hover-gradient`) clipped to the glyphs. The slotted content stays accessible above the decorative, `aria-hidden` cipher layer. Under reduced motion the scramble never starts and the card renders calm. Each instance registers in `window.__puraCipherHovers` by `data-pura-id` and mirrors state in `data-pura-cipher-*`.",
+  "attributes": [
+    {
+      "name": "chars",
+      "type": "string",
+      "default": "letters, digits and symbols",
+      "desc": "Charset the cipher field is drawn from."
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "default": "1500",
+      "desc": "Number of characters in the field, capped at 6000."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "200px",
+      "desc": "Spotlight diameter, px number or any CSS length."
+    },
+    {
+      "name": "fps",
+      "type": "number",
+      "default": "18",
+      "desc": "Scramble rewrites per second, clamped 1..60."
+    },
+    {
+      "name": "seed",
+      "type": "number",
+      "default": "1",
+      "desc": "Integer seeding the deterministic SSR character field."
+    },
+    {
+      "name": "static",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, the spotlight reveals the seeded field but the per-frame rewrite never runs."
+    }
+  ],
+  "events": [
+    "pura-cipher-hover-show",
+    "pura-cipher-hover-hide"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-cipher-hover seed=\"7\" style=\"max-width: 360px; margin: 0 auto; background: #09090b; border: 1px solid #27272a;\">\n  <div style=\"display: grid; place-items: center; min-height: 220px; padding: 28px; text-align: center; color: #fafafa;\">\n    <div>\n      <span style=\"display: inline-block; padding: 4px 14px; border: 1px solid #3f3f46; border-radius: 999px; font-size: .75rem; color: #a1a1aa; background: rgba(9, 9, 11, .7);\">hover me</span>\n      <p style=\"margin: 14px 0 0; font-size: .85rem; color: #a1a1aa; max-width: 240px;\">Encrypted characters appear under the cursor and rewrite every frame.</p>\n    </div>\n  </div>\n</pura-cipher-hover>",
+  "usage": "<!-- encrypted card: characters appear under the cursor, rewriting per frame -->\n<pura-cipher-hover style=\"background: #09090b;\">\n  <div style=\"min-height: 220px; display: grid; place-items: center; color: #fafafa;\">\n    <strong>hover me</strong>\n  </div>\n</pura-cipher-hover>\n\n<!-- binary texture, wider spotlight, frozen field (no per-frame rewrite) -->\n<pura-cipher-hover chars=\"01\" size=\"320\" seed=\"42\" static\n  style=\"--pura-cipher-hover-gradient: linear-gradient(120deg, #f472b6, #fb923c); background: #0c0a09;\">\n  <div style=\"min-height: 200px; padding: 24px; color: #fafaf9;\">\n    <h3 style=\"margin: 0;\">Zero knowledge</h3>\n    <p style=\"color: #a8a29e;\">Your keys never leave the device.</p>\n  </div>\n</pura-cipher-hover>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "circular-text",
+  "title": "Circular Text",
+  "category": "Animation",
+  "blurb": "Text laid on a circular SVG path, spinning continuously around its center: the classic hero badge / sticker seal. Pure CSS rotation, SSR-safe static circle, optional non-spinning center slot.",
+  "description": "`<pura-circular-text>` lays text on a circular SVG path (`textPath`) and spins it continuously around its center, the classic badge or sticker seal for hero sections. The circle, the path and the text (justified around the exact circumference via `textLength`) are all produced by the pure template, so the static seal renders on the server and before JS; the rotation is a single CSS `@keyframes` on the SVG, zero per-frame JS. The default slot holds optional center content (a logo, an icon, an image) that does not spin. `radius` sizes the circle, `repeat` tiles the text around it, `speed` sets seconds per revolution and `direction` flips it to counter-clockwise. `paused` and `pause-on-hover` stop the spin, and `play()` / `pause()` / `toggle()` drive it imperatively. The SVG copy is `aria-hidden`; a visually-hidden span keeps the text readable, and reduced motion shows the static circle. Tokens: `--pura-circular-text-size`, `--pura-circular-text-color`, `--pura-circular-text-weight`, `--pura-circular-text-tracking`, `--pura-circular-text-transform`, `--pura-circular-text-duration`, `--pura-circular-text-diameter`. Each instance registers in `window.__puraCircularTexts` by `data-pura-id` and mirrors state in `data-pura-circular-text-*` attributes.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "PURA • WEB COMPONENTS • ",
+      "desc": "The text laid around the circle. Include your own separator (bullet, star) at the end for a seamless loop."
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "default": "80",
+      "desc": "Circle radius in px (SVG user units)."
+    },
+    {
+      "name": "repeat",
+      "type": "number",
+      "default": "1",
+      "desc": "How many times the text repeats around the circle, 1..20."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "20",
+      "desc": "Seconds per full revolution. Lower is faster."
+    },
+    {
+      "name": "direction",
+      "type": "\"cw\" | \"ccw\"",
+      "default": "cw",
+      "desc": "Spin direction: clockwise or counter-clockwise."
+    },
+    {
+      "name": "paused",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Reflected state; present when the spin is paused."
+    },
+    {
+      "name": "pause-on-hover",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, the spin pauses while hovered or focused."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; padding: 2.5rem 1rem;\">\n  <pura-circular-text text=\"FREE SHIPPING WORLDWIDE • SINCE 2024 • \" radius=\"78\" speed=\"16\" pause-on-hover style=\"color: var(--pura-fg, #18181b);\">\n    <img src=\"https://picsum.photos/seed/seal/120/120\" alt=\"\" style=\"width: 92px; height: 92px; border-radius: 50%; object-fit: cover;\" />\n  </pura-circular-text>\n</div>",
+  "usage": "<!-- hero badge: spinning seal around a logo -->\n<pura-circular-text text=\"LEARN MORE • EARN MORE • GROW MORE • \" radius=\"90\" speed=\"18\">\n  <img src=\"/logo.svg\" alt=\"Acme\" style=\"width: 80px;\" />\n</pura-circular-text>\n\n<!-- short phrase tiled around the circle, slow counter-clockwise spin -->\n<pura-circular-text text=\"OPEN SOURCE ★ \" repeat=\"3\" radius=\"64\" speed=\"30\" direction=\"ccw\"\n  style=\"color: #7c3aed; --pura-circular-text-size: 12px;\">\n</pura-circular-text>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "click-spark",
+  "title": "Click Spark",
+  "category": "Animation",
+  "blurb": "Celebration micro-feedback: a burst of sparks (short lines or emojis) radiates from the exact click or touch point. Particles are spawned on pointerdown, animated with WAAPI and removed on finish, so the initial paint is untouched.",
+  "description": "`<pura-click-spark>` wraps any clickable surface and throws a burst of sparks from the exact click or touch point, a celebration micro-feedback distinct from the material ripple. By default sparks are short lines radiating outward; set `emoji` to a space-separated list to throw emojis instead, cycled per spark. Particles are created on `pointerdown`, animated with WAAPI (radial translate plus scale plus fade) and removed when the animation finishes, so the initial paint carries no effect markup and SSR output is the final resting state by construction. `count`, `size`, `radius` and `duration` shape the burst; `--pura-click-spark-color` themes line sparks. Under reduced motion no particles spawn, but the `pura-click-spark` event (detail `{ id, x, y }`, host-relative pixels) still fires. Each instance registers in `window.__puraClickSparks` by `data-pura-id` with `{ count, burst }`, and `burst(x, y)` can be called programmatically.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "8",
+      "desc": "Sparks per burst."
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": "10",
+      "desc": "Spark length in px; emoji font size in emoji mode."
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "default": "28",
+      "desc": "Travel distance from the click point, in px."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "500",
+      "desc": "Burst time in ms."
+    },
+    {
+      "name": "emoji",
+      "type": "string",
+      "default": "",
+      "desc": "Space-separated emoji list; when set, sparks are emoji characters cycled by index instead of lines."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Suppresses bursts entirely."
+    }
+  ],
+  "events": [
+    "pura-click-spark"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; padding: 1.5rem;\">\n  <pura-click-spark>\n    <button style=\"padding: .6rem 1.2rem; border-radius: .5rem; border: 1px solid var(--pura-border, #d4d4d8); background: var(--pura-bg, #fff); color: var(--pura-fg, #18181b); cursor: pointer;\">Click me</button>\n  </pura-click-spark>\n  <pura-click-spark count=\"12\" radius=\"44\" size=\"14\" style=\"--pura-click-spark-color: #f59e0b;\">\n    <button style=\"padding: .6rem 1.2rem; border-radius: 999px; border: none; background: #f59e0b; color: #1c1917; cursor: pointer; font-weight: 600;\">Big burst</button>\n  </pura-click-spark>\n  <pura-click-spark emoji=\"🎉 ✨ 🎊\" count=\"10\" radius=\"40\" size=\"16\">\n    <button style=\"padding: .6rem 1.2rem; border-radius: .5rem; border: 1px solid var(--pura-border, #d4d4d8); background: var(--pura-bg, #fff); color: var(--pura-fg, #18181b); cursor: pointer;\">Party 🎉</button>\n  </pura-click-spark>\n</div>",
+  "usage": "<!-- line sparks from wherever the user clicks -->\n<pura-click-spark count=\"10\" radius=\"36\" style=\"--pura-click-spark-color: gold;\">\n  <button>Like</button>\n</pura-click-spark>\n\n<!-- emoji confetti on tap; listen for the burst event -->\n<pura-click-spark id=\"cheer\" emoji=\"🎉 ✨\" count=\"12\" duration=\"650\">\n  <button>Celebrate</button>\n</pura-click-spark>\n<script>\n  document.getElementById(\"cheer\").addEventListener(\"pura-click-spark\", (e) => {\n    console.log(\"burst at\", e.detail.x, e.detail.y);\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "clip-reveal",
+  "title": "Clip Reveal",
+  "category": "Animation",
+  "blurb": "clip-path wipe reveal: the slotted content is revealed by an inset() sliding open from one edge or a circle() irising out from the center, by default scrubbed 1:1 by a scroll-driven timeline. The awwwards image-wipe, done natively with no per-frame JS.",
+  "description": "`<pura-clip-reveal>` reveals its slotted content with an animating `clip-path` wipe, the awwwards image-wipe done natively. `direction=\"up\"|\"down\"|\"left\"|\"right\"` slides an `inset()` open from one edge; `direction=\"circle\"` irises a `circle()` out from the center. Both forms interpolate natively, so the default `trigger=\"scrub\"` ties the wipe 1:1 to a scroll-driven timeline (`animation-timeline: view()` or `scroll()`) with no per-frame JS. `trigger=\"view\"` wipes open once when scrolled into view (eased by the spring primitive); `trigger=\"load\"` wipes open once on connect. SSR and reduced motion are safe: before JS the content sits fully revealed (the hide only engages once a trigger applies), the scrub block is gated behind `prefers-reduced-motion: no-preference`, and reduced motion shows the content revealed. Each instance registers in `window.__puraClipReveals` by `data-pura-id` with `{ direction, replay }`.",
+  "attributes": [
+    {
+      "name": "direction",
+      "type": "\"up\" | \"down\" | \"left\" | \"right\" | \"circle\"",
+      "default": "up",
+      "desc": "Which way the wipe opens. up reveals bottom-to-top edge first; circle irises out from the center."
+    },
+    {
+      "name": "trigger",
+      "type": "\"scrub\" | \"view\" | \"load\"",
+      "default": "scrub",
+      "desc": "scrub ties the wipe 1:1 to a scroll-driven timeline; view wipes once when scrolled into view; load wipes once on connect."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only. view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 50%",
+      "desc": "animation-range for the scrub timeline. Default completes the wipe as the element reaches viewport center, then holds."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring easing for view/load triggers. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-clip-reveal trigger=\"load\" direction=\"left\" preset=\"slow\" style=\"display:inline-block;\">\n  <div style=\"width: 280px; height: 160px; border-radius: 12px; background: linear-gradient(135deg, #0ea5e9, #6366f1); display: grid; place-items: center; color: #fff; font: 700 1.2rem system-ui;\">Revealed</div>\n</pura-clip-reveal>\n<div style=\"height: 1rem;\"></div>\n<button type=\"button\" onclick=\"this.previousElementSibling.previousElementSibling.replay()\" style=\"font: 500 .85rem system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .4rem; background: var(--pura-bg, #fff); cursor: pointer;\">replay</button>",
+  "usage": "<!-- default: wipes open bottom-to-top as you scroll -->\n<pura-clip-reveal>\n  <img src=\"/hero.jpg\" alt=\"\" style=\"display:block;width:100%\" />\n</pura-clip-reveal>\n\n<!-- iris out from the center, once on view -->\n<pura-clip-reveal direction=\"circle\" trigger=\"view\" preset=\"snappy\">\n  <div class=\"card\">Surprise</div>\n</pura-clip-reveal>\n\n<!-- left-to-right wipe scrubbed against the page scroll -->\n<pura-clip-reveal direction=\"right\" timeline=\"scroll\" range=\"cover 0% cover 100%\">\n  <h2>Headline</h2>\n</pura-clip-reveal>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    },
+    {
+      "slug": "marquee",
+      "title": "Marquee"
+    },
+    {
+      "slug": "scramble",
+      "title": "Scramble"
+    },
+    {
+      "slug": "tilt",
+      "title": "Tilt"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    },
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
     }
   ]
 },
@@ -2070,6 +2740,18 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
+      "slug": "border-beam",
+      "title": "Border Beam"
+    },
+    {
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
+    },
+    {
       "slug": "reactions",
       "title": "Reactions"
     },
@@ -2078,26 +2760,18 @@ export const components = [
       "title": "Scroll Spy"
     },
     {
-      "slug": "prose",
-      "title": "Typography"
-    },
-    {
-      "slug": "breadcrumb",
-      "title": "Breadcrumb"
-    },
-    {
-      "slug": "avatar",
-      "title": "Avatar"
-    },
-    {
-      "slug": "badge",
-      "title": "Badge"
+      "slug": "ticker",
+      "title": "Ticker"
     }
   ],
   "relatedBlocks": [
     {
       "slug": "blog-post",
       "title": "Blog Post"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
     }
   ]
 },
@@ -2388,6 +3062,69 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "confetti",
+  "title": "Confetti",
+  "category": "Animation",
+  "blurb": "Celebration confetti burst fired by clicking the slotted trigger or by calling fire(): a cannon of particles scatters across the page on a canvas overlay with simple physics (gravity, drift, decay, tumble). Themeable palette, configurable angle and spread, zero dependencies.",
+  "description": "`<pura-confetti>` is the celebration burst for success, achievement, and checkout moments, the natural companion to fly-to-cart. Wrap any trigger and a click launches a cannon of confetti from it: particles scatter across the page on a full-viewport canvas overlay with simple physics (gravity, drift, air decay, tumble) and clean themselves up when they settle. `angle` aims the cannon (90 is straight up), `spread` widens the cone, `count`, `velocity`, and `duration` shape the burst. With `trigger=\"manual\"` nothing happens on click and you call `fire()` programmatically, optionally overriding `{ count, angle, spread, velocity, duration, x, y }` per burst. Colors come from the `colors` attribute or the `--pura-confetti-color-1..5` tokens, so the party matches your theme. The `fire` event marks launch and `done` marks the last particle settling. SSR and pre-JS paint only the slotted trigger (the canvas stays hidden and empty); reduced motion skips the burst entirely but still dispatches both events so app logic keeps working. Each instance registers in `window.__puraConfettis` by `data-pura-id` with `{ trigger, count, fire }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"click\" | \"manual\"",
+      "default": "click",
+      "desc": "click fires a burst when the slotted trigger is clicked; manual only fires via the fire() method."
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "default": "80",
+      "desc": "Particles per burst, capped at 500."
+    },
+    {
+      "name": "angle",
+      "type": "number",
+      "default": "90",
+      "desc": "Launch direction in degrees; 90 is straight up, 0 is right."
+    },
+    {
+      "name": "spread",
+      "type": "number",
+      "default": "70",
+      "desc": "Cone width in degrees around the launch angle."
+    },
+    {
+      "name": "velocity",
+      "type": "number",
+      "default": "14",
+      "desc": "Initial particle speed."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "2500",
+      "desc": "Particle lifetime in milliseconds."
+    },
+    {
+      "name": "colors",
+      "type": "string",
+      "default": "",
+      "desc": "Comma-separated CSS colors. When empty the palette comes from the --pura-confetti-color-1..5 tokens with festive fallbacks."
+    }
+  ],
+  "events": [
+    "fire",
+    "done"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;\">\n  <pura-confetti style=\"font: 500 .95rem system-ui;\">\n    <button type=\"button\" style=\"font: inherit; padding: .55rem 1.1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">Celebrate 🎉</button>\n  </pura-confetti>\n  <pura-confetti id=\"cf-cannon\" trigger=\"manual\" angle=\"60\" spread=\"50\" count=\"120\" style=\"font: 500 .95rem system-ui;\">\n    <button id=\"cf-cannon-btn\" type=\"button\" style=\"font: inherit; padding: .55rem 1.1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">Side cannon</button>\n  </pura-confetti>\n</div>\n<script>\n  document.getElementById(\"cf-cannon-btn\").addEventListener(\"click\", () => {\n    document.getElementById(\"cf-cannon\").fire();\n  });\n</script>",
+  "usage": "<!-- click the trigger to fire a burst from it -->\n<pura-confetti count=\"100\" spread=\"80\">\n  <button type=\"button\">Complete order</button>\n</pura-confetti>\n\n<!-- programmatic: fire on checkout success, aimed like a side cannon -->\n<pura-confetti id=\"celebrate\" trigger=\"manual\" angle=\"60\" spread=\"55\"\n  colors=\"#f43f5e, #f59e0b, #3b82f6\">\n  <span>Order confirmed</span>\n</pura-confetti>\n\n<script>\n  checkout.addEventListener(\"success\", () => {\n    document.getElementById(\"celebrate\").fire({ count: 150 });\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "confidence-meter",
   "title": "Confidence Meter",
   "category": "Display",
@@ -2429,6 +3166,55 @@ export const components = [
   "slots": [],
   "demoHTML": "<div style=\"display: grid; gap: 1.25rem; padding: 1rem; max-width: 320px;\">\n  <pura-confidence-meter value=\"0.92\" state=\"verified\" label=\"High\"></pura-confidence-meter>\n  <pura-confidence-meter value=\"0.55\" state=\"checking\" label=\"Moderate\"></pura-confidence-meter>\n  <pura-confidence-meter value=\"0.18\" state=\"guessing\" label=\"Low\"></pura-confidence-meter>\n</div>",
   "usage": "<pura-confidence-meter value=\"0.92\" label=\"Answer confidence\"></pura-confidence-meter>\n\n<script type=\"module\">\n  const m = document.querySelector('pura-confidence-meter');\n  m.addEventListener('confidencechange', (e) => console.log(e.detail)); // { value, level, state }\n  m.setValue(0.4);            // or: m.setAttribute('value', '40')\n  window.__puraConfidenceMeters;  // Map<data-pura-id, element>\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "container-scroll",
+  "title": "Container Scroll",
+  "category": "Animation",
+  "blurb": "The famous 3D flatten hero: a screenshot or card starts tilted back in perspective and flattens, grows and lifts to face-on as the page scrolls, tied 1:1 to a scroll-driven timeline. Zero per-frame JS.",
+  "description": "`<pura-container-scroll>` is the famous 3D flatten hero: the slotted screenshot or card starts tilted back in perspective (`rotateX`) and flattens, grows and lifts until it faces the viewer as the page scrolls, tied 1:1 to a scroll-driven timeline (`animation-timeline: view()`), so no per-frame JS runs. An optional `header` slot drifts up in sync. It complements `<pura-scroll-zoom>`, which only scales the media without perspective rotation. `tilt` sets the starting rotateX, `from` the starting scale, `lift` the final upward translate, and `range` the scroll window. Tokens: `--pura-container-scroll-perspective`, `--pura-container-scroll-radius`, `--pura-container-scroll-shadow`. SSR paints the tilted starting pose; browsers without scroll-driven timelines and reduced motion render a static flat card. Each instance registers in `window.__puraContainerScrolls` by `data-pura-id` with `{ tilt, from, lift }`.",
+  "attributes": [
+    {
+      "name": "tilt",
+      "type": "number",
+      "default": "20",
+      "desc": "Starting rotateX in degrees, 0..80."
+    },
+    {
+      "name": "from",
+      "type": "number",
+      "default": "0.9",
+      "desc": "Starting scale, 0.1..2."
+    },
+    {
+      "name": "lift",
+      "type": "number",
+      "default": "24",
+      "desc": "Final upward translateY in px; the header drifts up at twice this."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 60%",
+      "desc": "animation-range for the scrub timeline."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "view maps the element's own view progress; scroll maps the nearest scroll container."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default",
+    "header"
+  ],
+  "demoHTML": "<div style=\"max-height: 320px; overflow-y: auto; padding: 0 24px;\">\n  <div style=\"height: 200px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <pura-container-scroll tilt=\"24\" from=\"0.85\" range=\"cover 0% cover 90%\" style=\"height: 260px;\">\n    <h3 slot=\"header\" style=\"margin: 0 0 12px; font-size: 1.1rem;\">Ship faster with pura</h3>\n    <img src=\"https://picsum.photos/seed/containerscroll/1200/700\" alt=\"\" />\n  </pura-container-scroll>\n  <div style=\"height: 240px;\"></div>\n</div>",
+  "usage": "<!-- app screenshot flattens from a 20deg tilt to face-on as it scrolls in -->\n<pura-container-scroll style=\"height: 90vh;\">\n  <h2 slot=\"header\">Unleash the power of scroll</h2>\n  <img src=\"/screenshots/dashboard.png\" alt=\"Product dashboard\" />\n</pura-container-scroll>\n\n<!-- stronger tilt, smaller start, over a longer scroll window -->\n<pura-container-scroll tilt=\"32\" from=\"0.75\" lift=\"40\" range=\"cover 0% cover 100%\" style=\"height: 80vh;\">\n  <video src=\"/reel.mp4\" autoplay muted loop playsinline></video>\n</pura-container-scroll>",
   "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
@@ -2769,8 +3555,46 @@ export const components = [
   "demoHTML": "<div style=\"display: flex; gap: 2.5rem; flex-wrap: wrap; font: 600 2rem system-ui;\">\n  <pura-count-up to=\"1284\" separator=\",\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\" duration=\"1500\"></pura-count-up>\n  <pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"1500\"></pura-count-up>\n</div>",
   "usage": "<pura-count-up to=\"1284\" separator=\",\"></pura-count-up>\n<pura-count-up to=\"99.9\" decimals=\"1\" suffix=\"%\"></pura-count-up>\n<pura-count-up to=\"4200\" prefix=\"$\" separator=\",\" duration=\"2000\"></pura-count-up>\n\n<!-- Trigger manually -->\n<pura-count-up to=\"500\" start=\"manual\" id=\"score\"></pura-count-up>\n<script>document.querySelector('#score').start();</script>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    },
+    {
+      "slug": "marquee",
+      "title": "Marquee"
+    },
+    {
+      "slug": "scramble",
+      "title": "Scramble"
+    },
+    {
+      "slug": "tilt",
+      "title": "Tilt"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    },
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
 },
 {
   "slug": "countdown",
@@ -2826,6 +3650,86 @@ export const components = [
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:1rem;align-items:flex-start\">\n  <p style=\"margin:0;font-weight:600\">Offer ends in:</p>\n  <pura-countdown seconds=\"90\" pad-days id=\"promo\">\n    <span slot=\"complete\">Offer ended!</span>\n  </pura-countdown>\n  <pura-countdown to=\"2026-12-31T23:59:59Z\" compact></pura-countdown>\n</div>",
   "usage": "<pura-countdown to=\"2026-12-31T23:59:59Z\" pad-days>\n  <span slot=\"complete\">Offer ended!</span>\n</pura-countdown>\n\n<!-- Compact variant from a duration -->\n<pura-countdown seconds=\"3600\" compact></pura-countdown>\n\n<!-- Programmatic control: start() / pause() / reset() -->\n<script type=\"module\">\n  import \"/pura/lib/countdown.js\";\n  const cd = document.querySelector(\"pura-countdown\");\n  cd.addEventListener(\"complete\", () => console.log(\"done\"));\n  cd.addEventListener(\"tick\", (e) => console.log(e.detail.total));\n</script>",
   "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "image-compare",
+      "title": "Image Compare"
+    },
+    {
+      "slug": "masonry",
+      "title": "Masonry"
+    },
+    {
+      "slug": "rating",
+      "title": "Rating"
+    },
+    {
+      "slug": "swatch-picker",
+      "title": "Swatch Picker"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    }
+  ]
+},
+{
+  "slug": "coverflow",
+  "title": "Coverflow Carousel",
+  "category": "Animation",
+  "blurb": "Scroll-snap carousel where side slides rotate, scale and recede in 3D perspective around the centered slide, tied 1:1 to each slide's inline view progress. The pose updates live while dragging with zero per-frame JS.",
+  "description": "`<pura-coverflow>` is a coverflow carousel: a horizontal scroll-snap row where the side slides rotate, scale and recede in 3D perspective around the centered slide. Each slotted slide is tied 1:1 to its own inline view progress (`animation-timeline: view(inline)`), so the 3D pose updates live while you drag, with zero per-frame JS. `rotate`, `scale`, `depth` and `perspective` shape the pose; `--pura-coverflow-slide` sets the slide width (default 62%) and `--pura-coverflow-gap` the spacing. The viewport is keyboard navigable (Left/Right when focused) and exposes `seek(i)`, `next()` and `prev()`; `change` fires with the active index. SSR, browsers without scroll-driven timelines, and reduced motion all degrade to a flat, fully usable scroll-snap carousel. Each instance registers in `window.__puraCoverflows` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "rotate",
+      "type": "number",
+      "default": "45",
+      "desc": "Side slide rotateY angle in degrees, 0..90."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "default": "0.85",
+      "desc": "Side slide scale, 0.1..1."
+    },
+    {
+      "name": "depth",
+      "type": "number",
+      "default": "120",
+      "desc": "Side slide translateZ push-back in px."
+    },
+    {
+      "name": "perspective",
+      "type": "number",
+      "default": "1000",
+      "desc": "Viewport perspective in px; lower values exaggerate the 3D effect."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Coverflow",
+      "desc": "Accessible label for the carousel viewport."
+    }
+  ],
+  "events": [
+    "change"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-coverflow style=\"--pura-coverflow-slide: 55%; max-width: 560px; margin-inline: auto;\">\n  <img src=\"https://picsum.photos/seed/cf1/640/400\" alt=\"Mountain landscape\" style=\"display: block; width: 100%; height: 210px; object-fit: cover; border-radius: 14px;\" />\n  <img src=\"https://picsum.photos/seed/cf2/640/400\" alt=\"City street\" style=\"display: block; width: 100%; height: 210px; object-fit: cover; border-radius: 14px;\" />\n  <img src=\"https://picsum.photos/seed/cf3/640/400\" alt=\"Forest trail\" style=\"display: block; width: 100%; height: 210px; object-fit: cover; border-radius: 14px;\" />\n  <img src=\"https://picsum.photos/seed/cf4/640/400\" alt=\"Ocean coast\" style=\"display: block; width: 100%; height: 210px; object-fit: cover; border-radius: 14px;\" />\n  <img src=\"https://picsum.photos/seed/cf5/640/400\" alt=\"Desert dunes\" style=\"display: block; width: 100%; height: 210px; object-fit: cover; border-radius: 14px;\" />\n</pura-coverflow>",
+  "usage": "<!-- image coverflow: drag or use Left/Right keys, side slides tilt in 3D -->\n<pura-coverflow label=\"Gallery\">\n  <img src=\"/photos/one.jpg\" alt=\"One\" />\n  <img src=\"/photos/two.jpg\" alt=\"Two\" />\n  <img src=\"/photos/three.jpg\" alt=\"Three\" />\n</pura-coverflow>\n\n<!-- card deck with a stronger pose: more tilt, deeper push-back, smaller sides -->\n<pura-coverflow rotate=\"60\" depth=\"220\" scale=\"0.75\" perspective=\"800\"\n  style=\"--pura-coverflow-slide: 45%; --pura-coverflow-gap: 0.25rem;\">\n  <article class=\"card\">Slide 1</article>\n  <article class=\"card\">Slide 2</article>\n  <article class=\"card\">Slide 3</article>\n  <article class=\"card\">Slide 4</article>\n</pura-coverflow>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -2858,6 +3762,122 @@ export const components = [
   "animation": false,
   "relatedComponents": [],
   "relatedBlocks": []
+},
+{
+  "slug": "crosshair",
+  "title": "Crosshair",
+  "category": "Animation",
+  "blurb": "Full-bleed horizontal and vertical hairlines that cross at the cursor position inside the area, with an optional live coordinates readout. Technical, editorial portfolio look; visible only while hovering, nothing active on SSR.",
+  "description": "`<pura-crosshair>` overlays full-bleed horizontal and vertical hairlines that cross at the cursor position inside the area, the technical viewfinder look from editorial portfolios. The two 1px lines sit in a `pointer-events: none` layer positioned by CSS vars; `pointermove` updates a target and a rAF loop lerps the drawn position toward it (`smoothing` controls the trailing). `coords` adds a live monospace x, y readout, `dashed` switches to dashed lines, and `hide-cursor` hides the native cursor so only the cross shows. Lines fade in on hover and nothing is active on SSR. Theme with `--pura-crosshair-color`, `--pura-crosshair-thickness` and `--pura-crosshair-fade`. Reduced motion: the cross snaps to the pointer with no lerp and no fade. Each instance registers in `window.__puraCrosshairs` by `data-pura-id` with `{ set }`, and mirrors state in `data-pura-crosshair-active` / `data-pura-crosshair-x` / `data-pura-crosshair-y`.",
+  "attributes": [
+    {
+      "name": "coords",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, shows a monospace x, y readout trailing the intersection."
+    },
+    {
+      "name": "dashed",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, the hairlines are dashed instead of solid."
+    },
+    {
+      "name": "hide-cursor",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, hides the native cursor over the area so only the crosshair shows."
+    },
+    {
+      "name": "smoothing",
+      "type": "number",
+      "default": "0.18",
+      "desc": "Lerp factor per frame, 0..1. Lower trails more; 1 sticks to the cursor."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-crosshair coords dashed hide-cursor style=\"height: 280px; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px;\">\n  <img src=\"https://picsum.photos/seed/crosshair/1200/560\" alt=\"\" style=\"display: block; width: 100%; height: 100%; object-fit: cover;\" />\n</pura-crosshair>",
+  "usage": "<!-- viewfinder crosshair over a hero image, with live coordinates -->\n<pura-crosshair coords style=\"height: 60vh;\">\n  <img src=\"/photos/studio.jpg\" alt=\"Studio\" style=\"width: 100%; height: 100%; object-fit: cover;\" />\n</pura-crosshair>\n\n<!-- dashed accent lines, native cursor hidden, tighter follow -->\n<pura-crosshair dashed hide-cursor smoothing=\"0.35\"\n  style=\"--pura-crosshair-color: #f43f5e; height: 320px;\">\n  <div style=\"padding: 4rem 2rem; font-size: 1.5rem;\">Selected work, 2020 to 2026</div>\n</pura-crosshair>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "cursor",
+  "title": "Cursor",
+  "category": "Animation",
+  "blurb": "Custom cursor follower: a dot snaps to the pointer, a ring lerps behind it. The ring grows over links, buttons and [data-cursor] targets; a target with data-cursor-text fills the ring and shows that text. Touch and reduced motion render nothing and never bind.",
+  "description": "`<pura-cursor>` is the awwwards custom cursor: a dot snaps to the pointer while a ring lerps behind it on a requestAnimationFrame loop that only runs while the ring is still catching up (it stops once settled, no idle work). Over interactive targets, `a`, `button`, anything matching `[data-cursor]` or the `targets` selector, the ring grows; a target carrying `data-cursor-text=\"View\"` fills the ring and shows that text inside it, the portfolio \"View / Drag / Play\" move. `hide-native` suppresses the real cursor while connected (and restores it on disconnect); `blend` puts the overlay in `mix-blend-mode: difference` so it inverts whatever it crosses. Touch devices (`pointer: coarse`) and `prefers-reduced-motion` render nothing and never bind, leaving the native cursor alone. Drop a single instance anywhere on the page; it renders as a fixed overlay above everything. Sizes and colors are tokens: `--pura-cursor-dot-size`, `--pura-cursor-ring-size`, `--pura-cursor-ring-hover-size`, `--pura-cursor-ring-text-size`, `--pura-cursor-color`.",
+  "attributes": [
+    {
+      "name": "hide-native",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Suppress the native cursor while the component is connected."
+    },
+    {
+      "name": "blend",
+      "type": "boolean",
+      "default": "false",
+      "desc": "mix-blend-mode: difference over the page (white cursor inverts what it crosses)."
+    },
+    {
+      "name": "ease",
+      "type": "number",
+      "default": "0.18",
+      "desc": "Ring lerp factor per frame, 0..1. Lower = lazier trail."
+    },
+    {
+      "name": "targets",
+      "type": "string",
+      "default": "",
+      "desc": "Extra CSS selector treated as interactive, on top of a, button, [data-cursor]."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<div style=\"position: relative; min-height: 220px; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .75rem; display: grid; place-items: center; gap: 1rem; padding: 2rem;\">\n  <p style=\"font: 400 .9rem system-ui; color: var(--pura-fg-muted, #71717a); margin: 0;\">Move the pointer here. Hover the button and the card.</p>\n  <button type=\"button\" style=\"font: 500 .9rem system-ui; padding: .5rem 1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff);\">A button</button>\n  <div data-cursor data-cursor-text=\"VIEW\" style=\"padding: 1rem 2rem; border-radius: .5rem; background: var(--pura-fg, #09090b); color: var(--pura-bg, #fff); font: 600 .9rem system-ui;\">data-cursor-text=\"VIEW\"</div>\n</div>\n<pura-cursor></pura-cursor>",
+  "usage": "<!-- one instance per page, anywhere -->\n<pura-cursor hide-native></pura-cursor>\n\n<!-- difference blend (inverts what it crosses) -->\n<pura-cursor hide-native blend></pura-cursor>\n\n<!-- mark targets -->\n<a href=\"/work\">links grow the ring automatically</a>\n<div data-cursor data-cursor-text=\"DRAG\">carousel</div>\n\n<!-- extra targets + lazier trail -->\n<pura-cursor targets=\".card, .thumb\" ease=\"0.12\"></pura-cursor>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "scroll-progress",
+      "title": "Scroll Progress"
+    },
+    {
+      "slug": "type-morph",
+      "title": "Type Morph"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "data-table",
@@ -3019,6 +4039,81 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "deck",
+  "title": "Deck",
+  "category": "Animation",
+  "blurb": "Sticky card deck: each slotted card sticks near the top of the viewport while the next scrolls up and over it, earlier cards peeking out above the pile and receding slightly. Pure CSS stacking (position: sticky), no per-frame JS; scrolling does all the work.",
+  "description": "`<pura-deck>` is the awwwards stacking-cards section: as you scroll, each card sticks near the top of the viewport and the next one slides up and over it, so the deck piles up card by card. The stacking is pure CSS, `position: sticky` on the slotted children, so there is no per-frame JS, no scroll listener doing layout, nothing to gate behind reduced motion (scrolling itself is the animation). The JS layer only numbers the children with `--pura-deck-i` / `--pura-deck-rev` custom properties: the index staggers each card's sticky `top` by `peek` px so earlier cards peek out above the pile, and the reverse index drives a small recede scale on covered cards so the pile reads as depth. Cards are whatever you slot, give them a background and a min-height and they behave. A `slotchange` listener renumbers when cards are added or removed. Each instance registers in `window.__puraDecks` by `data-pura-id` with `{ count }`, and `data-pura-deck-count` mirrors the card count.",
+  "attributes": [
+    {
+      "name": "top",
+      "type": "number",
+      "default": "96",
+      "desc": "Sticky top of the first card, in px."
+    },
+    {
+      "name": "peek",
+      "type": "number",
+      "default": "14",
+      "desc": "How many px each later card's sticky top steps down, exposing the cards beneath."
+    },
+    {
+      "name": "gap",
+      "type": "number",
+      "default": "24",
+      "desc": "Flow margin between cards, i.e. how far apart they start before piling."
+    },
+    {
+      "name": "no-depth",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Disable the recede scale on covered cards."
+    }
+  ],
+  "events": [],
+  "slots": [
+    {
+      "name": "default",
+      "desc": "The cards. Each direct child becomes one card in the pile."
+    }
+  ],
+  "demoHTML": "<pura-deck top=\"24\" peek=\"12\" gap=\"32\" style=\"max-width: 460px; margin: 0 auto;\">\n  <div style=\"min-height: 180px; border-radius: 1rem; padding: 1.5rem; background: #6366f1; color: #fff; font: 600 1.1rem system-ui;\">Card one</div>\n  <div style=\"min-height: 180px; border-radius: 1rem; padding: 1.5rem; background: #8b5cf6; color: #fff; font: 600 1.1rem system-ui;\">Card two</div>\n  <div style=\"min-height: 180px; border-radius: 1rem; padding: 1.5rem; background: #ec4899; color: #fff; font: 600 1.1rem system-ui;\">Card three</div>\n</pura-deck>",
+  "usage": "<!-- the classic stacking-cards section -->\n<pura-deck>\n  <section class=\"card\">Feature one</section>\n  <section class=\"card\">Feature two</section>\n  <section class=\"card\">Feature three</section>\n</pura-deck>\n\n<!-- tighter pile, no recede scale -->\n<pura-deck top=\"64\" peek=\"8\" gap=\"120\" no-depth>\n  <div class=\"card\">...</div>\n  <div class=\"card\">...</div>\n</pura-deck>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "border-beam",
+      "title": "Border Beam"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
+    },
+    {
+      "slug": "ticker",
+      "title": "Ticker"
+    },
+    {
+      "slug": "typewriter",
+      "title": "Typewriter"
+    },
+    {
+      "slug": "velocity",
+      "title": "Velocity"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
+},
+{
   "slug": "dialog",
   "title": "Dialog",
   "category": "Overlay",
@@ -3059,12 +4154,12 @@ export const components = [
       "title": "Toast"
     },
     {
-      "slug": "segmented-control",
-      "title": "Segmented Control"
-    },
-    {
       "slug": "item",
       "title": "Item"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
     },
     {
       "slug": "select",
@@ -3170,6 +4265,40 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "direction-hover",
+  "title": "Direction Hover",
+  "category": "Animation",
+  "blurb": "Direction-aware hover overlay: the caption slides in from the same edge the cursor entered the card through and slides out through the exit edge. The classic premium image-grid detail.",
+  "description": "`<pura-direction-hover>` is the direction-aware hover card: the overlay caption (slot `overlay`) slides in from the same edge the cursor entered the card through, and slides out through the exit edge. On `pointerenter` the entry quadrant is computed via `atan2` of the entry point and written to `data-dir` on the host; the overlay is parked at that edge with the transition suppressed for one frame, then slides to center with a plain CSS transition. `duration` and `easing` tune the slide; `--pura-direction-hover-bg`, `--pura-direction-hover-fg`, `--pura-direction-hover-padding` and `--pura-direction-hover-radius` tune the look. Keyboard focus inside the card shows the overlay via `:focus-within`; touch pointers are ignored. SSR and reduced motion both render the card at rest with no overlay covering the media. Each instance registers in `window.__puraDirectionHovers` by `data-pura-id` with `{ show, hide }`.",
+  "attributes": [
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "350",
+      "desc": "Slide time in ms."
+    },
+    {
+      "name": "easing",
+      "type": "string",
+      "default": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+      "desc": "CSS easing for the slide."
+    }
+  ],
+  "events": [
+    "enter",
+    "leave"
+  ],
+  "slots": [
+    "default",
+    "overlay"
+  ],
+  "demoHTML": "<div style=\"display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem;\">\n  <pura-direction-hover style=\"aspect-ratio: 4 / 3;\">\n    <img src=\"https://picsum.photos/seed/dirhover1/600/450\" alt=\"Mountain ridge\" />\n    <div slot=\"overlay\"><strong>Mountain ridge</strong><div style=\"font-size: .8rem; opacity: .85;\">Enter from any edge</div></div>\n  </pura-direction-hover>\n  <pura-direction-hover style=\"aspect-ratio: 4 / 3;\">\n    <img src=\"https://picsum.photos/seed/dirhover2/600/450\" alt=\"City at night\" />\n    <div slot=\"overlay\"><strong>City at night</strong><div style=\"font-size: .8rem; opacity: .85;\">The overlay follows you</div></div>\n  </pura-direction-hover>\n  <pura-direction-hover style=\"aspect-ratio: 4 / 3;\">\n    <img src=\"https://picsum.photos/seed/dirhover3/600/450\" alt=\"Quiet coastline\" />\n    <div slot=\"overlay\"><strong>Quiet coastline</strong><div style=\"font-size: .8rem; opacity: .85;\">And exits where you leave</div></div>\n  </pura-direction-hover>\n</div>",
+  "usage": "<!-- caption slides in from the edge the cursor enters through -->\n<pura-direction-hover style=\"aspect-ratio: 4 / 3;\">\n  <img src=\"/photos/lisbon.jpg\" alt=\"Lisbon rooftops\" />\n  <div slot=\"overlay\">\n    <h3>Lisbon</h3>\n    <p>Rooftops at golden hour</p>\n  </div>\n</pura-direction-hover>\n\n<!-- slower slide with a custom look -->\n<pura-direction-hover duration=\"500\" easing=\"cubic-bezier(0.22, 1, 0.36, 1)\"\n  style=\"aspect-ratio: 1; --pura-direction-hover-bg: rgba(20, 20, 30, 0.85); --pura-direction-hover-radius: 1rem;\">\n  <img src=\"/photos/team/ana.jpg\" alt=\"Ana, design lead\" />\n  <div slot=\"overlay\"><strong>Ana</strong> Design lead</div>\n</pura-direction-hover>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "disclosure",
   "title": "Disclosure",
   "category": "Layout",
@@ -3247,6 +4376,142 @@ export const components = [
   "demoHTML": "<pura-dock label=\"Shortcuts\" magnify=\"1.7\" reach=\"120\" id=\"meu-dock\">\n  <pura-dock-item label=\"Home\" active>🏠</pura-dock-item>\n  <pura-dock-item label=\"Messages\">💬</pura-dock-item>\n  <pura-dock-item label=\"Calendar\">📅</pura-dock-item>\n  <pura-dock-item label=\"Settings\">⚙️</pura-dock-item>\n  <pura-dock-item label=\"Trash\" disabled>🗑️</pura-dock-item>\n</pura-dock>\n<p id=\"dock-status\" style=\"margin-top:1rem;font:14px system-ui;color:#666\">Hover to magnify and click an item.</p>\n<script type=\"module\">\n  import \"/pura/lib/dock.js\";\n  const status = document.getElementById(\"dock-status\");\n  document.getElementById(\"meu-dock\").addEventListener(\"dock-item-activate\", (e) => {\n    status.textContent = `Opening: ${e.detail.label}`;\n  });\n</script>",
   "usage": "<pura-dock label=\"Shortcuts\" magnify=\"1.7\" reach=\"120\" id=\"meu-dock\">\n  <pura-dock-item label=\"Home\" active>🏠</pura-dock-item>\n  <pura-dock-item label=\"Messages\">💬</pura-dock-item>\n  <pura-dock-item label=\"Calendar\">📅</pura-dock-item>\n  <pura-dock-item label=\"Settings\">⚙️</pura-dock-item>\n  <pura-dock-item label=\"Trash\" disabled>🗑️</pura-dock-item>\n</pura-dock>\n<script type=\"module\">\n  import \"/pura/lib/dock.js\";\n  document.getElementById(\"meu-dock\").addEventListener(\"dock-item-activate\", (e) => {\n    console.log(\"Item activated:\", e.detail.label);\n  });\n</script>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "dot-pattern",
+  "title": "Dot Pattern",
+  "category": "Animation",
+  "blurb": "A dot field backdrop with hexagon and diagonal-stripe variants, faded through a radial-gradient mask, plus an optional glow that sweeps the field. Pure CSS, SSR-safe, reduced-motion aware.",
+  "description": "`<pura-dot-pattern>` lays a dot field behind its slotted content, in the style of Magic UI's Dot Pattern, and complements `<pura-grid-pattern>`, which only covers grid lines. `variant` switches to honeycomb outlines (`hex`, an inline SVG pattern) or diagonal stripes (`stripes`); `fade` applies a radial-gradient mask so the pattern fades toward the edges (default), at the center, or not at all; and the `glow` attribute reveals a brighter copy through a radial mask that sweeps the field with one pure CSS `@keyframes`, no animation runtime. Theme with `--pura-dot-pattern-color`, `--pura-dot-pattern-size`, `--pura-dot-pattern-gap`, `--pura-dot-pattern-glow`, `--pura-dot-pattern-spot` (glow size), and `--pura-dot-pattern-duration`. The sweep is gated behind `prefers-reduced-motion: no-preference`, so under reduce the glow rests centered. Each instance registers in `window.__puraDotPatterns` by `data-pura-id` and mirrors its resolved config in `data-pura-dot-*` attributes.",
+  "attributes": [
+    {
+      "name": "variant",
+      "type": "\"dots\" | \"hex\" | \"stripes\"",
+      "default": "dots",
+      "desc": "Pattern style: dot grid, honeycomb outlines, or diagonal stripes."
+    },
+    {
+      "name": "gap",
+      "type": "number",
+      "default": "24",
+      "desc": "Tile spacing in px (8 to 240). Also sets the hexagon cell width."
+    },
+    {
+      "name": "glow",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Reveal a brighter copy of the pattern through a radial mask that sweeps the field."
+    },
+    {
+      "name": "fade",
+      "type": "\"edges\" | \"center\" | \"none\"",
+      "default": "edges",
+      "desc": "Radial-gradient mask: fade the pattern out toward the edges, at the center, or not at all."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-dot-pattern glow style=\"border-radius: 12px; background: #07080f; --pura-dot-pattern-color: rgba(255,255,255,.28); --pura-dot-pattern-glow: #22d3ee;\">\n  <div style=\"padding: 3.5rem 1.5rem; text-align: center; font: 700 22px system-ui; color: #fff; letter-spacing: -.02em;\">\n    Dot Pattern\n    <div style=\"font-weight: 400; font-size: 13px; color: rgba(255,255,255,.7); margin-top: .4rem;\">A glow drifts across the dots, pure CSS.</div>\n  </div>\n</pura-dot-pattern>\n<div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .75rem;\">\n  <pura-dot-pattern variant=\"hex\" gap=\"30\" style=\"border-radius: 12px; background: #07080f; --pura-dot-pattern-color: rgba(255,255,255,.22);\">\n    <div style=\"padding: 2.25rem 1rem; text-align: center; font: 600 14px system-ui; color: #fff;\">hex</div>\n  </pura-dot-pattern>\n  <pura-dot-pattern variant=\"stripes\" gap=\"12\" fade=\"center\" style=\"border-radius: 12px; background: #07080f; --pura-dot-pattern-color: rgba(255,255,255,.22);\">\n    <div style=\"padding: 2.25rem 1rem; text-align: center; font: 600 14px system-ui; color: #fff;\">stripes</div>\n  </pura-dot-pattern>\n</div>",
+  "usage": "<!-- dot backdrop with a sweeping glow, faded at the edges -->\n<pura-dot-pattern glow style=\"--pura-dot-pattern-glow: #22d3ee;\">\n  <section class=\"hero\">Content over the dots</section>\n</pura-dot-pattern>\n\n<!-- honeycomb variant, full coverage, custom spacing -->\n<pura-dot-pattern variant=\"hex\" gap=\"32\" fade=\"none\">\n  <div>...</div>\n</pura-dot-pattern>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "draw",
+  "title": "Draw",
+  "category": "Animation",
+  "blurb": "SVG draw-on: a stroke writes itself in as you scroll. The path is normalized to pathLength=1 and its stroke-dashoffset ramps 1 to 0 on a scroll-driven timeline. Zero-runtime, no per-frame JS.",
+  "description": "`<pura-draw>` writes an SVG stroke on as you scroll, the self-drawing line from gsap and motion, driven natively. The path is normalized with `pathLength=\"1\"`, hidden with `stroke-dasharray: 1; stroke-dashoffset: 1`, then the offset ramps to `0` so the line draws itself in. `stroke-dashoffset` is a long-proven animatable property that always re-paints, so this needs no per-frame JS. The default `trigger=\"scrub\"` ties the offset 1:1 to a scroll-driven timeline (`animation-timeline: view()` or `scroll()`); `trigger=\"view\"` draws once when scrolled into view (eased by the spring primitive); `trigger=\"load\"` draws once on connect. SSR and reduced motion are safe: before JS the stroke sits fully drawn so nothing is missing, the scrub block is gated behind `prefers-reduced-motion: no-preference`, and reduced motion shows the finished stroke. The `loop` attribute turns the element into an infinite loading indicator: a stroke segment (sized by `loop-dash`, fraction of the path) chases around the path forever, one lap per `loop-dur` seconds, the dash pattern summing to the full path length so the cycle is seamless. Each instance registers in `window.__puraDraws` by `data-pura-id` with `{ path, replay }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"scrub\" | \"view\" | \"load\"",
+      "default": "scrub",
+      "desc": "scrub ties the stroke 1:1 to a scroll-driven timeline; view draws once when scrolled into view; load draws once on connect."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only. view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "default": "wave",
+      "desc": "SVG path d-string to draw on."
+    },
+    {
+      "name": "viewbox",
+      "type": "string",
+      "default": "0 0 100 100",
+      "desc": "SVG viewBox the path is drawn in."
+    },
+    {
+      "name": "stroke",
+      "type": "string",
+      "default": "currentColor",
+      "desc": "Stroke color."
+    },
+    {
+      "name": "stroke-width",
+      "type": "number",
+      "default": "4",
+      "desc": "Stroke width, in viewBox units."
+    },
+    {
+      "name": "fill",
+      "type": "string",
+      "default": "none",
+      "desc": "Path fill (usually none for a pure line-draw)."
+    },
+    {
+      "name": "linecap",
+      "type": "\"round\" | \"butt\" | \"square\"",
+      "default": "round",
+      "desc": "Stroke line cap."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 50%",
+      "desc": "animation-range for the scrub timeline. Default completes the draw as the path reaches viewport center, then holds."
+    },
+    {
+      "name": "loop",
+      "type": "boolean",
+      "default": "false",
+      "desc": "A stroke segment chases around the path forever (infinite loading). Overrides trigger."
+    },
+    {
+      "name": "loop-dur",
+      "type": "number",
+      "default": "1.6",
+      "desc": "Loop only. Seconds per lap around the path."
+    },
+    {
+      "name": "loop-dash",
+      "type": "number",
+      "default": "0.3",
+      "desc": "Loop only. Visible fraction of the path (0..1) in the chasing segment."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring easing for view/load triggers. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<pura-draw trigger=\"load\"\n           path=\"M 8 60 C 24 20, 44 20, 50 52 S 76 84, 92 40\"\n           stroke=\"var(--pura-fg, #09090b)\" stroke-width=\"5\"\n           style=\"width: 220px; height: 160px;\"></pura-draw>\n<div style=\"height: 1rem;\"></div>\n<button type=\"button\" onclick=\"this.previousElementSibling.previousElementSibling.replay()\" style=\"font: 500 .85rem system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .4rem; background: var(--pura-bg, #fff); cursor: pointer;\">replay</button>",
+  "usage": "<!-- default: scroll and the wave draws itself in -->\n<pura-draw style=\"width: 200px; height: 200px;\"></pura-draw>\n\n<!-- an underline flourish, one-shot on view -->\n<pura-draw trigger=\"view\"\n           path=\"M 4 14 C 40 26, 120 2, 196 12\"\n           viewbox=\"0 0 200 20\"\n           stroke=\"#2563eb\" stroke-width=\"3\"\n           style=\"width: 200px; height: 20px;\"></pura-draw>\n\n<!-- scrub against the page scroll container -->\n<pura-draw timeline=\"scroll\" range=\"cover 0% cover 100%\"\n           path=\"M 10 90 L 50 10 L 90 90\"\n           style=\"width: 160px; height: 160px;\"></pura-draw>\n\n<!-- infinite loading: a segment chases around the path forever -->\n<pura-draw loop loop-dur=\"1.4\" loop-dash=\"0.25\"\n           path=\"M 50 10 A 40 40 0 1 1 49.9 10\"\n           stroke=\"#2563eb\" stroke-width=\"6\"\n           style=\"width: 64px; height: 64px;\"></pura-draw>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -3360,6 +4625,64 @@ export const components = [
   ]
 },
 {
+  "slug": "dynamic-island",
+  "title": "Dynamic Island",
+  "category": "Animation",
+  "blurb": "iOS-style Dynamic Island: a floating pill that morphs between named states (compact, expanded, player, timer) with a FLIP size animation on a real spring linear() easing and a blur crossfade between the named-slot contents.",
+  "description": "`<pura-dynamic-island>` is the iOS Dynamic Island: a floating black pill that morphs between named states. Declare the states in `states` (default `compact,expanded`); each one becomes a named slot. Set `state` and the island runs a FLIP animation: it measures the pill before and after the content swap and interpolates width, height and border-radius with WAAPI on a real spring `linear()` easing (sampled by `pura-spring`'s exported math, preset via `spring` or `stiffness`/`damping`/`mass`), while the outgoing pane blurs and fades out and the incoming pane blurs in. SSR paints the active state's pane fully styled, and switching `state` without JS still swaps the content via pure CSS. Reduced motion swaps instantly. Theme with `--pura-dynamic-island-bg/-fg/-radius/-<state>-radius/-padding/-shadow`. Each instance registers in `window.__puraDynamicIslands` by `data-pura-id` with `{ state, states, setState }` and mirrors live state in `data-pura-island-state`.",
+  "attributes": [
+    {
+      "name": "state",
+      "type": "string",
+      "default": "compact",
+      "desc": "Active state name; must match an entry of states. Changing it triggers the morph."
+    },
+    {
+      "name": "states",
+      "type": "string",
+      "default": "compact,expanded",
+      "desc": "Comma-separated list of state names; each becomes a named slot and a pane."
+    },
+    {
+      "name": "spring",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "snappy",
+      "desc": "Spring preset for the size morph (sampled into a CSS linear() easing)."
+    },
+    {
+      "name": "stiffness",
+      "type": "number",
+      "default": "",
+      "desc": "Spring stiffness override."
+    },
+    {
+      "name": "damping",
+      "type": "number",
+      "default": "",
+      "desc": "Spring damping override."
+    },
+    {
+      "name": "mass",
+      "type": "number",
+      "default": "",
+      "desc": "Spring mass override."
+    }
+  ],
+  "events": [
+    "statechange"
+  ],
+  "slots": [
+    "default",
+    "compact",
+    "expanded"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; gap: 1.25rem; padding: 1.5rem 0;\">\n  <pura-dynamic-island id=\"di-demo\" states=\"compact,player,timer\" style=\"font: 500 .85rem system-ui;\">\n    <span slot=\"compact\" style=\"display: inline-flex; align-items: center; gap: .5rem;\">\n      <span style=\"width: .5rem; height: .5rem; border-radius: 50%; background: #34d399;\"></span>\n      Listening\n    </span>\n    <span slot=\"player\" style=\"display: inline-flex; align-items: center; gap: .75rem; padding: .35rem .25rem;\">\n      <img src=\"https://picsum.photos/seed/island/72/72\" alt=\"\" style=\"width: 2.25rem; height: 2.25rem; border-radius: .6rem; object-fit: cover;\" />\n      <span style=\"display: grid; line-height: 1.25; text-align: left;\">\n        <strong>Midnight Drive</strong>\n        <span style=\"opacity: .65; font-size: .75rem;\">Neon Coast</span>\n      </span>\n      <span aria-hidden=\"true\" style=\"letter-spacing: .15em; color: #34d399;\">&#9614;&#9613;&#9615;</span>\n    </span>\n    <span slot=\"timer\" style=\"display: inline-flex; align-items: baseline; gap: .6rem; padding: .25rem .25rem;\">\n      <span style=\"opacity: .65; font-size: .75rem;\">Timer</span>\n      <strong style=\"font-size: 1.3rem; font-variant-numeric: tabular-nums;\">04:20</strong>\n    </span>\n  </pura-dynamic-island>\n  <div style=\"display: flex; gap: .5rem;\">\n    <button type=\"button\" onclick=\"document.getElementById('di-demo').setAttribute('state','compact')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">compact</button>\n    <button type=\"button\" onclick=\"document.getElementById('di-demo').setAttribute('state','player')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">player</button>\n    <button type=\"button\" onclick=\"document.getElementById('di-demo').setAttribute('state','timer')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">timer</button>\n  </div>\n</div>",
+  "usage": "<!-- notification pill: compact dot expands into the full message -->\n<pura-dynamic-island id=\"island\">\n  <span slot=\"compact\">1 new message</span>\n  <div slot=\"expanded\" style=\"display: flex; align-items: center; gap: .75rem;\">\n    <img src=\"/avatars/ana.jpg\" alt=\"\" width=\"36\" height=\"36\" style=\"border-radius: 50%;\" />\n    <div>\n      <strong>Ana</strong>\n      <p>Lunch at noon?</p>\n    </div>\n  </div>\n</pura-dynamic-island>\n<script>\n  const island = document.getElementById(\"island\");\n  island.addEventListener(\"statechange\", (e) => console.log(e.detail));\n  island.setAttribute(\"state\", \"expanded\");\n</script>\n\n<!-- custom states with a wobblier spring and a squarer expanded shape -->\n<pura-dynamic-island states=\"compact,player\" spring=\"wobbly\"\n  style=\"--pura-dynamic-island-player-radius: 1.5rem;\">\n  <span slot=\"compact\">Now playing</span>\n  <div slot=\"player\">...album art, title, controls...</div>\n</pura-dynamic-island>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "emphasis",
   "title": "Emphasis",
   "category": "Utility",
@@ -3461,6 +4784,40 @@ export const components = [
   ]
 },
 {
+  "slug": "expand-card",
+  "title": "Expand Card",
+  "category": "Animation",
+  "blurb": "The iOS App Store card: a normal card in the layout that morphs into a near-fullscreen overlay revealing detail content. FLIP morph on the card rect, CSS fades for backdrop and detail, layout never jumps.",
+  "description": "`<pura-expand-card>` is the iOS App Store card morph: closed, it is a normal card in the layout (slot `card`); click it and it expands into a near-fullscreen overlay revealing the detail content (default slot). The morph is a FLIP animation — the element measures the card rect, switches to fixed positioning at the final inset (`margin` px from the viewport), and animates `top/left/width/height` between the two — while the backdrop fade and detail fade-up are plain CSS. The host keeps the card's closed size inline while open, so the surrounding layout never jumps. The closed card is a button (Enter/Space opens); Escape or clicking the backdrop closes; `open`/`close` events fire at each end. Reduced motion swaps instantly with no morph. Each instance registers in `window.__puraExpandCards` by `data-pura-id` with `{ open, close }`.",
+  "attributes": [
+    {
+      "name": "margin",
+      "type": "number",
+      "default": "24",
+      "desc": "Pixel inset of the expanded card from the viewport edges."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "450",
+      "desc": "Morph time in milliseconds."
+    }
+  ],
+  "events": [
+    "open",
+    "close"
+  ],
+  "slots": [
+    "card",
+    "default"
+  ],
+  "demoHTML": "<pura-expand-card style=\"max-width: 280px;\">\n  <div slot=\"card\" style=\"padding: 1.25rem; font: 500 .95rem system-ui;\">\n    <div style=\"font-size: .75rem; color: var(--pura-muted-fg, #71717a); text-transform: uppercase; letter-spacing: .08em;\">Featured</div>\n    <div style=\"font: 700 1.2rem/1.3 system-ui; margin-top: .35rem;\">A card that becomes a page</div>\n    <div style=\"color: var(--pura-muted-fg, #71717a); margin-top: .35rem;\">Tap to expand</div>\n  </div>\n  <div style=\"padding: 0 1.25rem 1.25rem; font: .95rem/1.6 system-ui; color: var(--pura-muted-fg, #52525b);\">\n    <p>This detail content only exists while the card is open. It fades up after the morph lands.</p>\n    <p>Press Escape or click the backdrop to collapse back into the layout, which never moved.</p>\n  </div>\n</pura-expand-card>",
+  "usage": "<pura-expand-card margin=\"32\">\n  <div slot=\"card\">\n    <img src=\"cover.jpg\" alt=\"\" />\n    <h3>App of the day</h3>\n  </div>\n\n  <!-- detail content, revealed while open -->\n  <article>\n    <p>Long-form detail content…</p>\n  </article>\n</pura-expand-card>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "explain",
   "title": "Explain",
   "category": "Agent",
@@ -3558,6 +4915,51 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "falling-text",
+  "title": "Falling Text",
+  "category": "Animation",
+  "blurb": "On trigger (hover, click or in view) every word of the sentence lets go, falls under gravity, bounces and stacks into a pile on the container floor. Minimal in-house 2D physics over rAF, no engine. SSR keeps the sentence intact; reduced motion never drops anything.",
+  "description": "`<pura-falling-text>` is the React Bits style falling text: on trigger (hover, click or scroll into view) every word of the slotted sentence lets go, falls under gravity, bounces off the container floor and stacks into a pile. The physics is a tiny in-house 2D loop (gravity, restitution, wall and floor collision, simple stacking) driven by requestAnimationFrame that only updates each word span's transform, so there is no canvas and no external engine. `trigger` picks what releases the words, `gravity` and `restitution` tune the fall and the bounce, `scatter` the sideways kick at release. Release velocities are seeded from the text itself, so the same sentence always falls the same way. SSR and pre-JS render the sentence intact and readable; the animated copy is aria-hidden while the original stays the accessible text. Reduced motion never drops anything. Each instance registers in `window.__puraFallingTexts` by `data-pura-id` with `{ trigger, words, drop, reset }`, and mirrors its state in `data-pura-falling-state`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"hover\" | \"click\" | \"view\"",
+      "default": "hover",
+      "desc": "What releases the words: pointer hover, a click on the stage, or scrolling into view."
+    },
+    {
+      "name": "gravity",
+      "type": "number",
+      "default": "1",
+      "desc": "Gravity multiplier. 1 equals 2200 px/s squared."
+    },
+    {
+      "name": "restitution",
+      "type": "number",
+      "default": "0.45",
+      "desc": "Bounce energy kept on each impact, 0..1."
+    },
+    {
+      "name": "scatter",
+      "type": "number",
+      "default": "1",
+      "desc": "Horizontal impulse multiplier at release. 0 drops words straight down."
+    }
+  ],
+  "events": [
+    "pura-falling-text:fall",
+    "pura-falling-text:settle"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-falling-text trigger=\"click\" restitution=\"0.5\" style=\"border: 1px dashed var(--pura-border, #d4d4d8); border-radius: 12px; padding: 1.25rem; font-size: 1.2rem; font-weight: 650; line-height: 1.5; --pura-falling-text-height: 200px;\">\n  Click anywhere in this box and watch every single word obey gravity, bounce, and pile up on the floor.\n</pura-falling-text>",
+  "usage": "<!-- hero headline that collapses on hover -->\n<pura-falling-text style=\"font-size: 2rem; font-weight: 700; --pura-falling-text-height: 40vh;\">\n  Everything you build eventually comes down.\n</pura-falling-text>\n\n<!-- drops once when scrolled into view, heavier and less bouncy -->\n<pura-falling-text trigger=\"view\" gravity=\"1.6\" restitution=\"0.25\" scatter=\"0.4\" style=\"--pura-falling-text-height: 240px;\">\n  Gravity always wins in the end.\n</pura-falling-text>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "faq",
   "title": "FAQ",
   "category": "Disclosure",
@@ -3600,27 +5002,31 @@ export const components = [
       "title": "Pricing Table"
     },
     {
-      "slug": "banner",
-      "title": "Banner"
-    },
-    {
       "slug": "testimonial",
       "title": "Testimonial"
     },
     {
-      "slug": "segmented-control",
-      "title": "Segmented Control"
+      "slug": "carousel",
+      "title": "Carousel"
     },
     {
-      "slug": "stat",
-      "title": "Stat"
+      "slug": "cursor",
+      "title": "Cursor"
     },
     {
-      "slug": "stat-grid",
-      "title": "Stat Grid"
+      "slug": "scroll-progress",
+      "title": "Scroll Progress"
+    },
+    {
+      "slug": "type-morph",
+      "title": "Type Morph"
     }
   ],
   "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
     {
       "slug": "landing",
       "title": "Landing"
@@ -3628,6 +5034,10 @@ export const components = [
     {
       "slug": "pricing",
       "title": "Pricing"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
     }
   ]
 },
@@ -3686,8 +5096,8 @@ export const components = [
       "title": "Separator"
     },
     {
-      "slug": "meter",
-      "title": "Meter"
+      "slug": "card",
+      "title": "Card"
     }
   ],
   "relatedBlocks": [
@@ -3752,6 +5162,101 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "fireworks",
+  "title": "Fireworks",
+  "category": "Animation",
+  "blurb": "Fireworks show for big celebrations: rockets launch from the bottom of the viewport with a glowing trail and explode at their apex into spheres of sparks that fall with gravity and fade, on a full-viewport canvas overlay. Fired by click, by the fire() method, or automatically on connect.",
+  "description": "`<pura-fireworks>` is the big-impact celebration, the step up from confetti for launches, milestones, and record-breaking moments. Wrap any trigger and a click sends rockets up from the bottom of the viewport: each one climbs with a glowing trail, decelerates, and explodes at its apex into a sphere of sparks that fall with gravity and fade out, all on a full-viewport canvas overlay that cleans itself up when the show ends. `rockets` sets how many launch per show, `interval` staggers them, `count` sizes each explosion, and `duration` sets how long the sparks live. With `trigger=\"manual\"` you call `fire()` programmatically, optionally overriding `{ rockets, count, interval, duration }` per show; `trigger=\"auto\"` fires one show as soon as the element connects, handy on a success page. Colors come from the `colors` attribute or the `--pura-fireworks-color-1..5` tokens. The `fire` event marks launch, `explode` fires once per rocket burst, and `done` marks the last spark settling. SSR and pre-JS paint only the slotted trigger (the canvas stays hidden and empty); reduced motion skips the show entirely but still dispatches `fire` and `done` so app logic keeps working. Each instance registers in `window.__puraFireworkss` by `data-pura-id` with `{ trigger, rockets, count, fire }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"click\" | \"manual\" | \"auto\"",
+      "default": "click",
+      "desc": "click fires a show when the slotted trigger is clicked; manual only fires via the fire() method; auto fires one show when the element connects."
+    },
+    {
+      "name": "rockets",
+      "type": "number",
+      "default": "6",
+      "desc": "Rockets per show, capped at 20."
+    },
+    {
+      "name": "count",
+      "type": "number",
+      "default": "60",
+      "desc": "Sparks per explosion, capped at 200."
+    },
+    {
+      "name": "interval",
+      "type": "number",
+      "default": "350",
+      "desc": "Milliseconds between rocket launches."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "1800",
+      "desc": "Spark lifetime in milliseconds."
+    },
+    {
+      "name": "colors",
+      "type": "string",
+      "default": "",
+      "desc": "Comma-separated CSS colors. When empty the palette comes from the --pura-fireworks-color-1..5 tokens with festive fallbacks."
+    }
+  ],
+  "events": [
+    "fire",
+    "explode",
+    "done"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;\">\n  <pura-fireworks style=\"font: 500 .95rem system-ui;\">\n    <button type=\"button\" style=\"font: inherit; padding: .55rem 1.1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">Launch fireworks 🎆</button>\n  </pura-fireworks>\n  <pura-fireworks id=\"fw-finale\" trigger=\"manual\" rockets=\"12\" interval=\"180\" count=\"90\" style=\"font: 500 .95rem system-ui;\">\n    <button id=\"fw-finale-btn\" type=\"button\" style=\"font: inherit; padding: .55rem 1.1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">Grand finale</button>\n  </pura-fireworks>\n</div>\n<script>\n  document.getElementById(\"fw-finale-btn\").addEventListener(\"click\", () => {\n    document.getElementById(\"fw-finale\").fire();\n  });\n</script>",
+  "usage": "<!-- click the trigger to launch a show of 6 rockets -->\n<pura-fireworks rockets=\"8\" count=\"80\">\n  <button type=\"button\">Ship it</button>\n</pura-fireworks>\n\n<!-- auto show on a success page, themed to the brand -->\n<pura-fireworks trigger=\"auto\" rockets=\"10\" interval=\"250\"\n  colors=\"#f43f5e, #f59e0b, #22d3ee\">\n  <h1>You did it!</h1>\n</pura-fireworks>\n\n<script>\n  // or programmatically, with per-show overrides\n  document.querySelector(\"pura-fireworks\").fire({ rockets: 15, count: 120 });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "flashlight",
+  "title": "Flashlight",
+  "category": "Animation",
+  "blurb": "Hidden content revealed by a beam of light that follows the pointer across the section, via a radial-gradient mask-image steered by CSS vars. SSR paints the resting state; reduced motion shows the final state.",
+  "description": "`<pura-flashlight>` hides a second layer of content behind a beam of light that follows the pointer across the section, the classic awwwards hero flashlight (Aceternity's SVG Mask Effect). The default slot is the always-visible base layer; the `reveal` slot is an overlay clipped by a `mask-image: radial-gradient()` whose centre is steered by `--pura-flashlight-x` / `--pura-flashlight-y` on pointer move, plus a soft screen-blended halo so the beam reads as light. `size` sets the beam diameter, `softness` its edge feather, and `resting` the pre-pointer paint: `closed` (default) keeps the reveal layer hidden until hover, `center` shows it through a centred beam. SSR paints exactly that resting state, and under reduced motion the reveal layer renders fully visible with no pointer dependence. Give the reveal layer its own background and mark purely decorative copies `aria-hidden=\"true\"` so screen readers hear the content once. Each instance registers in `window.__puraFlashlights` by `data-pura-id` and mirrors state in `data-pura-flashlight-*`. Unlike `pura-spotlight` (onboarding focus) and `pura-magic-card` (card-scoped glow), this masks a whole alternate content layer.",
+  "attributes": [
+    {
+      "name": "size",
+      "type": "string",
+      "default": "220px",
+      "desc": "Beam diameter. A bare number is treated as px; any CSS length works."
+    },
+    {
+      "name": "softness",
+      "type": "number",
+      "default": "0.25",
+      "desc": "Edge feather of the beam, 0 (hard circle) to 1 (fully diffuse)."
+    },
+    {
+      "name": "resting",
+      "type": "\"closed\" | \"center\"",
+      "default": "closed",
+      "desc": "Pre-pointer and SSR paint: closed hides the reveal layer until hover; center shows it through a centred beam."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default",
+    "reveal"
+  ],
+  "demoHTML": "<pura-flashlight size=\"240\" style=\"max-width: 560px; --pura-flashlight-radius: 14px;\">\n  <div style=\"padding: 3.5rem 2rem; background: #09090f; color: rgba(255,255,255,.45); font: 600 1.4rem/1.3 system-ui; text-align: center;\">\n    Move your pointer.<br />Something is hiding in the dark.\n  </div>\n  <div slot=\"reveal\" aria-hidden=\"true\" style=\"display: grid; place-items: center; background: #1b1230; color: #c4b5fd; font: 700 1.4rem/1.3 system-ui; text-align: center;\">\n    Found it.<br />The flashlight follows you.\n  </div>\n</pura-flashlight>",
+  "usage": "<!-- hidden message revealed by the beam -->\n<pura-flashlight size=\"260\" softness=\"0.3\">\n  <div class=\"hero-dark\">What you see in the dark</div>\n  <div slot=\"reveal\" aria-hidden=\"true\" class=\"hero-lit\">What the light reveals</div>\n</pura-flashlight>\n\n<!-- color photo revealed over its grayscale twin, beam centred before hover -->\n<pura-flashlight resting=\"center\" size=\"300\" style=\"--pura-flashlight-radius: 12px;\">\n  <img src=\"https://picsum.photos/seed/flash/900/420?grayscale\" alt=\"City at night\" style=\"display:block; width:100%;\" />\n  <img slot=\"reveal\" src=\"https://picsum.photos/seed/flash/900/420\" alt=\"\" aria-hidden=\"true\" style=\"display:block; object-fit:cover;\" />\n</pura-flashlight>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "flex",
   "title": "Flex",
   "category": "Primitives",
@@ -3802,6 +5307,105 @@ export const components = [
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/flex.js\"></script>\n\n<!-- Row with centered items and a gap -->\n<pura-flex align=\"center\" gap=\"3\">\n  <button>Save</button>\n  <button>Cancel</button>\n  <span>Last edited 2 minutes ago</span>\n</pura-flex>\n\n<!-- Column layout -->\n<pura-flex direction=\"col\" gap=\"2\">\n  <h3>Account</h3>\n  <p>Manage your profile and preferences.</p>\n  <a href=\"/settings\">Open settings</a>\n</pura-flex>\n\n<!-- Space the items apart across the row -->\n<pura-flex justify=\"between\" align=\"center\" gap=\"2rem\">\n  <strong>Dashboard</strong>\n  <button>New report</button>\n</pura-flex>\n\n<!-- Wrapping tag list -->\n<pura-flex wrap gap=\"2\">\n  <span>Design</span>\n  <span>Engineering</span>\n  <span>Marketing</span>\n  <span>Operations</span>\n</pura-flex>",
   "usage": "<script type=\"module\" src=\"/pura/lib/flex.js\"></script>\n\n<!-- Row with centered items and a gap -->\n<pura-flex align=\"center\" gap=\"3\">\n  <button>Save</button>\n  <button>Cancel</button>\n  <span>Last edited 2 minutes ago</span>\n</pura-flex>\n\n<!-- Column layout -->\n<pura-flex direction=\"col\" gap=\"2\">\n  <h3>Account</h3>\n  <p>Manage your profile and preferences.</p>\n  <a href=\"/settings\">Open settings</a>\n</pura-flex>\n\n<!-- Space the items apart across the row -->\n<pura-flex justify=\"between\" align=\"center\" gap=\"2rem\">\n  <strong>Dashboard</strong>\n  <button>New report</button>\n</pura-flex>\n\n<!-- Wrapping tag list -->\n<pura-flex wrap gap=\"2\">\n  <span>Design</span>\n  <span>Engineering</span>\n  <span>Marketing</span>\n  <span>Operations</span>\n</pura-flex>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "flickering-grid",
+  "title": "Flickering Grid",
+  "category": "Animation",
+  "blurb": "A background grid of small squares that light up and dim at staggered, seed-deterministic times behind slotted content, faded by a gradient mask. Pure CSS keyframes, no animation runtime.",
+  "description": "`<pura-flickering-grid>` paints a grid of small squares behind its slotted content where individual cells light up and dim back down at staggered times, the classic backdrop for mockups and CTAs. Unlike `<pura-grid-pattern>`, which sweeps one continuous glow across static lines, every cell here flickers on its own schedule. All delays, durations and resting opacities are derived from deterministic `seed` + index math in the pure template, so the server and client paint byte-identical fields and the whole effect is CSS `@keyframes` with no per-frame JS. A gradient `mask` (radial, top, bottom or none) fades the field toward the edges; `columns`, `rows`, `speed` and `color` shape the look, and `--pura-flickering-grid-*` tokens tune gap, radius, color and peak opacity. Reduced motion gets the same grid frozen with varied cell opacities. Each instance registers in `window.__puraFlickeringGrids` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "24",
+      "desc": "Grid columns, clamped 4..48."
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "default": "14",
+      "desc": "Grid rows, clamped 3..32."
+    },
+    {
+      "name": "seed",
+      "type": "number",
+      "default": "1",
+      "desc": "Integer that deterministically reshuffles the flicker pattern."
+    },
+    {
+      "name": "mask",
+      "type": "\"radial\" | \"top\" | \"bottom\" | \"none\"",
+      "default": "radial",
+      "desc": "Gradient mask that fades the field toward the edges."
+    },
+    {
+      "name": "speed",
+      "type": "\"slow\" | \"normal\" | \"fast\"",
+      "default": "normal",
+      "desc": "Scales every cell's flicker duration and delay."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "default": "",
+      "desc": "Flicker color; shorthand for the --pura-flickering-grid-color token."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-flickering-grid columns=\"28\" rows=\"13\" seed=\"3\" style=\"height: 260px; border-radius: 12px; background: #09090b;\">\n  <div style=\"height: 100%; display: grid; place-items: center; text-align: center;\">\n    <div>\n      <p style=\"margin: 0 0 4px; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: #a1a1aa;\">Now in beta</p>\n      <h3 style=\"margin: 0 0 14px; font-size: 1.5rem; color: #fafafa;\">Ship interfaces faster</h3>\n      <button style=\"padding: 10px 22px; border: 0; border-radius: 8px; background: #6366f1; color: #fff; font-size: .9rem; cursor: pointer;\">Get started</button>\n    </div>\n  </div>\n</pura-flickering-grid>",
+  "usage": "<!-- CTA on a flickering backdrop, default radial fade -->\n<pura-flickering-grid columns=\"32\" rows=\"16\" style=\"height: 320px; background: #09090b;\">\n  <div class=\"cta\">\n    <h2>Start building today</h2>\n    <a href=\"/signup\">Create account</a>\n  </div>\n</pura-flickering-grid>\n\n<!-- slow green grid fading downward behind a product mockup -->\n<pura-flickering-grid color=\"#22c55e\" speed=\"slow\" mask=\"top\" seed=\"7\"\n  style=\"--pura-flickering-grid-gap: 4px; --pura-flickering-grid-max-opacity: 0.7;\">\n  <img src=\"https://picsum.photos/seed/mockup/900/500\" alt=\"Product dashboard\" style=\"display: block; width: 80%; margin: 48px auto; border-radius: 12px;\" />\n</pura-flickering-grid>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "flip-card",
+  "title": "Flip Card",
+  "category": "Animation",
+  "blurb": "A two-faced card that turns 180 degrees in 3D perspective on hover, click or the flipped attribute, revealing the back face. Pure CSS rotation (preserve-3d + backface-visibility); reduced motion crossfades instead.",
+  "description": "`<pura-flip-card>` is the classic card flip: slot `front` is the resting face, slot `back` is revealed by a 180 degree turn in 3D perspective. The rotation is pure CSS (`transform-style: preserve-3d`, `backface-visibility: hidden`, a transition on the rotate), so the default hover trigger works even before JS loads. `trigger=\"click\"` turns the card into a toggle button (Enter/Space included, `aria-pressed` mirrored); `trigger=\"manual\"` leaves it entirely to the `flipped` attribute, which also works in every mode. `direction` picks the axis and spin (right, left, up, down) and `duration` the flip time; `--pura-flip-card-perspective`, `--pura-flip-card-ease` and `--pura-flip-card-radius` tune the rest. The hidden face is marked `aria-hidden`, a `flip` event fires on every `flipped` change, and reduced motion replaces the 3D turn with a crossfade. SSR renders the front face static. Each instance registers in `window.__puraFlipCards` by `data-pura-id` with `{ flip, unflip, toggle }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"hover\" | \"click\" | \"manual\"",
+      "default": "hover",
+      "desc": "hover flips on hover and focus-within; click makes the card a toggle button (Enter/Space too); manual flips only via the flipped attribute."
+    },
+    {
+      "name": "flipped",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Shows the back face. Works in any trigger mode; toggle it from code."
+    },
+    {
+      "name": "direction",
+      "type": "\"right\" | \"left\" | \"up\" | \"down\"",
+      "default": "right",
+      "desc": "Flip axis and spin direction: right/left rotate around Y, up/down around X."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "600",
+      "desc": "Flip time in ms."
+    }
+  ],
+  "events": [
+    "flip"
+  ],
+  "slots": [
+    "front",
+    "back"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start;\">\n  <pura-flip-card style=\"width: 220px; height: 280px; --pura-flip-card-radius: 14px;\">\n    <div slot=\"front\" style=\"width: 100%; height: 100%;\">\n      <img src=\"https://picsum.photos/seed/flipcard/440/560\" alt=\"Mountain landscape\" style=\"display: block; width: 100%; height: 100%; object-fit: cover;\" />\n    </div>\n    <div slot=\"back\" style=\"width: 100%; height: 100%; display: grid; place-items: center; padding: 1.25rem; text-align: center; background: var(--pura-fg, #18181b); color: var(--pura-bg, #fafafa); font: 500 .95rem/1.5 system-ui;\">\n      Hover flips me. The back face was here all along, rotated 180 degrees away.\n    </div>\n  </pura-flip-card>\n  <pura-flip-card trigger=\"click\" direction=\"up\" style=\"width: 220px; height: 280px; --pura-flip-card-radius: 14px;\">\n    <div slot=\"front\" style=\"width: 100%; height: 100%; display: grid; place-items: center; padding: 1.25rem; text-align: center; background: var(--pura-muted, #f4f4f5); color: var(--pura-fg, #18181b); font: 600 1rem/1.4 system-ui; cursor: pointer;\">\n      Click me.<br /><span style=\"font: 400 .8rem system-ui; color: var(--pura-muted-fg, #71717a);\">This one flips up and stays.</span>\n    </div>\n    <div slot=\"back\" style=\"width: 100%; height: 100%; display: grid; place-items: center; padding: 1.25rem; text-align: center; background: var(--pura-fg, #18181b); color: var(--pura-bg, #fafafa); font: 500 .9rem/1.5 system-ui; cursor: pointer;\">\n      Click again to flip back. Enter and Space work too.\n    </div>\n  </pura-flip-card>\n</div>",
+  "usage": "<!-- hover flip (default): front photo, back details -->\n<pura-flip-card style=\"width: 240px; height: 320px; --pura-flip-card-radius: 12px;\">\n  <img slot=\"front\" src=\"/photos/product.jpg\" alt=\"Product\" style=\"width: 100%; height: 100%; object-fit: cover;\" />\n  <div slot=\"back\" class=\"details\">\n    <h3>Trail Runner v2</h3>\n    <p>Lightweight, waterproof, loud orange.</p>\n  </div>\n</pura-flip-card>\n\n<!-- click-to-flip quiz card, flipping upward; listen for state changes -->\n<pura-flip-card id=\"quiz\" trigger=\"click\" direction=\"up\" duration=\"450\">\n  <div slot=\"front\" class=\"question\">What is the capital of Australia?</div>\n  <div slot=\"back\" class=\"answer\">Canberra</div>\n</pura-flip-card>\n<script>\n  document.getElementById(\"quiz\").addEventListener(\"flip\", (e) => {\n    console.log(\"showing\", e.detail.flipped ? \"answer\" : \"question\");\n  });\n</script>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -3870,6 +5474,66 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "flow-field",
+  "title": "Flow Field",
+  "category": "Animation",
+  "blurb": "Generative backdrop: particles flow along a seeded noise vector field on Canvas 2D, drawing organic topographic trails that accumulate behind the slotted content. The vortex preset swaps in a perturbed spiral around the center. SSR paints deterministic streamlines; reduced motion holds one static accumulated frame.",
+  "description": "`<pura-flow-field>` is a generative Canvas 2D backdrop in the Vanta TOPOLOGY family: particles drift along a seeded noise vector field behind the slotted content, drawing organic topographic lines that accumulate and slowly dissolve via a translucent trail fade. `preset=\"vortex\"` swaps the noise field for a perturbed inward spiral around the center (the Aceternity Vortex effect on the same engine). The field is fully deterministic: `seed` picks the noise table and the particle spawn points, so the same seed always reproduces the same drawing. `scale` sets the field frequency (smaller is broader and smoother), `speed` the particle velocity, `fade` how fast old trails dissolve, and `line-width` the stroke width. One requestAnimationFrame loop integrates the particles and pauses while the element is offscreen; the simulation is pre-rolled so the canvas is already covered in trails on first reveal. The server renders static deterministic streamlines traced through the exact same field, so the backdrop is presentable before any JS runs; reduced motion freezes the canvas on a single fully accumulated frame. Theme it with `--pura-flow-field-color`, `--pura-flow-field-opacity` and `--pura-flow-field-bg`. Each instance registers in `window.__puraFlowFields` by `data-pura-id` with `{ preset, count, seed, pause, resume }`.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "500",
+      "desc": "Number of particles, max 1500."
+    },
+    {
+      "name": "preset",
+      "type": "\"flow\" | \"vortex\"",
+      "default": "flow",
+      "desc": "flow steers particles by the noise field; vortex orbits them on a perturbed inward spiral around the center."
+    },
+    {
+      "name": "seed",
+      "type": "number",
+      "default": "1",
+      "desc": "Noise seed. The same seed always produces the same field and the same drawing."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "default": "0.004",
+      "desc": "Noise field frequency per px. Smaller values give broader, smoother curves."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "60",
+      "desc": "Particle speed in px per second."
+    },
+    {
+      "name": "fade",
+      "type": "number",
+      "default": "0.04",
+      "desc": "Trail fade per frame, 0..1. Lower values keep longer accumulated trails."
+    },
+    {
+      "name": "line-width",
+      "type": "number",
+      "default": "1",
+      "desc": "Stroke width of the trails in px."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-flow-field count=\"450\" seed=\"7\" scale=\"0.005\" style=\"height: 300px; border-radius: 12px; --pura-flow-field-bg: #07070d; --pura-flow-field-color: #8b5cf6; --pura-flow-field-opacity: 0.5;\">\n  <div style=\"height: 100%; display: grid; place-items: center; text-align: center; color: #e4e4e7;\">\n    <div>\n      <div style=\"font-size: 1.25rem; font-weight: 700;\">Flow Field</div>\n      <div style=\"font-size: .85rem; color: #a1a1aa;\">particles tracing a seeded noise field</div>\n    </div>\n  </div>\n</pura-flow-field>",
+  "usage": "<!-- hero backdrop: organic topographic streams behind the headline -->\n<pura-flow-field count=\"600\" seed=\"3\" style=\"height: 100vh; --pura-flow-field-bg: #09090b; --pura-flow-field-color: #38bdf8; --pura-flow-field-opacity: 0.4;\">\n  <header style=\"position: relative; z-index: 1; display: grid; place-items: center; height: 100%;\">\n    <h1>Build with pura</h1>\n  </header>\n</pura-flow-field>\n\n<!-- vortex preset: a perturbed spiral pulling trails into the center -->\n<pura-flow-field preset=\"vortex\" count=\"700\" speed=\"90\" fade=\"0.06\" style=\"height: 360px; --pura-flow-field-bg: #000; --pura-flow-field-color: var(--pura-accent, #6366f1); --pura-flow-field-opacity: 0.55;\">\n  <div style=\"position: relative; z-index: 1; display: grid; place-items: center; height: 100%; color: #fafafa;\">The calm before the storm.</div>\n</pura-flow-field>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "flow",
   "title": "Flow",
   "category": "Display",
@@ -3914,6 +5578,139 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "fly-to-cart",
+  "title": "Fly To Cart",
+  "category": "Animation",
+  "blurb": "The add-to-cart flight: click the slotted trigger and a dot launches from it, arcs across the page, and lands on the target, which pulses on impact. One WAAPI animation, no dependencies.",
+  "description": "`<pura-fly-to-cart>` is the motion.dev \"add to cart\" move: wrap any trigger (a button, a product card) and point `target` at the cart icon. On click, a dot launches from the trigger, arcs across the page (a three-keyframe WAAPI translate with a raised midpoint), shrinks as it travels, and lands on the target, which pulses on impact. The dot is created on `document.body` at click time because it has to travel outside any shadow root. The `land` event fires on arrival, so increment your cart badge there. Dot color comes from `--pura-fly-color` (default `--pura-accent`, then `--pura-fg`). Reduced motion skips the flight: the target still pulses subtly and `land` still fires. Each instance registers in `window.__puraFlyToCarts` by `data-pura-id` with `{ target, fly }`.",
+  "attributes": [
+    {
+      "name": "target",
+      "type": "string",
+      "default": "",
+      "desc": "CSS selector for the landing element (the cart icon). Without a match the click still fires land."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "700",
+      "desc": "Flight time in milliseconds."
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": "14",
+      "desc": "Dot diameter in pixels."
+    }
+  ],
+  "events": [
+    "land"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; align-items: center; justify-content: space-between; gap: 2rem; max-width: 420px;\">\n  <pura-fly-to-cart target=\"#ftc-cart\" style=\"font: 500 .95rem system-ui;\">\n    <button type=\"button\" style=\"font: inherit; padding: .55rem 1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">Add to cart</button>\n  </pura-fly-to-cart>\n  <span id=\"ftc-cart\" style=\"display: inline-flex; align-items: center; gap: .4rem; font: 600 1rem system-ui;\">🛒 <span id=\"ftc-count\">0</span></span>\n</div>\n<script>\n  document.querySelector(\"pura-fly-to-cart[target='#ftc-cart']\").addEventListener(\"land\", () => {\n    const n = document.getElementById(\"ftc-count\");\n    n.textContent = String(Number(n.textContent) + 1);\n  });\n</script>",
+  "usage": "<pura-fly-to-cart target=\"#cart-icon\">\n  <button type=\"button\">Add to cart</button>\n</pura-fly-to-cart>\n\n<span id=\"cart-icon\">🛒 <span id=\"cart-count\">0</span></span>\n\n<script>\n  document.querySelector(\"pura-fly-to-cart\").addEventListener(\"land\", () => {\n    cart.add(product);\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "focus-hover",
+  "title": "Focus Hover",
+  "category": "Animation",
+  "blurb": "Focus-cards container: the item under the cursor (or keyboard focus) stays sharp while its siblings blur, dim and shrink. Pure CSS on slotted children, zero per-frame JS, SSR-safe.",
+  "description": "`<pura-focus-hover>` is a focus-cards container: while the pointer rests on one slotted item, every sibling blurs, dims and shrinks so the pointed-at card stands out. Tabbing into a card with the keyboard triggers the same spotlight via `:focus-visible`. The whole effect is plain CSS on `::slotted()` children, so no per-frame JS runs and SSR simply paints the neutral resting grid. `columns` sets the grid, `blur`, `dim`, `shrink` and `grow` tune the effect, and `--pura-focus-hover-gap`, `--pura-focus-hover-duration` and `--pura-focus-hover-ease` theme the rest. Reduced motion swaps states instantly instead of transitioning. Each instance registers in `window.__puraFocusHovers` by `data-pura-id` with its effective config.",
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "3",
+      "desc": "Grid column count."
+    },
+    {
+      "name": "blur",
+      "type": "number",
+      "default": "4",
+      "desc": "Blur in px applied to non-focused siblings."
+    },
+    {
+      "name": "dim",
+      "type": "number",
+      "default": "0.55",
+      "desc": "Opacity of non-focused siblings, 0..1."
+    },
+    {
+      "name": "shrink",
+      "type": "number",
+      "default": "0.97",
+      "desc": "Scale of non-focused siblings."
+    },
+    {
+      "name": "grow",
+      "type": "number",
+      "default": "1.02",
+      "desc": "Scale of the focused item."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-focus-hover columns=\"3\">\n  <figure style=\"margin: 0; border-radius: 12px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/fh1/400/300\" alt=\"\" style=\"display: block; width: 100%; height: auto;\" />\n  </figure>\n  <figure style=\"margin: 0; border-radius: 12px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/fh2/400/300\" alt=\"\" style=\"display: block; width: 100%; height: auto;\" />\n  </figure>\n  <figure style=\"margin: 0; border-radius: 12px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/fh3/400/300\" alt=\"\" style=\"display: block; width: 100%; height: auto;\" />\n  </figure>\n  <figure style=\"margin: 0; border-radius: 12px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/fh4/400/300\" alt=\"\" style=\"display: block; width: 100%; height: auto;\" />\n  </figure>\n  <figure style=\"margin: 0; border-radius: 12px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/fh5/400/300\" alt=\"\" style=\"display: block; width: 100%; height: auto;\" />\n  </figure>\n  <figure style=\"margin: 0; border-radius: 12px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/fh6/400/300\" alt=\"\" style=\"display: block; width: 100%; height: auto;\" />\n  </figure>\n</pura-focus-hover>",
+  "usage": "<!-- portfolio grid: hover one card, the rest blur and dim -->\n<pura-focus-hover columns=\"3\">\n  <figure><img src=\"/work/one.jpg\" alt=\"Project one\" /></figure>\n  <figure><img src=\"/work/two.jpg\" alt=\"Project two\" /></figure>\n  <figure><img src=\"/work/three.jpg\" alt=\"Project three\" /></figure>\n</pura-focus-hover>\n\n<!-- stronger spotlight, keyboard friendly: links get the same effect on focus -->\n<pura-focus-hover columns=\"2\" blur=\"8\" dim=\"0.35\" shrink=\"0.94\" grow=\"1.04\"\n  style=\"--pura-focus-hover-duration: 450ms; --pura-focus-hover-gap: 2rem;\">\n  <a href=\"/work/atlas\"><img src=\"/work/atlas.jpg\" alt=\"Atlas\" /></a>\n  <a href=\"/work/nimbus\"><img src=\"/work/nimbus.jpg\" alt=\"Nimbus\" /></a>\n  <a href=\"/work/orbit\"><img src=\"/work/orbit.jpg\" alt=\"Orbit\" /></a>\n  <a href=\"/work/quartz\"><img src=\"/work/quartz.jpg\" alt=\"Quartz\" /></a>\n</pura-focus-hover>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "folder",
+  "title": "Folder",
+  "category": "Animation",
+  "blurb": "Stylized paper folder that opens on hover or click, revealing up to three papers that rise and fan out above the cover. Drawn entirely in CSS, opening is pure CSS transitions.",
+  "description": "`<pura-folder>` is a stylized paper folder that opens to reveal up to three papers fanning out above the cover. The folder (back panel, tab, papers, front cover) is drawn entirely in CSS; opening tilts the front cover back with a `rotateX` transition while the papers rise with a staggered, springy translate and rotate. By default it opens on `:hover` with zero JS; `trigger=\"click\"` turns it into a keyboard-operable toggle button (Enter/Space, `aria-expanded`), and the `open` attribute forces the state from markup or script. Fill the `paper-1`..`paper-3` named slots with images or text, pick the sheet count with `papers`, and tint it with `color` or the `--pura-folder-*` tokens. SSR paints the closed folder; reduced motion snaps open/close instantly. Each instance registers in `window.__puraFolders` by `data-pura-id` with `{ open, close, toggle }` and mirrors state in `data-pura-folder-open`.",
+  "attributes": [
+    {
+      "name": "open",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Forces the open state, independent of hover."
+    },
+    {
+      "name": "trigger",
+      "type": "\"hover\" | \"click\"",
+      "default": "hover",
+      "desc": "hover opens on :hover via pure CSS; click makes the folder a keyboard-operable toggle button."
+    },
+    {
+      "name": "papers",
+      "type": "number",
+      "default": "3",
+      "desc": "Number of paper sheets in the folder, 1..3."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "default": "var(--pura-accent)",
+      "desc": "Folder color, any CSS color. The --pura-folder-color token still wins if set."
+    }
+  ],
+  "events": [
+    "open",
+    "close"
+  ],
+  "slots": [
+    "paper-1",
+    "paper-2",
+    "paper-3"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 4rem; justify-content: center; align-items: flex-end; padding: 7rem 1rem 2rem;\">\n  <pura-folder>\n    <img slot=\"paper-1\" src=\"https://picsum.photos/seed/folder1/200/240\" alt=\"\" />\n    <img slot=\"paper-2\" src=\"https://picsum.photos/seed/folder2/200/240\" alt=\"\" />\n    <img slot=\"paper-3\" src=\"https://picsum.photos/seed/folder3/200/240\" alt=\"\" />\n  </pura-folder>\n  <pura-folder trigger=\"click\" color=\"#0ea5e9\" papers=\"2\">\n    <div slot=\"paper-1\" style=\"padding: .6rem;\"><strong>Q3 report</strong><br />12 pages</div>\n    <div slot=\"paper-2\" style=\"padding: .6rem;\"><strong>Roadmap</strong><br />4 pages</div>\n  </pura-folder>\n</div>",
+  "usage": "<!-- opens on hover, three photos fan out (leave room above for the fan) -->\n<pura-folder style=\"margin-top: 7rem;\">\n  <img slot=\"paper-1\" src=\"/docs/one.jpg\" alt=\"Document one\" />\n  <img slot=\"paper-2\" src=\"/docs/two.jpg\" alt=\"Document two\" />\n  <img slot=\"paper-3\" src=\"/docs/three.jpg\" alt=\"Document three\" />\n</pura-folder>\n\n<!-- click to toggle, custom color and size, two sheets -->\n<pura-folder trigger=\"click\" color=\"#16a34a\" papers=\"2\"\n  style=\"--pura-folder-size: 8rem; margin-top: 6rem;\">\n  <div slot=\"paper-1\">Invoice.pdf</div>\n  <div slot=\"paper-2\">Receipt.pdf</div>\n</pura-folder>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "form",
   "title": "Form",
   "category": "Form",
@@ -3931,6 +5728,108 @@ export const components = [
   "animation": false,
   "relatedComponents": [],
   "relatedBlocks": []
+},
+{
+  "slug": "fuzzy-text",
+  "title": "Fuzzy Text",
+  "category": "Animation",
+  "blurb": "TV-static fuzzy text: horizontal slices of the glyphs vibrate sideways in continuous canvas noise, intensifying on hover. Progressive enhancement over the real SSR text; static under reduced motion.",
+  "description": "`<pura-fuzzy-text>` renders text with a TV-static shake, in the style of React Bits' Fuzzy Text: the glyphs are drawn once to an offscreen canvas, and every frame thin horizontal slices are redrawn with random sideways jitter, so the text vibrates like a weak analog signal and intensifies on hover. It is a progressive enhancement: SSR and the pre-JS paint show the real slotted text, the canvas takes over only after the client measures and draws it, and the original text stays in the tree as the accessible copy. `intensity` sets the baseline jitter, `hover-intensity` the hovered jitter, `slice` the slice height; the canvas fill follows the host's computed color or `--pura-fuzzy-text-color`. Under reduced motion the canvas never shows and the plain static text remains. Each instance registers in `window.__puraFuzzyTexts` by `data-pura-id` with `{ text, intensity, hoverIntensity, refresh }`.",
+  "attributes": [
+    {
+      "name": "intensity",
+      "type": "number",
+      "default": "0.18",
+      "desc": "Baseline horizontal jitter, as a fraction of the font size (0..2)."
+    },
+    {
+      "name": "hover-intensity",
+      "type": "number",
+      "default": "0.5",
+      "desc": "Jitter while hovered, as a fraction of the font size. Set it equal to intensity to disable the hover boost."
+    },
+    {
+      "name": "slice",
+      "type": "number",
+      "default": "2",
+      "desc": "Height in CSS px of each jittered horizontal slice (1..24)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; gap: 0.75rem; padding: 2.5rem 1rem; background: #09090b; border-radius: 12px;\">\n  <pura-fuzzy-text style=\"font-size: 3.5rem; font-weight: 800; color: #fafafa;\">404</pura-fuzzy-text>\n  <pura-fuzzy-text intensity=\"0.1\" hover-intensity=\"0.45\" style=\"font-size: 1.1rem; letter-spacing: 0.2em; color: #a1a1aa;\">SIGNAL LOST</pura-fuzzy-text>\n  <div style=\"color: #52525b; font-size: .8rem;\">hover the text to crank the static</div>\n</div>",
+  "usage": "<!-- big 404 hero with TV-static fuzz, stronger on hover -->\n<pura-fuzzy-text style=\"font-size: 5rem; font-weight: 800;\">404</pura-fuzzy-text>\n\n<!-- subtle always-on fuzz with a custom color token and thicker slices -->\n<pura-fuzzy-text intensity=\"0.08\" hover-intensity=\"0.3\" slice=\"3\" style=\"font-size: 2rem; --pura-fuzzy-text-color: #22d3ee;\">SIGNAL LOST</pura-fuzzy-text>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "gallery-3d",
+  "title": "Gallery 3D",
+  "category": "Animation",
+  "blurb": "Draggable 3D ring gallery: slotted images arranged around a cylinder in perspective. Grab and throw to spin; the release glides with the throw's velocity via one CSS transition. No rAF loop.",
+  "description": "`<pura-gallery-3d>` arranges the slotted items (usually images) around a 3D cylinder inside a perspective scene — the awwwards ring gallery. Grab and throw it to spin: drag math runs only on pointermove events, and the release glides out with the throw's velocity via a single CSS transition on the ring transform, so there is no rAF loop. The `auto` attribute spins the ring slowly (one lap per `--pura-g3d-speed`, default 40s) until the first grab. The cylinder radius defaults to a value computed from item width and count so the faces just clear each other; override with `radius`. Before JS runs the items render in a flat row, so SSR never shows a broken ring. Reduced motion disables the auto spin and the release glide; dragging still works. Each instance registers in `window.__puraGallery3ds` by `data-pura-id` with `{ count, angle, spinTo }`.",
+  "attributes": [
+    {
+      "name": "radius",
+      "type": "number",
+      "default": "auto",
+      "desc": "Cylinder radius in px. Default computes from item width and count so faces just clear each other."
+    },
+    {
+      "name": "sensitivity",
+      "type": "number",
+      "default": "0.3",
+      "desc": "Degrees of rotation per dragged pixel."
+    },
+    {
+      "name": "auto",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Slow infinite spin until the first grab."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-gallery-3d auto style=\"height: 260px; --pura-g3d-perspective: 900px;\">\n  <img src=\"https://picsum.photos/seed/ring1/220/300\" alt=\"\" style=\"width: 130px; border-radius: 8px;\" />\n  <img src=\"https://picsum.photos/seed/ring2/220/300\" alt=\"\" style=\"width: 130px; border-radius: 8px;\" />\n  <img src=\"https://picsum.photos/seed/ring3/220/300\" alt=\"\" style=\"width: 130px; border-radius: 8px;\" />\n  <img src=\"https://picsum.photos/seed/ring4/220/300\" alt=\"\" style=\"width: 130px; border-radius: 8px;\" />\n  <img src=\"https://picsum.photos/seed/ring5/220/300\" alt=\"\" style=\"width: 130px; border-radius: 8px;\" />\n  <img src=\"https://picsum.photos/seed/ring6/220/300\" alt=\"\" style=\"width: 130px; border-radius: 8px;\" />\n</pura-gallery-3d>",
+  "usage": "<!-- drag to spin; auto spins until first grab -->\n<pura-gallery-3d auto style=\"height: 60vh;\">\n  <img src=\"/work/01.jpg\" alt=\"Project one\" style=\"width: 240px;\" />\n  <img src=\"/work/02.jpg\" alt=\"Project two\" style=\"width: 240px;\" />\n  <img src=\"/work/03.jpg\" alt=\"Project three\" style=\"width: 240px;\" />\n  <img src=\"/work/04.jpg\" alt=\"Project four\" style=\"width: 240px;\" />\n  <img src=\"/work/05.jpg\" alt=\"Project five\" style=\"width: 240px;\" />\n</pura-gallery-3d>\n\n<!-- fixed radius, faster drag -->\n<pura-gallery-3d radius=\"520\" sensitivity=\"0.5\" style=\"height: 60vh;\">\n  …\n</pura-gallery-3d>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "image-trail",
+      "title": "Image Trail"
+    },
+    {
+      "slug": "scroll-highlight",
+      "title": "Scroll Highlight"
+    },
+    {
+      "slug": "scroll-zoom",
+      "title": "Scroll Zoom"
+    },
+    {
+      "slug": "split",
+      "title": "Split Text"
+    },
+    {
+      "slug": "text-fill",
+      "title": "Text Fill"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
 },
 {
   "slug": "gauge",
@@ -3969,6 +5868,172 @@ export const components = [
   "demoHTML": "<div style=\"display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-end\">\n  <pura-gauge id=\"cpu\" value=\"72\" min=\"0\" max=\"100\" label=\"CPU usage\" style=\"width:12rem\"></pura-gauge>\n  <pura-gauge value=\"8.4\" min=\"0\" max=\"10\" label=\"NPS\" style=\"width:12rem\"></pura-gauge>\n  <pura-gauge value=\"430\" min=\"0\" max=\"500\" label=\"Points\" style=\"width:12rem\"></pura-gauge>\n</div>\n<button id=\"randomizar\" style=\"margin-top:1rem\">Update CPU</button>\n<script type=\"module\">\n  import \"/pura/lib/gauge.js\";\n  document.getElementById(\"randomizar\").addEventListener(\"click\", () => {\n    document.getElementById(\"cpu\").value = Math.round(Math.random() * 100);\n  });\n</script>",
   "usage": "<pura-gauge value=\"72\" min=\"0\" max=\"100\" label=\"CPU usage\" style=\"width:12rem\"></pura-gauge>\n\n<!-- Update via property or attribute -->\n<script type=\"module\">\n  import \"/pura/lib/gauge.js\";\n  const g = document.querySelector(\"pura-gauge\");\n  g.value = 85; // also accepts setAttribute(\"value\", \"85\")\n</script>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "glitch-text",
+  "title": "Glitch Text",
+  "category": "Animation",
+  "blurb": "Digital glitch text: two RGB-shifted copies with jumping horizontal clip-path slices over the always-present real text, signal-error style. Pure CSS keyframes, glitch turns off under reduced motion.",
+  "description": "`<pura-glitch-text>` renders text with a digital signal-error glitch: two RGB-shifted copies of the text (red and cyan `text-shadow`) sit on top of the real text while animated `clip-path: inset()` slices jump across them on hand-authored CSS keyframes, so every run is deterministic and zero per-frame JS runs. The real slotted text is always present, which makes the SSR and pre-JS paint clean readable text; JS only mirrors the text into `data-text` to light up the glitch layers, and the duplicated copies are hidden from assistive tech. `speed` sets the cycle duration, `intensity` the RGB shift distance, and `hover` restricts the glitch to hover. Colors and offsets are themeable via `--pura-glitch-text-color-a`, `--pura-glitch-text-color-b` and `--pura-glitch-text-shift`. Under reduced motion the glitch layers are removed entirely. Each instance registers in `window.__puraGlitchTexts` by `data-pura-id` with `{ text, speed, intensity, hover, refresh }`.",
+  "attributes": [
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "3",
+      "desc": "Glitch cycle duration in seconds; the second layer runs 1.4x slower so the tracks desync."
+    },
+    {
+      "name": "intensity",
+      "type": "\"low\" | \"medium\" | \"high\"",
+      "default": "medium",
+      "desc": "Horizontal shift distance of the RGB layers (1px / 2px / 5px)."
+    },
+    {
+      "name": "hover",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Only glitch while hovered; the text renders static otherwise."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"background: #09090b; border-radius: 12px; padding: 56px 24px; display: grid; place-items: center; gap: 20px;\">\n  <pura-glitch-text style=\"font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 800; letter-spacing: 0.04em; color: #fafafa;\">SIGNAL LOST</pura-glitch-text>\n  <pura-glitch-text hover intensity=\"high\" style=\"font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; color: #a1a1aa;\">HOVER TO CORRUPT</pura-glitch-text>\n</div>",
+  "usage": "<!-- tech hero headline, always glitching -->\n<h1 style=\"font-size: 4rem; font-weight: 800;\">\n  <pura-glitch-text>CYBERPUNK 2099</pura-glitch-text>\n</h1>\n\n<!-- subtle, slower glitch that only fires on hover -->\n<pura-glitch-text hover intensity=\"low\" speed=\"4\" style=\"font-size: 1.25rem;\">\n  ENTER THE GRID\n</pura-glitch-text>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "gooey-cursor",
+  "title": "Gooey Cursor",
+  "category": "Animation",
+  "blurb": "Meta-ball cursor follower: liquid blobs chase the pointer in a staggered lerp chain and fuse organically through an inline SVG goo filter. The organic sibling of pura-cursor's dot + ring. Touch and reduced motion render nothing and never bind.",
+  "description": "`<pura-gooey-cursor>` is the meta-ball cursor: a chain of liquid blobs chases the pointer, the lead blob hugging the cursor and each follower lerping toward the one ahead of it, so fast moves stretch the chain into a tail and pauses let it collapse back into a single ball. The blobs are plain circular divs fused by an inline SVG goo filter (`feGaussianBlur` plus an `feColorMatrix` alpha threshold), the classic metaball trick, so overlapping circles merge organically instead of just stacking. It is the organic sibling of `<pura-cursor>`'s dot + ring. `count` sets the chain length, `ease` how lazily it trails, `strength` how soft the merging is; `hide-native` suppresses the real cursor while connected and `blend` puts the overlay in `mix-blend-mode: difference`. The rAF loop runs only while the chain is catching up and stops once settled. Touch devices (`pointer: coarse`) and `prefers-reduced-motion` render nothing and never bind; SSR paints nothing visible until the first real pointer move. Size and color are tokens: `--pura-gooey-cursor-size`, `--pura-gooey-cursor-color`. Each instance registers in `window.__puraGooeyCursors` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "4",
+      "desc": "Number of blobs in the chain, 2..8."
+    },
+    {
+      "name": "ease",
+      "type": "number",
+      "default": "0.22",
+      "desc": "Lerp factor per frame for each chain link, 0..1. Lower = lazier, stretchier trail."
+    },
+    {
+      "name": "strength",
+      "type": "number",
+      "default": "12",
+      "desc": "Goo blur stdDeviation in px. Higher = gooier, softer merging."
+    },
+    {
+      "name": "hide-native",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Suppress the native cursor while the component is connected."
+    },
+    {
+      "name": "blend",
+      "type": "boolean",
+      "default": "false",
+      "desc": "mix-blend-mode: difference over the page (white blobs invert what they cross)."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<div style=\"position: relative; min-height: 240px; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .75rem; display: grid; place-items: center; gap: 1rem; padding: 2rem; text-align: center;\">\n  <p style=\"font: 400 .9rem system-ui; color: var(--pura-fg-muted, #71717a); margin: 0;\">Move the pointer around. Fast strokes stretch the goo into a tail; stop and it melts back into one ball.</p>\n  <p style=\"font: 600 1.1rem system-ui; margin: 0;\">Liquid metaballs, zero dependencies.</p>\n</div>\n<pura-gooey-cursor count=\"5\" ease=\"0.18\"></pura-gooey-cursor>",
+  "usage": "<!-- one instance per page, anywhere; replaces the native cursor -->\n<pura-gooey-cursor hide-native></pura-gooey-cursor>\n\n<!-- bigger, lazier, gooier blobs in difference blend -->\n<pura-gooey-cursor count=\"6\" ease=\"0.14\" strength=\"16\" blend\n  style=\"--pura-gooey-cursor-size: 48px;\"></pura-gooey-cursor>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "gradient-text",
+  "title": "Gradient Text",
+  "category": "Animation",
+  "blurb": "Text filled with a multicolor gradient that flows continuously across the letters, aurora style. Pure CSS @keyframes clipped to the glyphs, SSR-safe, freezes under reduced motion.",
+  "description": "`<pura-gradient-text>` fills the slotted text with a multicolor gradient that flows continuously across the letters, aurora style, in the spirit of React Bits' Gradient Text, Magic UI's Aurora Text and Aceternity's Colourful Text. The fill is a wide `linear-gradient` clipped to the glyphs with `background-clip: text`, and `background-position` loops in a seamless pure CSS `@keyframes`, so it works server-rendered with no client JS. It is distinct from `<pura-text-shimmer>`, which sweeps a single highlight band over a base color. Set the palette with `colors`, the direction with `angle`, and the speed with `duration` (or the `--pura-gradient-text-*` tokens, including a full `--pura-gradient-text-gradient` override). Under reduced motion the flow stops and the text keeps a static multicolor fill. The slotted text stays accessible as plain text. Each instance registers in `window.__puraGradientTexts` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "colors",
+      "type": "string",
+      "default": "#40ffaa, #4079ff, #a855f7, #ff6ec4, #40ffaa",
+      "desc": "Comma-separated CSS colors used as the gradient stops."
+    },
+    {
+      "name": "angle",
+      "type": "string",
+      "default": "90deg",
+      "desc": "Gradient direction, any CSS angle (deg, turn, rad, grad)."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "8",
+      "desc": "Seconds for one full flow cycle."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-gradient-text style=\"font: 800 34px system-ui; letter-spacing: -.02em;\">Aurora gradient headline</pura-gradient-text>\n<br>\n<pura-gradient-text colors=\"#f59e0b, #ef4444, #ec4899, #f59e0b\" duration=\"5\" style=\"font: 700 22px system-ui;\">Sunset palette, faster flow</pura-gradient-text>\n<br>\n<pura-gradient-text angle=\"135deg\" style=\"font: 600 15px system-ui;\">Diagonal flow on smaller text</pura-gradient-text>",
+  "usage": "<pura-gradient-text style=\"font: 800 40px system-ui;\">Aurora headline</pura-gradient-text>\n\n<!-- Custom palette, direction and speed -->\n<pura-gradient-text colors=\"#f59e0b, #ef4444, #ec4899, #f59e0b\" angle=\"135deg\" duration=\"5\">\n  Sunset flow\n</pura-gradient-text>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "grid-motion",
+  "title": "Grid Motion",
+  "category": "Animation",
+  "blurb": "The awwwards infinite-grid hero: an oversized grid of images or cards whose rows slide laterally following the pointer with lerp inertia. Rows alternate direction and depth; SSR paints the static centered grid.",
+  "description": "`<pura-grid-motion>` is the awwwards infinite-grid hero: a grid of images or cards, wider than its container on purpose, whose rows slide laterally following the pointer with lerp inertia. Rows alternate direction and move at three depth bands, so the grid feels parallax-alive. Slotted children are the cells; row membership is computed from `columns`, so you just dump a flat list of images. `shift` sets the max travel, `ease` the lerp factor, `tilt` rotates the whole grid for the classic angled look, and `global` tracks the pointer across the whole window for fullscreen heroes. Tokens: `--pura-grid-motion-gap`, `--pura-grid-motion-overflow` (grid width, default 160%), `--pura-grid-motion-radius`, `--pura-grid-motion-ratio`, `--pura-grid-motion-bg`. SSR and no-JS paint the static centered grid; reduced motion and coarse pointers never bind. Each instance registers in `window.__puraGridMotions` by `data-pura-id`; `data-pura-gm-x` mirrors the settled offset.",
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "4",
+      "desc": "Cells per row, 1..12. Row membership is floor(index / columns)."
+    },
+    {
+      "name": "shift",
+      "type": "number",
+      "default": "160",
+      "desc": "Max horizontal travel in px for the deepest row."
+    },
+    {
+      "name": "ease",
+      "type": "number",
+      "default": "0.06",
+      "desc": "Lerp factor per frame, 0..1. Lower feels floatier."
+    },
+    {
+      "name": "tilt",
+      "type": "number",
+      "default": "0",
+      "desc": "Grid rotation in degrees, -45..45. Use -12 for the classic angled look."
+    },
+    {
+      "name": "global",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Track the pointer on the whole window instead of only over the element."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-grid-motion columns=\"7\" shift=\"200\" tilt=\"-8\" style=\"height: 340px; border-radius: 12px; --pura-grid-motion-bg: #09090b; --pura-grid-motion-overflow: 190%; --pura-grid-motion-gap: 0.6rem;\">\n  <img src=\"https://picsum.photos/seed/gridmotion1/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion2/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion3/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion4/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion5/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion6/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion7/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion8/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion9/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion10/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion11/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion12/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion13/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion14/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion15/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion16/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion17/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion18/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion19/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion20/400/280\" alt=\"\" loading=\"lazy\" />\n  <img src=\"https://picsum.photos/seed/gridmotion21/400/280\" alt=\"\" loading=\"lazy\" />\n</pura-grid-motion>",
+  "usage": "<!-- fullscreen hero: rows follow the pointer anywhere on the page -->\n<pura-grid-motion columns=\"7\" tilt=\"-12\" global style=\"height: 100vh; --pura-grid-motion-bg: #09090b;\">\n  <img src=\"/photos/01.jpg\" alt=\"\" />\n  <img src=\"/photos/02.jpg\" alt=\"\" />\n  <!-- ...one flat list of cells; 7 per row -->\n</pura-grid-motion>\n\n<!-- cards instead of images, contained pointer, floatier easing -->\n<pura-grid-motion columns=\"4\" shift=\"120\" ease=\"0.04\" style=\"height: 60vh;\">\n  <div style=\"background: var(--pura-muted, #f4f4f5); display: grid; place-items: center;\">Aa</div>\n  <div style=\"background: var(--pura-muted, #f4f4f5); display: grid; place-items: center;\">Bb</div>\n  <!-- ... -->\n</pura-grid-motion>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -4153,6 +6218,57 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "hide-on-scroll",
+  "title": "Hide-on-scroll Bar",
+  "category": "Animation",
+  "blurb": "Shy navbar: a sticky or fixed bar that slides out of view when scrolling down and reappears on scroll up, with a shrink variant that condenses the bar after a threshold. One passive scroll listener flips data attributes; CSS transitions do all the motion.",
+  "description": "`<pura-hide-on-scroll>` is the shy navbar: wrap a header (or any bar) in it and the bar slides out of view when the user scrolls down, then reappears the moment they scroll back up. Below `threshold` it never hides; `tolerance` filters out trackpad jitter. The `shrink` variant also condenses the bar (tighter `padding-block` plus a shadow, themeable via `--pura-hide-on-scroll-*` tokens) once past the threshold. `position=\"bottom\"` makes a bottom banner that slides down instead, and `fixed` switches from sticky to fixed positioning. A single passive, rAF-throttled scroll listener on the nearest scroll container compares the previous scroll position and only flips `data-direction` and `data-pura-hos-hidden` / `data-pura-hos-shrunk` on the host; the CSS transition on `transform` does all the motion. SSR and pre-JS render a plain visible sticky bar; reduced motion turns the slide into a hard cut. Each instance registers in `window.__puraHideOnScrolls` by `data-pura-id` with `{ show, hide }`.",
+  "attributes": [
+    {
+      "name": "threshold",
+      "type": "number",
+      "default": "80",
+      "desc": "Scroll distance in px below which the bar always stays visible and expanded."
+    },
+    {
+      "name": "tolerance",
+      "type": "number",
+      "default": "8",
+      "desc": "Minimum scroll delta in px before a direction change is honored. Guards against trackpad jitter."
+    },
+    {
+      "name": "shrink",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Condense the bar (tighter padding plus a shadow) once scrolled past the threshold."
+    },
+    {
+      "name": "position",
+      "type": "\"top\" | \"bottom\"",
+      "default": "top",
+      "desc": "Edge the bar sticks to. Bottom bars slide down to hide."
+    },
+    {
+      "name": "fixed",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Use position fixed (full viewport width) instead of sticky."
+    }
+  ],
+  "events": [
+    "hide",
+    "show"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 280px; overflow-y: auto; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px;\">\n  <pura-hide-on-scroll threshold=\"40\" shrink style=\"--pura-hide-on-scroll-bg: var(--pura-bg, #fff); --pura-hide-on-scroll-padding: 14px; --pura-hide-on-scroll-shrink-padding: 6px;\">\n    <div style=\"display: flex; align-items: center; gap: 12px; padding-inline: 16px;\">\n      <strong style=\"font-size: .9rem;\">pura</strong>\n      <span style=\"margin-left: auto; font-size: .8rem; color: var(--pura-muted-fg, #52525b);\">scroll down to hide, up to show</span>\n    </div>\n  </pura-hide-on-scroll>\n  <div style=\"padding: 16px; display: grid; gap: 12px;\">\n    <img src=\"https://picsum.photos/seed/hos1/600/200\" alt=\"\" style=\"width: 100%; border-radius: 8px;\" />\n    <p style=\"margin: 0; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">Keep scrolling inside this panel. The bar slides away on the way down and pops back the instant you reverse.</p>\n    <img src=\"https://picsum.photos/seed/hos2/600/200\" alt=\"\" style=\"width: 100%; border-radius: 8px;\" />\n    <img src=\"https://picsum.photos/seed/hos3/600/200\" alt=\"\" style=\"width: 100%; border-radius: 8px;\" />\n    <img src=\"https://picsum.photos/seed/hos4/600/200\" alt=\"\" style=\"width: 100%; border-radius: 8px;\" />\n  </div>\n</div>",
+  "usage": "<!-- shy site header: hides on scroll down, returns on scroll up -->\n<pura-hide-on-scroll threshold=\"100\" style=\"--pura-hide-on-scroll-bg: white;\">\n  <header class=\"site-nav\">\n    <a href=\"/\">Logo</a>\n    <nav>...</nav>\n  </header>\n</pura-hide-on-scroll>\n\n<!-- condensing navbar plus a bottom banner that slides down to hide -->\n<pura-hide-on-scroll shrink threshold=\"60\"\n  style=\"--pura-hide-on-scroll-padding: 20px; --pura-hide-on-scroll-shrink-padding: 8px;\">\n  <header class=\"site-nav\">...</header>\n</pura-hide-on-scroll>\n\n<pura-hide-on-scroll position=\"bottom\" fixed tolerance=\"12\">\n  <div class=\"cookie-banner\">We use cookies.</div>\n</pura-hide-on-scroll>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "highlight",
   "title": "Highlight",
   "category": "Display",
@@ -4189,6 +6305,81 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "hold-confirm",
+  "title": "Hold Confirm",
+  "category": "Animation",
+  "blurb": "Press-and-hold to confirm: a ring fills around the button while held, snaps back on early release, and morphs into a check when the hold completes. The fill is a CSS transition; the only JS is a setTimeout.",
+  "description": "`<pura-hold-confirm>` is the motion.dev \"hold to confirm\" move: a destructive or important action that requires a deliberate press-and-hold instead of a click. While the button is held, a ring fills around the indicator (a `stroke-dashoffset` transition running linearly over `duration`); releasing early snaps it back and fires `cancel`, holding to the end fires `confirm` and the ring morphs into a self-drawing check. Holding Space or Enter works like holding the pointer. The ring is functional progress feedback, so it is not gated behind reduced motion. Call `reset()` to arm the button again after a confirm. Each instance registers in `window.__puraHoldConfirms` by `data-pura-id` with `{ duration, confirm, reset }`.",
+  "attributes": [
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "1200",
+      "desc": "Hold time in milliseconds before the confirm fires."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Disables the button."
+    }
+  ],
+  "events": [
+    "confirm",
+    "cancel"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-hold-confirm id=\"hc-demo\" duration=\"1200\" style=\"font: 500 .95rem system-ui;\">Hold to delete</pura-hold-confirm>\n<span id=\"hc-state\" style=\"margin-left: 1rem; font: .85rem system-ui; color: var(--pura-muted-fg, #71717a);\"></span>\n<script>\n  const hc = document.getElementById(\"hc-demo\");\n  const out = document.getElementById(\"hc-state\");\n  hc.addEventListener(\"confirm\", () => { out.textContent = \"confirmed\"; setTimeout(() => { hc.reset(); out.textContent = \"\"; }, 1500); });\n  hc.addEventListener(\"cancel\", () => { out.textContent = \"released early\"; });\n</script>",
+  "usage": "<pura-hold-confirm duration=\"1500\">Hold to delete</pura-hold-confirm>\n\n<script>\n  const hold = document.querySelector(\"pura-hold-confirm\");\n  hold.addEventListener(\"confirm\", () => {\n    deleteThing();\n    hold.reset(); // arm it again\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "holo-card",
+  "title": "Holo Card",
+  "category": "Animation",
+  "blurb": "Trading-card holographic foil: an iridescent rainbow sheen and a soft glare slide across the card as the pointer moves, with optional light 3D tilt. SSR renders a pretty resting sheen.",
+  "description": "`<pura-holo-card>` lays a holographic foil over its content, in the style of a rare trading card: an iridescent rainbow gradient and a soft glare slide across the surface as the pointer moves, optionally combined with a light 3D tilt (`tilt`) or a glittery dot layer (`sparkle`). Unlike `<pura-magic-card>`, which lights a gradient border and a spotlight, the whole face shimmers here via blended gradient overlays whose `background-position` is steered by `--pura-holo-mx` / `--pura-holo-my` on pointer move. The resting paint (centred, dimmed sheen, no glare) is rendered by the pure template, so SSR looks finished without JS, and reduced motion keeps that resting state. Theme it with `--pura-holo-card-radius` and `--pura-holo-card-bg`; internal layers are exposed as `part=\"frame\"`, `part=\"foil\"`, `part=\"sparkle\"`, and `part=\"glare\"`. Each instance registers in `window.__puraHoloCards` by `data-pura-id`. For spring-physics tilt, wrap it in `<pura-tilt>` instead of using the built-in `tilt`.",
+  "attributes": [
+    {
+      "name": "intensity",
+      "type": "number",
+      "default": "0.75",
+      "desc": "Foil strength, 0..1. Scales the resting and hover opacity of the holographic layers."
+    },
+    {
+      "name": "angle",
+      "type": "number",
+      "default": "115",
+      "desc": "Base angle of the foil stripes in degrees."
+    },
+    {
+      "name": "tilt",
+      "type": "number",
+      "default": "0",
+      "desc": "Max tilt angle in degrees; bare attribute means 6, absent disables tilt. Compose with pura-tilt for spring physics instead."
+    },
+    {
+      "name": "sparkle",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Adds a glittery dot layer that drifts against the foil."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-holo-card tilt sparkle style=\"max-width: 300px;\">\n  <div style=\"font: 14px system-ui; color: #fff;\">\n    <img src=\"https://picsum.photos/seed/holo/600/360\" alt=\"\" style=\"display:block; width:100%; height:160px; object-fit:cover;\" />\n    <div style=\"padding: 1rem 1.1rem 1.2rem;\">\n      <b style=\"display:block; font-size: 16px; margin-bottom:.3rem;\">Aurora Drake</b>\n      <span style=\"color: rgba(255,255,255,.65);\">Holographic rare. Move your pointer across the card to make the foil shimmer.</span>\n    </div>\n  </div>\n</pura-holo-card>",
+  "usage": "<!-- basic foil shimmer over any card content -->\n<pura-holo-card>\n  <div class=\"card-body\">\n    <img src=\"/art/dragon.jpg\" alt=\"Dragon\" />\n    <h3>Aurora Drake</h3>\n  </div>\n</pura-holo-card>\n\n<!-- stronger foil, glitter and built-in tilt, custom shape -->\n<pura-holo-card intensity=\"0.9\" angle=\"135\" tilt=\"8\" sparkle\n  style=\"--pura-holo-card-radius: 20px; --pura-holo-card-bg: #0b0b12;\">\n  <div class=\"profile\">\n    <img src=\"https://picsum.photos/seed/profile/480/480\" alt=\"Avatar\" />\n    <h3>Lena Costa</h3>\n    <p>Product designer</p>\n  </div>\n</pura-holo-card>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -4289,6 +6480,93 @@ export const components = [
   "demoHTML": "<pura-hover-card placement=\"bottom\">\n  <a slot=\"trigger\" href=\"#\" style=\"color: var(--pura-accent, #4f46e5); text-decoration: underline;\">@andre</a>\n\n  <div style=\"display: flex; gap: 12px; align-items: flex-start;\">\n    <img src=\"https://i.pravatar.cc/48?img=12\" alt=\"André\" width=\"48\" height=\"48\" style=\"border-radius: 50%;\" />\n    <div>\n      <strong>André Ahlert</strong>\n      <p style=\"margin: 4px 0 8px;\">Founder of AEX Partners. Building tools for the native web.</p>\n      <small style=\"color: var(--pura-muted, #6b7280);\">Joined March 2021</small>\n    </div>\n  </div>\n</pura-hover-card>",
   "usage": "<pura-hover-card placement=\"bottom\">\n  <a slot=\"trigger\" href=\"#\" style=\"color: var(--pura-accent, #4f46e5); text-decoration: underline;\">@andre</a>\n\n  <div style=\"display: flex; gap: 12px; align-items: flex-start;\">\n    <img src=\"https://i.pravatar.cc/48?img=12\" alt=\"André\" width=\"48\" height=\"48\" style=\"border-radius: 50%;\" />\n    <div>\n      <strong>André Ahlert</strong>\n      <p style=\"margin: 4px 0 8px;\">Founder of AEX Partners. Building tools for the native web.</p>\n      <small style=\"color: var(--pura-muted, #6b7280);\">Joined March 2021</small>\n    </div>\n  </div>\n</pura-hover-card>\n\n<!-- Attributes: open, placement (bottom|top|left|right), open-delay, close-delay -->\n<!-- Events: open, close — Methods: show(), hide() -->",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "hover-highlight",
+  "title": "Hover Highlight",
+  "category": "Animation",
+  "blurb": "A single highlight rectangle that slides and resizes smoothly from one item to another as hover or focus moves, Vercel docs style, for lists, menus and card grids.",
+  "description": "`<pura-hover-highlight>` renders a single highlight rectangle that slides and resizes smoothly from one item to another as the pointer moves across a list, menu or card grid, the way the Vercel docs sidebar does. The highlight sits behind the slotted items in the shadow root; each move is a FLIP step animated with WAAPI, and on leave it fades out in place so the next entry picks up from where it stopped. Items are the direct slotted children by default, or whatever `selector` matches inside the slot. Keyboard focus drives the highlight exactly like hover. `padding` grows the highlight beyond the item rect (useful as a soft halo behind cards), `duration` and `easing` shape the slide, and `--pura-hover-highlight-bg` / `--pura-hover-highlight-radius` / `--pura-hover-highlight-fade` theme it. SSR renders the items with no highlight; reduced motion swaps the slide for an instant jump. Each instance registers in `window.__puraHoverHighlights` by `data-pura-id` with `{ highlight(index), clear }`, and `data-pura-hh-active` mirrors the active item index.",
+  "attributes": [
+    {
+      "name": "selector",
+      "type": "string",
+      "default": "",
+      "desc": "CSS selector for the hoverable items inside the slot; empty means the direct slotted children."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "300",
+      "desc": "Slide/resize time in ms."
+    },
+    {
+      "name": "padding",
+      "type": "number",
+      "default": "0",
+      "desc": "Px outset of the highlight around the item rect; negative values inset."
+    },
+    {
+      "name": "easing",
+      "type": "string",
+      "default": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "desc": "Easing for the slide animation."
+    }
+  ],
+  "events": [
+    "highlight",
+    "clear"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-hover-highlight style=\"display: flex; flex-direction: column; gap: 2px; max-width: 280px; margin: 0 auto;\">\n  <a href=\"#\" onclick=\"return false\" style=\"display: block; padding: 0.5rem 0.75rem; color: var(--pura-fg, #18181b); text-decoration: none; font-size: 0.9rem; border-radius: 0.5rem;\">Getting Started</a>\n  <a href=\"#\" onclick=\"return false\" style=\"display: block; padding: 0.5rem 0.75rem; color: var(--pura-fg, #18181b); text-decoration: none; font-size: 0.9rem; border-radius: 0.5rem;\">Installation</a>\n  <a href=\"#\" onclick=\"return false\" style=\"display: block; padding: 0.5rem 0.75rem; color: var(--pura-fg, #18181b); text-decoration: none; font-size: 0.9rem; border-radius: 0.5rem;\">Components</a>\n  <a href=\"#\" onclick=\"return false\" style=\"display: block; padding: 0.5rem 0.75rem; color: var(--pura-fg, #18181b); text-decoration: none; font-size: 0.9rem; border-radius: 0.5rem;\">Theming</a>\n  <a href=\"#\" onclick=\"return false\" style=\"display: block; padding: 0.5rem 0.75rem; color: var(--pura-fg, #18181b); text-decoration: none; font-size: 0.9rem; border-radius: 0.5rem;\">CLI</a>\n</pura-hover-highlight>",
+  "usage": "<!-- sidebar nav: the pill slides between links as hover or focus moves -->\n<pura-hover-highlight style=\"display: flex; flex-direction: column;\">\n  <a href=\"/docs\">Docs</a>\n  <a href=\"/guides\">Guides</a>\n  <a href=\"/api\">API</a>\n</pura-hover-highlight>\n\n<!-- card grid: a soft halo slides behind the hovered card -->\n<pura-hover-highlight selector=\".card\" padding=\"8\" duration=\"350\"\n  style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; --pura-hover-highlight-radius: 1rem;\">\n  <article class=\"card\"><img src=\"https://picsum.photos/seed/hh1/400/240\" alt=\"\" /></article>\n  <article class=\"card\"><img src=\"https://picsum.photos/seed/hh2/400/240\" alt=\"\" /></article>\n  <article class=\"card\"><img src=\"https://picsum.photos/seed/hh3/400/240\" alt=\"\" /></article>\n</pura-hover-highlight>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "hover-underline",
+  "title": "Hover Underline",
+  "category": "Animation",
+  "blurb": "Animated link underline: a bar grows from the left, center or right (or rises from the baseline) on hover and keyboard focus, for links and nav items. Pure CSS transition, zero per-frame JS.",
+  "description": "`<pura-hover-underline>` wraps a link or nav item and draws an animated underline on hover and keyboard focus: the Hover.css \"Underline From Left/Center/Right\" and \"Underline Reveal\" moves. The underline is a real shadow element (exposed via `::part(underline)`) transitioned with pure CSS, so no per-frame JS runs. `from` picks where the grow variant starts (left, center or right), `variant=\"reveal\"` rises the bar from the baseline instead, `duration` sets the transition time and `active` keeps the underline shown for the current nav item (also the SSR static state). Theme it with `--pura-hover-underline-color`, `--pura-hover-underline-thickness`, `--pura-hover-underline-offset`, `--pura-hover-underline-radius` and `--pura-hover-underline-ease`. Slotted links drop their native `text-decoration` so the animated bar is the only underline. Keyboard focus inside the element draws the underline exactly like hover; reduced motion makes it appear instantly. Each instance registers in `window.__puraHoverUnderlines` by `data-pura-id` with `{ from, variant, show, hide }`.",
+  "attributes": [
+    {
+      "name": "from",
+      "type": "\"left\" | \"center\" | \"right\"",
+      "default": "left",
+      "desc": "Where the grow variant starts from (and shrinks back to)."
+    },
+    {
+      "name": "variant",
+      "type": "\"grow\" | \"reveal\"",
+      "default": "grow",
+      "desc": "grow scales the bar along the x axis; reveal rises it from the baseline."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "240",
+      "desc": "Transition time in ms."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Keeps the underline shown, for the current nav item."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<nav style=\"display: flex; gap: 1.75rem; justify-content: center; font-size: 0.95rem;\">\n  <pura-hover-underline from=\"left\">\n    <a href=\"#\" onclick=\"return false\" style=\"color: var(--pura-fg, #18181b);\">From left</a>\n  </pura-hover-underline>\n  <pura-hover-underline from=\"center\">\n    <a href=\"#\" onclick=\"return false\" style=\"color: var(--pura-fg, #18181b);\">From center</a>\n  </pura-hover-underline>\n  <pura-hover-underline from=\"right\">\n    <a href=\"#\" onclick=\"return false\" style=\"color: var(--pura-fg, #18181b);\">From right</a>\n  </pura-hover-underline>\n  <pura-hover-underline variant=\"reveal\" style=\"--pura-hover-underline-thickness: 4px; --pura-hover-underline-color: var(--pura-accent, #6366f1);\">\n    <a href=\"#\" onclick=\"return false\" style=\"color: var(--pura-fg, #18181b);\">Reveal</a>\n  </pura-hover-underline>\n  <pura-hover-underline active>\n    <a href=\"#\" onclick=\"return false\" style=\"color: var(--pura-fg, #18181b);\">Active</a>\n  </pura-hover-underline>\n</nav>",
+  "usage": "<!-- nav bar: underline grows from the center on hover/focus; active page stays underlined -->\n<nav style=\"display: flex; gap: 1.5rem;\">\n  <pura-hover-underline from=\"center\" active><a href=\"/\">Home</a></pura-hover-underline>\n  <pura-hover-underline from=\"center\"><a href=\"/docs\">Docs</a></pura-hover-underline>\n  <pura-hover-underline from=\"center\"><a href=\"/blog\">Blog</a></pura-hover-underline>\n</nav>\n\n<!-- thick accent bar that rises from the baseline -->\n<pura-hover-underline variant=\"reveal\" duration=\"180\"\n  style=\"--pura-hover-underline-thickness: 0.4em; --pura-hover-underline-color: #f59e0b; --pura-hover-underline-offset: 0.05em;\">\n  <a href=\"/pricing\">See pricing</a>\n</pura-hover-underline>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -4417,8 +6695,105 @@ export const components = [
   "demoHTML": "<div style=\"max-width:520px\">\n  <pura-image-compare value=\"50\" label=\"Before and after renovation comparison\" style=\"border:1px solid var(--pura-border)\">\n    <img slot=\"before\" src=\"https://picsum.photos/id/1018/800/500\" alt=\"Before the renovation\">\n    <img slot=\"after\" src=\"https://picsum.photos/id/1015/800/500\" alt=\"After the renovation\">\n  </pura-image-compare>\n</div>",
   "usage": "<pura-image-compare value=\"50\" label=\"Before and after renovation comparison\">\n  <img slot=\"before\" src=\"/img/antes.jpg\" alt=\"Before the renovation\">\n  <img slot=\"after\" src=\"/img/depois.jpg\" alt=\"After the renovation\">\n</pura-image-compare>",
   "animation": false,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "countdown",
+      "title": "Countdown"
+    },
+    {
+      "slug": "masonry",
+      "title": "Masonry"
+    },
+    {
+      "slug": "rating",
+      "title": "Rating"
+    },
+    {
+      "slug": "swatch-picker",
+      "title": "Swatch Picker"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    }
+  ]
+},
+{
+  "slug": "image-trail",
+  "title": "Image Trail",
+  "category": "Animation",
+  "blurb": "The awwwards image-trail hero: move the pointer across the zone and copies of the slotted images spawn under the cursor, pop in, drift and fade out. One WAAPI animation per copy, nothing per frame.",
+  "description": "`<pura-image-trail>` is the awwwards image-trail hero: sweep the pointer across the zone and copies of the slotted images spawn under the cursor, pop in, hold, then drift up and fade out, cycling through the set in order. Slot the source `<img>` elements directly (they stay hidden and are only read for their `src`); put the visible content (the big headline) in `slot=\"content\"` and the trail floats over it. Each spawned copy runs one WAAPI animation and removes itself, so nothing runs per frame — only pointermove events. Spawn cadence is distance-based (`step` px of pointer travel), each copy lives `life` ms, and at most `max` copies exist at once. Tilt and drift vary deterministically per spawn (no randomness). Reduced motion disables the trail entirely. Each instance registers in `window.__puraImageTrails` by `data-pura-id` with `{ images }`.",
+  "attributes": [
+    {
+      "name": "step",
+      "type": "number",
+      "default": "110",
+      "desc": "Pointer distance in px between spawns."
+    },
+    {
+      "name": "life",
+      "type": "number",
+      "default": "900",
+      "desc": "Milliseconds each copy lives."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": "10",
+      "desc": "Concurrent copies cap; the oldest is removed first."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default",
+    "content"
+  ],
+  "demoHTML": "<pura-image-trail style=\"height: 260px; background: var(--pura-fg, #09090b); border-radius: .75rem; --pura-image-trail-size: 110px;\">\n  <img src=\"https://picsum.photos/seed/pura1/300/400\" alt=\"\" />\n  <img src=\"https://picsum.photos/seed/pura2/300/400\" alt=\"\" />\n  <img src=\"https://picsum.photos/seed/pura3/300/400\" alt=\"\" />\n  <img src=\"https://picsum.photos/seed/pura4/300/400\" alt=\"\" />\n  <div slot=\"content\" style=\"height: 260px; display: grid; place-items: center; color: var(--pura-bg, #fff); font: 700 clamp(1.4rem, 4vw, 2.4rem) system-ui; letter-spacing: -0.02em;\">move the cursor</div>\n</pura-image-trail>",
+  "usage": "<pura-image-trail step=\"110\" life=\"900\" style=\"height: 80vh;\">\n  <!-- source images: hidden, cycled in order -->\n  <img src=\"/work/01.jpg\" alt=\"\" />\n  <img src=\"/work/02.jpg\" alt=\"\" />\n  <img src=\"/work/03.jpg\" alt=\"\" />\n\n  <!-- what the visitor sees; the trail floats over it -->\n  <div slot=\"content\">\n    <h1>Studio Name</h1>\n  </div>\n</pura-image-trail>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "gallery-3d",
+      "title": "Gallery 3D"
+    },
+    {
+      "slug": "scroll-highlight",
+      "title": "Scroll Highlight"
+    },
+    {
+      "slug": "scroll-zoom",
+      "title": "Scroll Zoom"
+    },
+    {
+      "slug": "split",
+      "title": "Split Text"
+    },
+    {
+      "slug": "text-fill",
+      "title": "Text Fill"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
 },
 {
   "slug": "image",
@@ -4855,6 +7230,10 @@ export const components = [
       "title": "Input"
     },
     {
+      "slug": "avatar",
+      "title": "Avatar"
+    },
+    {
       "slug": "empty",
       "title": "Empty"
     },
@@ -4865,10 +7244,6 @@ export const components = [
     {
       "slug": "item",
       "title": "Item"
-    },
-    {
-      "slug": "select",
-      "title": "Select"
     }
   ],
   "relatedBlocks": [
@@ -4973,6 +7348,56 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "interactive-grid",
+  "title": "Interactive Grid",
+  "category": "Animation",
+  "blurb": "A background grid of real cells that reacts to the pointer: the cell under the cursor lights up and fades out with a trail, and a click ripples a flash outward through neighboring cells. The static grid is server-rendered; interaction is a pure enhancement.",
+  "description": "`<pura-interactive-grid>` is a background grid of real cells that reacts to the pointer, in the style of Magic UI's Interactive Grid Pattern and Aceternity's Background Boxes. Moving the cursor lights the cell underneath instantly and lets it fade back out, so a sweep leaves a dimming trail; clicking ripples a flash outward, each cell delayed in proportion to its distance from the clicked cell. The grid is generated deterministically in the pure template, so the server paints the full static grid (with a few pulsing pre-lit cells via `prelit`) and all interaction is a progressive enhancement. Slotted content layers above the cells with `pointer-events: none` so the grid keeps reacting under text; give interactive children `pointer-events: auto`. Theme with `--pura-interactive-grid-line`, `--pura-interactive-grid-highlight`, `--pura-interactive-grid-wave` and `--pura-interactive-grid-fade`. Reduced motion holds pre-lit cells at a steady soft highlight and drops the click wave. Each instance registers in `window.__puraInteractiveGrids` by `data-pura-id` with `{ columns, rows, wave(x, y) }` and fires `pura-interactive-grid:wave` on every ripple.",
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "12",
+      "desc": "Grid columns, 1..64."
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "default": "8",
+      "desc": "Grid rows, 1..64."
+    },
+    {
+      "name": "prelit",
+      "type": "number",
+      "default": "3",
+      "desc": "Deterministically pre-lit pulsing cells for the static no-JS paint, 0..24."
+    },
+    {
+      "name": "wave-step",
+      "type": "number",
+      "default": "40",
+      "desc": "Milliseconds of click-wave delay per cell of distance from the clicked cell."
+    },
+    {
+      "name": "no-wave",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Disable the click wave; hover trail only."
+    }
+  ],
+  "events": [
+    "pura-interactive-grid:wave"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-interactive-grid columns=\"14\" rows=\"7\" prelit=\"4\" style=\"height: 260px; border-radius: 12px;\">\n  <div style=\"height: 100%; display: grid; place-items: center; text-align: center;\">\n    <div>\n      <h3 style=\"margin: 0 0 6px; font-size: 1.25rem;\">Sweep the pointer, then click</h3>\n      <p style=\"margin: 0; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">cells light under the cursor and a click ripples outward</p>\n    </div>\n  </div>\n</pura-interactive-grid>",
+  "usage": "<!-- hero background: hover trail plus click ripple under the headline -->\n<pura-interactive-grid columns=\"20\" rows=\"10\" style=\"height: 60vh;\">\n  <div style=\"height: 100%; display: grid; place-items: center;\">\n    <h1>Build on the grid</h1>\n  </div>\n</pura-interactive-grid>\n\n<!-- dense quiet grid: custom highlight, no click wave, no pre-lit cells -->\n<pura-interactive-grid columns=\"32\" rows=\"16\" prelit=\"0\" no-wave\n  style=\"height: 320px; --pura-interactive-grid-highlight: rgba(34, 197, 94, 0.4); --pura-interactive-grid-fade: 1200ms;\">\n</pura-interactive-grid>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "item",
   "title": "Item",
   "category": "Display",
@@ -5036,8 +7461,8 @@ export const components = [
       "title": "Input Group"
     },
     {
-      "slug": "number-input",
-      "title": "Number Input"
+      "slug": "presence",
+      "title": "Presence"
     }
   ],
   "relatedBlocks": [
@@ -5202,8 +7627,38 @@ export const components = [
   "demoHTML": "<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Press <pura-kbd>⌘</pura-kbd> <pura-kbd>K</pura-kbd> to search\n</p>\n<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Save with <pura-kbd>Ctrl</pura-kbd> <pura-kbd>S</pura-kbd>\n</p>",
   "usage": "<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Press <pura-kbd>⌘</pura-kbd> <pura-kbd>K</pura-kbd> to search\n</p>\n<p style=\"display: flex; align-items: center; gap: 8px; font-family: sans-serif;\">\n  Save with <pura-kbd>Ctrl</pura-kbd> <pura-kbd>S</pura-kbd>\n</p>",
   "animation": false,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "border-beam",
+      "title": "Border Beam"
+    },
+    {
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "ticker",
+      "title": "Ticker"
+    },
+    {
+      "slug": "typewriter",
+      "title": "Typewriter"
+    },
+    {
+      "slug": "velocity",
+      "title": "Velocity"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "knob",
@@ -5303,6 +7758,177 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "lamp",
+  "title": "Lamp Effect",
+  "category": "Animation",
+  "blurb": "Linear-style lamp header: two mirrored conic-gradient cones spread light downward from a glowing bar onto the slotted heading, with an animated lamp-opening entrance. Pure CSS; SSR renders the open state.",
+  "description": "`<pura-lamp>` is the Linear-style lamp header: a bright horizontal bar with a blurred halo and two mirrored conic-gradient cones that spread light downward onto the slotted heading. The entrance animates the lamp opening (width and opacity of bar, glow and cones) once when the element scrolls into view; `trigger=\"scrub\"` instead ties the opening 1:1 to a scroll-driven timeline (`animation-timeline: view()`) with zero per-frame JS. `color` sets the light color, `--pura-lamp-width` the bar width, `--pura-lamp-height` the space above the bar and `--pura-lamp-spread` how far the cones reach. SSR and pre-JS render the lamp fully open, and reduced motion skips the entrance and lands open. Each instance registers in `window.__puraLamps` by `data-pura-id` with `{ trigger, replay }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"scrub\" | \"load\" | \"none\"",
+      "default": "view",
+      "desc": "view opens once when scrolled into view; scrub ties the opening 1:1 to a scroll-driven timeline; load opens on connect; none renders the lamp always open."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "default": "var(--pura-accent, #22d3ee)",
+      "desc": "Light color of the bar, glow and cones. Any CSS color."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "entry 0% cover 40%",
+      "desc": "animation-range for the scrub timeline."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "900",
+      "desc": "Entrance duration in ms for the view and load triggers."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"background: #0b0f19; color: #e2e8f0; border-radius: 12px; overflow: hidden;\">\n  <pura-lamp style=\"--pura-lamp-height: 6rem; --pura-lamp-width: 20rem; --pura-lamp-spread: 11rem;\">\n    <h3 style=\"margin: 0 1rem; font-size: 1.7rem; letter-spacing: -0.02em;\">Build at the speed of light</h3>\n    <p style=\"margin: 0.6rem 1rem 3rem; color: #94a3b8; font-size: 0.9rem;\">The lamp opens and the title steps into the light.</p>\n  </pura-lamp>\n</div>",
+  "usage": "<!-- section header: lamp opens once when scrolled into view -->\n<pura-lamp style=\"--pura-lamp-height: 10rem;\">\n  <h2>Plan. Build. Ship.</h2>\n  <p>Everything your team needs, under one light.</p>\n</pura-lamp>\n\n<!-- warm light, opening scrubbed by scroll position -->\n<pura-lamp trigger=\"scrub\" color=\"#f59e0b\" range=\"entry 0% cover 60%\" style=\"--pura-lamp-width: 36rem;\">\n  <h2>Crafted in the glow</h2>\n</pura-lamp>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "lens",
+  "title": "Lens",
+  "category": "Animation",
+  "blurb": "Magnifying lens under the cursor: a scaled copy of the slotted media clipped to a circle that follows the pointer, like a loupe over a product photo. The classic e-commerce zoom; SSR renders the plain media only.",
+  "description": "`<pura-lens>` magnifies the area of the slotted image (or any content) under the cursor, like a physical loupe that follows the pointer. The classic e-commerce product zoom. It works by cloning the slotted content into a hidden layer, scaling it by `zoom` with `transform-origin` at the pointer, and clipping it to a circle of `size` px via `clip-path: circle()` positioned by two CSS vars updated on `pointermove`, so the pixel under the cursor stays fixed while its surroundings magnify. The copy and the ring are `aria-hidden`; the original media remains the single accessible source. SSR and pre-JS render the plain media with no lens. Theme with `--pura-lens-ring`, `--pura-lens-shadow` and `--pura-lens-cursor`. Each instance registers in `window.__puraLenss` by `data-pura-id` with `{ zoom, size, show(x, y), hide }`, and fires `pura-lens-show` / `pura-lens-hide`.",
+  "attributes": [
+    {
+      "name": "zoom",
+      "type": "number",
+      "default": "2",
+      "desc": "Magnification factor, greater than 1."
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": "160",
+      "desc": "Lens diameter in px."
+    }
+  ],
+  "events": [
+    "pura-lens-show",
+    "pura-lens-hide"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-lens zoom=\"2.5\" size=\"180\" style=\"display: block; max-width: 480px; margin-inline: auto; border-radius: 12px;\">\n  <img src=\"https://picsum.photos/seed/lens/960/600\" alt=\"Sample product photo\" style=\"border-radius: 12px;\" />\n</pura-lens>\n<p style=\"text-align: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">move the pointer over the image</p>",
+  "usage": "<!-- product zoom: hover the image to magnify the area under the cursor -->\n<pura-lens>\n  <img src=\"/products/sneaker.jpg\" alt=\"Sneaker, side view\" />\n</pura-lens>\n\n<!-- stronger magnification, larger lens, custom ring -->\n<pura-lens zoom=\"3.5\" size=\"220\" style=\"--pura-lens-ring: 3px solid white;\">\n  <img src=\"/photos/fabric.jpg\" alt=\"Fabric texture close-up\" />\n</pura-lens>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "letter-shuffle",
+  "title": "Letter Shuffle",
+  "category": "Animation",
+  "blurb": "The letters of the text physically trade places and slide back along the X axis into the correct order, FLIP-style with WAAPI. Unlike scramble, which swaps glyphs in place, here the letters move. Deterministic seeded permutation; SSR, no-JS and reduced motion render the final text.",
+  "description": "`<pura-letter-shuffle>` makes the characters of the text physically trade places: every letter jumps to a shuffled slot, then they all slide back along the X axis into the correct order (the React Bits Shuffle move). Unlike `<pura-scramble>`, which swaps glyphs in place, here the letters move. It is a FLIP animation: the server renders the text in its final order, then `play()` measures each character's slot, offsets every letter to a seeded shuffled slot with the first WAAPI keyframe and animates the transform back to identity with a per-letter stagger. The permutation comes from a seeded LCG (the `seed` attribute or a hash of the text), so runs are reproducible. A visually-hidden copy carries the readable string and the animated row is `aria-hidden`; SSR, no-JS and reduced motion all show the finished text with zero movement. Each instance registers in `window.__puraLetterShuffles` by `data-pura-id` with `{ text, play }`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "The string to shuffle. Also what SSR and no-JS render, already in the correct order."
+    },
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"load\" | \"hover\" | \"manual\"",
+      "default": "view",
+      "desc": "view shuffles when scrolled into view; load on connect; hover replays on every pointerenter; manual waits for play()."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "600",
+      "desc": "Slide time per letter, in milliseconds."
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": "25",
+      "desc": "Milliseconds between consecutive letters starting their slide."
+    },
+    {
+      "name": "seed",
+      "type": "number",
+      "default": "derived from text",
+      "desc": "Integer seed for the deterministic permutation. Same seed, same shuffle."
+    }
+  ],
+  "events": [
+    "pura-letter-shuffle"
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"display: grid; gap: 1.5rem; place-items: center; padding: 2rem 1rem;\">\n  <pura-letter-shuffle text=\"SHUFFLE\" style=\"font-size: 2.5rem; font-weight: 700; letter-spacing: 0.04em;\"></pura-letter-shuffle>\n  <pura-letter-shuffle text=\"hover me to reshuffle\" trigger=\"hover\" style=\"font-size: 1rem; color: var(--pura-muted-fg, #52525b);\"></pura-letter-shuffle>\n</div>",
+  "usage": "<!-- letters start in shuffled slots and slide back into place on scroll into view -->\n<pura-letter-shuffle text=\"Welcome back\" style=\"font-size: 3rem; font-weight: 700;\"></pura-letter-shuffle>\n\n<!-- nav-link move: replays on every hover, snappier slide, springy easing -->\n<pura-letter-shuffle text=\"Projects\" trigger=\"hover\" duration=\"450\" stagger=\"15\"\n  style=\"--pura-letter-shuffle-easing: cubic-bezier(0.34, 1.56, 0.64, 1);\"></pura-letter-shuffle>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "light-rays",
+  "title": "Light Rays",
+  "category": "Animation",
+  "blurb": "Volumetric god rays falling from above the content: narrow translucent conic-gradient wedges from an off-frame origin, blurred and slowly swaying in angle and intensity. Pure CSS, deterministic scatter, SSR-stable, reduced-motion aware.",
+  "description": "`<pura-light-rays>` paints volumetric light rays (god rays) falling from above its slotted content, in the style of Magic UI's Light Rays and React Bits' Lightfall. Each ray is a narrow translucent conic-gradient wedge anchored to an origin point above the frame, softened by a shared blur, and swaying slowly in angle and opacity via CSS `@keyframes` with staggered delays. The fan is scattered deterministically in the pure template (no `Math.random`), so the server and client render the same field and the effect needs no client JS. Set `count`, `origin`, `spread`, `intensity` and `speed` to shape the light; theme with `--pura-light-rays-color` and `--pura-light-rays-blur`. Under reduced motion the rays hold still at peak opacity. Each instance registers in `window.__puraLightRayss` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "8",
+      "desc": "Number of rays to render (capped at 32)."
+    },
+    {
+      "name": "origin",
+      "type": "\"left\" | \"center\" | \"right\"",
+      "default": "center",
+      "desc": "Horizontal position of the off-frame light source."
+    },
+    {
+      "name": "spread",
+      "type": "number",
+      "default": "40",
+      "desc": "Total fan width in degrees (clamped 5..170)."
+    },
+    {
+      "name": "intensity",
+      "type": "number",
+      "default": "0.6",
+      "desc": "Peak ray opacity, 0..1."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "10",
+      "desc": "Base sway cycle in seconds; per-ray durations and delays derive from it."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-light-rays count=\"10\" intensity=\"0.55\" style=\"border-radius: 12px; background: #060913; --pura-light-rays-color: #dbeafe;\">\n  <div style=\"padding: 3.5rem 1.5rem 2.5rem; text-align: center; color: #e0e7ff; font: 600 20px system-ui; position: relative;\">\n    Light Rays\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .35rem;\">Volumetric god rays, pure CSS, server-renderable.</div>\n  </div>\n</pura-light-rays>",
+  "usage": "<!-- centered god rays over a dark hero -->\n<pura-light-rays count=\"10\" style=\"background: #060913; --pura-light-rays-color: #dbeafe;\">\n  <header class=\"hero\">Ship faster with pura</header>\n</pura-light-rays>\n\n<!-- warm side rays from the left, wider fan, softer and slower -->\n<pura-light-rays origin=\"left\" spread=\"70\" intensity=\"0.45\" speed=\"14\"\n  style=\"background: #140d06; --pura-light-rays-color: #ffe9c2; --pura-light-rays-blur: 18px;\">\n  <section class=\"hero\">Morning light</section>\n</pura-light-rays>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "lightbox",
   "title": "Lightbox",
   "category": "Overlay",
@@ -5345,6 +7971,42 @@ export const components = [
   "demoHTML": "<pura-lightbox label=\"Trip photos\" loop>\n  <img src=\"https://picsum.photos/id/1018/200/140\" alt=\"Mountains at dawn\" data-full=\"https://picsum.photos/id/1018/1200/800\" />\n  <img src=\"https://picsum.photos/id/1015/200/140\" alt=\"River between the rocks\" data-full=\"https://picsum.photos/id/1015/1200/800\" />\n  <img src=\"https://picsum.photos/id/1016/200/140\" alt=\"Valley with fog\" data-full=\"https://picsum.photos/id/1016/1200/800\" />\n</pura-lightbox>",
   "usage": "<pura-lightbox label=\"Trip photos\" loop>\n  <img src=\"https://picsum.photos/id/1018/200/140\" alt=\"Mountains at dawn\" data-full=\"https://picsum.photos/id/1018/1200/800\" />\n  <img src=\"https://picsum.photos/id/1015/200/140\" alt=\"River between the rocks\" data-full=\"https://picsum.photos/id/1015/1200/800\" />\n  <img src=\"https://picsum.photos/id/1016/200/140\" alt=\"Valley with fog\" data-full=\"https://picsum.photos/id/1016/1200/800\" />\n</pura-lightbox>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "line-shadow-text",
+  "title": "Line Shadow Text",
+  "category": "Animation",
+  "blurb": "Display text with a hard offset shadow made of diagonal stripes sliding behind the characters in a continuous CSS loop. Editorial, brutalist look with zero per-frame JS.",
+  "description": "`<pura-line-shadow-text>` renders display text with a hard offset shadow made of diagonal stripes that slide behind the characters in a continuous loop, an editorial, brutalist look. The shadow is an aria-hidden duplicate of the text painted with a diagonal gradient tile clipped to the glyphs (`background-clip: text`); only `background-position` animates, so no per-frame JS runs. Set the `text` attribute so the striped shadow paints on SSR; otherwise the client mirrors the slotted text. `shadow-color` sets the stripe color, `speed` the loop duration, and the `--pura-line-shadow-text-*` tokens tune offset and stripe size. Reduced motion keeps the stripes as a static hard shadow. Each instance registers in `window.__puraLineShadowTexts` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "",
+      "desc": "Shadow copy text. When set, the striped shadow paints on SSR; when absent the client mirrors the slotted text."
+    },
+    {
+      "name": "shadow-color",
+      "type": "string",
+      "default": "currentColor",
+      "desc": "Color of the shadow stripes."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "30",
+      "desc": "Seconds for one full stripe loop. Lower is faster."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; padding: 2.5rem 1rem; text-align: center;\">\n  <h1 style=\"margin: 0; font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1;\">\n    Ship\n    <pura-line-shadow-text text=\"today\" style=\"font-style: italic;\">today</pura-line-shadow-text>\n  </h1>\n  <p style=\"margin: 1.25rem 0 0; color: var(--pura-muted-fg, #52525b); font-size: .9rem;\">diagonal stripes slide behind the glyphs in a continuous loop</p>\n</div>",
+  "usage": "<!-- striped hard shadow behind a display word; `text` makes the shadow paint on SSR -->\n<h1 style=\"font-size: 4rem; font-weight: 800;\">\n  Ship <pura-line-shadow-text text=\"today\">today</pura-line-shadow-text>\n</h1>\n\n<!-- custom stripe color and faster loop -->\n<pura-line-shadow-text text=\"BRUTAL\" shadow-color=\"#f43f5e\" speed=\"12\" style=\"font-size: 3.5rem; font-weight: 900; text-transform: uppercase;\">BRUTAL</pura-line-shadow-text>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -5494,6 +8156,122 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "magnet-lines",
+  "title": "Magnet Lines",
+  "category": "Animation",
+  "blurb": "A grid of short ticks that rotate to point at the cursor like compass needles. The template paints the resting field for SSR; client JS aims each line with atan2 on pointermove, one CSS var per cell, rAF-throttled.",
+  "description": "`<pura-magnet-lines>` lays out a grid of short ticks that rotate to point at the cursor like compass needles, the hypnotic hero effect popularized by React Bits' Magnet Lines. The pure template renders the whole grid at the resting `base-angle`, so SSR and pre-JS paint a clean static field; on the client each line is aimed with `atan2(pointer - cell center)` on `pointermove`, writing one CSS custom property per cell, throttled to one update per animation frame. `rows` and `columns` size the grid (capped at 30 each) and slotted content layers above the field. Theming goes through `--pura-magnet-lines-color`, `--pura-magnet-lines-width` and `--pura-magnet-lines-height`. Under reduced motion the pointer listener is never attached and the field holds the resting angle. Each instance registers in `window.__puraMagnetLiness` by `data-pura-id` with `{ rows, columns, aim }`, where `aim(x, y)` points the field at viewport coordinates programmatically.",
+  "attributes": [
+    {
+      "name": "rows",
+      "type": "number",
+      "default": "9",
+      "desc": "Grid rows, capped at 30."
+    },
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "9",
+      "desc": "Grid columns, capped at 30."
+    },
+    {
+      "name": "base-angle",
+      "type": "number",
+      "default": "-10",
+      "desc": "Resting rotation in degrees before any pointer input; also the reduced-motion and SSR state."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-magnet-lines rows=\"7\" columns=\"14\" style=\"height: 260px; border-radius: 12px; background: var(--pura-card, transparent);\">\n  <div style=\"position: absolute; inset: auto 0 10px 0; text-align: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">move the pointer across the grid</div>\n</pura-magnet-lines>",
+  "usage": "<!-- default 9x9 compass field, square by default -->\n<pura-magnet-lines style=\"width: 420px;\"></pura-magnet-lines>\n\n<!-- hero banner: denser tinted field with content layered above -->\n<pura-magnet-lines rows=\"9\" columns=\"18\" base-angle=\"-25\"\n  style=\"height: 60vh; --pura-magnet-lines-color: #8b5cf6; --pura-magnet-lines-height: 2rem;\">\n  <h1 style=\"margin: 0; padding-top: 24vh; text-align: center;\">Point at me</h1>\n</pura-magnet-lines>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "magnetic",
+  "title": "Magnetic",
+  "category": "Animation",
+  "blurb": "Draggable + Inertia. Slotted content leans toward the pointer as it nears and springs back on leave (the awwwards magnetic-button move), or follows the pointer 1:1 in drag mode and springs back with a flick bounce. Settles use the native spring primitive.",
+  "description": "`<pura-magnetic>` is Draggable + Inertia. In the default `lean` mode the slotted content leans toward the pointer as it nears (within `radius`) and springs back to rest on leave, the awwwards magnetic-button move. In `drag` mode the content follows the pointer 1:1 while held and springs back to its origin on release with a flick-momentum bounce. Both settles use the native spring primitive (`<pura-spring>`): the return is a CSS transition whose timing function is a sampled `linear(...)` spring, so there is no rAF loop. With no JS, and on the server, the content sits untransformed and fully usable. Each instance registers in `window.__puraMagnetics` by `data-pura-id` with `{ mode, reset }`.",
+  "attributes": [
+    {
+      "name": "mode",
+      "type": "\"lean\" | \"drag\"",
+      "default": "lean",
+      "desc": "lean magnetizes toward a nearby pointer; drag follows the pointer and springs back to origin on release."
+    },
+    {
+      "name": "strength",
+      "type": "number",
+      "default": "0.4",
+      "desc": "Lean fraction (0..1) of the pointer offset the content follows."
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "default": "120",
+      "desc": "Pixels around the element within which the lean activates."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring profile for the settle. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; padding: 1rem 0;\">\n  <pura-magnetic strength=\"0.5\">\n    <button style=\"font: 600 14px system-ui; padding: .8rem 1.6rem; border-radius: 999px; border: 0; background: var(--pura-primary, #18181b); color: var(--pura-primary-fg, #fafafa); cursor: pointer;\">Hover me</button>\n  </pura-magnetic>\n  <pura-magnetic mode=\"drag\" preset=\"wobbly\">\n    <span style=\"display: grid; place-items: center; width: 72px; height: 72px; border-radius: 16px; background: var(--pura-accent, #2563eb); color: #fff; font: 600 12px ui-monospace, monospace; cursor: grab; user-select: none;\">DRAG</span>\n  </pura-magnetic>\n</div>",
+  "usage": "<!-- magnetic button -->\n<pura-magnetic strength=\"0.5\">\n  <button>Hover me</button>\n</pura-magnetic>\n\n<!-- draggable chip that springs home -->\n<pura-magnetic mode=\"drag\" preset=\"wobbly\">\n  <span class=\"chip\">Drag</span>\n</pura-magnetic>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "marquee",
+      "title": "Marquee"
+    },
+    {
+      "slug": "scramble",
+      "title": "Scramble"
+    },
+    {
+      "slug": "tilt",
+      "title": "Tilt"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    },
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
+},
+{
   "slug": "map",
   "title": "Map",
   "category": "Display",
@@ -5588,6 +8366,66 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "marquee-3d",
+  "title": "Marquee 3D",
+  "category": "Animation",
+  "blurb": "Multiple vertical marquee columns on a perspective-tilted 3D plane (rotateX/rotateZ), for testimonial heroes and logo walls. Pure CSS keyframes; adjacent columns scroll in alternating directions with deterministic stagger.",
+  "description": "pura-marquee-3d arranges the slotted items into multiple vertical marquee columns laid on a statically tilted 3D plane (rotateX/rotateZ inside a perspective scene), the composition used in testimonial heroes and logo galleries that the flat pura-marquee cannot do. Items distribute round-robin into columns; each column loops with a pure CSS @keyframes animation, adjacent columns scroll in alternating directions and durations stagger deterministically by index. Before JS runs the items paint as a static multi-column layout on the same tilted plane, so the SSR frame is fully presentable. The animated columns are aria-hidden clones while the original content stays in the accessibility tree, and prefers-reduced-motion stops the loop entirely. Theme with --pura-marquee-3d-perspective, --pura-marquee-3d-gap, --pura-marquee-3d-scale and friends. Agent-native: data-pura-m3d-* attributes mirror live state and each instance registers in window.__puraMarquee3ds by data-pura-id.",
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "3",
+      "desc": "Number of vertical columns, 1..8. Slotted items distribute round-robin."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "25",
+      "desc": "Seconds for one full column loop. Lower = faster; per-column durations stagger deterministically by index."
+    },
+    {
+      "name": "rotate-x",
+      "type": "number",
+      "default": "55",
+      "desc": "Plane tilt around the X axis, in degrees."
+    },
+    {
+      "name": "rotate-z",
+      "type": "number",
+      "default": "-45",
+      "desc": "Plane rotation around the Z axis, in degrees."
+    },
+    {
+      "name": "pause-on-hover",
+      "type": "boolean",
+      "default": "false",
+      "desc": "When present, pauses while under the mouse or with internal focus."
+    },
+    {
+      "name": "paused",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Reflected state; present when the animation is stopped."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Scrolling gallery",
+      "desc": "aria-label text applied to the role=marquee container."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-width:680px;border:1px solid var(--pura-border,#e2e2e2);border-radius:12px;overflow:hidden;background:var(--pura-bg,#fafafa)\">\n  <pura-marquee-3d id=\"m3d\" columns=\"3\" speed=\"22\" pause-on-hover label=\"Photo wall\" style=\"height:380px;--pura-marquee-3d-gap:0.75rem\">\n    <img src=\"https://picsum.photos/seed/m3d1/400/260\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d2/400/300\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d3/400/240\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d4/400/280\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d5/400/260\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d6/400/300\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d7/400/240\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d8/400/280\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d9/400/260\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d10/400/300\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d11/400/240\" alt=\"\" style=\"border-radius:10px;display:block\" />\n    <img src=\"https://picsum.photos/seed/m3d12/400/280\" alt=\"\" style=\"border-radius:10px;display:block\" />\n  </pura-marquee-3d>\n  <button id=\"m3d-toggle\" type=\"button\" style=\"margin:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee-3d.js\";\n  document.getElementById(\"m3d-toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m3d\").toggle();\n  });\n</script>",
+  "usage": "<!-- testimonial hero: four tilted columns of cards behind the headline -->\n<pura-marquee-3d columns=\"4\" speed=\"30\" rotate-x=\"55\" rotate-z=\"-45\" label=\"Customer testimonials\" style=\"height: 70vh;\">\n  <blockquote class=\"card\">Shipped in a weekend. Unreal.</blockquote>\n  <blockquote class=\"card\">Zero build step is the killer feature.</blockquote>\n  <blockquote class=\"card\">Our agents finally read the UI.</blockquote>\n  <blockquote class=\"card\">Theming took one CSS file.</blockquote>\n  <blockquote class=\"card\">SSR worked on the first try.</blockquote>\n  <blockquote class=\"card\">The parts API is a gift.</blockquote>\n  <blockquote class=\"card\">Best logo wall we ever had.</blockquote>\n  <blockquote class=\"card\">Five stars from the whole team.</blockquote>\n</pura-marquee-3d>\n\n<!-- gentler tilt for a logo gallery, pausing on hover -->\n<pura-marquee-3d columns=\"3\" speed=\"18\" rotate-x=\"35\" rotate-z=\"-20\" pause-on-hover label=\"Partner logos\"\n  style=\"height: 420px; --pura-marquee-3d-gap: 2rem; --pura-marquee-3d-perspective: 1600px;\">\n  <img src=\"/logos/acme.svg\" alt=\"Acme\" />\n  <img src=\"/logos/globex.svg\" alt=\"Globex\" />\n  <img src=\"/logos/initech.svg\" alt=\"Initech\" />\n  <img src=\"/logos/umbrella.svg\" alt=\"Umbrella\" />\n  <img src=\"/logos/soylent.svg\" alt=\"Soylent\" />\n  <img src=\"/logos/stark.svg\" alt=\"Stark Industries\" />\n</pura-marquee-3d>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "marquee",
   "title": "Marquee",
   "category": "Display",
@@ -5632,8 +8470,46 @@ export const components = [
   "demoHTML": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>",
   "usage": "<div style=\"max-width:640px;border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:12px\">\n  <pura-marquee id=\"m1\" speed=\"18\" pause-on-hover label=\"Partners\">\n    <strong>Acme</strong>\n    <strong>Globex</strong>\n    <strong>Initech</strong>\n    <strong>Umbrella</strong>\n    <strong>Soylent</strong>\n    <strong>Stark Industries</strong>\n  </pura-marquee>\n  <button id=\"toggle\" type=\"button\" style=\"margin-top:12px\">Pause / Resume</button>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/marquee.js\";\n  document.getElementById(\"toggle\").addEventListener(\"click\", () => {\n    document.getElementById(\"m1\").toggle();\n  });\n</script>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    },
+    {
+      "slug": "scramble",
+      "title": "Scramble"
+    },
+    {
+      "slug": "tilt",
+      "title": "Tilt"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    },
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
 },
 {
   "slug": "mask-input",
@@ -5718,6 +8594,78 @@ export const components = [
   "demoHTML": "<pura-masonry min=\"12rem\" gap=\"1rem\" label=\"Photo gallery\">\n  <div style=\"background:#fde68a;border-radius:8px;padding:1rem;height:120px\">Sunset</div>\n  <div style=\"background:#bfdbfe;border-radius:8px;padding:1rem;height:200px\">Snowy mountain</div>\n  <div style=\"background:#bbf7d0;border-radius:8px;padding:1rem;height:90px\">Forest</div>\n  <div style=\"background:#fbcfe8;border-radius:8px;padding:1rem;height:160px\">Beach at dawn</div>\n  <div style=\"background:#ddd6fe;border-radius:8px;padding:1rem;height:140px\">City at night</div>\n  <div style=\"background:#fed7aa;border-radius:8px;padding:1rem;height:110px\">Desert</div>\n</pura-masonry>",
   "usage": "<pura-masonry min=\"12rem\" gap=\"1rem\" label=\"Photo gallery\">\n  <div style=\"background:#fde68a;border-radius:8px;padding:1rem;height:120px\">Sunset</div>\n  <div style=\"background:#bfdbfe;border-radius:8px;padding:1rem;height:200px\">Snowy mountain</div>\n  <div style=\"background:#bbf7d0;border-radius:8px;padding:1rem;height:90px\">Forest</div>\n  <div style=\"background:#fbcfe8;border-radius:8px;padding:1rem;height:160px\">Beach at dawn</div>\n  <div style=\"background:#ddd6fe;border-radius:8px;padding:1rem;height:140px\">City at night</div>\n  <div style=\"background:#fed7aa;border-radius:8px;padding:1rem;height:110px\">Desert</div>\n</pura-masonry>",
   "animation": false,
+  "relatedComponents": [
+    {
+      "slug": "countdown",
+      "title": "Countdown"
+    },
+    {
+      "slug": "image-compare",
+      "title": "Image Compare"
+    },
+    {
+      "slug": "rating",
+      "title": "Rating"
+    },
+    {
+      "slug": "swatch-picker",
+      "title": "Swatch Picker"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    }
+  ]
+},
+{
+  "slug": "matrix-rain",
+  "title": "Matrix Rain",
+  "category": "Animation",
+  "blurb": "Matrix-style digital rain behind the slotted content: falling glyph columns on a Canvas 2D layer with a glowing lead character and fading trail. SSR paints a deterministic frozen field; reduced motion stays frozen.",
+  "description": "`<pura-matrix-rain>` paints Matrix-style digital rain behind its slotted content: columns of katakana and digits fall on a Canvas 2D layer, the lead character glows and the trail fades out via the classic translucent fillRect pass. It is the iconic backdrop for dev, terminal and hacker sections, inspired by React Bits' Letter Glitch and Faulty Terminal. SSR and the pre-JS paint show a dark backdrop with a deterministic frozen glyph field (no `Math.random` in the template), so the section looks right with zero script, and reduced motion keeps that frozen field forever. Tune `speed`, `font-size`, `fade` and `glyphs`; theme with `--pura-matrix-rain-color`, `--pura-matrix-rain-lead-color`, `--pura-matrix-rain-bg` and `--pura-matrix-rain-font`. Each instance registers in `window.__puraMatrixRains` by `data-pura-id` with `pause()`, `resume()` and `refresh()` for agent control.",
+  "attributes": [
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "1",
+      "desc": "Fall speed multiplier, 0.1..10."
+    },
+    {
+      "name": "font-size",
+      "type": "number",
+      "default": "16",
+      "desc": "Glyph cell size in CSS px, 8..64. Smaller means denser columns."
+    },
+    {
+      "name": "glyphs",
+      "type": "string",
+      "default": "katakana + digits",
+      "desc": "Custom character set drawn on the canvas."
+    },
+    {
+      "name": "fade",
+      "type": "number",
+      "default": "0.08",
+      "desc": "Trail fade alpha per step, 0.01..1. Lower keeps longer trails."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-matrix-rain style=\"height: 260px; border-radius: 12px;\">\n  <div style=\"display: grid; place-items: center; height: 100%; text-align: center; color: #eafff2; font: 600 18px ui-monospace, monospace; text-shadow: 0 0 12px rgba(0, 255, 102, 0.6);\">\n    wake up, neo\n    <span style=\"font-weight: 400; font-size: 13px; opacity: .75;\">the matrix has you</span>\n  </div>\n</pura-matrix-rain>",
+  "usage": "<!-- iconic terminal hero: green rain behind the headline -->\n<pura-matrix-rain style=\"min-height: 60vh;\">\n  <div class=\"hero\">\n    <h1>Built for the terminal</h1>\n    <p>Zero dependencies. Zero build step.</p>\n  </div>\n</pura-matrix-rain>\n\n<!-- denser, faster, binary rain in custom colors -->\n<pura-matrix-rain\n  speed=\"2\"\n  font-size=\"12\"\n  fade=\"0.12\"\n  glyphs=\"01\"\n  style=\"height: 320px; --pura-matrix-rain-color: #38bdf8; --pura-matrix-rain-lead-color: #f0f9ff; --pura-matrix-rain-bg: #020617;\">\n  <div class=\"panel\">Streaming logs</div>\n</pura-matrix-rain>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -5836,6 +8784,42 @@ export const components = [
   "demoHTML": "<pura-menubar id=\"barra\">\n  <pura-menubar-menu label=\"File\">\n    <pura-menu-item>New file<span slot=\"shortcut\">Ctrl+N</span></pura-menu-item>\n    <pura-menu-item>Open<span slot=\"shortcut\">Ctrl+O</span></pura-menu-item>\n    <pura-menu-item>Save<span slot=\"shortcut\">Ctrl+S</span></pura-menu-item>\n    <pura-menu-item disabled>Save as...</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Edit\">\n    <pura-menu-item>Undo<span slot=\"shortcut\">Ctrl+Z</span></pura-menu-item>\n    <pura-menu-item>Redo<span slot=\"shortcut\">Ctrl+Y</span></pura-menu-item>\n    <pura-menu-item inset>Copy</pura-menu-item>\n    <pura-menu-item inset>Paste</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"View\">\n    <pura-menu-item>Full screen<span slot=\"shortcut\">F11</span></pura-menu-item>\n    <pura-menu-item>Zoom +</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Help\" disabled></pura-menubar-menu>\n</pura-menubar>\n\n<script type=\"module\">\n  const barra = document.getElementById(\"barra\");\n  barra.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>",
   "usage": "<pura-menubar id=\"barra\">\n  <pura-menubar-menu label=\"File\">\n    <pura-menu-item>New file<span slot=\"shortcut\">Ctrl+N</span></pura-menu-item>\n    <pura-menu-item>Open<span slot=\"shortcut\">Ctrl+O</span></pura-menu-item>\n    <pura-menu-item>Save<span slot=\"shortcut\">Ctrl+S</span></pura-menu-item>\n    <pura-menu-item disabled>Save as...</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Edit\">\n    <pura-menu-item>Undo<span slot=\"shortcut\">Ctrl+Z</span></pura-menu-item>\n    <pura-menu-item>Redo<span slot=\"shortcut\">Ctrl+Y</span></pura-menu-item>\n    <pura-menu-item inset>Copy</pura-menu-item>\n    <pura-menu-item inset>Paste</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"View\">\n    <pura-menu-item>Full screen<span slot=\"shortcut\">F11</span></pura-menu-item>\n    <pura-menu-item>Zoom +</pura-menu-item>\n  </pura-menubar-menu>\n  <pura-menubar-menu label=\"Help\" disabled></pura-menubar-menu>\n</pura-menubar>\n\n<script type=\"module\">\n  const barra = document.getElementById(\"barra\");\n  barra.addEventListener(\"select\", (e) => {\n    console.log(\"Selected item:\", e.target.textContent.trim());\n  });\n</script>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "mesh-gradient",
+  "title": "Animated Mesh Gradient",
+  "category": "Animation",
+  "blurb": "Animated mesh-gradient background: large blurred color blobs drift and blend slowly behind the slotted content, the full-bleed multicolor SaaS-hero backdrop. Pure CSS keyframes with prime durations per layer so the pattern never visibly repeats; freezes under reduced motion.",
+  "description": "`<pura-mesh-gradient>` is an animated mesh-gradient background: large blurred radial-gradient blobs that drift and blend slowly behind the slotted content, the full-bleed multicolor backdrop of SaaS hero sections (unlike `pura-aurora`, which is a northern-lights glow). The blobs are deterministically scattered in the pure template, so the server and the client paint the same mesh and the effect already looks finished without JS. Motion is pure CSS `@keyframes` with prime durations per layer, so the composite pattern never visibly repeats. `blobs` sets the layer count, `speed` the drift speed, and `static` freezes the mesh. Colors come from `--pura-mesh-gradient-1` through `--pura-mesh-gradient-5`, with `--pura-mesh-gradient-blur`, `--pura-mesh-gradient-opacity` and `--pura-mesh-gradient-bg` for the overall look. Reduced motion freezes the mesh at its painted state. Each instance registers in `window.__puraMeshGradients` by `data-pura-id` and mirrors `data-pura-mesh-*` attributes.",
+  "attributes": [
+    {
+      "name": "blobs",
+      "type": "number",
+      "default": "5",
+      "desc": "Number of color blobs, clamped to 2..8."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "1",
+      "desc": "Drift speed multiplier; 2 is twice as fast, 0.5 is half speed."
+    },
+    {
+      "name": "static",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Freezes the mesh at its painted state (no drift)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-mesh-gradient style=\"border-radius: 16px; padding: 64px 32px; text-align: center;\">\n  <h3 style=\"margin: 0 0 8px; font-size: 1.6rem;\">Build interfaces that feel alive</h3>\n  <p style=\"margin: 0 auto; max-width: 38ch; color: var(--pura-muted-fg, #52525b);\">Native web components, zero dependencies, themed entirely with CSS tokens.</p>\n</pura-mesh-gradient>",
+  "usage": "<!-- full-bleed hero backdrop -->\n<pura-mesh-gradient style=\"min-height: 100vh; display: grid; place-items: center;\">\n  <div style=\"text-align: center;\">\n    <h1>Ship your next idea today</h1>\n    <p>The component library that runs everywhere.</p>\n  </div>\n</pura-mesh-gradient>\n\n<!-- brand palette, slower drift, softer blur -->\n<pura-mesh-gradient blobs=\"3\" speed=\"0.5\"\n  style=\"--pura-mesh-gradient-1: #0ea5e9; --pura-mesh-gradient-2: #14b8a6; --pura-mesh-gradient-3: #a3e635; --pura-mesh-gradient-blur: 90px; padding: 48px; border-radius: 12px;\">\n  <h2>Calm, on brand, always moving</h2>\n</pura-mesh-gradient>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -5964,6 +8948,82 @@ export const components = [
   ]
 },
 {
+  "slug": "morph",
+  "title": "Morph",
+  "category": "Animation",
+  "blurb": "SVG path morph: one shape bends into another as you scroll. The native `d` geometry property interpolates between two matched-command path() values on a scroll-driven timeline. Zero-runtime, no flubber, no per-frame JS. Source and target paths must share command structure.",
+  "description": "`<pura-morph>` bends one SVG shape into another as you scroll. The native `d` geometry property interpolates between two `path()` values, baked into a scroll-driven keyframe as literal strings (never routed through a `var()` into geometry, which would not re-paint). The default `trigger=\"scrub\"` ties the path 1:1 to a scroll-driven timeline (`animation-timeline: view()` or `scroll()`), so the shape morphs under the scrollbar with no per-frame JS and no flubber dependency. `trigger=\"view\"` morphs once when scrolled into view (eased by the spring primitive); `trigger=\"load\"` morphs once on connect. The one rule: `from` and `to` must share command structure, the same count and order of `M`/`L`/`C`/`Z` commands. A square and a diamond are both `M L L L Z`, so they interpolate; a triangle and a pentagon do not, and snap. SSR and reduced motion are safe: before JS the shape sits fully painted at its `from` path, the scrub block is gated behind `prefers-reduced-motion: no-preference`, and the reduced-motion path lands the shape at its destination. Each instance registers in `window.__puraMorphs` by `data-pura-id` with `{ from, to, replay }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"scrub\" | \"view\" | \"load\"",
+      "default": "scrub",
+      "desc": "scrub ties the path 1:1 to a scroll-driven timeline; view morphs once when scrolled into view; load morphs once on connect."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only. view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "default": "square",
+      "desc": "Starting SVG path d-string. Must share command structure with `to`."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "default": "diamond",
+      "desc": "Ending SVG path d-string. Same count and order of commands as `from`, or it snaps instead of morphing."
+    },
+    {
+      "name": "viewbox",
+      "type": "string",
+      "default": "0 0 100 100",
+      "desc": "SVG viewBox the paths are drawn in."
+    },
+    {
+      "name": "fill",
+      "type": "string",
+      "default": "currentColor",
+      "desc": "Shape fill."
+    },
+    {
+      "name": "stroke",
+      "type": "string",
+      "default": "none",
+      "desc": "Shape stroke color."
+    },
+    {
+      "name": "stroke-width",
+      "type": "number",
+      "default": "0",
+      "desc": "Shape stroke width, in viewBox units."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 50%",
+      "desc": "animation-range for the scrub timeline. Default completes the morph as the shape reaches viewport center, then holds."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring easing for view/load triggers. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<pura-morph trigger=\"load\"\n            from=\"M 20 20 L 80 20 L 80 80 L 20 80 Z\"\n            to=\"M 50 12 L 88 50 L 50 88 L 12 50 Z\"\n            fill=\"var(--pura-fg, #09090b)\"\n            style=\"width: 180px; height: 180px;\"></pura-morph>\n<div style=\"height: 1rem;\"></div>\n<button type=\"button\" onclick=\"this.previousElementSibling.previousElementSibling.replay()\" style=\"font: 500 .85rem system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .4rem; background: var(--pura-bg, #fff); cursor: pointer;\">replay</button>",
+  "usage": "<!-- default: scroll and the square becomes a diamond -->\n<pura-morph style=\"width: 160px; height: 160px;\"></pura-morph>\n\n<!-- custom matched paths, one-shot on view -->\n<pura-morph trigger=\"view\"\n            from=\"M 10 50 L 50 10 L 90 50 L 50 90 Z\"\n            to=\"M 10 30 L 50 50 L 90 30 L 50 90 Z\"\n            fill=\"#2563eb\" preset=\"wobbly\"\n            style=\"width: 200px; height: 200px;\"></pura-morph>\n\n<!-- scrub against the page scroll container -->\n<pura-morph timeline=\"scroll\" range=\"cover 0% cover 100%\"\n            from=\"M 20 20 L 80 20 L 80 80 L 20 80 Z\"\n            to=\"M 50 14 L 86 50 L 50 86 L 14 50 Z\"\n            style=\"width: 160px; height: 160px;\"></pura-morph>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "motion-budget",
   "title": "Motion Budget",
   "category": "Utility",
@@ -5999,6 +9059,72 @@ export const components = [
   "slots": [],
   "demoHTML": "<style>\n  @keyframes pura-mb-spin { to { transform: rotate(360deg); } }\n  .pura-mb-demo {\n    width: 56px; height: 56px; border-radius: 12px;\n    background: conic-gradient(from 0deg, var(--pura-primary, #6366f1), transparent 70%);\n    animation: pura-mb-spin calc(1.1s / max(var(--pura-motion, 1), 0.001)) linear infinite;\n  }\n  .pura-mb-btns { display: flex; gap: .5rem; margin-bottom: 1rem; }\n  .pura-mb-btns button { font: 500 13px system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 8px; background: var(--pura-bg, #fff); cursor: pointer; }\n</style>\n\n<pura-motion-budget id=\"pura-mb-demo\" mode=\"normal\"></pura-motion-budget>\n<div class=\"pura-mb-btns\">\n  <button onclick=\"document.getElementById('pura-mb-demo').setMode('normal')\">Normal</button>\n  <button onclick=\"document.getElementById('pura-mb-demo').setMode('calm')\">Calm</button>\n  <button onclick=\"document.getElementById('pura-mb-demo').setMode('off')\">Off</button>\n</div>\n<div class=\"pura-mb-demo\"></div>",
   "usage": "<!-- Drop one governor near the top of the page -->\n<pura-motion-budget mode=\"normal\" respect-system></pura-motion-budget>\n\n<script type=\"module\">\n  const mb = document.querySelector('pura-motion-budget');\n  // Calm the whole page while a heavy animation runs\n  mb.setMode('calm');\n  mb.addEventListener('motionchange', (e) => console.log(e.detail)); // { mode, motion }\n</script>\n\n<!-- Any component duration that multiplies var(--pura-motion) now responds -->",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "motion-path",
+  "title": "Motion Path",
+  "category": "Animation",
+  "blurb": "Slotted content rides an SVG path: native offset-path places it on the curve and offset-distance 0% to 100% moves it along, by default scrubbed 1:1 by a scroll-driven timeline. offset-rotate keeps it facing the direction of travel. Zero-runtime, no per-frame JS.",
+  "description": "`<pura-motion-path>` makes its slotted content ride an SVG path, the gsap MotionPath move done natively: `offset-path: path(...)` places the content on the curve and `offset-distance` ramps `0%` to `100%` to travel it, with `offset-rotate: auto` keeping it faced along the direction of travel (disable with `no-rotate`). The default `trigger=\"scrub\"` ties the travel 1:1 to a scroll-driven timeline (`animation-timeline: view()` or `scroll()`), so the content moves along the curve as you scroll, with no per-frame JS. `trigger=\"view\"` travels once when scrolled into view (eased by the spring primitive); `trigger=\"load\"` travels once on connect. Path coordinates are px in the host's box (offset-path has no viewBox), so size the host to fit the path. `show-path` draws a faint dotted guide of the same path behind the mover. SSR and reduced motion are safe: before JS the content sits at the path start fully visible, the scrub block is gated behind `prefers-reduced-motion: no-preference`, and reduced motion lands the content at the path end. Each instance registers in `window.__puraMotionPaths` by `data-pura-id` with `{ path, replay }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"scrub\" | \"view\" | \"load\"",
+      "default": "scrub",
+      "desc": "scrub ties the travel 1:1 to a scroll-driven timeline; view travels once when scrolled into view; load travels once on connect."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only. view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "default": "wave",
+      "desc": "SVG path d-string to travel. Coordinates are px in the host's box (offset-path has no viewBox)."
+    },
+    {
+      "name": "no-rotate",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Keep the content upright instead of rotating to face the direction of travel."
+    },
+    {
+      "name": "show-path",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Draw a faint dotted guide of the path behind the moving content."
+    },
+    {
+      "name": "line-color",
+      "type": "string",
+      "default": "currentColor",
+      "desc": "Guide stroke color (with show-path)."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 50%",
+      "desc": "animation-range for the scrub timeline. Default completes the travel as the element reaches viewport center, then holds."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring easing for view/load triggers. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-motion-path trigger=\"load\" show-path preset=\"slow\"\n  path=\"M 16 96 C 60 16, 150 16, 190 80 S 300 150, 348 56\"\n  style=\"width: 380px; height: 150px; color: var(--pura-fg, #09090b);\">\n  <span style=\"display:block; width: 18px; height: 18px; border-radius: 50%; background: var(--pura-fg, #09090b);\"></span>\n</pura-motion-path>\n<div style=\"height: 1rem;\"></div>\n<button type=\"button\" onclick=\"this.previousElementSibling.previousElementSibling.replay()\" style=\"font: 500 .85rem system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .4rem; background: var(--pura-bg, #fff); cursor: pointer;\">replay</button>",
+  "usage": "<!-- default: the dot travels the curve as you scroll -->\n<pura-motion-path path=\"M 10 80 C 80 10, 220 10, 290 80\"\n                  style=\"width: 300px; height: 100px;\">\n  <span style=\"display:block;width:16px;height:16px;border-radius:50%;background:currentColor\"></span>\n</pura-motion-path>\n\n<!-- an arrow that faces its travel, once on view -->\n<pura-motion-path trigger=\"view\" show-path\n                  path=\"M 20 100 Q 160 -40 300 100\"\n                  style=\"width: 320px; height: 120px;\">\n  <span>➤</span>\n</pura-motion-path>\n\n<!-- keep the content upright -->\n<pura-motion-path no-rotate path=\"M 0 0 L 240 0\"\n                  style=\"width: 240px; height: 40px;\">\n  <span>upright</span>\n</pura-motion-path>",
   "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
@@ -6124,6 +9250,60 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "noise",
+  "title": "Noise / Film Grain",
+  "category": "Animation",
+  "blurb": "Animated film-grain overlay: an SVG feTurbulence tile shuffled by a steps() keyframe on background-position, the analog texture finish seen on nearly every awwwards site. Zero JS, deterministic, SSR-safe, static under reduced motion.",
+  "description": "`<pura-noise>` lays an animated film-grain texture over its slotted content (or over anything, when positioned as a fixed full-page layer), the analog finish seen on nearly every awwwards site. The grain is an SVG `feTurbulence` tile embedded as a data URI in the background of an overlay layer, shuffled by a `steps()` `@keyframes` on `background-position`, so the whole effect is CSS: zero per-frame JS, deterministic, and the static texture paints on SSR before any script runs. `opacity`, `size`, `frequency`, `fps` and `blend` tune the look; `static` keeps the texture without motion, and reduced motion holds the grain still automatically. The grain layer is `pointer-events: none` and exposed via `part=\"grain\"`. Each instance registers in `window.__puraNoises` by `data-pura-id` with `{ opacity, fps, static }`.",
+  "attributes": [
+    {
+      "name": "opacity",
+      "type": "number",
+      "default": "0.08",
+      "desc": "Grain opacity, 0..1."
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": "256",
+      "desc": "Rendered tile size in px; smaller means finer grain."
+    },
+    {
+      "name": "frequency",
+      "type": "number",
+      "default": "0.8",
+      "desc": "feTurbulence baseFrequency, 0.05..4; higher means denser noise."
+    },
+    {
+      "name": "fps",
+      "type": "number",
+      "default": "12",
+      "desc": "Grain shuffle frames per second, 1..60."
+    },
+    {
+      "name": "blend",
+      "type": "string",
+      "default": "overlay",
+      "desc": "mix-blend-mode of the grain layer, e.g. overlay, soft-light, normal."
+    },
+    {
+      "name": "static",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Keep the grain texture but never animate it."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-noise opacity=\"0.14\" style=\"border-radius: 12px; overflow: hidden;\">\n  <div style=\"height: 240px; background: linear-gradient(135deg, #1e1b4b, #7c3aed 55%, #db2777); display: grid; place-items: center; color: #fff;\">\n    <div style=\"text-align: center;\">\n      <div style=\"font-size: 1.4rem; font-weight: 650; letter-spacing: -0.02em;\">Film grain</div>\n      <div style=\"opacity: .75; font-size: .85rem;\">analog texture, zero JS</div>\n    </div>\n  </div>\n</pura-noise>",
+  "usage": "<!-- grain over a hero image -->\n<pura-noise opacity=\"0.12\" blend=\"soft-light\">\n  <img src=\"https://picsum.photos/seed/grain/1200/600\" alt=\"Hero\" style=\"display: block; width: 100%;\" />\n</pura-noise>\n\n<!-- subtle static grain finish over the whole page -->\n<pura-noise static opacity=\"0.05\" size=\"180\"\n  style=\"position: fixed; inset: 0; pointer-events: none; z-index: 9999;\"></pura-noise>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "notification-item",
   "title": "Notification Item",
   "category": "Display",
@@ -6174,12 +9354,12 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "segmented-control",
-      "title": "Segmented Control"
-    },
-    {
       "slug": "empty",
       "title": "Empty"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
     },
     {
       "slug": "badge",
@@ -6255,34 +9435,38 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
+      "slug": "countdown",
+      "title": "Countdown"
+    },
+    {
+      "slug": "image-compare",
+      "title": "Image Compare"
+    },
+    {
       "slug": "input-group",
       "title": "Input Group"
     },
     {
-      "slug": "stepper",
-      "title": "Stepper"
+      "slug": "masonry",
+      "title": "Masonry"
     },
     {
-      "slug": "item",
-      "title": "Item"
+      "slug": "rating",
+      "title": "Rating"
     },
     {
-      "slug": "separator",
-      "title": "Separator"
-    },
-    {
-      "slug": "card",
-      "title": "Card"
-    },
-    {
-      "slug": "badge",
-      "title": "Badge"
+      "slug": "swatch-picker",
+      "title": "Swatch Picker"
     }
   ],
   "relatedBlocks": [
     {
       "slug": "checkout",
       "title": "Checkout"
+    },
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
     }
   ]
 },
@@ -6555,6 +9739,48 @@ export const components = [
   ]
 },
 {
+  "slug": "parallax-columns",
+  "title": "Parallax Columns",
+  "category": "Animation",
+  "blurb": "Grid of images split into columns that translate in opposite directions as you scroll, each column scrubbing its own drift on a shared scroll-driven view timeline. The hero variant adds a perspective rotateX tilt and a fade on entry. Zero per-frame JS.",
+  "description": "`<pura-parallax-columns>` lays the slotted images out as a grid and splits them into columns that translate in opposite directions as you scroll, the Aceternity Parallax Scroll move done with native scroll-driven animations: the host carries a named view timeline and each column (selected by nth-child math) scrubs its own `translateY` drift on it, so the multi-track orchestration that `<pura-parallax>` (one element, one speed factor) cannot express runs with zero per-frame JS. Drift magnitude cycles through fixed per-column factors, so neighbouring columns also move at slightly different speeds. The `hero` attribute switches on the Hero Parallax variant: a perspective wrapper tilts the whole grid with `rotateX` and fades it in over the entry range. `columns` sets the track count, `shift` the drift distance, `range` the scroll window. SSR, browsers without scroll-driven timelines, and reduced motion all render a static grid. Each instance registers in `window.__puraParallaxColumnss` by `data-pura-id` with `{ columns, hero, shift }`.",
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "number",
+      "default": "3",
+      "desc": "Number of columns, 2..6. Slotted children flow row by row; nth-child math assigns each one to a column track."
+    },
+    {
+      "name": "shift",
+      "type": "string",
+      "default": "120px",
+      "desc": "CSS length each column drifts from its resting position; neighbouring columns move in opposite directions."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 100%",
+      "desc": "animation-range for the column scrub timeline."
+    },
+    {
+      "name": "hero",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Hero Parallax variant: wraps the grid in perspective, tilting it with rotateX and fading it in over the entry range."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 320px; overflow-y: auto;\">\n  <div style=\"height: 140px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <pura-parallax-columns columns=\"3\" shift=\"70px\" style=\"--pura-parallax-columns-gap: .6rem;\">\n    <img src=\"https://picsum.photos/seed/plc1/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc2/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc3/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc4/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc5/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc6/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc7/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc8/400/520\" alt=\"\" />\n    <img src=\"https://picsum.photos/seed/plc9/400/520\" alt=\"\" />\n  </pura-parallax-columns>\n  <div style=\"height: 140px;\"></div>\n</div>",
+  "usage": "<!-- three columns drifting in opposite directions as the grid scrolls by -->\n<pura-parallax-columns columns=\"3\" shift=\"140px\">\n  <img src=\"/gallery/01.jpg\" alt=\"Studio\" />\n  <img src=\"/gallery/02.jpg\" alt=\"Process\" />\n  <img src=\"/gallery/03.jpg\" alt=\"Detail\" />\n  <img src=\"/gallery/04.jpg\" alt=\"Texture\" />\n  <img src=\"/gallery/05.jpg\" alt=\"Light\" />\n  <img src=\"/gallery/06.jpg\" alt=\"Material\" />\n</pura-parallax-columns>\n\n<!-- hero variant: the grid enters tilted in perspective and fades in -->\n<pura-parallax-columns hero columns=\"4\" shift=\"100px\"\n  style=\"--pura-parallax-columns-tilt: 18deg; --pura-parallax-columns-perspective: 1000px;\">\n  <img src=\"/work/a.jpg\" alt=\"Project A\" />\n  <img src=\"/work/b.jpg\" alt=\"Project B\" />\n  <img src=\"/work/c.jpg\" alt=\"Project C\" />\n  <img src=\"/work/d.jpg\" alt=\"Project D\" />\n  <img src=\"/work/e.jpg\" alt=\"Project E\" />\n  <img src=\"/work/f.jpg\" alt=\"Project F\" />\n  <img src=\"/work/g.jpg\" alt=\"Project G\" />\n  <img src=\"/work/h.jpg\" alt=\"Project H\" />\n</pura-parallax-columns>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "parallax",
   "title": "Parallax",
   "category": "Marketing",
@@ -6586,6 +9812,60 @@ export const components = [
   ],
   "demoHTML": "",
   "usage": "",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "particle-network",
+  "title": "Particle Network",
+  "category": "Animation",
+  "blurb": "The iconic particles.js background: dots drift on a Canvas 2D field and connect with lines while close, with pointer grab, repulse or attract. The rAF loop pauses offscreen; SSR paints a static dot field; reduced motion freezes on one connected frame.",
+  "description": "`<pura-particle-network>` is the iconic particles.js background: dots drift on a Canvas 2D field behind the slotted content and connect with lines whenever two of them get closer than `distance`. The pointer joins the network too: `pointer=\"grab\"` (the default) draws lines from nearby particles to the cursor, `repulse` pushes particles away, `attract` pulls them in, and `none` disables the interaction. One requestAnimationFrame loop runs the simulation and pauses while the element is offscreen. The server renders a static, deterministic dot field, so the backdrop is presentable before any JS runs; the client canvas takes over on the first frame. Reduced motion freezes the canvas on a single connected frame (dots plus links, no drift). Theme it with `--pura-particle-network-color`, `--pura-particle-network-link-color`, `--pura-particle-network-opacity`, `--pura-particle-network-link-opacity`, `--pura-particle-network-link-width` and `--pura-particle-network-bg`. Each instance registers in `window.__puraParticleNetworks` by `data-pura-id` with `{ count, pointer, pause, resume }`.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "80",
+      "desc": "Number of particles, max 160."
+    },
+    {
+      "name": "distance",
+      "type": "number",
+      "default": "120",
+      "desc": "Max distance in px for two particles to be linked by a line."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "40",
+      "desc": "Drift speed in px per second."
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": "2",
+      "desc": "Base dot radius in px."
+    },
+    {
+      "name": "pointer",
+      "type": "\"grab\" | \"repulse\" | \"attract\" | \"none\"",
+      "default": "grab",
+      "desc": "Pointer interaction: grab draws lines to the cursor, repulse pushes particles away, attract pulls them in."
+    },
+    {
+      "name": "pointer-distance",
+      "type": "number",
+      "default": "160",
+      "desc": "Pointer interaction radius in px."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-particle-network count=\"70\" distance=\"110\" pointer=\"grab\" style=\"height: 280px; border-radius: 12px; --pura-particle-network-bg: #0b0b14; --pura-particle-network-color: #a5b4fc; --pura-particle-network-link-color: #6366f1; --pura-particle-network-link-opacity: 0.45;\">\n  <div style=\"height: 100%; display: grid; place-items: center; text-align: center; color: #e4e4e7;\">\n    <div>\n      <div style=\"font-size: 1.25rem; font-weight: 700;\">Particle Network</div>\n      <div style=\"font-size: .85rem; color: #a1a1aa;\">move the pointer to grab the dots</div>\n    </div>\n  </div>\n</pura-particle-network>",
+  "usage": "<!-- hero backdrop: dots link up and grab toward the cursor -->\n<pura-particle-network count=\"90\" pointer=\"grab\" style=\"height: 100vh; --pura-particle-network-bg: #09090b; --pura-particle-network-color: #71717a;\">\n  <header style=\"position: relative; z-index: 1; display: grid; place-items: center; height: 100%;\">\n    <h1>Build with pura</h1>\n  </header>\n</pura-particle-network>\n\n<!-- denser field that scatters away from the pointer -->\n<pura-particle-network count=\"120\" distance=\"90\" speed=\"25\" pointer=\"repulse\" pointer-distance=\"140\" style=\"height: 320px; --pura-particle-network-link-color: var(--pura-accent, #6366f1);\">\n  <div style=\"padding: 2rem;\">Cards, copy or anything else slots above the field.</div>\n</pura-particle-network>",
   "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
@@ -6699,6 +9979,178 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "pin",
+  "title": "Scroll Pin",
+  "category": "Animation",
+  "blurb": "ScrollTrigger pin. A section that pins (position: sticky) while you scroll past it and scrubs its full-viewport panels horizontally, the gsap horizontal-scroll move done with native scroll-driven animations. No scroll listener, no per-frame JS.",
+  "description": "`<pura-pin>` is a ScrollTrigger pin. The section pins itself with `position: sticky` while you scroll past it and scrubs its panels horizontally as it stays pinned, the gsap horizontal-scroll move done entirely with native scroll-driven animations: a `view-timeline` on the outer container drives a `translateX` keyframe on the track. There is no IntersectionObserver, no scroll listener, no per-frame JS. Each slotted child is one full-viewport panel; the number of panels sets the scroll length and the horizontal travel maps scroll progress to `translateX(0 .. -(n-1) * 100vw)`. Where scroll timelines are unsupported, or reduced motion is set, the panels fall back to a snap-scrollable horizontal row that stays fully usable. SSR-safe. Each instance registers in `window.__puraPins` by `data-pura-id` with `{ panels, native }`.",
+  "attributes": [],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<p style=\"font: 500 13px system-ui; color: var(--pura-muted-fg, #71717a);\">Pinned horizontal scroll is full-bleed and needs page scroll, so it is best seen on its own page. Skeleton:</p>\n<pre style=\"font: 500 12px/1.5 ui-monospace, monospace; background: var(--pura-muted, #f4f4f5); padding: 1rem; border-radius: 10px; overflow:auto;\">&lt;pura-pin&gt;\n  &lt;section&gt;Panel 1&lt;/section&gt;\n  &lt;section&gt;Panel 2&lt;/section&gt;\n  &lt;section&gt;Panel 3&lt;/section&gt;\n&lt;/pura-pin&gt;</pre>",
+  "usage": "<pura-pin>\n  <section>Panel 1</section>\n  <section>Panel 2</section>\n  <section>Panel 3</section>\n</pura-pin>\n\n<!-- The section pins and the three full-viewport panels scrub left as you\n     scroll. No JS config: the panel count drives the scroll length. -->",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "pinch-zoom",
+  "title": "Pinch Zoom",
+  "category": "Animation",
+  "blurb": "Touch media viewer: pinch with two pointers to zoom, drag to pan while zoomed, double tap to toggle scale. Pointer Events math with clamped containment; SSR shows the media at scale 1.",
+  "description": "`<pura-pinch-zoom>` is the missing mobile gesture in the interaction suite: an image or content viewer you pinch to zoom, drag to pan, and double tap (or double click) to toggle between fit and a closer scale. Two-pointer Pointer Events drive the scale from the distance between the fingers and apply a clamped `translate() scale()` on the stage, so the content never leaves the frame. Desktop gets the same feel via ctrl + scroll (the trackpad pinch equivalent) plus keyboard support (+ / - to zoom, arrows to pan, 0 to reset). `min`, `max` and `double-tap-scale` bound the gesture, and a `zoom` event fires when a gesture settles on a new scale. At rest the frame keeps `touch-action: pan-y`, so the page still scrolls; once zoomed it switches to `touch-action: none` and the gesture owns the surface. SSR and pre-JS render the media normally at scale 1; reduced motion snaps programmatic zooms while gestures keep following the pointers 1:1. Each instance registers in `window.__puraPinchZooms` by `data-pura-id` with `{ min, max, zoomTo, reset }`, and `data-pura-pz-scale` mirrors the live scale.",
+  "attributes": [
+    {
+      "name": "min",
+      "type": "number",
+      "default": "1",
+      "desc": "Minimum scale."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": "4",
+      "desc": "Maximum scale."
+    },
+    {
+      "name": "double-tap-scale",
+      "type": "number",
+      "default": "2.5",
+      "desc": "Scale a double tap or double click zooms to, capped at max."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Turns all zoom and pan gestures off."
+    }
+  ],
+  "events": [
+    "zoom"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-width: 520px; margin: 0 auto;\">\n  <pura-pinch-zoom style=\"height: 300px; --pura-pinch-zoom-radius: 12px; --pura-pinch-zoom-bg: #09090b;\">\n    <img src=\"https://picsum.photos/seed/pinch/1040/600\" alt=\"Mountain landscape\" />\n  </pura-pinch-zoom>\n  <p style=\"text-align: center; font-size: .8rem; color: var(--pura-muted-fg, #52525b); margin-top: .5rem;\">pinch, drag, double tap, or ctrl + scroll</p>\n</div>",
+  "usage": "<!-- product photo viewer: pinch to zoom, drag to pan, double tap to toggle -->\n<pura-pinch-zoom style=\"height: 60vh;\">\n  <img src=\"/photos/product.jpg\" alt=\"Product detail\" />\n</pura-pinch-zoom>\n\n<!-- tighter limits, plus reacting to scale changes -->\n<pura-pinch-zoom id=\"viewer\" max=\"6\" double-tap-scale=\"3\" style=\"height: 420px;\">\n  <img src=\"/photos/floor-plan.png\" alt=\"Floor plan\" />\n</pura-pinch-zoom>\n<script>\n  document.querySelector(\"#viewer\").addEventListener(\"zoom\", (e) => {\n    console.log(\"scale is now\", e.detail.scale);\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "pixel-reveal",
+  "title": "Pixel Reveal",
+  "category": "Animation",
+  "blurb": "Retro pixel-block transition: a grid of cells flickers in pseudo-random, deterministic (SSR-stable) order to swap between two slotted states or dissolve away and reveal content, triggered by attribute, hover, or entering the viewport. Pure CSS keyframes, no per-frame JS.",
+  "description": "`<pura-pixel-reveal>` is the retro pixel-block transition: a shadow-DOM grid of square cells flickers in pseudo-random order to swap between two slotted states (default slot and `alt` slot) or, in `mode=\"reveal\"`, to cover the content and snap off cell by cell, revealing it in pixel blocks. The scatter order is seeded deterministically per cell index (no Math.random), so server and client paint byte-identical grids and the whole effect runs on CSS keyframes and transitions with no per-frame JS. Trigger it by toggling the `active` attribute, by hover, or once on entering the viewport. Theme with `--pura-pixel-reveal-color` (cell color), `--pura-pixel-reveal-duration` (per-cell pop), and `--pura-pixel-reveal-stagger` (scatter spread); size the grid with `cols`/`rows`. SSR and pre-JS render state A fully visible with no cells shown; reduced motion skips the pixel pass and jumps straight to the final state. Each instance registers in `window.__puraPixelReveals` by `data-pura-id` with `{ mode, trigger, active, toggle }`.",
+  "attributes": [
+    {
+      "name": "mode",
+      "type": "\"swap\" | \"reveal\"",
+      "default": "swap",
+      "desc": "swap replaces the default slot with the alt slot under a one-shot pixel burst; reveal covers the content with cells and snaps them off one by one."
+    },
+    {
+      "name": "trigger",
+      "type": "\"attr\" | \"hover\" | \"view\"",
+      "default": "attr",
+      "desc": "attr toggles via the active attribute; hover toggles on pointer enter/leave (and focus); view activates once when scrolled into view."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Current state: alt slot shown (swap) or content revealed (reveal). Kept in sync by hover/view triggers."
+    },
+    {
+      "name": "cols",
+      "type": "number",
+      "default": "12",
+      "desc": "Pixel grid columns, capped at 32."
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "default": "8",
+      "desc": "Pixel grid rows, capped at 32."
+    }
+  ],
+  "events": [
+    "pura-pixel-reveal-toggle"
+  ],
+  "slots": [
+    "default",
+    "alt"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-start;\">\n  <pura-pixel-reveal trigger=\"hover\" cols=\"14\" rows=\"9\" style=\"width: 280px; cursor: pointer; border-radius: 8px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/pixel-a/560/360\" alt=\"Landscape, state A\" style=\"display: block; width: 100%; height: auto;\" />\n    <img slot=\"alt\" src=\"https://picsum.photos/seed/pixel-b/560/360\" alt=\"Landscape, state B\" style=\"display: block; width: 100%; height: auto;\" />\n  </pura-pixel-reveal>\n  <pura-pixel-reveal mode=\"reveal\" trigger=\"view\" cols=\"16\" rows=\"10\" style=\"width: 280px; border-radius: 8px; overflow: hidden;\">\n    <img src=\"https://picsum.photos/seed/pixel-c/560/360\" alt=\"Landscape revealed from pixel blocks\" style=\"display: block; width: 100%; height: auto;\" />\n  </pura-pixel-reveal>\n</div>\n<p style=\"font-size: .8rem; color: var(--pura-muted-fg, #52525b); margin: .5rem 0 0;\">hover the left image to swap states; the right one dissolves out of pixel blocks when it scrolls into view</p>",
+  "usage": "<!-- hover swaps between two images under a retro pixel burst -->\n<pura-pixel-reveal trigger=\"hover\">\n  <img src=\"/photos/before.jpg\" alt=\"Before\" />\n  <img slot=\"alt\" src=\"/photos/after.jpg\" alt=\"After\" />\n</pura-pixel-reveal>\n\n<!-- content dissolves out of pixel blocks when scrolled into view -->\n<pura-pixel-reveal mode=\"reveal\" trigger=\"view\" cols=\"20\" rows=\"12\"\n  style=\"--pura-pixel-reveal-color: #22c55e;\">\n  <h2>Chapter Two</h2>\n</pura-pixel-reveal>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "pointer-parallax",
+  "title": "Pointer Parallax",
+  "category": "Animation",
+  "blurb": "Atropos-style hover parallax: slotted layers with different data-depth values translate in distinct directions and intensities as the pointer moves, creating 3D depth without rotating the block (that move is pura-tilt's). Event-driven (no rAF loop); layers spring back to center on leave; disabled entirely under reduced motion.",
+  "description": "`<pura-pointer-parallax>` is the Atropos-style hover parallax: each slotted layer carries a `data-depth` number and translates in its own direction and intensity as the pointer moves across the surface, so foreground layers (positive depth) chase the pointer while background layers (negative depth) drift away, creating 3D depth. Unlike `<pura-tilt>`, which rotates the whole block, nothing rotates here: the depth illusion comes purely from layered translation inside a `perspective` scene. Tracking is event-driven, `pointermove` writes `--pura-pp-x`/`--pura-pp-y` on the host and each layer applies `translate3d(calc(offset * depth * strength))` in CSS, no rAF loop. On leave the layers spring back to center with a sampled spring `linear(...)` easing, same mechanism as `<pura-tilt>` and `<pura-magnetic>`. Layers are stacked into the same grid cell, so SSR and pre-JS paint a flat, centered composition; under `prefers-reduced-motion` the pointer logic never binds. Each instance registers in `window.__puraPointerParallaxs` by `data-pura-id` with `{ strength, axis, reset }`, and `data-pura-pp-active` mirrors hover state for agents and styling.",
+  "attributes": [
+    {
+      "name": "strength",
+      "type": "number",
+      "default": "16",
+      "desc": "Max shift in px per unit of depth when the pointer reaches the surface edge."
+    },
+    {
+      "name": "perspective",
+      "type": "number",
+      "default": "1000",
+      "desc": "Perspective depth in px for the 3D scene. Smaller = more dramatic."
+    },
+    {
+      "name": "axis",
+      "type": "\"both\" | \"x\" | \"y\"",
+      "default": "both",
+      "desc": "Restrict the parallax to one axis."
+    },
+    {
+      "name": "preset",
+      "type": "\"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "",
+      "desc": "Spring preset for the settle-back easing. Or tune stiffness / damping / mass directly."
+    },
+    {
+      "name": "stiffness",
+      "type": "number",
+      "default": "170",
+      "desc": "Spring stiffness for the settle."
+    },
+    {
+      "name": "damping",
+      "type": "number",
+      "default": "26",
+      "desc": "Spring damping for the settle."
+    },
+    {
+      "name": "mass",
+      "type": "number",
+      "default": "1",
+      "desc": "Spring mass for the settle."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-pointer-parallax strength=\"22\" style=\"border-radius: 1rem;\">\n  <img data-depth=\"-0.6\" src=\"https://picsum.photos/seed/parallax-bg/640/360\" alt=\"\" style=\"display: block; width: min(420px, 80vw); border-radius: 1rem;\" />\n  <div data-depth=\"0.8\" style=\"display: grid; place-items: center; pointer-events: none;\">\n    <div style=\"padding: .75rem 1.5rem; border-radius: .75rem; background: rgb(0 0 0 / 0.55); color: #fff; font: 700 1.3rem system-ui; letter-spacing: .02em; backdrop-filter: blur(4px);\">DEPTH</div>\n  </div>\n  <div data-depth=\"1.6\" style=\"display: grid; place-items: end start; pointer-events: none; padding: 1rem;\">\n    <div style=\"padding: .35rem .75rem; border-radius: 999px; background: #fff; color: #09090b; font: 600 .8rem system-ui; box-shadow: 0 10px 24px -10px rgb(0 0 0 / 0.5);\">hover me</div>\n  </div>\n</pura-pointer-parallax>",
+  "usage": "<!-- hero card: background drifts away, title and badge chase the pointer -->\n<pura-pointer-parallax strength=\"20\">\n  <img data-depth=\"-0.5\" src=\"/photos/landscape.jpg\" alt=\"Landscape\" />\n  <h2 data-depth=\"1\" style=\"display: grid; place-items: center; pointer-events: none;\">Explore</h2>\n  <span data-depth=\"1.8\" class=\"badge\" style=\"pointer-events: none;\">New</span>\n</pura-pointer-parallax>\n\n<!-- subtle horizontal-only parallax with a gentle spring settle -->\n<pura-pointer-parallax strength=\"10\" axis=\"x\" preset=\"gentle\">\n  <img data-depth=\"-1\" src=\"/photos/sky.jpg\" alt=\"\" />\n  <img data-depth=\"0.6\" src=\"/photos/foreground.png\" alt=\"\" style=\"pointer-events: none;\" />\n</pura-pointer-parallax>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -6959,24 +10411,24 @@ export const components = [
       "title": "FAQ"
     },
     {
-      "slug": "banner",
-      "title": "Banner"
-    },
-    {
       "slug": "testimonial",
       "title": "Testimonial"
     },
     {
-      "slug": "segmented-control",
-      "title": "Segmented Control"
+      "slug": "banner",
+      "title": "Banner"
     },
     {
-      "slug": "stat",
-      "title": "Stat"
+      "slug": "border-beam",
+      "title": "Border Beam"
     },
     {
-      "slug": "stat-grid",
-      "title": "Stat Grid"
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
     }
   ],
   "relatedBlocks": [
@@ -6987,6 +10439,10 @@ export const components = [
     {
       "slug": "pricing",
       "title": "Pricing"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
     }
   ]
 },
@@ -7065,6 +10521,48 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "progressive-blur",
+  "title": "Progressive Blur",
+  "category": "Animation",
+  "blurb": "Gradient blur on the edges of a scrollable container: content leaving the reading area dissolves into a progressive blur instead of cutting off hard. Stacked backdrop-filter layers clipped by gradient masks; 100% CSS, no listeners.",
+  "description": "`<pura-progressive-blur>` wraps scrollable content and dissolves whatever leaves the reading area into a gradient blur instead of a hard cut, the premium finish seen in lists, feeds and sidebars. It stacks a few overlay layers per edge, each applying a stronger `backdrop-filter: blur()` and clipped by a `mask-image` gradient band, so the blur ramps smoothly from zero to the maximum at the edge. The effect is 100% CSS: no scroll listeners, no per-frame JS, and the SSR paint is identical to the live one. `edges` picks which sides get the zone, `blur` the maximum strength, `size` the zone depth and `layers` the ramp smoothness. Browsers without `backdrop-filter` fall back to a plain fade in `--pura-progressive-blur-fade` (transparent by default). The inner scroller is keyboard focusable; overlays are aria-hidden and click-through. Each instance registers in `window.__puraProgressiveBlurs` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "edges",
+      "type": "\"vertical\" | \"horizontal\" | \"top\" | \"bottom\" | \"left\" | \"right\" | \"all\"",
+      "default": "vertical",
+      "desc": "Which edges get the blur zone. vertical = top + bottom, horizontal = left + right."
+    },
+    {
+      "name": "blur",
+      "type": "number",
+      "default": "12",
+      "desc": "Maximum blur in px at the outer edge. The ramp halves per layer toward the content."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "4rem",
+      "desc": "Depth of the blur zone. CSS length (px, rem, em, vh, vw, %) or a bare number treated as px."
+    },
+    {
+      "name": "layers",
+      "type": "number",
+      "default": "5",
+      "desc": "Number of stacked backdrop-filter layers, clamped to 2..8. More layers give a smoother ramp."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-progressive-blur blur=\"14\" size=\"72\" style=\"height: 300px; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; background: var(--pura-bg, #fff);\">\n  <div style=\"display: grid; gap: 12px; padding: 16px;\">\n    <img src=\"https://picsum.photos/seed/pb1/420/130\" alt=\"\" style=\"width: 100%; border-radius: 8px; display: block;\" />\n    <p style=\"margin: 0; font-size: .9rem; color: var(--pura-muted-fg, #52525b);\">Scroll this panel: items fade into a progressive blur at the top and bottom edges instead of cutting off.</p>\n    <img src=\"https://picsum.photos/seed/pb2/420/130\" alt=\"\" style=\"width: 100%; border-radius: 8px; display: block;\" />\n    <p style=\"margin: 0; font-size: .9rem; color: var(--pura-muted-fg, #52525b);\">The effect is pure CSS, so it costs nothing per frame and works before any JS runs.</p>\n    <img src=\"https://picsum.photos/seed/pb3/420/130\" alt=\"\" style=\"width: 100%; border-radius: 8px; display: block;\" />\n    <p style=\"margin: 0; font-size: .9rem; color: var(--pura-muted-fg, #52525b);\">Tune the depth with size, the strength with blur and the smoothness with layers.</p>\n    <img src=\"https://picsum.photos/seed/pb4/420/130\" alt=\"\" style=\"width: 100%; border-radius: 8px; display: block;\" />\n    <img src=\"https://picsum.photos/seed/pb5/420/130\" alt=\"\" style=\"width: 100%; border-radius: 8px; display: block;\" />\n  </div>\n</pura-progressive-blur>",
+  "usage": "<!-- vertical feed: content melts into blur at top and bottom -->\n<pura-progressive-blur style=\"height: 420px;\">\n  <ul class=\"feed\">\n    <li>...</li>\n    <li>...</li>\n  </ul>\n</pura-progressive-blur>\n\n<!-- horizontal strip with a deeper, stronger zone on left and right -->\n<pura-progressive-blur edges=\"horizontal\" blur=\"16\" size=\"6rem\" style=\"height: 96px;\">\n  <div style=\"display: flex; gap: 24px; width: max-content; align-items: center;\">\n    <img src=\"/logos/a.svg\" alt=\"Logo A\" />\n    <img src=\"/logos/b.svg\" alt=\"Logo B\" />\n    <img src=\"/logos/c.svg\" alt=\"Logo C\" />\n  </div>\n</pura-progressive-blur>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "prose",
   "title": "Typography",
   "category": "Display",
@@ -7080,10 +10578,6 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "code-block",
-      "title": "Code Block"
-    },
-    {
       "slug": "reactions",
       "title": "Reactions"
     },
@@ -7094,6 +10588,10 @@ export const components = [
     {
       "slug": "breadcrumb",
       "title": "Breadcrumb"
+    },
+    {
+      "slug": "code-block",
+      "title": "Code Block"
     },
     {
       "slug": "avatar",
@@ -7140,6 +10638,48 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "pulse-rings",
+  "title": "Pulse Rings",
+  "category": "Animation",
+  "blurb": "Concentric rings that expand and fade from the center behind the slotted content, the classic soft signal or radar backdrop. Pure CSS keyframes with a deterministic stagger, zero per-frame JS, static frozen frame under reduced motion.",
+  "description": "`<pura-pulse-rings>` draws concentric rings that expand and fade out from the center behind the slotted content (a logo, avatar, or icon): the classic soft signal or radar backdrop. It is distinct from `<pura-ripple>`, which is a pointer-triggered touch ripple. Each ring is a pure CSS `@keyframes` loop with a deterministic per-index negative delay, so the field is already mid-cycle on first paint, works with no client JS, and the server and client render byte-identical markup. `count`, `duration` and `scale` shape the field; `filled` adds a faint background tint per ring. Size and color via `--pura-pulse-rings-size`, `--pura-pulse-rings-color`, `--pura-pulse-rings-border` and `--pura-pulse-rings-opacity`. Under reduced motion the loop is media-gated off and the rings hold a static staggered frame. Each instance registers in `window.__puraPulseRingss` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "4",
+      "desc": "Number of rings, capped at 8."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "3",
+      "desc": "Seconds per expand and fade cycle."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "default": "2.5",
+      "desc": "Expansion factor each ring grows to before vanishing."
+    },
+    {
+      "name": "filled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Tints each ring with a faint background fill."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; height: 300px; overflow: hidden;\">\n  <pura-pulse-rings count=\"4\" duration=\"3\" style=\"--pura-pulse-rings-size: 130px;\">\n    <img src=\"https://picsum.photos/seed/pulse-rings/96/96\" alt=\"Avatar\" style=\"width: 96px; height: 96px; border-radius: 999px; display: block; box-shadow: 0 4px 16px rgba(0,0,0,.18);\" />\n  </pura-pulse-rings>\n</div>",
+  "usage": "<!-- radar backdrop behind a logo -->\n<pura-pulse-rings style=\"height: 320px;\">\n  <img src=\"/logo.svg\" alt=\"Acme\" width=\"96\" height=\"96\" />\n</pura-pulse-rings>\n\n<!-- denser, filled, brand-colored field behind an icon button -->\n<pura-pulse-rings count=\"6\" duration=\"4\" scale=\"3\" filled\n  style=\"height: 280px; --pura-pulse-rings-size: 90px; --pura-pulse-rings-color: var(--pura-primary, #6366f1);\">\n  <button aria-label=\"Start broadcast\" style=\"width: 64px; height: 64px; border-radius: 999px;\">Go</button>\n</pura-pulse-rings>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -7432,8 +10972,38 @@ export const components = [
   "demoHTML": "<div style=\"display:flex;flex-direction:column;gap:12px;align-items:flex-start\">\n  <pura-rating id=\"nota\" value=\"3\" max=\"5\" allow-half label=\"Rate the product\"></pura-rating>\n  <p id=\"saida\" style=\"font:14px system-ui;margin:0\">Selected rating: 3</p>\n</div>\n<script type=\"module\">\n  const r = document.getElementById(\"nota\");\n  const out = document.getElementById(\"saida\");\n  r.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected rating: \" + e.detail.value;\n  });\n</script>",
   "usage": "<pura-rating id=\"nota\" value=\"3\" max=\"5\" allow-half label=\"Rate the product\"></pura-rating>\n<p id=\"saida\">Selected rating: 3</p>\n<script type=\"module\">\n  const r = document.getElementById(\"nota\");\n  const out = document.getElementById(\"saida\");\n  r.addEventListener(\"change\", (e) => {\n    out.textContent = \"Selected rating: \" + e.detail.value;\n  });\n</script>",
   "animation": false,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "countdown",
+      "title": "Countdown"
+    },
+    {
+      "slug": "image-compare",
+      "title": "Image Compare"
+    },
+    {
+      "slug": "masonry",
+      "title": "Masonry"
+    },
+    {
+      "slug": "swatch-picker",
+      "title": "Swatch Picker"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    }
+  ]
 },
 {
   "slug": "reactions",
@@ -7490,10 +11060,6 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "code-block",
-      "title": "Code Block"
-    },
-    {
       "slug": "scroll-spy",
       "title": "Scroll Spy"
     },
@@ -7504,6 +11070,10 @@ export const components = [
     {
       "slug": "breadcrumb",
       "title": "Breadcrumb"
+    },
+    {
+      "slug": "code-block",
+      "title": "Code Block"
     },
     {
       "slug": "avatar",
@@ -7797,6 +11367,102 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "scramble",
+  "title": "Scramble",
+  "category": "Animation",
+  "blurb": "ScrambleText decode: the text resolves out of random glyph noise, locking in character by character from the left. Deterministic seeded noise, accessible by design (aria-label carries the real text, the animated span is aria-hidden), full text under SSR and reduced motion.",
+  "description": "`<pura-scramble>` is the gsap ScrambleText move: the text resolves out of random glyph noise, locking in character by character from the left, the hacker/decode effect. JS drives the per-tick character swap (that is its purpose), but everything around it stays disciplined: the host `aria-label` always carries the real text, the animated span is `aria-hidden` so screen readers never hear the noise, whitespace is preserved so layout never jumps, and the noise comes from a seeded LCG rather than `Math.random`, so runs are deterministic and testable. SSR, no-JS, and reduced motion all show the full final text. `trigger=\"view\"` (default) decodes when scrolled into view; `\"load\"` on connect; `\"hover\"` re-decodes on every pointerenter (the nav-link move); `\"manual\"` waits for `play()`. The glyph pool is a named set (`upper`, `lower`, `digits`, `binary`, `blocks`) or any custom string via `chars`. `from` picks the lock direction: `left` (default), `right`, `center` (resolves center-out, the motion.dev stagger-from-center move) or `edges` (resolves edges-in). Each instance registers in `window.__puraScrambles` by `data-pura-id` with `{ text, play }`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "\"\"",
+      "desc": "The string to decode. Also what SSR and no-JS render."
+    },
+    {
+      "name": "chars",
+      "type": "\"upper\" | \"lower\" | \"digits\" | \"binary\" | \"blocks\" | string",
+      "default": "upper",
+      "desc": "Glyph pool for the noise. A named set, or any custom string of 2+ characters."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "35",
+      "desc": "Milliseconds per tick."
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": "1",
+      "desc": "Characters locked in per tick."
+    },
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"load\" | \"hover\" | \"manual\"",
+      "default": "view",
+      "desc": "view decodes when scrolled into view; load on connect; hover re-decodes on every pointerenter; manual waits for play()."
+    },
+    {
+      "name": "from",
+      "type": "\"left\" | \"right\" | \"center\" | \"edges\"",
+      "default": "left",
+      "desc": "Lock direction: left is the classic prefix decode; center resolves center-out; edges resolves edges-in; right decodes right-to-left."
+    }
+  ],
+  "events": [
+    {
+      "name": "pura-scramble",
+      "detail": "{ id: string, text: string }",
+      "desc": "Fires when a decode finishes."
+    }
+  ],
+  "slots": [],
+  "demoHTML": "<pura-scramble trigger=\"load\" text=\"DECODING COMPLETE\" speed=\"28\"\n  style=\"font: 700 clamp(1.4rem, 5vw, 2.4rem)/1.2 ui-monospace, monospace; letter-spacing: .04em; color: var(--pura-fg, #09090b);\"></pura-scramble>\n<div style=\"height: 1rem;\"></div>\n<button type=\"button\" onclick=\"this.previousElementSibling.previousElementSibling.play()\" style=\"font: 500 .85rem system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .4rem; background: var(--pura-bg, #fff); cursor: pointer;\">replay</button>",
+  "usage": "<!-- decode when it scrolls into view -->\n<pura-scramble text=\"Trust the process.\"></pura-scramble>\n\n<!-- nav link that re-scrambles on hover -->\n<a href=\"/work\" style=\"text-decoration:none\">\n  <pura-scramble trigger=\"hover\" text=\"WORK\" speed=\"22\"></pura-scramble>\n</a>\n\n<!-- terminal vibe: binary noise, faster lock-in -->\n<pura-scramble text=\"ACCESS GRANTED\" chars=\"binary\" step=\"2\" speed=\"24\"\n               style=\"font-family: ui-monospace, monospace;\"></pura-scramble>\n\n<!-- resolve from the center outward -->\n<pura-scramble text=\"CENTER OUT\" from=\"center\" speed=\"30\"></pura-scramble>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    },
+    {
+      "slug": "marquee",
+      "title": "Marquee"
+    },
+    {
+      "slug": "tilt",
+      "title": "Tilt"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    },
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
+},
+{
   "slug": "scroll-area",
   "title": "Scroll Area",
   "category": "Navigation",
@@ -7827,6 +11493,104 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "scroll-highlight",
+  "title": "Scroll Highlight",
+  "category": "Animation",
+  "blurb": "Text that highlights word by word as you scroll: every word rides the host's named view timeline on its own animation-range slice, so the highlight sweeps through the text 1:1 with scroll. Zero per-frame JS.",
+  "description": "`<pura-scroll-highlight>` is the motion.dev \"highlight text\" move: a paragraph where the words light up one by one as you scroll, like a reader following the line. The host carries a named view timeline (`view-timeline: --pura-shl`) and the element splits the slotted text into word spans, each animating its color on that shared timeline with its own contiguous `animation-range` slice, so the highlight sweeps through the text 1:1 with scroll and no per-frame JS runs. `start` and `end` set the view progress window (cover %) over which the sweep happens. Colors come from `--pura-scroll-highlight-color` (highlighted, default `currentColor`) and `--pura-scroll-highlight-base` (dimmed, default 30% `currentColor`). The split words are an aria-hidden shadow copy; the slot stays as the accessible original. SSR, no scroll-timeline support, and reduced motion all show the text fully highlighted, never dimmed.",
+  "attributes": [
+    {
+      "name": "start",
+      "type": "number",
+      "default": "10",
+      "desc": "View progress (cover %) where the first word begins highlighting."
+    },
+    {
+      "name": "end",
+      "type": "number",
+      "default": "75",
+      "desc": "View progress (cover %) where the last word finishes highlighting."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 240px; overflow-y: auto; padding: 1rem;\">\n  <div style=\"height: 160px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <pura-scroll-highlight start=\"5\" end=\"85\" style=\"font: 600 1.15rem/1.7 system-ui; color: var(--pura-fg, #09090b);\">Each word lights up as it crosses your reading position, swept along by the scroll itself, with not a single frame of JavaScript running.</pura-scroll-highlight>\n  <div style=\"height: 220px;\"></div>\n</div>",
+  "usage": "<!-- words highlight as the paragraph crosses the viewport -->\n<pura-scroll-highlight>\n  Long-form copy that reads itself in as you scroll.\n</pura-scroll-highlight>\n\n<!-- custom window and colors -->\n<pura-scroll-highlight start=\"20\" end=\"60\"\n  style=\"--pura-scroll-highlight-color: #a3e635; --pura-scroll-highlight-base: #3f3f46;\">\n  Lime sweep over zinc.\n</pura-scroll-highlight>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "gallery-3d",
+      "title": "Gallery 3D"
+    },
+    {
+      "slug": "image-trail",
+      "title": "Image Trail"
+    },
+    {
+      "slug": "scroll-zoom",
+      "title": "Scroll Zoom"
+    },
+    {
+      "slug": "split",
+      "title": "Split Text"
+    },
+    {
+      "slug": "text-fill",
+      "title": "Text Fill"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
+},
+{
+  "slug": "scroll-loop",
+  "title": "Infinite Scroll Loop",
+  "category": "Animation",
+  "blurb": "Infinite looping scroll: reaching the end of the content wraps around and continues from the start with no visible seam, the circular-gallery pattern of awwwards portfolios. Unlike pura-infinite-scroll nothing is loaded; the same content repeats forever.",
+  "description": "`<pura-scroll-loop>` is the infinite looping scroller of awwwards portfolios and circular galleries: when the scroll reaches the end of the content it wraps around and continues from the start with no visible seam (Lenis infinite, Locomotive Scroll infinite mode). Unlike `<pura-infinite-scroll>`, which fires a load event for more data, nothing is loaded here; the same content repeats forever. The slotted content is cloned once into an `aria-hidden`, inert head clone and once into a tail clone; a passive scroll handler repositions the offset by exactly one copy-length when it crosses a seam, landing on identical pixels, so the jump is imperceptible. `axis=\"x\"` loops horizontally, `disabled` restores a normal finite scroller, and the `loop` event reports each wrap with its direction. SSR, pre-JS, and reduced motion all render a single copy with normal scroll and a regular scrollbar. Size the host with `--pura-scroll-loop-height` or an inline height. Each instance registers in `window.__puraScrollLoops` by `data-pura-id` with `{ refresh, scrollToStart }`; `data-pura-loop-active` and `data-pura-loop-count` mirror live state.",
+  "attributes": [
+    {
+      "name": "axis",
+      "type": "\"y\" | \"x\"",
+      "default": "y",
+      "desc": "Scroll axis of the loop."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Turns the loop off; content scrolls normally and ends."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Looping scroll gallery",
+      "desc": "Accessible name of the scroll region."
+    }
+  ],
+  "events": [
+    "loop"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-scroll-loop label=\"Looping photo wall\" style=\"height: 320px; max-width: 380px; margin-inline: auto;\">\n  <figure style=\"margin: 0 0 12px;\">\n    <img src=\"https://picsum.photos/seed/loop1/600/400\" alt=\"\" style=\"display: block; width: 100%; border-radius: 12px;\" />\n    <figcaption style=\"font-size: .8rem; color: var(--pura-muted-fg, #52525b); padding: 4px 2px 0;\">Northern ridge</figcaption>\n  </figure>\n  <figure style=\"margin: 0 0 12px;\">\n    <img src=\"https://picsum.photos/seed/loop2/600/400\" alt=\"\" style=\"display: block; width: 100%; border-radius: 12px;\" />\n    <figcaption style=\"font-size: .8rem; color: var(--pura-muted-fg, #52525b); padding: 4px 2px 0;\">Harbor at dusk</figcaption>\n  </figure>\n  <figure style=\"margin: 0 0 12px;\">\n    <img src=\"https://picsum.photos/seed/loop3/600/400\" alt=\"\" style=\"display: block; width: 100%; border-radius: 12px;\" />\n    <figcaption style=\"font-size: .8rem; color: var(--pura-muted-fg, #52525b); padding: 4px 2px 0;\">Glass pavilion</figcaption>\n  </figure>\n  <figure style=\"margin: 0 0 12px;\">\n    <img src=\"https://picsum.photos/seed/loop4/600/400\" alt=\"\" style=\"display: block; width: 100%; border-radius: 12px;\" />\n    <figcaption style=\"font-size: .8rem; color: var(--pura-muted-fg, #52525b); padding: 4px 2px 0;\">Dune field</figcaption>\n  </figure>\n</pura-scroll-loop>",
+  "usage": "<!-- vertical portfolio loop: scrolling past the last project wraps to the first -->\n<pura-scroll-loop label=\"Projects\" style=\"height: 100vh;\">\n  <section class=\"project\">Project one</section>\n  <section class=\"project\">Project two</section>\n  <section class=\"project\">Project three</section>\n</pura-scroll-loop>\n\n<!-- horizontal circular gallery; count the wraps -->\n<pura-scroll-loop axis=\"x\" label=\"Gallery\" style=\"height: 320px;\">\n  <img src=\"/photos/a.jpg\" alt=\"A\" style=\"height: 100%;\" />\n  <img src=\"/photos/b.jpg\" alt=\"B\" style=\"height: 100%;\" />\n  <img src=\"/photos/c.jpg\" alt=\"C\" style=\"height: 100%;\" />\n</pura-scroll-loop>\n<script>\n  document.querySelector(\"pura-scroll-loop[axis=x]\")\n    .addEventListener(\"loop\", (e) => console.log(\"wrapped\", e.detail.direction));\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "scroll-progress",
   "title": "Scroll Progress",
   "category": "Navigation",
@@ -7853,8 +11617,42 @@ export const components = [
   "demoHTML": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727, brought from the neighboring region of French Guiana. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and, later, the western part of Sao Paulo, transforming the country's economy.</p>\n  <p>The coffee cycle funded railways, ports and European immigration, shaping entire cities around the bean route.</p>\n  <p>By the 20th century, Brazil was already the world's largest producer, a position it still holds today, with specialty coffees becoming increasingly valued.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>The aroma of artisanal roasteries became a symbol of regions such as Southern Minas, Cerrado Mineiro and Mogiana.</p>\n  <p>Today, domestic consumption grows alongside exports, and the coffee ritual remains part of everyday Brazilian life.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>",
   "usage": "<pura-scroll-progress color=\"#7c3aed\" height=\"5px\"></pura-scroll-progress>\n\n<article style=\"max-width:640px;margin:0 auto;padding:24px;font-family:system-ui,sans-serif;line-height:1.7\">\n  <h1>The history of coffee in Brazil</h1>\n  <p id=\"status\" style=\"color:#7c3aed;font-weight:600\">Reading progress: 0%</p>\n  <p>Coffee arrived in Brazil in 1727. Scroll down the page and watch the purple bar at the top of the window fill as you move through the text.</p>\n  <p>Within a few decades, the plantations spread across the Paraiba Valley and the western part of Sao Paulo.</p>\n  <p>Keep scrolling to see the bar reach close to 100% at the end of the text.</p>\n  <p>End of the reading. The bar should be complete now.</p>\n</article>\n\n<script type=\"module\">\n  const bar = document.querySelector('pura-scroll-progress');\n  const status = document.getElementById('status');\n  bar.addEventListener('pura-scroll-progress', (e) => {\n    status.textContent = 'Reading progress: ' + e.detail.percent + '%';\n  });\n</script>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    },
+    {
+      "slug": "type-morph",
+      "title": "Type Morph"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "scroll-reveal",
@@ -7941,10 +11739,6 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "code-block",
-      "title": "Code Block"
-    },
-    {
       "slug": "reactions",
       "title": "Reactions"
     },
@@ -7955,6 +11749,10 @@ export const components = [
     {
       "slug": "breadcrumb",
       "title": "Breadcrumb"
+    },
+    {
+      "slug": "code-block",
+      "title": "Code Block"
     },
     {
       "slug": "avatar",
@@ -8012,6 +11810,72 @@ export const components = [
   "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
+},
+{
+  "slug": "scroll-zoom",
+  "title": "Scroll Zoom",
+  "category": "Animation",
+  "blurb": "Apple-style scroll zoom: the slotted media starts small and rounded and grows to full bleed as you scroll, tied 1:1 to a scroll-driven timeline. Zero per-frame JS.",
+  "description": "`<pura-scroll-zoom>` is the Apple-style scroll zoom: the slotted image or video starts small and rounded in the middle of the viewport and grows to full bleed as you scroll, tied 1:1 to a scroll-driven timeline (`animation-timeline: view()`), so no per-frame JS runs. The frame animates `scale` and `border-radius`; the slotted media just fills it with `object-fit: cover`. `from` sets the starting scale, `range` the scroll window over which the zoom happens, and `--pura-scroll-zoom-radius` the starting corner radius. SSR, browsers without scroll-driven timelines, and reduced motion all render the media at full size. Each instance registers in `window.__puraScrollZooms` by `data-pura-id` with `{ from }`.",
+  "attributes": [
+    {
+      "name": "from",
+      "type": "number",
+      "default": "0.5",
+      "desc": "Starting scale, 0..1."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 65%",
+      "desc": "animation-range for the scrub timeline."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "view maps the element's own view progress; scroll maps the nearest scroll container."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 280px; overflow-y: auto;\">\n  <div style=\"height: 220px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <pura-scroll-zoom from=\"0.45\" range=\"cover 0% cover 90%\" style=\"height: 240px;\">\n    <img src=\"https://picsum.photos/seed/zoom/1200/600\" alt=\"\" />\n  </pura-scroll-zoom>\n  <div style=\"height: 220px;\"></div>\n</div>",
+  "usage": "<!-- image grows from 50% to full-bleed as it crosses the viewport -->\n<pura-scroll-zoom style=\"height: 100vh;\">\n  <img src=\"/photos/hero.jpg\" alt=\"Hero\" />\n</pura-scroll-zoom>\n\n<!-- subtler zoom over a longer scroll window -->\n<pura-scroll-zoom from=\"0.75\" range=\"cover 0% cover 100%\" style=\"height: 80vh;\">\n  <video src=\"/reel.mp4\" autoplay muted loop playsinline></video>\n</pura-scroll-zoom>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "gallery-3d",
+      "title": "Gallery 3D"
+    },
+    {
+      "slug": "image-trail",
+      "title": "Image Trail"
+    },
+    {
+      "slug": "scroll-highlight",
+      "title": "Scroll Highlight"
+    },
+    {
+      "slug": "split",
+      "title": "Split Text"
+    },
+    {
+      "slug": "text-fill",
+      "title": "Text Fill"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
 },
 {
   "slug": "search-field",
@@ -8144,34 +12008,38 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
+      "slug": "faq",
+      "title": "FAQ"
+    },
+    {
       "slug": "calendar",
       "title": "Calendar"
+    },
+    {
+      "slug": "countdown",
+      "title": "Countdown"
     },
     {
       "slug": "dialog",
       "title": "Dialog"
     },
     {
-      "slug": "notification-item",
-      "title": "Notification Item"
+      "slug": "image-compare",
+      "title": "Image Compare"
     },
     {
-      "slug": "toast",
-      "title": "Toast"
-    },
-    {
-      "slug": "faq",
-      "title": "FAQ"
-    },
-    {
-      "slug": "pricing-table",
-      "title": "Pricing Table"
+      "slug": "masonry",
+      "title": "Masonry"
     }
   ],
   "relatedBlocks": [
     {
       "slug": "calendar-app",
       "title": "Calendar"
+    },
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
     },
     {
       "slug": "notifications",
@@ -8310,12 +12178,12 @@ export const components = [
       "title": "Field"
     },
     {
-      "slug": "input-group",
-      "title": "Input Group"
+      "slug": "card",
+      "title": "Card"
     },
     {
-      "slug": "number-input",
-      "title": "Number Input"
+      "slug": "input-group",
+      "title": "Input Group"
     },
     {
       "slug": "radio",
@@ -8344,6 +12212,42 @@ export const components = [
       "title": "Settings"
     }
   ]
+},
+{
+  "slug": "sheen",
+  "title": "Sheen / Glare Hover",
+  "category": "Animation",
+  "blurb": "A diagonal light streak sweeps across the slotted content once per hover, without tilting anything. Pure CSS: a translucent gradient overlay crossing the frame via a transform transition. The flat counterpart to the tilt glare, for buttons, cards and images.",
+  "description": "`<pura-sheen>` is the glare hover: a diagonal light streak sweeps across the slotted content once when the pointer enters, without tilting anything. It is the flat counterpart to `<pura-tilt glare>`, made for buttons, cards and images. The streak is a translucent linear-gradient overlay parked off-frame; hovering (or focusing inside) transitions its transform across the surface exactly once, and leaving resets it instantly for the next pass. `duration` and `angle` shape the sweep, `loop` makes it ambient (sweeping continuously, gated behind `prefers-reduced-motion: no-preference`), and `sheen.sweep()` triggers a pass programmatically. Tune the look with `--pura-sheen-color`, `--pura-sheen-width` and `--pura-sheen-radius`. SSR and reduced motion render the content with the streak off-frame, fully static. Each instance registers in `window.__puraSheens` by `data-pura-id` with `{ duration, angle, sweep }`.",
+  "attributes": [
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "800",
+      "desc": "Sweep duration in ms."
+    },
+    {
+      "name": "angle",
+      "type": "number",
+      "default": "120",
+      "desc": "Gradient angle of the streak, in degrees."
+    },
+    {
+      "name": "loop",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Sweep continuously without a pointer (ambient mode). Gated behind prefers-reduced-motion: no-preference."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center;\">\n  <pura-sheen style=\"--pura-sheen-radius: 14px;\">\n    <img src=\"https://picsum.photos/seed/sheen/340/200\" alt=\"\" style=\"display: block; width: 340px; height: 200px; object-fit: cover;\" />\n  </pura-sheen>\n  <pura-sheen duration=\"600\" angle=\"105\" style=\"--pura-sheen-radius: 10px; --pura-sheen-color: rgba(255,255,255,0.35);\">\n    <button style=\"padding: 0.85rem 1.75rem; border: 0; border-radius: 10px; background: var(--pura-primary, #18181b); color: var(--pura-primary-fg, #fafafa); font-size: 0.95rem; cursor: pointer;\">Hover me</button>\n  </pura-sheen>\n  <pura-sheen loop duration=\"1200\" style=\"--pura-sheen-radius: 12px; --pura-sheen-width: 10%;\">\n    <div style=\"width: 180px; padding: 1.1rem 1.25rem; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #9333ea); color: #fff; font-size: 0.85rem;\">Ambient loop, no pointer needed</div>\n  </pura-sheen>\n</div>",
+  "usage": "<!-- one diagonal glare pass per hover, no tilt -->\n<pura-sheen style=\"--pura-sheen-radius: 14px;\">\n  <img src=\"/photos/card.jpg\" alt=\"Product\" />\n</pura-sheen>\n\n<!-- faster, steeper sweep on a button; ambient loop on a banner -->\n<pura-sheen duration=\"500\" angle=\"100\" style=\"--pura-sheen-color: rgba(255,255,255,0.3);\">\n  <button class=\"cta\">Buy now</button>\n</pura-sheen>\n<pura-sheen loop duration=\"1500\" style=\"--pura-sheen-width: 10%;\">\n  <div class=\"banner\">Limited offer</div>\n</pura-sheen>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "sheet",
@@ -8382,36 +12286,6 @@ export const components = [
   "demoHTML": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>",
   "usage": "<pura-button id=\"abrir-sheet\">Open panel</pura-button>\n\n<pura-sheet id=\"meu-sheet\" title=\"Edit profile\" side=\"right\">\n  <p>Update your information and click save when you're done.</p>\n  <pura-input label=\"Name\" value=\"Andre\"></pura-input>\n  <pura-input label=\"Email\" value=\"andre@aex.partners\"></pura-input>\n\n  <pura-button slot=\"footer\" variant=\"ghost\" id=\"cancelar-sheet\">Cancel</pura-button>\n  <pura-button slot=\"footer\" id=\"salvar-sheet\">Save</pura-button>\n</pura-sheet>\n\n<script type=\"module\">\n  const sheet = document.getElementById(\"meu-sheet\");\n  document.getElementById(\"abrir-sheet\").addEventListener(\"click\", () => sheet.open());\n  document.getElementById(\"cancelar-sheet\").addEventListener(\"click\", () => sheet.close());\n  document.getElementById(\"salvar-sheet\").addEventListener(\"click\", () => sheet.close());\n</script>",
   "animation": false,
-  "relatedComponents": [],
-  "relatedBlocks": []
-},
-{
-  "slug": "shine-border",
-  "title": "Shine Border",
-  "category": "Display",
-  "blurb": "A conic sheen rotates around the rounded border of any container. Pure CSS via @property angle + mask-composite, SSR-safe, reduced-motion aware.",
-  "description": "`<pura-shine-border>` rotates a conic sheen around the rounded border of any container, in the style of Magic UI's Shine Border. The motion is pure CSS: a `::before` ring painted with a `conic-gradient`, clipped to the border with a `mask-composite` trick, and spun by animating an `@property` angle, so there is no animation runtime and the effect works server-rendered. Tune it with the `duration` and `width` attributes, or theme the sheen with `--pura-shine-border-color` and `--pura-shine-border-color-2` (default primary→accent). Under reduced motion the sheen rests statically via the base reset. It registers in `window.__puraShineBorders` by `data-pura-id` for agent enumeration.",
-  "attributes": [
-    {
-      "name": "duration",
-      "type": "number",
-      "default": "4",
-      "desc": "Seconds for the sheen to complete one rotation."
-    },
-    {
-      "name": "width",
-      "type": "number",
-      "default": "1.5",
-      "desc": "Border thickness in pixels."
-    }
-  ],
-  "events": [],
-  "slots": [
-    "default"
-  ],
-  "demoHTML": "<pura-shine-border duration=\"3\" style=\"max-width: 320px;\">\n  <div style=\"padding: 1.5rem; border-radius: 12px; background: var(--pura-bg, #fff); font: 15px system-ui;\">\n    <b style=\"display:block; margin-bottom:.3rem;\">Shine Border</b>\n    <span style=\"color: var(--pura-muted-fg, #71717a);\">A sheen circles the frame, pure CSS, server-renderable.</span>\n  </div>\n</pura-shine-border>",
-  "usage": "<pura-shine-border duration=\"3\">\n  <div class=\"card\">Framed content</div>\n</pura-shine-border>\n\n<!-- Custom sheen colors -->\n<pura-shine-border style=\"--pura-shine-border-color: #06b6d4; --pura-shine-border-color-2: #3b82f6;\">\n  <div class=\"card\">Cyan sheen</div>\n</pura-shine-border>",
-  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -8697,6 +12571,124 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "smooth-scroll",
+  "title": "Smooth Scroll (lerp)",
+  "category": "Animation",
+  "blurb": "Lenis-style smoothed page scroll: wheel, touch and scrollbar input become fluid movement with inertia via a rAF lerp on a fixed content layer, with the native scrollbar preserved by a spacer. Includes programmatic scrollTo with easing and offset, and optional horizontal orientation.",
+  "description": "`<pura-smooth-scroll>` is the signature awwwards move: smoothed whole-page scrolling via interpolation (lerp), in the spirit of Lenis, GSAP ScrollSmoother and Locomotive Scroll. Wrap your page content and wheel, touch and scrollbar input become fluid movement with inertia. The technique is pure progressive enhancement: SSR renders the children in normal flow with native scroll intact; on connect the content becomes a fixed, transform-driven layer, a spacer keeps the document at the real height (so the native scrollbar, keyboard scrolling and assistive tech keep working), and a rAF loop lerps a translate toward the native scroll position. The loop idles when settled, so an unmoving page costs zero frames. `lerp` tunes the inertia, `horizontal` maps the vertical scrollbar to sideways movement, and `scrollTo(target, { offset, duration, easing })` gives you eased programmatic scrolling to a pixel value, selector or element. A `pura-smooth-scroll` event fires each frame while moving with `{ scroll, targetScroll, velocity, progress }`, handy for syncing parallax or progress UI. Reduced motion never activates the effect and the page scrolls natively. Each instance registers in `window.__puraSmoothScrolls` by `data-pura-id` with `{ lerp, horizontal, scrollTo }`, and `data-pura-ss-*` attributes mirror config and live progress. Note: the component is designed to wrap the entire page content, and anchor jumps inside the smoothed layer should go through `scrollTo`.",
+  "attributes": [
+    {
+      "name": "lerp",
+      "type": "number",
+      "default": "0.1",
+      "desc": "Interpolation factor per frame at 60fps, 0 to 1. Lower is floatier; 1 follows the scrollbar exactly."
+    },
+    {
+      "name": "horizontal",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Map the vertical scrollbar and wheel to horizontal movement of the content."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "1000",
+      "desc": "Default duration in milliseconds for programmatic scrollTo()."
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "default": "0",
+      "desc": "Default pixel offset applied by scrollTo(); negative stops short of the target, e.g. for a fixed header."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Keep native scrolling, no smoothing. Toggle at runtime to stop and start the effect."
+    }
+  ],
+  "events": [
+    "pura-smooth-scroll"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-smooth-scroll id=\"ss-demo\" lerp=\"0.07\">\n  <div style=\"max-width: 560px; margin: 0 auto; padding: 1rem; display: grid; gap: 1rem; font-family: system-ui, sans-serif; line-height: 1.6;\">\n    <h3 style=\"margin: 0;\">Scroll the page: this panel glides with inertia</h3>\n    <p style=\"margin: 0; color: var(--pura-muted-fg, #52525b);\">The content below is driven by a lerp toward the native scroll position, so it trails your wheel and settles softly. The scrollbar stays fully native.</p>\n    <div style=\"display: flex; gap: .5rem;\">\n      <button id=\"ss-go\" type=\"button\" style=\"font: 500 .9rem system-ui; padding: .5rem .9rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">scrollTo the end</button>\n      <button id=\"ss-back\" type=\"button\" style=\"font: 500 .9rem system-ui; padding: .5rem .9rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">back to top of demo</button>\n    </div>\n    <img src=\"https://picsum.photos/seed/lerp1/900/420\" alt=\"\" style=\"width: 100%; border-radius: .75rem; display: block;\" />\n    <p style=\"margin: 0;\">Flick fast and watch the lag: that elastic trailing is the lerp at work. Velocity and progress are exposed every frame on the <code>pura-smooth-scroll</code> event.</p>\n    <img src=\"https://picsum.photos/seed/lerp2/900/420\" alt=\"\" style=\"width: 100%; border-radius: .75rem; display: block;\" />\n    <p id=\"ss-end\" style=\"margin: 0; font-weight: 600;\">End of the smoothed section. The scrollTo button above eases here with an easeOutExpo curve.</p>\n  </div>\n</pura-smooth-scroll>\n<script type=\"module\">\n  const ss = document.getElementById(\"ss-demo\");\n  document.getElementById(\"ss-go\").addEventListener(\"click\", () => {\n    ss.scrollTo(\"#ss-end\", { offset: -24, duration: 1200 });\n  });\n  document.getElementById(\"ss-back\").addEventListener(\"click\", () => {\n    ss.scrollTo(ss, { offset: -24, duration: 1200 });\n  });\n</script>",
+  "usage": "<!-- wrap the whole page once; wheel, touch and scrollbar are smoothed -->\n<pura-smooth-scroll lerp=\"0.08\" offset=\"-80\">\n  <header>...</header>\n  <main>\n    <section id=\"work\">...</section>\n    <section id=\"contact\">...</section>\n  </main>\n  <footer>...</footer>\n</pura-smooth-scroll>\n\n<script type=\"module\">\n  const ss = document.querySelector(\"pura-smooth-scroll\");\n  // eased programmatic scroll; offset=-80 (from the attribute) clears the fixed header\n  document.querySelector(\"#nav-contact\").addEventListener(\"click\", () => {\n    ss.scrollTo(\"#contact\", { duration: 1400 });\n  });\n</script>\n\n<!-- horizontal scene: the vertical scrollbar drives sideways movement -->\n<pura-smooth-scroll horizontal lerp=\"0.1\">\n  <div style=\"display: flex; height: 100vh;\">\n    <section style=\"flex: 0 0 100vw;\">One</section>\n    <section style=\"flex: 0 0 100vw;\">Two</section>\n    <section style=\"flex: 0 0 100vw;\">Three</section>\n  </div>\n</pura-smooth-scroll>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "snow",
+  "title": "Snow",
+  "category": "Animation",
+  "blurb": "Gently falling snowflakes with lateral sway and layered depth (varied size, speed and opacity) behind its content. Deterministic scatter (SSR-stable), pure CSS @keyframes, reduced-motion aware.",
+  "description": "`<pura-snow>` paints gently falling snowflakes behind its slotted content, a seasonal and marketing background in the spirit of tsParticles' Snow preset. Flakes fall with a soft lateral sway, and three depth layers vary size, speed and opacity by index so the field reads as parallax. The scatter is deterministic in the pure template (no `Math.random`), so the server and client render the same field and the effect needs no client JS; each flake is driven by two CSS `@keyframes` (fall plus sway), so there is no animation runtime. Set `count` for density and theme with `--pura-snow-color`, `--pura-snow-glow`, `--pura-snow-size`, `--pura-snow-speed` and `--pura-snow-drift`. Under reduced motion (and pre-JS SSR) the flakes hold their static scattered positions, a still snowfall snapshot. It registers in `window.__puraSnows` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "48",
+      "desc": "Number of snowflakes to render (capped at 160)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-snow count=\"60\" style=\"border-radius: 12px; background: linear-gradient(180deg, #0b1020, #1e2a4a);\">\n  <div style=\"padding: 3rem 1.5rem; text-align: center; color: #e0e7ff; font: 600 18px system-ui; position: relative;\">\n    Snow\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .3rem;\">Layered flakes with drift, pure CSS, server-renderable.</div>\n  </div>\n</pura-snow>",
+  "usage": "<!-- seasonal hero background -->\n<pura-snow count=\"80\" style=\"background: #0b1020; --pura-snow-color: #e0e7ff;\">\n  <div class=\"hero\">Winter sale starts now</div>\n</pura-snow>\n\n<!-- subtle, slow flurry on a card -->\n<pura-snow count=\"30\" style=\"--pura-snow-speed: 0.6; --pura-snow-size: 0.8; --pura-snow-drift: 1.5;\">\n  <article class=\"card\">Holiday gift guide</article>\n</pura-snow>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "sortable",
+  "title": "Sortable",
+  "category": "Animation",
+  "blurb": "Drag-to-reorder list: grab an item and the siblings open space with a FLIP tween at every index swap; drop emits a 'change' event with the new order. SSR paints the static semantic list.",
+  "description": "`<pura-sortable>` is the drag-to-reorder list. Wrap a semantic `<ul>`/`<ol>` (or put items directly inside the host): grab an item with the pointer and the siblings open space with a FLIP tween at every index swap, the same WAAPI engine behind `pura-auto-animate`. On drop the item snaps into its slot and the component emits a bubbling `change` event with `{ item, from, to, order }`, where `order` is the list of item keys (`data-id`, `id`, or a stable generated key). Where `pura-kanban` covers a board with columns, this is the simple flat list. `axis=\"x\"` makes a horizontal strip, `handle` restricts the grab zone to a selector inside each item, and the lift look is themable via `--pura-sortable-drag-scale`, `--pura-sortable-drag-shadow`, and `--pura-sortable-drag-z`. Keyboard: items are focusable, Space/Enter lifts, arrows move, Space/Enter drops and emits, Escape restores. SSR and no-JS render the plain static list; reduced motion reorders instantly with no tween. Each instance registers in `window.__puraSortables` by `data-pura-id` with `{ order(), move(from, to) }` and mirrors live state in `data-pura-sortable-*` attributes.",
+  "attributes": [
+    {
+      "name": "axis",
+      "type": "\"y\" | \"x\"",
+      "default": "y",
+      "desc": "Drag direction. y for vertical lists (ArrowUp/Down), x for horizontal strips (ArrowLeft/Right)."
+    },
+    {
+      "name": "handle",
+      "type": "string",
+      "default": "",
+      "desc": "CSS selector inside each item that starts the drag. Empty: the whole item is draggable."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Disables pointer dragging and keyboard reordering."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "token --pura-duration-4",
+      "desc": "FLIP and drop-snap duration in milliseconds. Overrides the token-derived default."
+    }
+  ],
+  "events": [
+    "change"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; gap: var(--pura-space-3, 0.75rem); max-width: 360px;\">\n  <pura-sortable id=\"sort-demo\">\n    <ul style=\"display: grid; gap: 8px;\">\n      <li data-id=\"brief\" style=\"padding: 10px 14px; background: var(--pura-bg, #fff); color: var(--pura-fg, #18181b); border: 1px solid var(--pura-border, #e4e4e7); border-radius: 10px; font: 15px system-ui;\">Write the brief</li>\n      <li data-id=\"design\" style=\"padding: 10px 14px; background: var(--pura-bg, #fff); color: var(--pura-fg, #18181b); border: 1px solid var(--pura-border, #e4e4e7); border-radius: 10px; font: 15px system-ui;\">Design review</li>\n      <li data-id=\"build\" style=\"padding: 10px 14px; background: var(--pura-bg, #fff); color: var(--pura-fg, #18181b); border: 1px solid var(--pura-border, #e4e4e7); border-radius: 10px; font: 15px system-ui;\">Build the feature</li>\n      <li data-id=\"ship\" style=\"padding: 10px 14px; background: var(--pura-bg, #fff); color: var(--pura-fg, #18181b); border: 1px solid var(--pura-border, #e4e4e7); border-radius: 10px; font: 15px system-ui;\">Ship it</li>\n    </ul>\n  </pura-sortable>\n  <code id=\"sort-demo-out\" style=\"font-size: .78rem; color: var(--pura-muted-fg, #52525b);\">drag an item to reorder</code>\n</div>\n<script>\n  document.querySelector('#sort-demo').addEventListener('change', (e) => {\n    document.querySelector('#sort-demo-out').textContent = 'order: ' + e.detail.order.join(', ');\n  });\n</script>",
+  "usage": "<!-- vertical to-do list; listen for the new order -->\n<pura-sortable id=\"todo\">\n  <ul>\n    <li data-id=\"a\">First task</li>\n    <li data-id=\"b\">Second task</li>\n    <li data-id=\"c\">Third task</li>\n  </ul>\n</pura-sortable>\n<script>\n  document.querySelector('#todo').addEventListener('change', (e) => {\n    console.log(e.detail.order); // e.g. [\"b\", \"a\", \"c\"]\n  });\n</script>\n\n<!-- horizontal strip, drag only by the handle -->\n<pura-sortable axis=\"x\" handle=\".grip\">\n  <ul style=\"display: flex; gap: 12px;\">\n    <li data-id=\"one\"><span class=\"grip\">::</span> One</li>\n    <li data-id=\"two\"><span class=\"grip\">::</span> Two</li>\n    <li data-id=\"three\"><span class=\"grip\">::</span> Three</li>\n  </ul>\n</pura-sortable>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "spacer",
   "title": "Spacer",
   "category": "Primitives",
@@ -8715,6 +12707,36 @@ export const components = [
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/spacer.js\"></script>\n\n<!-- Fixed vertical gaps in normal block flow -->\n<p>First paragraph above the gap.</p>\n<pura-spacer size=\"4\"></pura-spacer>\n<p>Second paragraph, pushed down by a scale-step gap.</p>\n<pura-spacer size=\"2rem\"></pura-spacer>\n<p>Third paragraph, pushed down by a custom 2rem gap.</p>\n\n<!-- Flexible spacer pushing siblings to opposite ends of a row -->\n<div style=\"display: flex; align-items: center; padding: 12px; border: 1px solid #ccc;\">\n  <strong>Brand</strong>\n  <pura-spacer></pura-spacer>\n  <button>Sign in</button>\n</div>",
   "usage": "<script type=\"module\" src=\"/pura/lib/spacer.js\"></script>\n\n<!-- Fixed gap between two cards using a spacing-scale step -->\n<div style=\"display: flex;\">\n  <div>Card A</div>\n  <pura-spacer size=\"3\"></pura-spacer>\n  <div>Card B</div>\n</div>\n\n<!-- Flexible spacer to right-align an action in a toolbar -->\n<div style=\"display: flex; align-items: center;\">\n  <span>Page title</span>\n  <pura-spacer></pura-spacer>\n  <button>New item</button>\n</div>\n\n<!-- Custom CSS length gap in block flow -->\n<section>Intro text</section>\n<pura-spacer size=\"48px\"></pura-spacer>\n<section>Following section after a 48px gap.</section>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "sparkles-text",
+  "title": "Sparkles Text",
+  "category": "Animation",
+  "blurb": "Text decorated with tiny stars that twinkle and are born/die around the letters. Deterministic scatter (SSR-stable), pure CSS @keyframes, reduced-motion aware.",
+  "description": "`<pura-sparkles-text>` decorates its slotted text with tiny four-point stars that twinkle and are born and die around the letters, in the style of Magic UI's Sparkles Text. The stars are scattered deterministically in the pure template (no `Math.random`), so the server and client paint the same field and the effect needs no client JS. Each star is a CSS `@keyframes` twinkle (scale, opacity, rotate) with a per-index delay, so there is no animation runtime. Set `count` for density, `duration` for the twinkle cycle, and theme with `--pura-sparkles-text-color`, `--pura-sparkles-text-color-alt` and `--pura-sparkles-text-size`. The text stays untouched in the light DOM as the accessible copy; the sparkles are `aria-hidden` decoration. Under reduced motion the stars hold a soft static state instead of pulsing. Each instance registers in `window.__puraSparklesTexts` by `data-pura-id` for agent enumeration.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "10",
+      "desc": "Number of sparkles to render (capped at 40)."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "1.6",
+      "desc": "Seconds per twinkle cycle (birth to death of each star)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; padding: 2.5rem 1rem;\">\n  <pura-sparkles-text count=\"14\">\n    <span style=\"font: 800 2.2rem/1.1 system-ui; letter-spacing: -0.02em;\">Magic UI</span>\n  </pura-sparkles-text>\n  <div style=\"margin-top: 1.5rem;\">\n    <pura-sparkles-text count=\"8\" duration=\"2.2\" style=\"--pura-sparkles-text-color: #38bdf8; --pura-sparkles-text-color-alt: #f472b6;\">\n      <span style=\"font: 600 1.1rem system-ui; color: var(--pura-muted-fg, #52525b);\">custom colors, slower twinkle</span>\n    </pura-sparkles-text>\n  </div>\n</div>",
+  "usage": "<!-- magical headline with default golden and purple stars -->\n<pura-sparkles-text count=\"12\">\n  <h1>Launch week</h1>\n</pura-sparkles-text>\n\n<!-- brand colors, bigger stars, slower cycle -->\n<pura-sparkles-text count=\"8\" duration=\"2.4\"\n  style=\"--pura-sparkles-text-color: #38bdf8; --pura-sparkles-text-color-alt: #f472b6; --pura-sparkles-text-size: 0.8em;\">\n  <span>New: AI workflows</span>\n</pura-sparkles-text>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -8857,9 +12879,15 @@ export const components = [
   "slug": "spinner",
   "title": "Spinner",
   "category": "Display",
-  "blurb": "Animated loading indicator in three sizes.",
-  "description": "The Spinner is a native web component that displays an animated circular loading indicator. Use it to signal that processing is in progress, such as loading data or submitting a form. It exposes the ARIA \"status\" role for screen readers and supports a custom accessible label.",
+  "blurb": "Animated loading indicator in four variants and three sizes.",
+  "description": "The Spinner is a native web component that displays an animated loading indicator. Use it to signal that processing is in progress, such as loading data or submitting a form. Four variants cover the classic loading moves: `ring` (spinning arc, default), `dots` (jumping dots), `pulse` (pulsing dots) and `ripple` (expanding rings), all in pure CSS keyframes. It exposes the ARIA \"status\" role for screen readers and supports a custom accessible label.",
   "attributes": [
+    {
+      "name": "variant",
+      "type": "\"ring\" | \"dots\" | \"pulse\" | \"ripple\"",
+      "default": "ring",
+      "desc": "Loading style: ring (spinning arc), dots (jumping dots), pulse (pulsing dots), or ripple (expanding rings)."
+    },
     {
       "name": "size",
       "type": "\"sm\" | \"md\" | \"lg\"",
@@ -8875,8 +12903,8 @@ export const components = [
   ],
   "events": [],
   "slots": [],
-  "demoHTML": "<div style=\"display:flex;align-items:center;gap:1.5rem;\">\n  <pura-spinner size=\"sm\"></pura-spinner>\n  <pura-spinner></pura-spinner>\n  <pura-spinner size=\"lg\" label=\"Loading data\"></pura-spinner>\n</div>",
-  "usage": "<div style=\"display:flex;align-items:center;gap:1.5rem;\">\n  <pura-spinner size=\"sm\"></pura-spinner>\n  <pura-spinner></pura-spinner>\n  <pura-spinner size=\"lg\" label=\"Loading data\"></pura-spinner>\n</div>",
+  "demoHTML": "<div style=\"display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;\">\n  <pura-spinner size=\"sm\"></pura-spinner>\n  <pura-spinner></pura-spinner>\n  <pura-spinner size=\"lg\" label=\"Loading data\"></pura-spinner>\n  <pura-spinner variant=\"dots\" size=\"lg\"></pura-spinner>\n  <pura-spinner variant=\"pulse\" size=\"lg\"></pura-spinner>\n  <pura-spinner variant=\"ripple\" size=\"lg\"></pura-spinner>\n</div>",
+  "usage": "<!-- spinning arc (default) -->\n<pura-spinner></pura-spinner>\n\n<!-- jumping dots -->\n<pura-spinner variant=\"dots\"></pura-spinner>\n\n<!-- pulsing dots -->\n<pura-spinner variant=\"pulse\"></pura-spinner>\n\n<!-- expanding rings -->\n<pura-spinner variant=\"ripple\" size=\"lg\" label=\"Loading data\"></pura-spinner>",
   "animation": false,
   "relatedComponents": [],
   "relatedBlocks": []
@@ -8955,6 +12983,141 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "split-flap",
+  "title": "Split-Flap Text",
+  "category": "Animation",
+  "blurb": "Airport-style split-flap board: each character cell flips through intermediate glyphs on 3D rotating leaves until it locks on the target character, staggered like a departures board.",
+  "description": "`<pura-split-flap>` is the airport departures board move: every character sits in its own cell, and on reveal each cell flips through intermediate glyphs on two 3D leaves (rotateX under perspective, driven by WAAPI) until it locks on the target character, staggered left to right. `text` sets the target (it falls back to the slotted text and flipping to a new value is as simple as changing the attribute), `chars` swaps the glyph ring, and `flip-duration`, `stagger` and `steps` tune the rhythm. The board cells are aria-hidden while the original text stays accessible in the light DOM; with `text` set the server paint is the finished static board, and reduced motion (or a browser without WAAPI) jumps straight to the final glyphs. Theme with `--pura-split-flap-bg`, `--pura-split-flap-fg`, `--pura-split-flap-gap` and friends. Each instance registers in `window.__puraSplitFlaps` by `data-pura-id` with `{ text, flipTo, replay }`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "",
+      "desc": "Target text. Falls back to the slotted text. Changing the attribute flips the board to the new value."
+    },
+    {
+      "name": "chars",
+      "type": "string",
+      "default": "space, A-Z, 0-9 and basic punctuation",
+      "desc": "Custom glyph ring the flaps cycle through. With the default ring the text is uppercased."
+    },
+    {
+      "name": "flip-duration",
+      "type": "number",
+      "default": "90",
+      "desc": "Milliseconds per single flap step."
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": "60",
+      "desc": "Milliseconds between consecutive cells starting to flip."
+    },
+    {
+      "name": "steps",
+      "type": "number",
+      "default": "8",
+      "desc": "Maximum intermediate flips per cell before locking on the target glyph."
+    },
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"load\"",
+      "default": "view",
+      "desc": "view starts the flips when scrolled into view; load starts on connect."
+    }
+  ],
+  "events": [
+    "flip-start",
+    "settled"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; gap: 0.9rem; justify-items: center; padding: 2rem 1rem; background: #0b0b0d; border-radius: 12px;\">\n  <pura-split-flap text=\"DEPARTURES\" style=\"font-size: 1.6rem;\"></pura-split-flap>\n  <pura-split-flap text=\"GATE 12 BOARDING\" stagger=\"45\" style=\"font-size: 0.95rem; --pura-split-flap-bg: #18181b;\"></pura-split-flap>\n  <button onclick=\"const b = this.previousElementSibling; b.setAttribute('text', b.getAttribute('text') === 'GATE 12 BOARDING' ? 'FLIGHT PX 404 DELAYED' : 'GATE 12 BOARDING')\" style=\"font: inherit; font-size: 0.8rem; padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--pura-border, #3f3f46); background: transparent; color: var(--pura-fg, #fafafa); cursor: pointer;\">flip the board</button>\n</div>",
+  "usage": "<!-- headline that flips in when scrolled into view -->\n<pura-split-flap style=\"font-size: 2rem;\">NOW BOARDING</pura-split-flap>\n\n<!-- live board: change the text attribute and every cell flips to the new value -->\n<pura-split-flap id=\"board\" text=\"GATE 12 ON TIME\" trigger=\"load\" flip-duration=\"70\" stagger=\"40\"></pura-split-flap>\n<script>\n  document.getElementById(\"board\").setAttribute(\"text\", \"GATE 12 DELAYED\");\n  // or via the agent registry / public API:\n  // document.getElementById(\"board\").flipTo(\"GATE 14 BOARDING\");\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "split",
+  "title": "Split Text",
+  "category": "Animation",
+  "blurb": "SplitText: splits slotted text into lines, words or characters, each in a clipping mask, and reveals them with a staggered spring rise. The gsap SplitText hero move, native and zero-runtime; the original text stays as the accessible copy.",
+  "description": "`<pura-split>` is SplitText. It splits the slotted text into lines, words or characters, wraps each in a clipping mask, and reveals them with a staggered spring rise from below, the gsap SplitText / awwwards hero move. The motion is the native spring primitive (`<pura-spring>`): a CSS transition whose timing function is a sampled `linear(...)` spring, so there is no per-frame JS. Line splitting measures layout (`offsetTop`) after fonts load, so each visual line rises as one block and survives wrapping. Accessibility and SSR are preserved: the original text stays in the light DOM as the accessible copy (the animated per-unit spans are `aria-hidden`), and before the script runs the text is fully visible with no JS and on the server. `trigger=\"view\"` (default) reveals on scroll-in; `trigger=\"load\"` reveals on connect. Beyond the default rise, `effect=\"scatter\"` flies the units in from seeded random offsets and rotations (deterministic, so runs are reproducible), and `effect=\"wave\"` fades them in and bobs each one on an infinite phase-shifted sine, tunable via `--pura-split-wave-amp` and `--pura-split-wave-dur`. Each instance registers in `window.__puraSplits` by `data-pura-id` with `{ by, units, replay }`.",
+  "attributes": [
+    {
+      "name": "by",
+      "type": "\"line\" | \"word\" | \"char\"",
+      "default": "word",
+      "desc": "Unit to split and stagger. Line splitting measures layout and survives wrapping."
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": "40",
+      "desc": "Milliseconds between consecutive units (defaults to 90 for line)."
+    },
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"load\"",
+      "default": "view",
+      "desc": "view reveals when scrolled into view; load reveals on connect."
+    },
+    {
+      "name": "effect",
+      "type": "\"rise\" | \"scatter\" | \"wave\"",
+      "default": "rise",
+      "desc": "rise is the clip-masked rise from below; scatter flies units in from seeded random offsets and rotations; wave fades units in and bobs them on an infinite phase-shifted sine."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring profile for the rise. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-split by=\"char\" trigger=\"load\" style=\"font: 800 clamp(2rem, 7vw, 4rem)/1.05 system-ui, sans-serif; letter-spacing: -0.02em; color: var(--pura-fg, #09090b);\">Motion, native.</pura-split>\n<div style=\"height: .8rem;\"></div>\n<pura-split by=\"char\" effect=\"scatter\" trigger=\"load\" stagger=\"25\" style=\"font: 800 clamp(1.4rem, 4vw, 2.4rem)/1.1 system-ui, sans-serif; color: var(--pura-fg, #09090b);\">Scatter in.</pura-split>\n<div style=\"height: .8rem;\"></div>\n<pura-split by=\"char\" effect=\"wave\" trigger=\"load\" stagger=\"80\" style=\"font: 800 clamp(1.4rem, 4vw, 2.4rem)/1.1 system-ui, sans-serif; color: var(--pura-accent, #6d28d9);\">Wavy text</pura-split>\n<div style=\"height: .8rem;\"></div>\n<pura-split by=\"line\" trigger=\"load\" stagger=\"120\" style=\"font: 500 clamp(1rem, 2.6vw, 1.4rem)/1.4 system-ui, sans-serif; max-width: 32ch; color: var(--pura-muted-fg, #52525b);\">A damped spring, sampled once into a CSS easing curve, then staggered across every line of this paragraph.</pura-split>",
+  "usage": "<pura-split by=\"char\" trigger=\"load\">Motion, native.</pura-split>\n\n<pura-split by=\"char\" effect=\"scatter\" stagger=\"25\">Scatter in.</pura-split>\n\n<pura-split by=\"char\" effect=\"wave\" stagger=\"80\">Wavy text</pura-split>\n\n<pura-split by=\"line\" stagger=\"120\" preset=\"wobbly\">\n  Splits into visual lines and rises each one\n  with a real spring, no library, no rAF.\n</pura-split>\n\n<script type=\"module\">\n  const s = document.querySelector('pura-split');\n  s.replay(); // re-run the reveal\n</script>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "gallery-3d",
+      "title": "Gallery 3D"
+    },
+    {
+      "slug": "image-trail",
+      "title": "Image Trail"
+    },
+    {
+      "slug": "scroll-highlight",
+      "title": "Scroll Highlight"
+    },
+    {
+      "slug": "scroll-zoom",
+      "title": "Scroll Zoom"
+    },
+    {
+      "slug": "text-fill",
+      "title": "Text Fill"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
+},
+{
   "slug": "spotlight",
   "title": "Spotlight",
   "category": "Overlay",
@@ -9004,6 +13167,52 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "spring",
+  "title": "Spring",
+  "category": "Animation",
+  "blurb": "The spring primitive: samples a damped harmonic oscillator once and serializes it into a CSS linear() easing string, a native zero-runtime spring with real overshoot. Exports spring() for the rest of pura's motion components; the element itself is a poke-able demo token.",
+  "description": "`<pura-spring>` is the spring primitive the rest of pura's motion is built on. A damped harmonic oscillator (stiffness, damping, mass) is sampled once and serialized into a CSS `linear(...)` easing string, giving a native spring with real overshoot and settle, no per-frame JS, no rAF loop, no library. The exported pure `spring(opts)` returns `{ easing, duration }` you drop straight into a `transition` or `animation`; `split`, `magnetic`, `tilt` and the other motion components import it instead of reinventing the math. The element itself is a tiny demo: poke the token and it springs along the rail with the curve you configured. Named presets (`gentle`, `wobbly`, `stiff`, `slow`, `snappy`) mirror the vocabulary motion designers expect. Each instance registers in `window.__puraSprings` by `data-pura-id` with `{ profile, poke }`, and `data-pura-spring-duration` / `-zeta` mirror the resolved curve.",
+  "attributes": [
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Named spring profile. Ignored for any of stiffness/damping/mass you set explicitly."
+    },
+    {
+      "name": "stiffness",
+      "type": "number",
+      "default": "170",
+      "desc": "Spring constant. Higher is faster and snappier."
+    },
+    {
+      "name": "damping",
+      "type": "number",
+      "default": "26",
+      "desc": "Resistance. Lower overshoots and wobbles more; higher settles flat."
+    },
+    {
+      "name": "mass",
+      "type": "number",
+      "default": "1",
+      "desc": "Inertia of the moving body. Higher is slower and heavier."
+    },
+    {
+      "name": "travel",
+      "type": "number",
+      "default": "190",
+      "desc": "Demo only: pixels the token travels between rest and end."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<div style=\"display: grid; gap: 1.5rem; max-width: 320px;\">\n  <div>\n    <p style=\"margin: 0 0 .4rem; font: 600 11px ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--pura-muted-fg, #71717a);\">preset: wobbly</p>\n    <pura-spring preset=\"wobbly\"></pura-spring>\n  </div>\n  <div>\n    <p style=\"margin: 0 0 .4rem; font: 600 11px ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--pura-muted-fg, #71717a);\">preset: stiff</p>\n    <pura-spring preset=\"stiff\"></pura-spring>\n  </div>\n  <div>\n    <p style=\"margin: 0 0 .4rem; font: 600 11px ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--pura-muted-fg, #71717a);\">custom: stiffness 220, damping 10</p>\n    <pura-spring stiffness=\"220\" damping=\"10\"></pura-spring>\n  </div>\n</div>",
+  "usage": "<!-- as a demo element -->\n<pura-spring preset=\"wobbly\"></pura-spring>\n\n<!-- as the primitive, in your own component -->\n<script type=\"module\">\n  import { spring } from './spring.js';\n  const { easing, duration } = spring({ stiffness: 200, damping: 18 });\n  el.style.transition = `transform ${duration}ms ${easing}`;\n  el.style.transform = 'translateX(190px)'; // overshoots, then settles\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "stack",
   "title": "Stack",
   "category": "Primitives",
@@ -9042,6 +13251,84 @@ export const components = [
   "demoHTML": "<script type=\"module\" src=\"/pura/lib/stack.js\"></script>\n\n<!-- Default stack: gap 4 -->\n<pura-stack>\n  <h3>Account settings</h3>\n  <p>Update your profile and notification preferences.</p>\n  <button>Save changes</button>\n</pura-stack>\n\n<!-- Tighter gap, centered children -->\n<pura-stack gap=\"2\" align=\"center\">\n  <strong>Plan: Pro</strong>\n  <span>Renews on June 1</span>\n  <button>Manage subscription</button>\n</pura-stack>\n\n<!-- Divided list of items -->\n<pura-stack gap=\"3\" divide>\n  <div>Inbox</div>\n  <div>Starred</div>\n  <div>Archived</div>\n</pura-stack>",
   "usage": "<script type=\"module\" src=\"/pura/lib/stack.js\"></script>\n\n<!-- A simple sign-in form laid out vertically -->\n<pura-stack gap=\"3\">\n  <label>Email\n    <input type=\"email\" placeholder=\"you@example.com\" />\n  </label>\n  <label>Password\n    <input type=\"password\" />\n  </label>\n  <button>Sign in</button>\n</pura-stack>",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "stage",
+  "title": "Stage",
+  "category": "Animation",
+  "blurb": "A viewport-tall, internally-scrollable box of full-height sections. With the snap attribute, scrolling lands one section at a time (the fullpage feel), using native CSS scroll snapping with no per-frame JS. Scrub children inside that use timeline=scroll bind to the stage's progress.",
+  "description": "`<pura-stage>` is a viewport-tall, internally-scrollable box whose slotted children are full-height sections. Add the `snap` attribute and it becomes a scroll-snap container: each scroll lands on the next section, one screen at a time, the fullpage feel, driven entirely by native CSS scroll snapping (`scroll-snap-type` + `scroll-snap-align: start` + `scroll-snap-stop: always`) with no per-frame JS. Because the box is its own scroll container, any scrub child inside a section that uses `timeline=\"scroll\"` (such as `pura-type-morph`, `pura-morph`, `pura-draw`) binds to the stage's scroll rather than the page's, so a shape can morph as its section scrolls in. `scroll(nearest)` resolves across the shadow boundary to this box. Use `axis=\"x\"` for a horizontal section row, and `height` to size the box (default `100vh`). The element exposes `scrollToSection(i)`, `next()`, `prev()`, and an `index` getter, and fires `stage-change` when the settled section changes, so keyboard nav and agents can drive it. Each instance registers in `window.__puraStages` by `data-pura-id`.",
+  "attributes": [
+    {
+      "name": "snap",
+      "type": "\"\" | \"mandatory\" | \"proximity\"",
+      "default": "(off)",
+      "desc": "Enables scroll snapping. Present or \"mandatory\" hard-snaps to each section; \"proximity\" snaps only near a boundary; absent scrolls freely."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "default": "100vh",
+      "desc": "Section and box height. Any CSS length (e.g. 100vh, 100svh, 80vh)."
+    },
+    {
+      "name": "axis",
+      "type": "\"y\" | \"x\"",
+      "default": "y",
+      "desc": "Section axis. y stacks sections vertically; x lays them out as a horizontal row."
+    }
+  ],
+  "events": [
+    {
+      "name": "stage-change",
+      "detail": "{ index: number }",
+      "desc": "Fires when the settled section changes."
+    }
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-stage snap height=\"320px\" style=\"width: 100%; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; overflow: hidden;\">\n  <section style=\"display: grid; place-items: center; background: #fafafa; font: 700 2rem system-ui;\">One</section>\n  <section style=\"display: grid; place-items: center; background: #f1f5f9; font: 700 2rem system-ui;\">Two</section>\n  <section style=\"display: grid; place-items: center; background: #e2e8f0; font: 700 2rem system-ui;\">Three</section>\n</pura-stage>",
+  "usage": "<!-- fullpage: snap one section per scroll -->\n<pura-stage snap>\n  <section>Intro</section>\n  <section>Features</section>\n  <section>Pricing</section>\n</pura-stage>\n\n<!-- a section whose shape morphs as the stage scrolls -->\n<pura-stage snap>\n  <section style=\"display:grid;place-items:center\">\n    <pura-morph timeline=\"scroll\"\n                from=\"M 14 14 L 86 14 L 86 86 L 14 86 Z\"\n                to=\"M 50 6 L 94 50 L 50 94 L 6 50 Z\"\n                style=\"width:240px;height:240px\"></pura-morph>\n  </section>\n  <section>Next</section>\n</pura-stage>\n\n<!-- horizontal section row, snap on proximity -->\n<pura-stage snap=\"proximity\" axis=\"x\" height=\"60vh\">\n  <section>Panel A</section>\n  <section>Panel B</section>\n</pura-stage>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "starfield",
+  "title": "Starfield / Hyperspace",
+  "category": "Animation",
+  "blurb": "Classic hyperspace starfield: stars fly toward the screen on a Canvas 2D pseudo-3D projection, with depth and speed streaks configurable by attribute. SSR paints a dark backdrop with static stars; reduced motion holds a still sky.",
+  "description": "`<pura-starfield>` is the classic tech-section backdrop: a field of stars flying toward the screen at warp speed, in the style of tsParticles' Hyperspace and Stars presets and React Bits' Hyperspeed (2D). A Canvas 2D loop runs a trivial pseudo-3D projection (each star has x/y/z, z shrinks and the point is reprojected), so depth and perspective come for free with zero dependencies. `speed` sets the warp factor and `streak` the trail length; with `streak=\"0\"` you get a calm drifting star dome instead of hyperspace. Theme with `--pura-starfield-color` and `--pura-starfield-bg`. The pure template server-renders a dark backdrop with deterministic static stars (gently twinkling), the client canvas takes over after the first frame, and the loop pauses while the element is offscreen. Reduced motion freezes the canvas on a single frame of round stars. Each instance registers in `window.__puraStarfields` by `data-pura-id` with `{ count, speed, pause, resume }`.",
+  "attributes": [
+    {
+      "name": "count",
+      "type": "number",
+      "default": "200",
+      "desc": "Number of stars (capped at 400)."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "1",
+      "desc": "Warp speed multiplier, 0 to 10. 0 holds the field still; higher values fly faster and stretch the streaks."
+    },
+    {
+      "name": "streak",
+      "type": "number",
+      "default": "1",
+      "desc": "Streak length multiplier, 0 to 10. 0 draws round stars only (no trails)."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-starfield count=\"240\" speed=\"1.4\" style=\"height: 260px; border-radius: 12px;\">\n  <div style=\"padding: 5rem 1.5rem; text-align: center; color: #e8eaff; font: 600 20px system-ui;\">\n    Hyperspace\n    <div style=\"font-weight: 400; font-size: 13px; opacity: .7; margin-top: .3rem;\">Stars warp toward you. Canvas 2D, server-renderable, reduced-motion safe.</div>\n  </div>\n</pura-starfield>",
+  "usage": "<!-- hero section with a warp-speed backdrop -->\n<pura-starfield count=\"300\" speed=\"2\" style=\"min-height: 100vh;\">\n  <header class=\"hero\">\n    <h1>Ship at lightspeed</h1>\n  </header>\n</pura-starfield>\n\n<!-- calm ambient star dome: slow drift, no streaks -->\n<pura-starfield count=\"160\" speed=\"0.15\" streak=\"0\" style=\"height: 320px; --pura-starfield-color: #cdd6ff;\">\n  <div class=\"panel\">Quiet night sky behind content</div>\n</pura-starfield>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -9122,12 +13409,12 @@ export const components = [
       "title": "Sparkline"
     },
     {
-      "slug": "testimonial",
-      "title": "Testimonial"
+      "slug": "sidebar",
+      "title": "Sidebar"
     },
     {
-      "slug": "faq",
-      "title": "FAQ"
+      "slug": "table",
+      "title": "Table"
     }
   ],
   "relatedBlocks": [
@@ -9202,12 +13489,12 @@ export const components = [
       "title": "Sparkline"
     },
     {
-      "slug": "testimonial",
-      "title": "Testimonial"
+      "slug": "sidebar",
+      "title": "Sidebar"
     },
     {
-      "slug": "faq",
-      "title": "FAQ"
+      "slug": "table",
+      "title": "Table"
     }
   ],
   "relatedBlocks": [
@@ -9224,6 +13511,103 @@ export const components = [
       "title": "Profile"
     }
   ]
+},
+{
+  "slug": "status-badge",
+  "title": "Status Badge",
+  "category": "Animation",
+  "blurb": "A pill that morphs between async states (idle, loading, success, error): icon crossfade, color tween, self-drawing check/cross, and a FLIP width morph. Change the state attribute and it animates.",
+  "description": "`<pura-status-badge>` is the motion.dev \"statuses\" move: a pill that morphs between async states. Set `state` to `idle`, `loading`, `success` or `error` and the badge animates the change: the icon crossfades and scales in (loading gets a mini ring spinner, success a self-drawing check, error a self-drawing cross), the background color tweens, and the pill width morphs with a FLIP animation (the element measures the old and new widths and animates between them; everything else is CSS). `role=\"status\"` announces label swaps to screen readers; reduced motion swaps states without transitions. Labels come from `idle-label` / `loading-label` / `success-label` / `error-label`; colors from `--pura-status-*-bg` tokens. Each instance registers in `window.__puraStatusBadges` by `data-pura-id` with `{ state, set }`.",
+  "attributes": [
+    {
+      "name": "state",
+      "type": "\"idle\" | \"loading\" | \"success\" | \"error\"",
+      "default": "idle",
+      "desc": "Current state. Reactive: change it at any time and the badge morphs."
+    },
+    {
+      "name": "idle-label",
+      "type": "string",
+      "default": "Submit",
+      "desc": "Label for the idle state."
+    },
+    {
+      "name": "loading-label",
+      "type": "string",
+      "default": "Loading",
+      "desc": "Label for the loading state."
+    },
+    {
+      "name": "success-label",
+      "type": "string",
+      "default": "Done",
+      "desc": "Label for the success state."
+    },
+    {
+      "name": "error-label",
+      "type": "string",
+      "default": "Failed",
+      "desc": "Label for the error state."
+    }
+  ],
+  "events": [],
+  "slots": [],
+  "demoHTML": "<pura-status-badge id=\"sb-demo\" style=\"font: 500 .95rem system-ui;\"></pura-status-badge>\n<div style=\"margin-top: 1rem; display: flex; gap: .5rem;\">\n  <button type=\"button\" onclick=\"document.getElementById('sb-demo').setAttribute('state','idle')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">idle</button>\n  <button type=\"button\" onclick=\"document.getElementById('sb-demo').setAttribute('state','loading')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">loading</button>\n  <button type=\"button\" onclick=\"document.getElementById('sb-demo').setAttribute('state','success')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">success</button>\n  <button type=\"button\" onclick=\"document.getElementById('sb-demo').setAttribute('state','error')\" style=\"font: .8rem system-ui; padding: .3rem .6rem;\">error</button>\n</div>",
+  "usage": "<pura-status-badge id=\"save-status\"\n  idle-label=\"Save\" loading-label=\"Saving\"\n  success-label=\"Saved\" error-label=\"Retry\"></pura-status-badge>\n\n<script>\n  const badge = document.getElementById(\"save-status\");\n  async function save() {\n    badge.setAttribute(\"state\", \"loading\");\n    try {\n      await api.save();\n      badge.setAttribute(\"state\", \"success\");\n    } catch {\n      badge.setAttribute(\"state\", \"error\");\n    }\n  }\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "step-loader",
+  "title": "Step Loader",
+  "category": "Animation",
+  "blurb": "Multi-step loader for long operations: a vertical checklist where each step spins while running and draws a check when done, with the current step highlighted. step drives the state; auto advances on a WAAPI timer.",
+  "description": "`<pura-step-loader>` is the multi-step loader for long operations, the pattern dominant in AI-product loading screens: a vertical checklist where each step shows a spinner while it runs and draws a check (animated `stroke-dashoffset`) when it completes, with the current step highlighted. Labels come from `steps` (pipe-separated) and `step` is the index of the step currently running; everything before it renders as done, so the SSR paint already shows the right state with zero JS. Add `auto` to advance one step per `interval` milliseconds on a WAAPI timer, plus `loop` to restart after finishing. It fires `advance` on every change and `complete` at the end, announces the current step in a polite live region, and under reduced motion the spinner becomes a static ring while auto mode still finishes. Each instance registers in `window.__puraStepLoaders` by `data-pura-id` with `{ step, total, advance, reset }` and mirrors state in `data-pura-step` / `data-pura-state`.",
+  "attributes": [
+    {
+      "name": "steps",
+      "type": "string",
+      "default": "",
+      "desc": "Step labels separated by | (commas also work when no pipe is present)."
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": "0",
+      "desc": "Index of the step currently running, 0-based. Earlier steps render as done; a value equal to the step count marks everything done."
+    },
+    {
+      "name": "auto",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Advance automatically, one step per interval, on a WAAPI timer."
+    },
+    {
+      "name": "interval",
+      "type": "number",
+      "default": "1500",
+      "desc": "Milliseconds per step in auto mode."
+    },
+    {
+      "name": "loop",
+      "type": "boolean",
+      "default": "false",
+      "desc": "In auto mode, restart from the first step after everything completes."
+    }
+  ],
+  "events": [
+    "advance",
+    "complete"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-width: 340px; margin: 0 auto; padding: 1.25rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px;\">\n  <pura-step-loader auto loop interval=\"1400\" steps=\"Reading your prompt|Searching the docs|Drafting an answer|Polishing the response\"></pura-step-loader>\n</div>",
+  "usage": "<!-- auto mode: advances one step per interval, loops while you wait -->\n<pura-step-loader auto loop interval=\"1200\"\n  steps=\"Uploading file|Extracting text|Generating summary\">\n</pura-step-loader>\n\n<!-- manual mode: bump step as your real pipeline progresses -->\n<pura-step-loader id=\"deploy\" steps=\"Building|Running tests|Publishing\"></pura-step-loader>\n<script type=\"module\">\n  const loader = document.getElementById(\"deploy\");\n  loader.addEventListener(\"complete\", () => console.log(\"deployed\"));\n  await build();   loader.setAttribute(\"step\", \"1\");\n  await test();    loader.setAttribute(\"step\", \"2\");\n  await publish(); loader.setAttribute(\"step\", \"3\");\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "stepper",
@@ -9292,6 +13676,45 @@ export const components = [
       "title": "Onboarding"
     }
   ]
+},
+{
+  "slug": "sticky-reveal",
+  "title": "Sticky Scroll Reveal",
+  "category": "Animation",
+  "blurb": "Feature walkthrough: a media panel sticks on one side while text steps scroll on the other; the active media crossfades as each step enters the viewport. Layout is pure CSS, activation is a single IntersectionObserver.",
+  "description": "`<pura-sticky-reveal>` is the classic SaaS landing-page feature walkthrough (the Aceternity UI sticky scroll reveal): text steps scroll down one column while a media panel sticks in the other, and as each step crosses the middle of the viewport its matching media crossfades in. Steps and media pair by source order: the first `slot=\"step\"` child maps to the first `slot=\"media\"` child, and so on. The layout (grid plus `position: sticky`) is pure CSS and works with zero JS; a single IntersectionObserver toggles `data-active` on the pairs, so no per-frame JS runs. `side` flips the media panel to the left, `top` sets its sticky offset, and `no-dim` keeps inactive steps at full opacity. SSR and pre-JS render the full layout with the first media visible; reduced motion swaps media without the crossfade. Each instance registers in `window.__puraStickyReveals` by `data-pura-id` with `{ steps, active }`, and fires `pura-sticky-reveal-change` with `{ index }`.",
+  "attributes": [
+    {
+      "name": "side",
+      "type": "\"right\" | \"left\"",
+      "default": "right",
+      "desc": "Which side the sticky media panel sits on (wide screens)."
+    },
+    {
+      "name": "top",
+      "type": "number",
+      "default": "96",
+      "desc": "Sticky top offset of the media frame, in px."
+    },
+    {
+      "name": "no-dim",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Keep inactive steps at full opacity instead of dimming them."
+    }
+  ],
+  "events": [
+    "pura-sticky-reveal-change"
+  ],
+  "slots": [
+    "step",
+    "media"
+  ],
+  "demoHTML": "<div style=\"max-height: 340px; overflow-y: auto; border: 1px solid var(--pura-border, #e4e4e7); border-radius: 12px; padding: 0 1rem;\">\n  <pura-sticky-reveal top=\"56\" style=\"--pura-sticky-reveal-height: 200px; --pura-sticky-reveal-step-gap: 230px; --pura-sticky-reveal-pad: 110px; --pura-sticky-reveal-gap: 1.25rem;\">\n    <div slot=\"step\">\n      <h3 style=\"margin: 0 0 .4rem; font-size: 1rem;\">Realtime collaboration</h3>\n      <p style=\"margin: 0; font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">Work together in real time. Every edit lands on every screen instantly, with no refresh and no merge conflicts.</p>\n    </div>\n    <img slot=\"media\" src=\"https://picsum.photos/seed/sr-collab/640/400\" alt=\"Realtime collaboration\" />\n    <div slot=\"step\">\n      <h3 style=\"margin: 0 0 .4rem; font-size: 1rem;\">Version control</h3>\n      <p style=\"margin: 0; font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">Every change is recorded. Roll back to any point in time and see exactly who changed what, and when.</p>\n    </div>\n    <img slot=\"media\" src=\"https://picsum.photos/seed/sr-versions/640/400\" alt=\"Version control\" />\n    <div slot=\"step\">\n      <h3 style=\"margin: 0 0 .4rem; font-size: 1rem;\">Ship with confidence</h3>\n      <p style=\"margin: 0; font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">Preview deploys, checks and rollbacks built in, so launching a feature is a button press, not a ceremony.</p>\n    </div>\n    <img slot=\"media\" src=\"https://picsum.photos/seed/sr-ship/640/400\" alt=\"Ship with confidence\" />\n  </pura-sticky-reveal>\n</div>",
+  "usage": "<!-- classic walkthrough: text scrolls left, media sticks right -->\n<pura-sticky-reveal>\n  <div slot=\"step\">\n    <h3>Realtime sync</h3>\n    <p>Every change lands on every screen instantly.</p>\n  </div>\n  <img slot=\"media\" src=\"/shots/sync.png\" alt=\"Realtime sync\" />\n\n  <div slot=\"step\">\n    <h3>Versioned history</h3>\n    <p>Roll back to any point in time.</p>\n  </div>\n  <img slot=\"media\" src=\"/shots/history.png\" alt=\"Versioned history\" />\n</pura-sticky-reveal>\n\n<!-- media on the left, no step dimming, taller frame; react to step changes -->\n<pura-sticky-reveal side=\"left\" no-dim top=\"120\" id=\"walkthrough\"\n  style=\"--pura-sticky-reveal-height: 420px; --pura-sticky-reveal-radius: 24px;\">\n  <div slot=\"step\"><h3>Connect your data</h3></div>\n  <video slot=\"media\" src=\"/clips/connect.mp4\" autoplay muted loop playsinline></video>\n  <div slot=\"step\"><h3>Automate the boring parts</h3></div>\n  <video slot=\"media\" src=\"/clips/automate.mp4\" autoplay muted loop playsinline></video>\n</pura-sticky-reveal>\n<script>\n  document.getElementById(\"walkthrough\").addEventListener(\"pura-sticky-reveal-change\", (e) => {\n    console.log(\"active step\", e.detail.index);\n  });\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "stream-cascade",
@@ -9374,8 +13797,38 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "countdown",
+      "title": "Countdown"
+    },
+    {
+      "slug": "image-compare",
+      "title": "Image Compare"
+    },
+    {
+      "slug": "masonry",
+      "title": "Masonry"
+    },
+    {
+      "slug": "rating",
+      "title": "Rating"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    }
+  ]
 },
 {
   "slug": "swipe",
@@ -9770,36 +14223,274 @@ export const components = [
   "animation": false,
   "relatedComponents": [
     {
-      "slug": "banner",
-      "title": "Banner"
-    },
-    {
       "slug": "faq",
       "title": "FAQ"
     },
     {
-      "slug": "pricing-table",
-      "title": "Pricing Table"
+      "slug": "carousel",
+      "title": "Carousel"
     },
     {
-      "slug": "stat",
-      "title": "Stat"
+      "slug": "cursor",
+      "title": "Cursor"
     },
     {
-      "slug": "stat-grid",
-      "title": "Stat Grid"
+      "slug": "scroll-progress",
+      "title": "Scroll Progress"
     },
     {
-      "slug": "card",
-      "title": "Card"
+      "slug": "type-morph",
+      "title": "Type Morph"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
     }
   ],
   "relatedBlocks": [
     {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
       "slug": "landing",
       "title": "Landing"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
     }
   ]
+},
+{
+  "slug": "text-fill",
+  "title": "Text Fill",
+  "category": "Animation",
+  "blurb": "Scroll-driven text fill: the slotted text starts as a faint base and fills with color as you scroll, by sliding the boundary of a glyph-clipped gradient. Tied 1:1 to a scroll-driven timeline by default, no per-frame JS; SSR shows the text in its normal color.",
+  "description": "`<pura-text-fill>` is the motion.dev \"Fill text\" move: the slotted text starts as a faint base color and fills with the real color as you scroll. The trick is two stacked copies of the text: a faint base layer and a full-color top layer clipped by an animating `inset()` that slides open along the fill axis (clip-path interpolates natively; `background-clip: text` is avoided because it cannot paint slotted glyphs and breaks `currentColor`). By default (`trigger=\"scrub\"`) the fill is tied 1:1 to a scroll-driven timeline (`animation-timeline: view()`), so there is no per-frame JS; `trigger=\"view\"` fills once on scroll-in with a spring ease, `trigger=\"load\"` on connect. `direction` picks the sweep (`right`, `left`, `down`, `up`). Colors come from `--pura-text-fill-color` (default `currentColor`) and `--pura-text-fill-base` (default 18% `currentColor`). SSR and no-JS render the text in its normal color; reduced motion lands filled. Each instance registers in `window.__puraTextFills` by `data-pura-id` with `{ direction, replay }`.",
+  "attributes": [
+    {
+      "name": "direction",
+      "type": "\"right\" | \"left\" | \"down\" | \"up\"",
+      "default": "right",
+      "desc": "Which way the fill sweeps across the text."
+    },
+    {
+      "name": "trigger",
+      "type": "\"scrub\" | \"view\" | \"load\"",
+      "default": "scrub",
+      "desc": "scrub ties the fill 1:1 to a scroll-driven timeline; view fills once when scrolled into view; load fills once on connect."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only: view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 60%",
+      "desc": "animation-range for the scrub (e.g., \"cover 0% cover 50%\")."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring profile for view/load easing. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 240px; overflow-y: auto; padding: 1rem;\">\n  <div style=\"height: 160px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <pura-text-fill range=\"cover 0% cover 80%\" style=\"font: 800 clamp(1.6rem, 5vw, 2.6rem)/1.15 system-ui, sans-serif; letter-spacing: -0.02em; color: var(--pura-fg, #09090b);\">The fill follows your scroll, glyph by glyph, line by line.</pura-text-fill>\n  <div style=\"height: 200px;\"></div>\n</div>",
+  "usage": "<!-- fill tied 1:1 to scroll (default) -->\n<pura-text-fill>\n  Reads like a highlight following your scroll.\n</pura-text-fill>\n\n<!-- fill once when it enters the viewport -->\n<pura-text-fill trigger=\"view\" direction=\"down\" preset=\"slow\">\n  Fills top to bottom on arrival.\n</pura-text-fill>\n\n<!-- custom colors -->\n<pura-text-fill style=\"--pura-text-fill-color: #a3e635; --pura-text-fill-base: #3f3f46;\">\n  Lime over zinc.\n</pura-text-fill>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "gallery-3d",
+      "title": "Gallery 3D"
+    },
+    {
+      "slug": "image-trail",
+      "title": "Image Trail"
+    },
+    {
+      "slug": "scroll-highlight",
+      "title": "Scroll Highlight"
+    },
+    {
+      "slug": "scroll-zoom",
+      "title": "Scroll Zoom"
+    },
+    {
+      "slug": "split",
+      "title": "Split Text"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
+},
+{
+  "slug": "text-highlighter",
+  "title": "Text Highlighter",
+  "category": "Animation",
+  "blurb": "Animated marker pen: a highlighter-color sweep paints the slotted text from one side to the other when it enters the viewport, by growing a no-repeat gradient background from 0% to 100%. The text is never duplicated; SSR paints the full highlight with no JS required.",
+  "description": "`<pura-text-highlighter>` is the animated marker pen: a highlighter-color sweep paints the slotted text from one side to the other when it enters the viewport. The trick is a no-repeat `linear-gradient` behind the glyphs whose `background-size` grows from 0% to 100%, so the original text is never duplicated or moved: it stays in the light DOM, selectable and accessible, and `box-decoration-break: clone` keeps the ink continuous across line wraps. `trigger=\"view\"` (default) sweeps once on scroll-in (IntersectionObserver fires a pure CSS transition), `trigger=\"scrub\"` ties the sweep 1:1 to a scroll-driven timeline (`animation-timeline: view()`, zero per-frame JS), `trigger=\"load\"` sweeps on connect. `direction` picks the sweep side, `duration`/`delay` time it, and tokens control the pen: `--pura-text-highlighter-color` (default marker yellow), `--pura-text-highlighter-height` (full block by default, lower it for an underline-style stroke), `--pura-text-highlighter-radius` and `--pura-text-highlighter-padding`. SSR and no-JS paint the full highlight, so the page looks finished without JS; reduced motion lands fully highlighted. Each instance registers in `window.__puraTextHighlighters` by `data-pura-id` with `{ trigger, direction, replay }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"view\" | \"scrub\" | \"load\"",
+      "default": "view",
+      "desc": "view sweeps once when scrolled into view; scrub ties the sweep 1:1 to a scroll-driven timeline; load sweeps once on connect."
+    },
+    {
+      "name": "direction",
+      "type": "\"right\" | \"left\"",
+      "default": "right",
+      "desc": "Which way the pen sweeps across the text."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "900",
+      "desc": "Sweep duration in ms (view/load triggers)."
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "default": "0",
+      "desc": "Sweep delay in ms (view/load triggers); stagger multiple highlights with it."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only: view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "entry 0% cover 50%",
+      "desc": "animation-range for the scrub timeline."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 240px; overflow-y: auto; padding: 1rem;\">\n  <div style=\"height: 170px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <p style=\"font: 600 1.2rem/1.7 system-ui, sans-serif; color: var(--pura-fg, #09090b); max-width: 38ch;\">Good copy earns the marker. The pen sweeps over <pura-text-highlighter style=\"color: #1c1917;\">the part that matters most</pura-text-highlighter> first, then comes back for <pura-text-highlighter delay=\"500\" style=\"--pura-text-highlighter-color: #86efac; color: #14532d;\">the supporting detail</pura-text-highlighter>, exactly like a reader with a highlighter would.</p>\n  <div style=\"height: 200px;\"></div>\n</div>",
+  "usage": "<!-- sweeps in once when it enters the viewport (default) -->\n<p>\n  The launch was\n  <pura-text-highlighter>an absolute success</pura-text-highlighter>\n  by every metric.\n</p>\n\n<!-- scrub tied 1:1 to scroll, thin underline stroke, sweeping leftwards -->\n<pura-text-highlighter trigger=\"scrub\" direction=\"left\"\n  style=\"--pura-text-highlighter-color: #a5b4fc; --pura-text-highlighter-height: 40%;\">\n  underlined as you scroll\n</pura-text-highlighter>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "text-morph",
+  "title": "Morphing Text",
+  "category": "Animation",
+  "blurb": "Gooey morphing text: each phrase melts and fuses fluidly into the next, cycling forever. Two stacked layers crossfade blur and opacity under an SVG alpha-threshold filter; the slotted first phrase is the SSR paint and the accessible copy.",
+  "description": "`<pura-text-morph>` is the gooey morphing text: the current phrase melts and fuses fluidly into the next one, cycling forever. Two stacked, aria-hidden text layers crossfade blur and opacity (WAAPI) under an SVG alpha-threshold filter, so wherever the blurred glyphs overlap the snapped alpha reads as one liquid blob. Unlike `pura-morph`, which interpolates SVG paths, and `pura-type-morph`, which drives variable font axes, this one melts whole phrases into each other. Set the phrases with the pipe separated `texts` attribute and slot the first phrase as the pre-JS paint and accessible copy; `morph` and `hold` time the melt and the pause, `blur` sets the peak melt blur, and `--pura-text-morph-smoothing` softens the thresholded edge. Heavy weights and large sizes fuse best. The loop pauses offscreen, never starts under reduced motion (the slotted text stays settled), and each instance registers in `window.__puraTextMorphs` by `data-pura-id` with `{ texts, next, pause, resume }`. A `pura-text-morph-change` event fires on every phrase swap.",
+  "attributes": [
+    {
+      "name": "texts",
+      "type": "string",
+      "default": "",
+      "desc": "Pipe separated phrases to cycle through, e.g. \"Build|Launch|Scale\". Falls back to the slotted text (static) when absent."
+    },
+    {
+      "name": "morph",
+      "type": "number",
+      "default": "1.2",
+      "desc": "Seconds the gooey crossfade between two phrases takes."
+    },
+    {
+      "name": "hold",
+      "type": "number",
+      "default": "1.5",
+      "desc": "Seconds each phrase stays sharp before melting into the next."
+    },
+    {
+      "name": "blur",
+      "type": "number",
+      "default": "8",
+      "desc": "Peak blur in px during the melt; higher values fuse more aggressively."
+    }
+  ],
+  "events": [
+    "pura-text-morph-change"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; min-height: 180px;\">\n  <pura-text-morph texts=\"Design|Prototype|Ship\" hold=\"1.2\" style=\"font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em;\">Design</pura-text-morph>\n</div>",
+  "usage": "<!-- hero headline cycling through three verbs -->\n<pura-text-morph texts=\"Build|Launch|Scale\" style=\"font-size: 4rem; font-weight: 800;\">Build</pura-text-morph>\n\n<!-- slower, softer melt across four greetings -->\n<pura-text-morph texts=\"Hello|Bonjour|Hallo|Ciao\" morph=\"1.8\" hold=\"2\" blur=\"10\" style=\"font-size: 2.5rem; font-weight: 700;\">Hello</pura-text-morph>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "text-pressure",
+  "title": "Text Pressure",
+  "category": "Animation",
+  "blurb": "Variable-font pressure: each letter thickens (wght) and widens (wdth) as the pointer approaches it and relaxes as it leaves, driven per glyph by pointer distance on a rAF with a CSS transition smoothing the steps.",
+  "description": "`<pura-text-pressure>` is variable-font pressure: each letter thickens (`wght`) and widens (`wdth`) as the pointer approaches it and relaxes as it leaves, so the cursor presses a bulge through the type. Where `<pura-type-morph>` interpolates the whole text's axes by scroll or time, here the driver is the pointer distance per glyph. The axes ride the native `font-weight` and `font-stretch` properties (not `font-variation-settings`), which always re-rasterize the glyph; a window `pointermove` handler throttled to one rAF measures each glyph and writes interpolated custom properties per span, and a short CSS transition (`--pura-text-pressure-duration`) smooths the steps. Set the `text` attribute to render the per-glyph spans in the pure template (the server paints them at the base axes), or slot text and let the client split it. The animated spans are aria-hidden; the accessible copy stays readable. Needs a variable font with the relevant axes: system UI fonts expose `wght` on most platforms, `wdth` needs a font like Roboto Flex. Reduced motion never starts pointer tracking, so the text sits at its base axes. Each instance registers in `window.__puraTextPressures` by `data-pura-id` with `{ from, to, radius, glyphs }`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "",
+      "desc": "Optional. When set, the per-glyph spans render in the pure template (server paint included); otherwise the slotted text is split on the client."
+    },
+    {
+      "name": "from-wght",
+      "type": "number",
+      "default": "400",
+      "desc": "Weight axis at rest, away from the pointer."
+    },
+    {
+      "name": "to-wght",
+      "type": "number",
+      "default": "900",
+      "desc": "Weight axis directly under the pointer."
+    },
+    {
+      "name": "from-wdth",
+      "type": "number",
+      "default": "100",
+      "desc": "Width axis at rest. Needs a font that carries wdth, e.g. Roboto Flex."
+    },
+    {
+      "name": "to-wdth",
+      "type": "number",
+      "default": "100",
+      "desc": "Width axis directly under the pointer. Equal to from-wdth means the axis is off."
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "default": "160",
+      "desc": "Falloff radius in px around the pointer; glyphs farther than this sit at rest."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-text-pressure text=\"PRESSURE\" from-wght=\"200\" to-wght=\"900\" radius=\"170\" style=\"font: 200 clamp(2.2rem, 9vw, 4.5rem)/1.1 system-ui, sans-serif; letter-spacing: 0.04em; color: var(--pura-fg, #09090b); text-align: center;\"></pura-text-pressure>\n<div style=\"margin-top: .75rem; text-align: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">move the cursor across the letters</div>",
+  "usage": "<!-- letters bulge toward the cursor; slotted text is split on the client -->\n<pura-text-pressure from-wght=\"300\" to-wght=\"900\" radius=\"180\"\n                    style=\"font: 300 4rem/1 system-ui, sans-serif;\">\n  Hover me\n</pura-text-pressure>\n\n<!-- server-rendered spans via the text attribute, with a width axis\n     (needs a font that carries wdth, e.g. Roboto Flex) -->\n<pura-text-pressure text=\"FLEX\" from-wght=\"400\" to-wght=\"1000\"\n                    from-wdth=\"100\" to-wdth=\"151\" radius=\"140\"\n                    style=\"font: 400 5rem/1 'Roboto Flex', sans-serif;\"></pura-text-pressure>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
 },
 {
   "slug": "text-shimmer",
@@ -9981,6 +14672,36 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "theme-toggle",
+  "title": "Animated Theme Toggle",
+  "category": "Animation",
+  "blurb": "Light/dark switch where the new theme expands as a circle from the button (View Transitions API + clip-path) instead of swapping abruptly. Plugs straight into pura's data-theme + tokens.css infra; falls back to an instant swap.",
+  "description": "`<pura-theme-toggle>` is an animated light/dark switch: clicking it wraps the `document.documentElement.dataset.theme` flip in a View Transition, so the new theme expands as a circle from the button's center (`clip-path: circle()` animated on `::view-transition-new(root)`) instead of swapping abruptly. It plugs straight into pura's theme infra: the same `[data-theme]` attribute `tokens.css` reads, and when the attribute is absent the icon follows `prefers-color-scheme`. `duration` and `easing` shape the reveal. Browsers without the View Transitions API, and users with reduced motion, get an instant swap; SSR renders a static button whose sun/moon icon already matches the OS preference. Fires `toggle` with `{ theme }` after each flip, and each instance registers in `window.__puraThemeToggles` by `data-pura-id` with `{ theme, toggle, setTheme }`.",
+  "attributes": [
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "500",
+      "desc": "Circular reveal time in ms."
+    },
+    {
+      "name": "easing",
+      "type": "string",
+      "default": "ease-in-out",
+      "desc": "Easing for the circular reveal."
+    }
+  ],
+  "events": [
+    "toggle"
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"display: flex; align-items: center; gap: 0.75rem;\">\n  <pura-theme-toggle></pura-theme-toggle>\n  <span style=\"font-size: .85rem; color: var(--pura-muted-fg, #52525b);\">click to flip the whole page theme with a circular reveal</span>\n</div>",
+  "usage": "<!-- drop it in a header; it drives document-level [data-theme] directly -->\n<pura-theme-toggle></pura-theme-toggle>\n\n<!-- slower reveal, custom easing, themed as a filled round button -->\n<pura-theme-toggle\n  duration=\"800\"\n  easing=\"cubic-bezier(0.4, 0, 0.2, 1)\"\n  style=\"--pura-theme-toggle-bg: var(--pura-surface, #f4f4f5); --pura-theme-toggle-radius: 9999px;\"\n></pura-theme-toggle>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "ticker",
   "title": "Ticker",
   "category": "Display",
@@ -10038,8 +14759,151 @@ export const components = [
   "demoHTML": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  // Animate from zero on load.\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>",
   "usage": "<div style=\"display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;\">\n  <pura-ticker id=\"receita\" value=\"0\" duration=\"1200\" decimals=\"2\" locale=\"en-US\" prefix=\"$\" label=\"Monthly revenue\"></pura-ticker>\n  <pura-ticker id=\"taxa\" value=\"0\" duration=\"1200\" decimals=\"1\" locale=\"en-US\" suffix=\"%\" label=\"Conversion rate\"></pura-ticker>\n  <button id=\"atualizar\" type=\"button\">Update values</button>\n</div>\n<script type=\"module\">\n  const receita = document.getElementById(\"receita\");\n  const taxa = document.getElementById(\"taxa\");\n  receita.value = 128430.75;\n  taxa.value = 4.7;\n  document.getElementById(\"atualizar\").addEventListener(\"click\", () => {\n    receita.value = Math.round(Math.random() * 200000 * 100) / 100;\n    taxa.value = Math.round(Math.random() * 100 * 10) / 10;\n  });\n</script>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "border-beam",
+      "title": "Border Beam"
+    },
+    {
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
+    },
+    {
+      "slug": "typewriter",
+      "title": "Typewriter"
+    },
+    {
+      "slug": "velocity",
+      "title": "Velocity"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
+},
+{
+  "slug": "tilt",
+  "title": "Tilt",
+  "category": "Animation",
+  "blurb": "3D tilt on hover: the slotted content rotates toward the pointer in perspective, then springs back flat on leave. Optional glare highlight follows the pointer. Event-driven (no rAF loop); disabled entirely under reduced motion.",
+  "description": "`<pura-tilt>` is the 3D hover-tilt card move: the slotted content rotates toward the pointer in perspective (rotateX/rotateY track the pointer across the surface), then springs back flat on leave. The tracking is event-driven, pointermove writes `--pura-tilt-rx`/`--pura-tilt-ry`, no rAF loop; while the pointer drives, the transition is disabled so the card tracks raw, and the settle-back uses a sampled spring `linear(...)` easing, same mechanism as `<pura-magnetic>`. `glare` adds a radial highlight that follows the pointer. `reverse` tilts away instead of toward. Under `prefers-reduced-motion` the pointer logic never binds, so the card stays flat; SSR renders flat as well. Each instance registers in `window.__puraTilts` by `data-pura-id` with `{ max, reset }`, and `data-pura-tilt-active` mirrors hover state for agents and styling.",
+  "attributes": [
+    {
+      "name": "max",
+      "type": "number",
+      "default": "12",
+      "desc": "Maximum tilt angle in degrees at the edges of the surface."
+    },
+    {
+      "name": "perspective",
+      "type": "number",
+      "default": "900",
+      "desc": "Perspective depth in px. Smaller = more dramatic."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "default": "1",
+      "desc": "Scale applied while hovered (try 1.04)."
+    },
+    {
+      "name": "glare",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Render a radial highlight that follows the pointer across the surface."
+    },
+    {
+      "name": "reverse",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Tilt away from the pointer instead of toward it."
+    },
+    {
+      "name": "preset",
+      "type": "\"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"molasses\"",
+      "default": "",
+      "desc": "Spring preset for the settle-back easing. Or tune stiffness / damping / mass directly."
+    },
+    {
+      "name": "stiffness",
+      "type": "number",
+      "default": "170",
+      "desc": "Spring stiffness for the settle."
+    },
+    {
+      "name": "damping",
+      "type": "number",
+      "default": "26",
+      "desc": "Spring damping for the settle."
+    },
+    {
+      "name": "mass",
+      "type": "number",
+      "default": "1",
+      "desc": "Spring mass for the settle."
+    }
+  ],
+  "events": [],
+  "slots": [
+    {
+      "name": "default",
+      "desc": "The content that tilts (usually a card)."
+    }
+  ],
+  "demoHTML": "<pura-tilt max=\"14\" scale=\"1.04\" glare>\n  <div style=\"width: min(320px, 70vw); padding: 2rem; border-radius: 1rem; border: 1px solid var(--pura-border, #e4e4e7); background: var(--pura-bg, #fff); box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.25);\">\n    <div style=\"font: 700 1.1rem system-ui; color: var(--pura-fg, #09090b);\">Hover me</div>\n    <p style=\"margin: .5rem 0 0; font: 400 .9rem/1.5 system-ui; color: var(--pura-fg-muted, #71717a);\">The card tilts toward your pointer in 3D, with a glare sweeping across, then springs back flat.</p>\n  </div>\n</pura-tilt>",
+  "usage": "<!-- basic tilt card -->\n<pura-tilt>\n  <div class=\"card\">...</div>\n</pura-tilt>\n\n<!-- the full awwwards move: stronger angle, lift, glare -->\n<pura-tilt max=\"16\" scale=\"1.05\" glare>\n  <img src=\"/poster.jpg\" alt=\"Poster\" style=\"display:block; border-radius: 12px;\" />\n</pura-tilt>\n\n<!-- subtle, away-from-pointer (parallax background feel) -->\n<pura-tilt max=\"6\" reverse preset=\"gentle\">\n  <div class=\"panel\">...</div>\n</pura-tilt>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    },
+    {
+      "slug": "marquee",
+      "title": "Marquee"
+    },
+    {
+      "slug": "scramble",
+      "title": "Scramble"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    },
+    {
+      "slug": "studio",
+      "title": "Photo Studio"
+    }
+  ]
 },
 {
   "slug": "time-picker",
@@ -10247,12 +15111,12 @@ export const components = [
       "title": "Dialog"
     },
     {
-      "slug": "segmented-control",
-      "title": "Segmented Control"
-    },
-    {
       "slug": "item",
       "title": "Item"
+    },
+    {
+      "slug": "segmented-control",
+      "title": "Segmented Control"
     },
     {
       "slug": "select",
@@ -10495,6 +15359,42 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "tracing-beam",
+  "title": "Tracing Beam",
+  "category": "Animation",
+  "blurb": "A vertical gradient beam with a glowing dot draws itself down a rail beside the content, 1:1 with reading progress, changelog/timeline style. The track is generated and sized from the content height; the draw is pure CSS on a scroll-driven timeline, no per-frame JS.",
+  "description": "`<pura-tracing-beam>` puts a vertical gradient beam with a glowing dot beside the slotted content and draws it in as you read, the Aceternity \"Tracing Beam\" / modern changelog-timeline move. Unlike `<pura-draw>` (generic, needs a supplied SVG path), the track here is generated for you: a ResizeObserver sizes the rail SVG to the content height, and the draw itself is pure CSS, `stroke-dashoffset` and the dot position riding the host's named view timeline (`animation-timeline`), so no per-frame JS runs. `side` flips the rail to the right, `range` tunes the scroll window, `timeline=\"scroll\"` binds to the nearest scroll container instead. Gradient stops come from `--pura-tracing-beam-from` / `-via` / `-to`, the faint rail from `--pura-tracing-beam-track`. SSR, pre-JS, browsers without scroll-driven timelines and reduced motion all render the faint track plus the fully drawn beam, with the dot hidden. Each instance registers in `window.__puraTracingBeams` by `data-pura-id` with `{ side, height }`.",
+  "attributes": [
+    {
+      "name": "side",
+      "type": "\"left\" | \"right\"",
+      "default": "left",
+      "desc": "Which side of the content the beam rail sits on."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 100%",
+      "desc": "animation-range for the scrub (e.g., \"cover 0% cover 85%\")."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "view rides the element's own view progress; scroll rides the nearest scroll container."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"max-height: 320px; overflow-y: auto; padding: 1rem;\">\n  <div style=\"height: 140px; display: grid; place-items: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">scroll inside this panel</div>\n  <pura-tracing-beam>\n    <article style=\"margin-bottom: 2.5rem;\">\n      <span style=\"font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--pura-muted-fg, #52525b);\">v2.0</span>\n      <h3 style=\"margin: .25rem 0 .5rem; font-size: 1.05rem;\">Scroll-driven everything</h3>\n      <p style=\"margin: 0 0 .75rem; color: var(--pura-muted-fg, #52525b); font-size: .9rem; line-height: 1.6;\">The beam follows your reading position down the page, drawn by the compositor with zero per-frame JavaScript.</p>\n      <img src=\"https://picsum.photos/seed/beam1/640/300\" alt=\"\" style=\"width: 100%; border-radius: 12px; display: block;\" />\n    </article>\n    <article style=\"margin-bottom: 2.5rem;\">\n      <span style=\"font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--pura-muted-fg, #52525b);\">v1.5</span>\n      <h3 style=\"margin: .25rem 0 .5rem; font-size: 1.05rem;\">Sized by the content</h3>\n      <p style=\"margin: 0 0 .75rem; color: var(--pura-muted-fg, #52525b); font-size: .9rem; line-height: 1.6;\">No fixed heights and no supplied SVG: the rail measures the slot and fits itself, however long the entry list grows.</p>\n      <img src=\"https://picsum.photos/seed/beam2/640/300\" alt=\"\" style=\"width: 100%; border-radius: 12px; display: block;\" />\n    </article>\n    <article>\n      <span style=\"font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--pura-muted-fg, #52525b);\">v1.0</span>\n      <h3 style=\"margin: .25rem 0 .5rem; font-size: 1.05rem;\">First light</h3>\n      <p style=\"margin: 0; color: var(--pura-muted-fg, #52525b); font-size: .9rem; line-height: 1.6;\">Without JavaScript the full gradient trail still renders, so the page is presentable before a single script runs.</p>\n    </article>\n  </pura-tracing-beam>\n  <div style=\"height: 160px;\"></div>\n</div>",
+  "usage": "<!-- changelog: the beam traces your reading progress -->\n<pura-tracing-beam>\n  <article>\n    <h3>v2.0</h3>\n    <p>Scroll-driven everything.</p>\n  </article>\n  <article>\n    <h3>v1.0</h3>\n    <p>First release.</p>\n  </article>\n</pura-tracing-beam>\n\n<!-- rail on the right, custom gradient, shorter scroll window -->\n<pura-tracing-beam side=\"right\" range=\"cover 0% cover 85%\"\n  style=\"--pura-tracing-beam-from: #a3e635; --pura-tracing-beam-via: #22d3ee; --pura-tracing-beam-to: #f472b6;\">\n  <section>\n    <h3>Timeline entry</h3>\n    <p>The dot and beam land just before the content scrolls out.</p>\n  </section>\n</pura-tracing-beam>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "transfer",
   "title": "Transfer",
   "category": "Form",
@@ -10639,6 +15539,50 @@ export const components = [
   "relatedBlocks": []
 },
 {
+  "slug": "true-focus",
+  "title": "True Focus",
+  "category": "Animation",
+  "blurb": "Keeps one word at a time in sharp focus inside an animated corner-bracket viewfinder while the other words blur out, cycling through the sentence. Blur is pure CSS; the frame travels between words with a FLIP step via WAAPI.",
+  "description": "`<pura-true-focus>` is the React Bits True Focus text effect: one word at a time stays in sharp focus inside an animated corner-bracket viewfinder while every other word blurs out, cycling through the sentence. The slotted text stays in the light DOM as the accessible copy and JS builds an aria-hidden word-span twin, so the sentence is readable with no JS, on the server, and by screen readers. Blur is pure CSS keyed off the active index; the viewfinder moves between words with a FLIP step animated via WAAPI. `interval` sets the dwell time per word, `duration` the frame travel and blur transition, `blur` the de-focus strength, and `manual` switches to hover-driven focus. Theme with `--pura-true-focus-color`, `--pura-true-focus-corner`, `--pura-true-focus-thickness` and `--pura-true-focus-blur`. Reduced motion disables the blur and the auto-cycle, leaving the frame parked on the first word. Each instance registers in `window.__puraTrueFocuss` by `data-pura-id` with `{ index, words, focusWord }`.",
+  "attributes": [
+    {
+      "name": "interval",
+      "type": "number",
+      "default": "1500",
+      "desc": "Milliseconds each word stays focused while auto-cycling."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "400",
+      "desc": "Frame travel and blur transition time in ms."
+    },
+    {
+      "name": "blur",
+      "type": "number",
+      "default": "5",
+      "desc": "Blur radius in px applied to unfocused words."
+    },
+    {
+      "name": "manual",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Focus follows pointer hover over the words instead of auto-cycling."
+    }
+  ],
+  "events": [
+    "focuschange"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; place-items: center; padding: 3rem 1rem; text-align: center;\">\n  <pura-true-focus interval=\"1300\" style=\"font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em;\">True Focus locks on one word</pura-true-focus>\n</div>",
+  "usage": "<!-- auto-cycling viewfinder, one word sharp at a time -->\n<pura-true-focus style=\"font-size: 2.5rem; font-weight: 700;\">\n  Ship interfaces that feel alive\n</pura-true-focus>\n\n<!-- manual mode: focus follows the pointer, custom color and softer blur -->\n<pura-true-focus manual blur=\"3\" duration=\"300\"\n  style=\"font-size: 2rem; font-weight: 600; --pura-true-focus-color: #22c55e;\">\n  Hover any word to focus it\n</pura-true-focus>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
   "slug": "truncate",
   "title": "Truncate",
   "category": "Utility",
@@ -10681,6 +15625,106 @@ export const components = [
   "animation": false,
   "relatedComponents": [],
   "relatedBlocks": []
+},
+{
+  "slug": "type-morph",
+  "title": "Type Morph",
+  "category": "Animation",
+  "blurb": "Variable-font axis morph: slotted text physically thickens (wght) and widens (wdth) as the native font-weight and font-stretch axes interpolate. Defaults to a scroll-scrubbed timeline so the letters morph as you scroll. Zero-runtime, native scroll-driven animation, no per-frame JS.",
+  "description": "`<pura-type-morph>` makes the type itself the animation. The slotted text physically thickens (`wght`) and widens (`wdth`) as it scrolls. The axes ride the native `font-weight` and `font-stretch` properties, not `font-variation-settings`: both are natively animatable and, crucially, always re-rasterize the glyph (Chromium will not re-render a glyph when an *animated* value reaches `font-variation-settings` through `var()`), so a transition or a scroll-driven keyframe on those two properties is what actually moves the type. They inherit through the flat tree, so the slotted light-DOM text picks them up from `:host`. The default `trigger=\"scrub\"` binds the axes 1:1 to a scroll-driven timeline (`animation-timeline: view()` or `scroll()`), so the letters morph as you scroll, with no per-frame JS. `trigger=\"view\"` morphs once when scrolled into view (eased by the spring primitive); `trigger=\"load\"` morphs once on connect. Needs a variable font with the relevant axes; modern system UI fonts expose `wght` (`wdth` needs a font that carries it, e.g. Roboto Flex). SSR and reduced motion are safe: before JS the text sits at its `from` axes and is fully readable, the scrub block is gated behind `prefers-reduced-motion: no-preference`, and the reduced-motion path lands the text at its destination weight. Each instance registers in `window.__puraTypeMorphs` by `data-pura-id` with `{ from, to, replay }`.",
+  "attributes": [
+    {
+      "name": "trigger",
+      "type": "\"scrub\" | \"view\" | \"load\"",
+      "default": "scrub",
+      "desc": "scrub ties the axes 1:1 to a scroll-driven timeline; view morphs once when scrolled into view; load morphs once on connect."
+    },
+    {
+      "name": "timeline",
+      "type": "\"view\" | \"scroll\"",
+      "default": "view",
+      "desc": "Scrub only. view maps the element's own view progress; scroll maps the nearest scroll container."
+    },
+    {
+      "name": "from-wght",
+      "type": "number",
+      "default": "400",
+      "desc": "Starting weight axis."
+    },
+    {
+      "name": "to-wght",
+      "type": "number",
+      "default": "800",
+      "desc": "Ending weight axis."
+    },
+    {
+      "name": "from-wdth",
+      "type": "number",
+      "default": "100",
+      "desc": "Starting width axis (percent)."
+    },
+    {
+      "name": "to-wdth",
+      "type": "number",
+      "default": "100",
+      "desc": "Ending width axis (percent)."
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "default": "cover 0% cover 50%",
+      "desc": "animation-range for the scrub timeline. Default completes the morph as the word reaches viewport center, then holds."
+    },
+    {
+      "name": "preset",
+      "type": "\"default\" | \"gentle\" | \"wobbly\" | \"stiff\" | \"slow\" | \"snappy\"",
+      "default": "default",
+      "desc": "Spring easing for view/load triggers. Or set stiffness/damping/mass directly."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-type-morph trigger=\"load\" from-wght=\"200\" to-wght=\"900\" style=\"font: 400 clamp(2.4rem, 9vw, 5rem)/1 system-ui, sans-serif; letter-spacing: -0.02em; color: var(--pura-fg, #09090b);\">Heavier.</pura-type-morph>\n<div style=\"height: 1rem;\"></div>\n<button type=\"button\" onclick=\"this.previousElementSibling.previousElementSibling.replay()\" style=\"font: 500 .85rem system-ui; padding: .4rem .8rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .4rem; background: var(--pura-bg, #fff); cursor: pointer;\">replay</button>",
+  "usage": "<!-- default: scroll and the letters morph -->\n<pura-type-morph from-wght=\"300\" to-wght=\"900\">\n  Scroll to make me heavy.\n</pura-type-morph>\n\n<!-- one-shot on view, with a width squeeze -->\n<pura-type-morph trigger=\"view\" from-wght=\"700\" to-wght=\"300\"\n                 from-wdth=\"75\" to-wdth=\"125\" preset=\"wobbly\">\n  Lighter and wider.\n</pura-type-morph>\n\n<!-- scrub against the page scroll container -->\n<pura-type-morph timeline=\"scroll\" range=\"cover 0% cover 100%\">\n  Tied to the page.\n</pura-type-morph>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    },
+    {
+      "slug": "cursor",
+      "title": "Cursor"
+    },
+    {
+      "slug": "scroll-progress",
+      "title": "Scroll Progress"
+    },
+    {
+      "slug": "clip-reveal",
+      "title": "Clip Reveal"
+    },
+    {
+      "slug": "count-up",
+      "title": "Count Up"
+    },
+    {
+      "slug": "magnetic",
+      "title": "Magnetic"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "ecommerce",
+      "title": "Ecommerce"
+    },
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "typewriter",
@@ -10745,8 +15789,38 @@ export const components = [
   "demoHTML": "<div style=\"font: 600 1.4rem system-ui;\">\n  <pura-typewriter phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\" caret loop speed=\"60\"></pura-typewriter>\n</div>",
   "usage": "<!-- Single phrase -->\n<pura-typewriter text=\"Welcome to pura\" caret></pura-typewriter>\n\n<!-- Cycle phrases forever -->\n<pura-typewriter\n  phrases=\"Native web components.|Zero dependencies.|Agent-readable motion.\"\n  caret loop speed=\"60\"></pura-typewriter>",
   "animation": true,
-  "relatedComponents": [],
-  "relatedBlocks": []
+  "relatedComponents": [
+    {
+      "slug": "border-beam",
+      "title": "Border Beam"
+    },
+    {
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
+    },
+    {
+      "slug": "ticker",
+      "title": "Ticker"
+    },
+    {
+      "slug": "velocity",
+      "title": "Velocity"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
 },
 {
   "slug": "typing",
@@ -10858,6 +15932,251 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "vanish-input",
+  "title": "Vanish Input",
+  "category": "Animation",
+  "blurb": "Submit feedback for chat and search composers: on submit the typed text dissolves into particles that fly out of the field before it clears. Canvas 2D progressive enhancement over a plain form; optional rotating placeholders.",
+  "description": "`<pura-vanish-input>` is the chat-composer vanish input: when the user submits, the typed text is rasterized onto a Canvas 2D overlay and dissolved into particles that fly out of the field before it clears, the signature microinteraction of AI chat and search composers (inspired by Aceternity UI's Placeholders And Vanish Input). `placeholders` accepts a pipe-separated list that rotates while the field is empty; `duration` controls the dissolve time. The effect is pure progressive enhancement: SSR and pre-JS render a fully usable pill input with a submit arrow, and under reduced motion the field simply clears with no particles and no placeholder rotation. Listen for `submit` (detail `{ value }`) to handle the entered text, and `vanish` when the effect finishes. Each instance registers in `window.__puraVanishInputs` by `data-pura-id` with `{ value, submit }`, and mirrors runtime state in `data-pura-vanish-state` and `data-pura-vanish-last`.",
+  "attributes": [
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "",
+      "desc": "Static placeholder text."
+    },
+    {
+      "name": "placeholders",
+      "type": "string",
+      "default": "",
+      "desc": "Pipe-separated list of rotating placeholders; overrides placeholder."
+    },
+    {
+      "name": "interval",
+      "type": "number",
+      "default": "3000",
+      "desc": "Placeholder rotation interval in milliseconds (min 800)."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "default": "",
+      "desc": "Initial value."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "900",
+      "desc": "Particle dissolve time in milliseconds."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "desc": "Accessible name for the inner input."
+    },
+    {
+      "name": "submit-label",
+      "type": "string",
+      "default": "Submit",
+      "desc": "aria-label for the submit button."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Disables the field and the submit button."
+    }
+  ],
+  "events": [
+    "submit",
+    "vanish",
+    "input"
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"max-width: 480px; margin: 0 auto; display: grid; gap: var(--pura-space-3, 0.75rem);\">\n  <div style=\"text-align: center; color: var(--pura-muted-fg, #52525b); font-size: .85rem;\">type something and press Enter</div>\n  <pura-vanish-input\n    label=\"Ask anything\"\n    placeholders=\"Ask anything...|What is the meaning of life?|Summarize this page|Draft an email to my team\"\n  ></pura-vanish-input>\n</div>",
+  "usage": "<!-- AI search composer with rotating placeholders -->\n<pura-vanish-input\n  label=\"Search\"\n  placeholders=\"Search products...|Try: running shoes|Try: waterproof jacket\"\n  interval=\"2500\"\n></pura-vanish-input>\n\n<script>\n  document.querySelector(\"pura-vanish-input\")\n    .addEventListener(\"submit\", (e) => console.log(\"query:\", e.detail.value));\n</script>\n\n<!-- static placeholder, slower dissolve, themed -->\n<pura-vanish-input\n  label=\"Message\"\n  placeholder=\"Send a message\"\n  duration=\"1200\"\n  style=\"--pura-vanish-input-radius: 12px; --pura-vanish-input-height: 3.25rem;\"\n></pura-vanish-input>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "velocity-marquee",
+  "title": "Scroll Velocity Marquee",
+  "category": "Animation",
+  "blurb": "Seamless marquee whose speed and direction respond to scroll velocity: scroll down and it races ahead, scroll up and it runs backwards, stop and it eases back to its resting pace. Pure CSS loop; JS only modulates playbackRate.",
+  "description": "pura-velocity-marquee is an infinite, seamless text strip that reacts to how fast you scroll: scrolling down makes it race ahead, scrolling up makes it run backwards, and when you stop it eases back to its resting pace. The base loop is pure CSS with the exact same paint as pura-marquee, so SSR and pre-JS render a normal marquee; on the client a passive scroll listener measures velocity and modulates the playbackRate of that CSS animation through its WAAPI handle, with no idle per-frame work once settled. Compare: pura-marquee is constant speed, pura-velocity only skews its content. factor tunes sensitivity, max caps the rate, decay controls how quickly it settles. The slotted content is cloned once into an aria-hidden mirror so assistive tech reads it exactly once, and reduced motion stops the loop entirely. Each instance registers in window.__puraVelocityMarquees by data-pura-id, and data-pura-vm-* attributes mirror the live state (speed, direction, playing, current rate).",
+  "attributes": [
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "20",
+      "desc": "Seconds for one full loop at rest. Lower = faster."
+    },
+    {
+      "name": "direction",
+      "type": "\"left\" | \"right\"",
+      "default": "left",
+      "desc": "Resting scroll direction of the content."
+    },
+    {
+      "name": "factor",
+      "type": "number",
+      "default": "6",
+      "desc": "Sensitivity: playbackRate gained per (px/ms) of scroll speed."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": "5",
+      "desc": "Cap on the playbackRate magnitude in either direction."
+    },
+    {
+      "name": "decay",
+      "type": "number",
+      "default": "0.08",
+      "desc": "Settle lerp factor per frame, 0..1. Lower = drifts back to resting pace more slowly."
+    },
+    {
+      "name": "paused",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Reflected state; present when the loop is stopped."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Scrolling content",
+      "desc": "aria-label text applied to the role=marquee container."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"border:1px solid var(--pura-border,#e2e2e2);border-radius:8px;padding:20px 0;overflow:hidden;display:grid;gap:8px\">\n  <pura-velocity-marquee speed=\"14\" label=\"Scroll velocity demo, row one\" style=\"font-size:2.2rem;font-weight:800;letter-spacing:-0.02em\">\n    <span>SCROLL FAST</span><span>*</span>\n    <span>VELOCITY MARQUEE</span><span>*</span>\n    <span>PURA</span><span>*</span>\n  </pura-velocity-marquee>\n  <pura-velocity-marquee speed=\"14\" direction=\"right\" label=\"Scroll velocity demo, row two\" style=\"font-size:2.2rem;font-weight:800;letter-spacing:-0.02em;color:var(--pura-muted-fg,#52525b)\">\n    <span>SLOW WHEN YOU STOP</span><span>*</span>\n    <span>REVERSE ON THE WAY UP</span><span>*</span>\n  </pura-velocity-marquee>\n  <p style=\"margin:8px 16px 0;font-size:.85rem;color:var(--pura-muted-fg,#52525b)\">Scroll the page up and down to drive the strips.</p>\n</div>\n<script type=\"module\">\n  import \"/pura/lib/velocity-marquee.js\";\n</script>",
+  "usage": "<!-- big display text that races with the scroll and reverses on the way up -->\n<pura-velocity-marquee speed=\"16\" label=\"Headlines\" style=\"font-size: 3rem; font-weight: 800;\">\n  <span>DESIGN</span>\n  <span>BUILD</span>\n  <span>SHIP</span>\n</pura-velocity-marquee>\n\n<!-- two opposing rows, more sensitive and capped lower -->\n<pura-velocity-marquee speed=\"12\" factor=\"10\" max=\"4\" label=\"Row one\">\n  <strong>Acme</strong>\n  <strong>Globex</strong>\n  <strong>Initech</strong>\n</pura-velocity-marquee>\n<pura-velocity-marquee speed=\"12\" direction=\"right\" factor=\"10\" max=\"4\" label=\"Row two\">\n  <strong>Umbrella</strong>\n  <strong>Soylent</strong>\n  <strong>Stark Industries</strong>\n</pura-velocity-marquee>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "velocity",
+  "title": "Velocity",
+  "category": "Animation",
+  "blurb": "Scroll-velocity lean: the slotted content skews proportionally to how fast the page is scrolling, then eases back upright when scrolling stops. The rAF loop only runs while moving; reduced motion never binds.",
+  "description": "`<pura-velocity>` is the motion.dev `useVelocity` move done as an element: the slotted content leans (skews) proportionally to how fast the page is scrolling, snapping upright again the moment scrolling stops. Scroll fast and a headline tips into the motion; flick the wheel and it sways. A passive scroll listener samples velocity in px/ms and a requestAnimationFrame loop lerps the rendered lean toward it while the target decays to zero, then the loop stops entirely once settled under a hundredth of a degree, so the component does zero idle work. The lean is clamped to `max` degrees and written to one custom property (`--pura-velocity-skew`) consumed by the shadow template. Under `prefers-reduced-motion` nothing binds and the content stays upright; SSR renders unskewed. Each instance registers in `window.__puraVelocities` by `data-pura-id`, and `data-pura-velocity-active` mirrors whether the loop is live.",
+  "attributes": [
+    {
+      "name": "max",
+      "type": "number",
+      "default": "6",
+      "desc": "Maximum lean in degrees."
+    },
+    {
+      "name": "factor",
+      "type": "number",
+      "default": "8",
+      "desc": "Sensitivity: degrees of lean per px/ms of scroll speed."
+    },
+    {
+      "name": "axis",
+      "type": "\"y\" | \"x\"",
+      "default": "y",
+      "desc": "y = skewY (lean into vertical scroll, the classic). x = skewX."
+    },
+    {
+      "name": "decay",
+      "type": "number",
+      "default": "0.12",
+      "desc": "Settle factor per frame, 0..1. Higher = snaps back faster."
+    }
+  ],
+  "events": [],
+  "slots": [
+    {
+      "name": "default",
+      "desc": "The content that leans (big display text is the classic)."
+    }
+  ],
+  "demoHTML": "<pura-velocity max=\"8\" factor=\"12\">\n  <div style=\"font: 800 clamp(2rem, 8vw, 4rem)/1 system-ui; letter-spacing: -0.03em; color: var(--pura-fg, #09090b);\">SCROLL FAST</div>\n</pura-velocity>\n<p style=\"font: 400 .85rem system-ui; color: var(--pura-fg-muted, #71717a);\">Scroll the page quickly and the headline leans into the motion.</p>",
+  "usage": "<!-- headline that leans into the scroll -->\n<pura-velocity>\n  <h2>THE FASTER YOU SCROLL</h2>\n</pura-velocity>\n\n<!-- stronger, snappier -->\n<pura-velocity max=\"10\" factor=\"14\" decay=\"0.2\">\n  <h2>WHIPLASH</h2>\n</pura-velocity>\n\n<!-- horizontal skew instead -->\n<pura-velocity axis=\"x\" max=\"4\">\n  <img src=\"/banner.jpg\" alt=\"\" />\n</pura-velocity>",
+  "animation": true,
+  "relatedComponents": [
+    {
+      "slug": "border-beam",
+      "title": "Border Beam"
+    },
+    {
+      "slug": "deck",
+      "title": "Deck"
+    },
+    {
+      "slug": "kbd",
+      "title": "Kbd"
+    },
+    {
+      "slug": "ticker",
+      "title": "Ticker"
+    },
+    {
+      "slug": "typewriter",
+      "title": "Typewriter"
+    },
+    {
+      "slug": "carousel",
+      "title": "Carousel"
+    }
+  ],
+  "relatedBlocks": [
+    {
+      "slug": "software",
+      "title": "SaaS Product"
+    }
+  ]
+},
+{
+  "slug": "video-text",
+  "title": "Video Text",
+  "category": "Animation",
+  "blurb": "Giant typography whose fill is a playing video: an SVG text mask generated in the pure template clips the slotted video to the glyphs. The mask is static CSS, so the initial paint is SSR-safe; reduced motion pauses the video.",
+  "description": "`<pura-video-text>` is the Magic UI \"Video Text\" move: giant typography whose fill is a playing video. An inline SVG `<text>` built from the `text` attribute is applied as a CSS `mask-image` over the slotted `<video>`, so the glyphs act as a window onto the footage. The mask is generated in the pure template, which makes the initial paint SSR-safe with zero JS; the only motion is the video itself. `font-size`, `font-weight` and `font-family` shape the mask glyphs; `--pura-video-text-bg` colors the area outside them and `--pura-video-text-fit` controls how the media fills the box. The glyphs are CSS, not content, so a visually hidden span carries the text for assistive tech and the video is decorative. Without a `text` attribute (SSR included) the media renders full bleed. Reduced motion pauses the slotted video, leaving a static masked frame. Each instance registers in `window.__puraVideoTexts` by `data-pura-id` with `{ text }`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "",
+      "desc": "The string rendered as the video mask. Without it the slotted media shows full bleed."
+    },
+    {
+      "name": "font-size",
+      "type": "string",
+      "default": "20em",
+      "desc": "SVG length for the mask glyphs (any SVG font-size value)."
+    },
+    {
+      "name": "font-weight",
+      "type": "string",
+      "default": "900",
+      "desc": "Font weight of the mask glyphs."
+    },
+    {
+      "name": "font-family",
+      "type": "string",
+      "default": "system-ui, sans-serif",
+      "desc": "Font stack used to draw the mask glyphs."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-video-text text=\"BLOOM\" font-size=\"8em\" style=\"display: block; height: 180px; border-radius: 12px; overflow: hidden; --pura-video-text-bg: #09090b;\">\n  <video src=\"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4\" autoplay muted loop playsinline></video>\n</pura-video-text>",
+  "usage": "<!-- hero: glyphs filled with looping footage -->\n<pura-video-text text=\"OCEAN\" style=\"height: 60vh;\">\n  <video src=\"/media/waves.mp4\" autoplay muted loop playsinline></video>\n</pura-video-text>\n\n<!-- custom type and a solid backdrop outside the glyphs -->\n<pura-video-text text=\"PURA\" font-size=\"14em\" font-weight=\"800\"\n  font-family=\"Georgia, serif\"\n  style=\"height: 320px; --pura-video-text-bg: #18181b; --pura-video-text-fit: cover;\">\n  <video src=\"/media/city.mp4\" autoplay muted loop playsinline></video>\n</pura-video-text>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 },
@@ -11046,6 +16365,189 @@ export const components = [
   "demoHTML": "",
   "usage": "",
   "animation": false,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "waves",
+  "title": "Wavy Background",
+  "category": "Animation",
+  "blurb": "Layered sine waves drifting along the bottom or top of a section, as thin lines or filled shapes, with per-layer parallax. Seamless CSS keyframe loop over deterministic SVG paths, no per-frame JS.",
+  "description": "`<pura-waves>` layers animated sine waves along the bottom (or top) of a section, as filled shapes or thin lines, in the style of Aceternity's Wavy Background and Vanta's WAVES. Each layer is an SVG path two viewBox widths wide, translated by exactly two periods in a seamless CSS `@keyframes` loop; layers differ in amplitude, baseline, speed, phase and direction, giving a parallax depth effect with zero per-frame JS. All variation is deterministic per-index math in the pure template, so SSR and client paint identical waves and the effect works before any JS runs. Theme with `--pura-waves-color` (or `--pura-waves-color-1..5` per layer), `--pura-waves-height` and `--pura-waves-line-width`. Reduced motion renders the stack as a static decoration. Each instance registers in `window.__puraWavess` by `data-pura-id` with `{ pause, play }`.",
+  "attributes": [
+    {
+      "name": "layers",
+      "type": "number",
+      "default": "3",
+      "desc": "Number of wave layers, 1 to 5."
+    },
+    {
+      "name": "amplitude",
+      "type": "number",
+      "default": "32",
+      "desc": "Crest height in viewBox units (the viewBox is 1440x320)."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "default": "16",
+      "desc": "Drift duration in seconds for the front layer; deeper layers move slower for parallax."
+    },
+    {
+      "name": "lines",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Render thin stroked lines instead of filled wave shapes."
+    },
+    {
+      "name": "position",
+      "type": "\"bottom\" | \"top\"",
+      "default": "bottom",
+      "desc": "Which edge of the host the wave band hugs; top flips the waves."
+    },
+    {
+      "name": "paused",
+      "type": "boolean",
+      "default": "false",
+      "desc": "Freeze the drift in place."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-waves amplitude=\"40\" speed=\"10\" style=\"height: 260px; border-radius: 12px; background: #0f172a; color: #6366f1; --pura-waves-color-1: #312e81; --pura-waves-color-2: #4f46e5; --pura-waves-color-3: #818cf8;\">\n  <div style=\"display: grid; place-items: center; height: 100%; padding: 1rem; text-align: center;\">\n    <div>\n      <h3 style=\"margin: 0 0 .35rem; color: #e2e8f0; font-size: 1.4rem;\">Ride the wave</h3>\n      <p style=\"margin: 0; color: #94a3b8; font-size: .9rem;\">Three parallax layers, pure CSS loop, zero JS per frame.</p>\n    </div>\n  </div>\n</pura-waves>\n<pura-waves lines layers=\"4\" amplitude=\"26\" speed=\"12\" style=\"height: 140px; margin-top: 1rem; border-radius: 12px; border: 1px solid var(--pura-border, #e4e4e7); color: var(--pura-primary, #6366f1); --pura-waves-height: 9rem; --pura-waves-line-width: 1.5px;\"></pura-waves>",
+  "usage": "<!-- filled waves under a hero, three parallax layers -->\n<pura-waves amplitude=\"40\" style=\"height: 60vh; background: #0f172a; --pura-waves-color: #4f46e5;\">\n  <h1>Ship calmer UIs</h1>\n</pura-waves>\n\n<!-- thin floating lines hugging the top edge -->\n<pura-waves lines layers=\"4\" position=\"top\" speed=\"20\"\n  style=\"height: 240px; --pura-waves-line-width: 1px; --pura-waves-color: var(--pura-accent);\">\n  <p>Section content</p>\n</pura-waves>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "wavy-text",
+  "title": "Wavy Text",
+  "category": "Animation",
+  "blurb": "Characters bob on a continuous sine wave, phase-shifted per character: the classic wavy text of footers and playful CTAs. 100% CSS keyframes, SSR-safe, still under reduced motion.",
+  "description": "`<pura-wavy-text>` is the classic wavy text of footers and playful CTAs: every character bobs on a continuous sine wave, phase-shifted by its index, so the string rolls like a flag. The pure template splits the `text` attribute into per-character spans and a single CSS keyframe with incremental negative `animation-delay` drives the whole wave, so no per-frame JS runs and the motion starts on first paint even before scripts load. Slotted text is lifted into the attribute on connect, so `<pura-wavy-text>hello</pura-wavy-text>` just works. `amplitude`, `duration` and `stagger` (or the matching `--pura-wavy-text-*` tokens) shape the wave. The animated spans are aria-hidden with a visually hidden accessible copy of the full string; under reduced motion the text sits still at the baseline. Each instance registers in `window.__puraWavyTexts` by `data-pura-id` with `{ text, chars }`.",
+  "attributes": [
+    {
+      "name": "text",
+      "type": "string",
+      "default": "",
+      "desc": "String to animate. When absent, the slotted text is lifted into it on connect."
+    },
+    {
+      "name": "amplitude",
+      "type": "string",
+      "default": "0.3em",
+      "desc": "CSS length for the bob height."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "1.6",
+      "desc": "Seconds for one full wave cycle."
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": "90",
+      "desc": "Milliseconds of phase shift between adjacent characters."
+    }
+  ],
+  "events": [],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<div style=\"display: grid; gap: 1.25rem; justify-items: center; padding: 1.5rem 0;\">\n  <pura-wavy-text text=\"thanks for scrolling\" style=\"font-size: 2rem; font-weight: 700;\"></pura-wavy-text>\n  <pura-wavy-text text=\"~ stay groovy ~\" amplitude=\"0.5em\" duration=\"2.2\" stagger=\"120\" style=\"font-size: 1.15rem; color: var(--pura-muted-fg, #52525b); letter-spacing: 0.05em;\"></pura-wavy-text>\n</div>",
+  "usage": "<!-- footer sign-off: characters bob on a continuous sine wave -->\n<pura-wavy-text text=\"thanks for scrolling\" style=\"font-size: 2rem; font-weight: 700;\"></pura-wavy-text>\n\n<!-- slotted text works too; tune the wave shape per instance -->\n<pura-wavy-text amplitude=\"0.5em\" duration=\"2.2\" stagger=\"120\">\n  stay groovy\n</pura-wavy-text>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "wipe",
+  "title": "Wipe",
+  "category": "Animation",
+  "blurb": "Page-transition wipe: a full-viewport panel sweeps in, covers the screen (swap your content in the cover event), and sweeps out the far side. Each phase is one CSS transform transition.",
+  "description": "`<pura-wipe>` is the page-transition wipe, the classic awwwards route-change move: a full-viewport panel sweeps across the screen, fully covers it, then exits on the far side. Call `play()` and swap your content in the `cover` event (or after the returned promise resolves), while the screen is hidden; `done` fires when the panel has left. The panel sits off-screen with `pointer-events: none` until then, so it can never block the page, and any slotted content (a logo, a word) shows centered on it during the sweep. `direction` picks the entry side, `duration` the sweep speed, `hold` how long the cover lasts. Color comes from `--pura-wipe-color` (default `--pura-fg`). Reduced motion snaps instead of sweeping, on the same clock, so content swaps keep working. Each instance registers in `window.__puraWipes` by `data-pura-id` with `{ direction, play }`.",
+  "attributes": [
+    {
+      "name": "direction",
+      "type": "\"left\" | \"right\" | \"up\" | \"down\"",
+      "default": "left",
+      "desc": "Side the panel enters from; it exits on the opposite side."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "600",
+      "desc": "Milliseconds per sweep phase (in and out)."
+    },
+    {
+      "name": "hold",
+      "type": "number",
+      "default": "100",
+      "desc": "Milliseconds the panel stays fully covering the screen."
+    }
+  ],
+  "events": [
+    "cover",
+    "done"
+  ],
+  "slots": [
+    "default"
+  ],
+  "demoHTML": "<pura-wipe id=\"wipe-demo\" duration=\"500\" style=\"--pura-wipe-color: var(--pura-fg, #09090b); color: var(--pura-bg, #fff); font: 700 1.4rem system-ui;\">pura</pura-wipe>\n<button type=\"button\" onclick=\"document.getElementById('wipe-demo').play()\" style=\"font: 500 .9rem system-ui; padding: .5rem 1rem; border: 1px solid var(--pura-border, #e4e4e7); border-radius: .5rem; background: var(--pura-bg, #fff); cursor: pointer;\">play wipe</button>",
+  "usage": "<pura-wipe id=\"wipe\" direction=\"left\" duration=\"600\">LOGO</pura-wipe>\n\n<script>\n  const wipe = document.getElementById(\"wipe\");\n  async function goTo(route) {\n    await wipe.play(); // resolves with the screen covered\n    swapContent(route); // invisible to the user\n  }\n  // or event-style:\n  wipe.addEventListener(\"cover\", () => swapContent(nextRoute));\n  wipe.addEventListener(\"done\", () => console.log(\"transition finished\"));\n</script>",
+  "animation": true,
+  "relatedComponents": [],
+  "relatedBlocks": []
+},
+{
+  "slug": "word-rotate",
+  "title": "Word Rotate",
+  "category": "Animation",
+  "blurb": "Cycles one word inside a sentence with an animated swap (slide, flip or fade) while the container width animates to fit the next word. Unlike pura-typewriter, which types phrases out, this is a whole-word swap.",
+  "description": "`<pura-word-rotate>` cycles one word inside a sentence with an animated swap: the outgoing word slides, flips or fades out while the next one comes in, and the container width FLIP-animates so the surrounding sentence reflows smoothly to fit the new word. Unlike `<pura-typewriter>`, which cycles phrases by typing them out, this is a whole-word swap. SSR renders every word in the DOM with only the first one visible, so the page is complete and correctly sized before any JS runs; the client drives the swap with WAAPI. The animated words are aria-hidden and a visually hidden copy of the current word stays readable to assistive tech. Reduced motion swaps words instantly with no animation. Each instance registers in `window.__puraWordRotates` by `data-pura-id` with `{ start, stop, next }`, and mirrors the current word in `data-pura-word-rotate-word`.",
+  "attributes": [
+    {
+      "name": "words",
+      "type": "string",
+      "default": "",
+      "desc": "\"|\"-separated words to cycle through."
+    },
+    {
+      "name": "effect",
+      "type": "\"slide\" | \"flip\" | \"fade\"",
+      "default": "slide",
+      "desc": "How the outgoing and incoming words animate."
+    },
+    {
+      "name": "interval",
+      "type": "number",
+      "default": "2500",
+      "desc": "Milliseconds a word stays before rotating."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": "500",
+      "desc": "Swap animation time in milliseconds."
+    },
+    {
+      "name": "start",
+      "type": "\"view\" | \"load\" | \"manual\"",
+      "default": "view",
+      "desc": "When the rotation starts: on entering the viewport, immediately, or only via start()."
+    }
+  ],
+  "events": [
+    "pura-word-rotate"
+  ],
+  "slots": [],
+  "demoHTML": "<div style=\"display: grid; gap: 0.75rem; font-size: 1.5rem; font-weight: 700; line-height: 1.4;\">\n  <div>Build <pura-word-rotate words=\"faster|smarter|better|together\" style=\"color: var(--pura-primary, #6366f1);\"></pura-word-rotate> products.</div>\n  <div>Ship <pura-word-rotate effect=\"flip\" interval=\"2000\" words=\"websites|dashboards|landing pages|apps\" style=\"color: var(--pura-primary, #6366f1);\"></pura-word-rotate> in minutes.</div>\n  <div>Design that feels <pura-word-rotate effect=\"fade\" interval=\"1800\" words=\"alive|effortless|right\" style=\"color: var(--pura-primary, #6366f1);\"></pura-word-rotate>.</div>\n</div>",
+  "usage": "<!-- slide swap inside a headline; width animates to fit each word -->\n<h1>\n  Build\n  <pura-word-rotate words=\"faster|smarter|better\"></pura-word-rotate>\n  products.\n</h1>\n\n<!-- 3D flip, quicker cadence, starts immediately on load -->\n<p>\n  We make\n  <pura-word-rotate effect=\"flip\" interval=\"1800\" duration=\"400\" start=\"load\"\n    words=\"websites|dashboards|apps\"\n    style=\"--pura-word-rotate-color: #6366f1; --pura-word-rotate-weight: 700;\"></pura-word-rotate>\n  in minutes.\n</p>",
+  "animation": true,
   "relatedComponents": [],
   "relatedBlocks": []
 }
